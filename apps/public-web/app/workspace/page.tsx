@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { createClient } from "../../lib/supabase/server";
@@ -14,6 +15,7 @@ export default async function WorkspacePage() {
     supabase.from("memberships").select("organization_id, role, organizations(name, slug)").eq("status", "active"),
     supabase.from("proposals").select("id, proposal_number, client_name, status, updated_at").order("updated_at", { ascending: false }).limit(10),
   ]);
+  const canManageProposals = memberships?.some((item) => item.role === "qira_consultant" || item.role === "qira_admin");
 
   return (
     <main className={styles.page}>
@@ -32,10 +34,10 @@ export default async function WorkspacePage() {
         <article><span>Status koneksi</span><strong>Protected</strong></article>
       </section>
       <section className={styles.panel}>
-        <div><p className={styles.kicker}>Proposal terbaru</p><h2>Data sesuai tenant Anda</h2></div>
+        <div className={styles.panelHeading}><div><p className={styles.kicker}>Proposal terbaru</p><h2>Data sesuai tenant Anda</h2></div>{canManageProposals && <Link className={styles.primaryAction} href="/workspace/proposals/new">Buat proposal</Link>}</div>
         {!memberships?.length && <p className={styles.empty}>Akun sudah terautentikasi, tetapi belum memiliki membership organisasi. Founder QIRA perlu menghubungkan akun ini ke organisasi.</p>}
         {!!memberships?.length && !proposals?.length && <p className={styles.empty}>Belum ada proposal tersimpan pada organisasi ini.</p>}
-        {proposals?.map((proposal) => <div className={styles.row} key={proposal.id}><strong>{proposal.proposal_number}</strong><span>{proposal.client_name}</span><span>{proposal.status}</span></div>)}
+        {proposals?.map((proposal) => <Link className={styles.row} href={`/workspace/proposals/${proposal.id}`} key={proposal.id}><strong>{proposal.proposal_number}</strong><span>{proposal.client_name}</span><span>{proposal.status}</span></Link>)}
       </section>
     </main>
   );
