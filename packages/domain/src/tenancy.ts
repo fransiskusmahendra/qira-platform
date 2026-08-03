@@ -23,6 +23,32 @@ export class TenantAccessDeniedError extends Error {
   }
 }
 
+export type ProposalPermission = "proposal.read" | "proposal.write" | "proposal.approve";
+
+const ROLE_PERMISSIONS: Readonly<Record<WorkspaceRole, readonly ProposalPermission[]>> = {
+  prospect_member: ["proposal.read"],
+  client_viewer: ["proposal.read"],
+  client_member: ["proposal.read"],
+  qira_consultant: ["proposal.read", "proposal.write", "proposal.approve"],
+  qira_admin: ["proposal.read", "proposal.write", "proposal.approve"],
+};
+
+export function hasProposalPermission(
+  context: TenantContext,
+  permission: ProposalPermission,
+): boolean {
+  return ROLE_PERMISSIONS[context.role].includes(permission);
+}
+
+export function assertProposalPermission(
+  context: TenantContext,
+  permission: ProposalPermission,
+): void {
+  if (!hasProposalPermission(context, permission)) {
+    throw new TenantAccessDeniedError();
+  }
+}
+
 export function canAccessTenantResource(
   context: TenantContext,
   resource: TenantResource,
@@ -42,4 +68,3 @@ export function assertTenantAccess(
     throw new TenantAccessDeniedError();
   }
 }
-
