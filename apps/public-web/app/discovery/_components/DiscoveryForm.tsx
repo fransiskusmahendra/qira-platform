@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -10,6 +10,7 @@ import {
   type ServiceId,
 } from "@qira/domain";
 import styles from "../discovery.module.css";
+import { submitDiscovery } from "../actions";
 import {
   clearDiscoveryDraft,
   DISCOVERY_DRAFT_VERSION,
@@ -44,6 +45,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
   const [assessment, setAssessment] = useState({ impact: 3, readiness: 3, complexity: 3 });
   const [draftReady, setDraftReady] = useState(false);
   const [draftMessage, setDraftMessage] = useState("Draft lokal belum dibuat.");
+  const [isSubmitting, startSubmitting] = useTransition();
 
   useEffect(() => {
     const draft = readDiscoveryDraft();
@@ -112,6 +114,12 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
   }
 
   const ready = missing.length === 0 && consented;
+
+  function submitToWorkspace() {
+    setShowValidation(true);
+    if (!ready) return;
+    startSubmitting(() => submitDiscovery({ serviceId, answers, assessment, consented }));
+  }
 
   return (
     <form className={styles.workspace} onSubmit={handlePreview} noValidate>
@@ -244,10 +252,13 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
           <button className={styles.submitButton} type="submit">
             {ready ? "Buka ringkasan Discovery" : "Periksa kesiapan Discovery"}
           </button>
+          <button className={styles.submitButton} type="button" disabled={!ready || isSubmitting} onClick={submitToWorkspace}>
+            {isSubmitting ? "Menyimpan ke workspace…" : "Kirim Discovery resmi"}
+          </button>
           {showValidation ? (
             <div className={ready ? styles.successMessage : styles.errorMessage} role="status">
               {ready
-                ? "Discovery preview lengkap. Penyimpanan dan pengiriman akan diaktifkan setelah keamanan database terverifikasi."
+                ? "Discovery lengkap. Anda dapat membuka preview atau mengirim versi resmi ke workspace."
                 : `Lengkapi ${missing.length} jawaban wajib dan persetujuan preview sebelum melanjutkan.`}
             </div>
           ) : null}
