@@ -27,6 +27,57 @@ export interface ProposalPreview {
   commercialStatus: "indicative";
 }
 
+export interface CommercialCalculation {
+  basePriceIdr: number;
+  discountPercent: number;
+  discountAmountIdr: number;
+  subtotalIdr: number;
+  taxPercent: number;
+  taxAmountIdr: number;
+  totalIdr: number;
+  downPaymentPercent: number;
+  downPaymentAmountIdr: number;
+  finalPaymentPercent: number;
+  finalPaymentAmountIdr: number;
+}
+
+function assertPercentage(label: string, value: number): void {
+  if (!Number.isFinite(value) || value < 0 || value > 100) {
+    throw new RangeError(`${label} must be between 0 and 100`);
+  }
+}
+
+export function calculateCommercialTerms(input: {
+  basePriceIdr: number;
+  discountPercent: number;
+  taxPercent: number;
+  downPaymentPercent: number;
+}): CommercialCalculation {
+  if (!Number.isFinite(input.basePriceIdr) || input.basePriceIdr < 0) {
+    throw new RangeError("basePriceIdr must be zero or greater");
+  }
+  assertPercentage("discountPercent", input.discountPercent);
+  assertPercentage("taxPercent", input.taxPercent);
+  assertPercentage("downPaymentPercent", input.downPaymentPercent);
+
+  const discountAmountIdr = Math.round(input.basePriceIdr * input.discountPercent / 100);
+  const subtotalIdr = input.basePriceIdr - discountAmountIdr;
+  const taxAmountIdr = Math.round(subtotalIdr * input.taxPercent / 100);
+  const totalIdr = subtotalIdr + taxAmountIdr;
+  const downPaymentAmountIdr = Math.round(totalIdr * input.downPaymentPercent / 100);
+
+  return {
+    ...input,
+    discountAmountIdr,
+    subtotalIdr,
+    taxAmountIdr,
+    totalIdr,
+    downPaymentAmountIdr,
+    finalPaymentPercent: 100 - input.downPaymentPercent,
+    finalPaymentAmountIdr: totalIdr - downPaymentAmountIdr,
+  };
+}
+
 export const PROPOSAL_PACKAGES: readonly ProposalPackage[] = Object.freeze([
   {
     id: "digital-foundation",
@@ -89,4 +140,3 @@ export function createProposalPreview(input: {
     commercialStatus: "indicative",
   };
 }
-
