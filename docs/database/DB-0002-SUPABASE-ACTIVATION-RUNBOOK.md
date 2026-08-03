@@ -1,12 +1,12 @@
 # DB-0002 — Supabase Activation Runbook
 
-**Status:** Ready for project selection  
-**Target:** Supabase PostgreSQL + Auth  
+**Status:** Development schema active
+**Target:** Supabase PostgreSQL + Auth
 **Last Updated:** 2026-08-03
 
 ## Outcome
 
-This runbook turns the tested QIRA persistence contracts into a live multi-tenant database after a Supabase project is selected. It intentionally does not create a paid project or apply production DDL without the Founder selecting the organization, region, and cost.
+This runbook records how the tested QIRA persistence contracts are activated in the existing Supabase development project. No new paid project was created.
 
 ## MVP identity and authorization
 
@@ -46,15 +46,13 @@ The `proposals` table stores client recipient data, proposal dates, status, vers
 
 ## Activation sequence
 
-1. Select the Supabase organization and Jakarta-nearest available region (`ap-southeast-1`).
-2. Confirm project cost before creation.
-3. Create an isolated development branch or non-production project.
-4. Configure `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`; keep secret keys server-only.
-5. Generate the migration using the pinned Supabase CLI rather than inventing a migration filename.
-6. Apply the schema, generate TypeScript types, and wire an adapter implementing `ProposalRepository`.
-7. Test anonymous denial, same-tenant access, cross-tenant denial, role denial, approval, version immutability, and audit immutability.
-8. Run Supabase security and performance advisors; resolve findings before production.
+1. Use the existing development project in `ap-southeast-1`.
+2. Configure `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`; keep secret keys server-only.
+3. Generate the migration using the pinned Supabase CLI rather than inventing a migration filename.
+4. Pull the active schema into migration history and review it before production.
+5. Test anonymous denial, same-tenant access, cross-tenant denial, role denial, approval, version immutability, and audit immutability.
+6. Run Supabase security and performance advisors; resolve findings before production.
 
 ## Current environment note
 
-The pinned Supabase CLI native binary still terminates with `SIGTRAP` in the Codex sandbox. Therefore no unverified migration file is committed in this batch. The domain and persistence behavior is covered by automated tests and is ready to map onto a selected Supabase development environment.
+The development schema is active and generated TypeScript types are committed. The pinned Supabase CLI native binary still terminates with `SIGTRAP` in the Codex sandbox, so migration history must be reconciled with `supabase db pull` from Mahendra's Windows environment before production. Security advisor is clean; remaining unused-index notices are expected while tables contain no business data.
