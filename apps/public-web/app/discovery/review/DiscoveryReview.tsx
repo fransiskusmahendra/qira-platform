@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import {
@@ -30,9 +31,15 @@ const SCORE_CONTENT: Record<ScoreResult["type"], { title: string; explanation: s
 };
 
 export function DiscoveryReview() {
+  const router = useRouter();
   const [draft, setDraft] = useState<DiscoveryPreviewDraft>();
   const [loaded, setLoaded] = useState(false);
   const [decision, setDecision] = useState<ReviewDecision>("pending");
+
+  function approveAndContinue() {
+    setDecision("approved");
+    router.push("/discovery/proposal");
+  }
 
   useEffect(() => {
     setDraft(readDiscoveryDraft());
@@ -113,7 +120,7 @@ export function DiscoveryReview() {
         <p className={styles.reviewHint}>Simulasi ini tidak membuat approval resmi atau audit event.</p>
         <div className={styles.decisionActions}>
           <button type="button" onClick={() => setDecision("reopen")}>Kembalikan untuk dilengkapi</button>
-          <button type="button" onClick={() => setDecision("approved")}>Setujui preview</button>
+          <button type="button" onClick={approveAndContinue}>Setujui dan buat proposal</button>
         </div>
         {decision !== "pending" ? (
           <div className={decision === "approved" ? styles.successMessage : styles.errorMessage} role="status">
@@ -126,4 +133,3 @@ export function DiscoveryReview() {
     </main>
   );
 }
-
