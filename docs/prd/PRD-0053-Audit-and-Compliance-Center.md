@@ -1,11 +1,13 @@
 # PRD-0053 — Audit & Compliance Center
 
 **Version:** 1.0.0  
-**Status:** Draft  
+**Status:** Superseded by PRD-0034 and PRD-0035
 **Priority:** Critical  
 **Owner:** Governance & Security Team
 
 ---
+
+> This document is retained for history. Compliance policy requirements belong in PRD-0034; immutable audit and records requirements belong in PRD-0035.
 
 # Overview
 
