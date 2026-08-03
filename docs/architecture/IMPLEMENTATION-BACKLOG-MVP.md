@@ -1,10 +1,16 @@
 # Discovery to Proposal MVP — Implementation Backlog
 
-**Status:** Proposed
+**Status:** Active
 **Owner:** QIRA
 **Last Updated:** 2026-08-03
 
 This backlog turns the approved delivery sequence into independently demonstrable increments. Estimates are relative, not commercial commitments.
+
+## Current delivery checkpoint
+
+- MVP-001, MVP-002, and the authenticated internal portion of MVP-003 are implemented.
+- MVP-004, MVP-005, MVP-006, MVP-008, and MVP-009 are in progress through the production Discovery workflow.
+- Prospect invitation, evidence upload, immutable approved snapshots, and proposal PDF export remain release blockers.
 
 | ID | Increment | Evidence of completion | Size | Depends on |
 |---|---|---|---:|---|
@@ -33,4 +39,3 @@ This backlog turns the approved delivery sequence into independently demonstrabl
 - MVP-008 Scoring rules.
 
 The sprint demo should show the same synthetic Discovery producing repeatable scores, allowed state transitions succeeding, invalid transitions failing, and one tenant being unable to read another tenant's data.
-

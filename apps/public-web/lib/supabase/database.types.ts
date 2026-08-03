@@ -289,6 +289,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      save_discovery_draft: {
+        Args: {
+          response_payload: Json
+          score_payload: Json
+          selected_service_ids: string[]
+          target_discovery_id: string | null
+          target_organization_id: string
+        }
+        Returns: Database["public"]["Tables"]["discoveries"]["Row"][]
+      }
+      transition_discovery: {
+        Args: {
+          target_discovery_id: string
+          target_status: string
+          transition_reason?: string | null
+        }
+        Returns: Database["public"]["Tables"]["discoveries"]["Row"][]
+      }
       create_proposal: {
         Args: {
           client: string
@@ -460,4 +478,3 @@ export const Constants = {
     Enums: {},
   },
 } as const
-

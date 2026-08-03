@@ -45,6 +45,8 @@ IAM, notifications, search, analytics, AI gateway, observability, and integratio
 
 ### Gate B — Discovery MVP
 
+**Delivery status:** In Progress
+
 - Implement organization profile, business goal, current process, pain point, target outcome, constraints, document upload, and consent.
 - Produce deterministic readiness, opportunity, and complexity scores with explanations.
 - Provide consultant review and approval.
@@ -59,4 +61,3 @@ IAM, notifications, search, analytics, AI gateway, observability, and integratio
 
 - Provide invitation-based access to approved proposal, documents, status, and timeline.
 - Validate organization isolation and audit history.
-
