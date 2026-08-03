@@ -1,10 +1,13 @@
 # PRD-0005 — Client Workspace
 
 **Document ID:** PRD-0005  
-**Version:** 1.0.0  
-**Status:** Draft  
+**Version:** 1.1.0
+**Status:** Review
 **Priority:** Critical  
 **Owner:** Product Team
+
+**Product Owner:** QIRA Founder
+**Last Updated:** 2026-08-03
 
 ---
 
@@ -508,7 +511,9 @@ The Client Workspace must be:
 
 ---
 
-# Acceptance Criteria
+# Strategic Acceptance Criteria
+
+The criteria below describe the long-term product vision. The MVP release is governed by the testable Release Acceptance criteria in the MVP Delivery Contract.
 
 The Client Workspace successfully:
 
@@ -521,6 +526,58 @@ The Client Workspace successfully:
 - Tracks invoices and payments
 - Supports secure document sharing
 - Maintains complete audit history
+
+---
+
+# MVP Delivery Contract
+
+## Primary Job
+
+After a commercial proposal is approved for sharing, a client needs one secure place to view the engagement, retrieve controlled documents, and understand the next action.
+
+## MVP Scope
+
+- Invitation-based authentication and organization membership.
+- Dashboard for one or more authorized engagements.
+- Read-only approved proposal, scope, deliverables, timeline, status, and QIRA contact.
+- Versioned document list with authorization checks and download audit events.
+- Simple activity history and support/contact handoff.
+- Member and Viewer roles for clients; Consultant and Admin roles for QIRA.
+
+## Out of Scope
+
+- Invoices and online payments, AI Employee management, real-time messaging, task management, knowledge base authoring, usage billing, digital signatures, and autonomous AI support.
+
+## Testable Requirements
+
+- **CLI-FR-001:** An invitation is bound to one email, organization, role, expiry, and single-use token.
+- **CLI-FR-002:** Every server-side read verifies identity, organization membership, role, and resource ownership.
+- **CLI-FR-003:** Only proposal versions explicitly approved for sharing appear in the client workspace.
+- **CLI-FR-004:** Every document view/download records actor, tenant, resource, action, and timestamp.
+- **CLI-FR-005:** Revoking membership prevents new sessions and invalidates access within the defined SLA.
+
+## Release Acceptance
+
+- Given users from different organizations, when they request the same resource identifier, then only the owning organization receives the resource.
+- Given an expired or reused invitation, when acceptance is attempted, then access is denied without disclosing membership details.
+- Given a proposal draft, when the client opens the workspace, then the draft is not visible.
+- Given a revoked user, when access is retried, then protected content is unavailable and the attempt is audited.
+
+## MVP Metrics
+
+| Metric | Target |
+|---|---:|
+| Cross-tenant authorization tests | 100% pass |
+| Invitation acceptance success | ≥ 90% |
+| Approved document access success | ≥ 99% |
+| Unauthorized document disclosure | 0 |
+| Client support requests caused by locating files | Establish baseline, then reduce |
+
+## Dependencies
+
+- Approved PRD-0012 IAM subset for invitations, sessions, membership, and RBAC.
+- Approved Proposal version from PRD-0006.
+- Tenant-scoped storage and audit event capability.
 
 ---
 

@@ -1,11 +1,13 @@
 # PRD-0052 — Notification Center
 
 **Version:** 1.0.0  
-**Status:** Draft  
+**Status:** Superseded by PRD-0014
 **Priority:** High  
 **Owner:** Platform Communication Team
 
 ---
+
+> This document is retained for history. New requirements and implementation decisions belong in PRD-0014.
 
 # Overview
 

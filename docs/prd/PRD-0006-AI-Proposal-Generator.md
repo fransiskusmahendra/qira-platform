@@ -1,10 +1,13 @@
 # PRD-0006 — AI Proposal Generator
 
 **Document ID:** PRD-0006  
-**Version:** 1.0.0  
-**Status:** Draft  
+**Version:** 1.1.0
+**Status:** Review
 **Priority:** Critical  
 **Owner:** Product Team
+
+**Product Owner:** QIRA Founder
+**Last Updated:** 2026-08-03
 
 ---
 
@@ -545,7 +548,9 @@ The AI Proposal Generator must be:
 
 ---
 
-# Acceptance Criteria
+# Strategic Acceptance Criteria
+
+The criteria below describe the long-term product vision. The MVP release is governed by the testable Release Acceptance criteria in the MVP Delivery Contract.
 
 The AI Proposal Generator successfully:
 
@@ -558,6 +563,74 @@ The AI Proposal Generator successfully:
 - Maintains version history
 - Exports professional documents
 - Never sends proposals without human approval
+
+---
+
+# MVP Delivery Contract
+
+## Primary Job
+
+When a Discovery is approved, QIRA needs a fast, consistent proposal draft that preserves the evidence, commercial assumptions, and human accountability behind every client-facing claim.
+
+## MVP Scope
+
+- Generate from exactly one approved Discovery version.
+- Produce cover, executive summary, challenges, proposed solution, scope, exclusions, deliverables, timeline, assumptions, dependencies, risks, indicative pricing, payment terms, validity period, and next steps.
+- Use QIRA-controlled templates and versioned prompt/configuration.
+- Support section editing, regeneration with reason, comments, version comparison, consultant approval, and PDF export.
+- Preserve source references for generated claims and mark unsupported content as an assumption.
+- Indonesian output first; client-ready English remains deferred.
+
+## Commercial Guardrails
+
+- Pricing is indicative until approved by the QIRA Founder or delegated commercial approver.
+- The MVP accepts human-entered package price, tax treatment, discount, validity period, and payment schedule.
+- For early portfolio projects, the proposal may display a simulation label and a `50% DP / 50% after implementation` schedule only when explicitly selected.
+- AI may suggest structure and effort ranges but cannot approve discounts, binding prices, legal clauses, or delivery commitments.
+
+## Core Data
+
+| Entity | Minimum fields |
+|---|---|
+| Proposal | id, organization_id, discovery_version_id, status, template_version, currency, validity, owner |
+| Proposal Version | proposal_id, version, sections, generated_by, prompt_version, created_at |
+| Commercial Terms | package, amount, tax, discount, payment_schedule, assumptions, approved_by |
+| Approval | decision, reviewer, comments, proposal_version, timestamp |
+| Export | proposal_version, format, checksum, generated_at, generated_by |
+
+## Testable Requirements
+
+- **PRO-FR-001:** Generation is rejected when the source Discovery is not approved.
+- **PRO-FR-002:** Every generated section records its source Discovery version, template version, and generation configuration.
+- **PRO-FR-003:** Regeneration creates a new version and never overwrites an approved version.
+- **PRO-FR-004:** Export is disabled until the current version has human approval and complete commercial terms.
+- **PRO-FR-005:** The client cannot access internal prompts, model reasoning, internal margins, or unapproved drafts.
+- **PRO-FR-006:** PDF export preserves approved wording, amounts, version, and document checksum.
+
+## Release Acceptance
+
+- Given an unapproved Discovery, when generation is requested, then no proposal is created.
+- Given an approved Discovery, when generation completes, then all mandatory sections exist or are explicitly flagged for human completion.
+- Given a changed price after approval, when export is requested, then reapproval is required.
+- Given an exported PDF, when amounts and payment terms are compared with the approved version, then they match exactly.
+- Given any proposal, when its history is inspected, then source version, edits, regenerations, approvals, and exports are attributable.
+
+## MVP Metrics
+
+| Metric | Target |
+|---|---:|
+| Median first-draft generation | ≤ 60 seconds |
+| Manual re-entry from Discovery | 0 required fields |
+| Mandatory section completeness | 100% |
+| Export without human approval | 0 |
+| Median consultant preparation time | ≤ 60 minutes after Discovery approval |
+
+## Approved MVP Decisions
+
+- PDF is the first export format; final visual template and legal disclaimer remain a release-content gate.
+- QIRA Founder approves all tax treatment, discounts, payment terms, and commercial values in the MVP.
+- The standard early-project payment option is 50% DP and 50% after implementation when explicitly selected.
+- Proposal retention is engagement duration plus two years; the PDF rendering library remains an implementation ADR.
 
 ---
 

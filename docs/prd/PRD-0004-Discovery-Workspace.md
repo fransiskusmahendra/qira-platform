@@ -1,10 +1,13 @@
 # PRD-0004 — Discovery Workspace
 
 **Document ID:** PRD-0004  
-**Version:** 1.0.0  
-**Status:** Draft  
+**Version:** 1.1.0
+**Status:** Review
 **Priority:** Critical  
 **Owner:** Product Team
+
+**Product Owner:** QIRA Founder
+**Last Updated:** 2026-08-03
 
 ---
 
@@ -537,7 +540,9 @@ The Discovery Workspace must be:
 
 ---
 
-# Acceptance Criteria
+# Strategic Acceptance Criteria
+
+The criteria below describe the long-term product vision. The MVP release is governed by the testable Release Acceptance criteria in the MVP Delivery Contract.
 
 The Discovery Workspace successfully:
 
@@ -549,6 +554,91 @@ The Discovery Workspace successfully:
 - Supports document uploads
 - Maintains complete audit history
 - Enables seamless handoff to project delivery
+
+---
+
+# MVP Delivery Contract
+
+## Primary Job
+
+When a qualified prospect explains a business need, QIRA must convert the conversation into complete, structured, consented, and reviewable evidence for a commercial proposal.
+
+## MVP Scope
+
+- Invitation or secure resume link for one prospect organization.
+- Organization profile, stakeholder, business goal, current process, pain points, desired outcome, constraints, budget range, and target timeline.
+- Dynamic question sets based on selected QIRA service, with a controlled fallback for custom needs.
+- Draft autosave, completion indicator, review screen, explicit consent, and final submission.
+- File upload for approved formats with size limit, malware-scanning hook, ownership metadata, and version reference.
+- Deterministic Opportunity, Digital Readiness, and Implementation Complexity scores with factor-level explanations.
+- QIRA consultant review, amendment note, approval, and immutable approved snapshot.
+- Proposal-ready export through a versioned internal contract.
+
+## Out of Scope
+
+- Real-time multi-user editing, live whiteboard, BPMN editor, meeting transcription, digital signature, automated final pricing, autonomous external research, and automatic proposal sending.
+
+## Core Data
+
+| Entity | Minimum fields | Ownership and boundary |
+|---|---|---|
+| Organization | id, legal/display name, industry, size, location | Tenant-scoped |
+| Discovery | id, organization_id, service_ids, status, version, owner, timestamps | Tenant-scoped; one approved version |
+| Response | discovery_id, question_id, value, source, updated_by | Tenant-scoped |
+| Evidence | discovery_id, file reference, classification, checksum, version | Tenant-scoped storage |
+| Score | type, value, factors, ruleset_version, calculated_at | Reproducible and auditable |
+| Consent | purpose, text_version, accepted_by, timestamp | Immutable record |
+| Review | reviewer, decision, notes, timestamp | QIRA-authorized role only |
+
+## Roles
+
+| Action | Prospect | QIRA Consultant | QIRA Admin |
+|---|---:|---:|---:|
+| Edit draft Discovery | Own organization | Assigned records | All records |
+| Submit Discovery | Own organization | No | No |
+| Reopen with reason | No | Assigned records | All records |
+| Approve snapshot | No | Assigned records | All records |
+| View cross-tenant data | No | No | Explicit support access only |
+
+## AI and Scoring Controls
+
+- Deterministic rules calculate the three MVP scores; an LLM may explain but may not silently change numeric results.
+- Every generated question or recommendation records model/provider, prompt version, source context, and timestamp.
+- Unsupported claims are marked as assumptions and require consultant review.
+- Local Ollama may be used for development or client-approved deployments; provider routing must not change the domain contract.
+- No client data may be used for model training without explicit authorization.
+
+## Testable Requirements
+
+- **DIS-FR-001:** A prospect can save and resume a draft without accessing another organization's record.
+- **DIS-FR-002:** Required answers and consent must pass validation before submission.
+- **DIS-FR-003:** Score output includes value, factors, ruleset version, and human-readable explanation.
+- **DIS-FR-004:** Submission creates a read-only version; reopening requires an authorized user and recorded reason.
+- **DIS-FR-005:** Proposal generation accepts only an approved Discovery version.
+- **DIS-FR-006:** Every view, edit, submit, reopen, and approval action creates an audit event.
+
+## Release Acceptance
+
+- Given two organizations, when either user lists or opens Discoveries, then no identifier manipulation reveals the other tenant's data.
+- Given an incomplete Discovery, when submission is attempted, then missing requirements are identified and no approved snapshot is created.
+- Given the same answers and ruleset version, when scores are recalculated, then the numeric outputs are identical.
+- Given a consultant approval, when the record is handed to Proposal Generator, then the exact approved version and evidence references are preserved.
+
+## MVP Metrics
+
+| Metric | Target |
+|---|---:|
+| Qualified Discovery completion | ≥ 70% |
+| Median completion time | ≤ 30 minutes |
+| Required-field completeness at submission | 100% |
+| Score reproducibility | 100% |
+| Proposal handoff without manual re-entry | ≥ 90% |
+
+## Approved MVP Decisions
+
+- OpenAI adapter is the production default; the precise data-processing region remains a deployment gate.
+- Upload limit is 20 MB per file. Retention is engagement duration plus two years unless contract or law overrides it.
+- Score factors begin with equal weights and are reviewed after at least five approved Discovery cases.
 
 ---
 

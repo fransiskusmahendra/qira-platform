@@ -2,13 +2,17 @@
 
 Document ID: PRD-0001
 
-Version: 1.0.0
+Version: 1.1.0
 
-Status: Draft
+Status: In Progress
 
 Priority: Critical
 
 Owner: Product Team
+
+Product Owner: QIRA Founder
+
+Last Updated: 2026-08-03
 
 ---
 
@@ -567,7 +571,9 @@ Cloud-native
 
 ---
 
-# Acceptance Criteria
+# Strategic Acceptance Criteria
+
+The criteria below describe the long-term product vision. The MVP release is governed by the testable Release Acceptance criteria in the MVP Delivery Contract.
 
 Visitor understands QIRA within 60 seconds.
 
@@ -584,6 +590,51 @@ AI can answer common questions.
 AI can qualify leads.
 
 Platform loads in under 2 seconds.
+
+---
+
+# MVP Delivery Contract
+
+## MVP Scope
+
+- Responsive single-page marketing experience in Bahasa Indonesia.
+- QIRA positioning, four service categories, working method, legal entity, and contact channel.
+- WhatsApp CTA with a prefilled Discovery message.
+- Metadata, robots policy, mobile layout, keyboard access, and reduced-motion support.
+- Analytics events for page view, service interest, CTA click, and successful Discovery handoff once a consent-compliant analytics provider is selected.
+
+## Out of Scope
+
+- AI Receptionist, AI Consultant, account login, booking calendar, knowledge center, pricing engine, CMS, and multilingual content.
+- Client-specific recommendations before explicit consent and identity verification.
+
+## Testable Requirements
+
+- **PUB-FR-001:** A visitor can understand QIRA's proposition, services, working method, and company identity without authentication.
+- **PUB-FR-002:** Every primary CTA opens the configured WhatsApp number with an Indonesian Discovery message.
+- **PUB-FR-003:** The page remains usable at 360 px width and with keyboard-only navigation.
+- **PUB-FR-004:** Contact details are configured once and reused; production values are not duplicated across components.
+- **PUB-FR-005:** No analytics or marketing cookie is stored before the applicable consent decision.
+
+## Release Acceptance
+
+- Given a visitor on mobile, when the visitor activates “Mulai Discovery”, then WhatsApp opens with the correct QIRA number and prefilled message.
+- Given JavaScript-enabled modern Chrome, Firefox, Safari, or Edge, when the home page loads, then the primary content is visible without layout overflow.
+- Given keyboard-only navigation, when the visitor traverses interactive controls, then focus order and visible focus state are usable.
+- Given a production build, when automated CI runs, then type-check, unit tests, and build complete successfully.
+
+## Success Metrics
+
+| Metric | Initial target | Review period |
+|---|---:|---|
+| Primary CTA click-through rate | ≥ 3% | First 30 days |
+| CTA destination accuracy | 100% | Every release |
+| Mobile Lighthouse accessibility | ≥ 90 | Every release |
+| Qualified Discovery conversations | Establish baseline | First 30 days |
+
+## Release Gate
+
+QIRA Founder confirms positioning, legal identity, WhatsApp number, privacy wording, and production domain before release.
 
 ---
 

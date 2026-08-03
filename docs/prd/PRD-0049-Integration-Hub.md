@@ -1,11 +1,13 @@
 # PRD-0049 — Integration Hub
 
 **Version:** 1.0.0  
-**Status:** Draft  
+**Status:** Superseded by PRD-0022
 **Priority:** Critical  
 **Owner:** Integration Platform Team
 
 ---
+
+> This document is retained for history. New requirements and implementation decisions belong in PRD-0022.
 
 # Overview
 
