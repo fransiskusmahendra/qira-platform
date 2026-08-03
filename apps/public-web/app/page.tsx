@@ -1,4 +1,5 @@
 import { SERVICE_CATALOG } from "@qira/domain";
+import Link from "next/link";
 
 const whatsappNumber = "628211076517";
 const discoveryMessage = encodeURIComponent(
@@ -13,9 +14,9 @@ export default function HomePage() {
         <a className="brand" href="#top" aria-label="QIRA beranda">
           QIRA<span>.</span>
         </a>
-        <a className="navCta" href={discoveryUrl} target="_blank" rel="noreferrer">
+        <Link className="navCta" href="/discovery">
           Mulai Discovery
-        </a>
+        </Link>
       </nav>
 
       <section className="hero shell" id="top">
@@ -28,9 +29,9 @@ export default function HomePage() {
           yang tepat, lalu membangun solusi yang bisa dipakai dan dikembangkan.
         </p>
         <div className="heroActions">
-          <a className="primaryButton" href={discoveryUrl} target="_blank" rel="noreferrer">
+          <Link className="primaryButton" href="/discovery">
             Ceritakan kebutuhan Anda
-          </a>
+          </Link>
           <a className="textLink" href="#services">
             Lihat kapabilitas <span aria-hidden="true">↓</span>
           </a>
@@ -92,4 +93,3 @@ export default function HomePage() {
     </main>
   );
 }
-

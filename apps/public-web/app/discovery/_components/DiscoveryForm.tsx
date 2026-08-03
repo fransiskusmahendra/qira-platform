@@ -1,0 +1,208 @@
+"use client";
+
+import { useMemo, useState } from "react";
+
+import {
+  calculateDiscoveryScores,
+  findMissingRequiredAnswers,
+  getDiscoveryQuestionnaire,
+  type ServiceId,
+} from "@qira/domain";
+import styles from "../discovery.module.css";
+
+interface ServiceOption {
+  id: ServiceId;
+  name: string;
+  outcome: string;
+}
+
+interface DiscoveryFormProps {
+  services: readonly ServiceOption[];
+}
+
+type Answers = Record<string, string | number | undefined>;
+
+const SCORE_LABELS = {
+  opportunity: "Peluang dampak",
+  readiness: "Kesiapan digital",
+  complexity: "Kompleksitas",
+} as const;
+
+export function DiscoveryForm({ services }: DiscoveryFormProps) {
+  const [serviceId, setServiceId] = useState<ServiceId>(services[0]?.id ?? "discovery");
+  const [answers, setAnswers] = useState<Answers>({});
+  const [consented, setConsented] = useState(false);
+  const [showValidation, setShowValidation] = useState(false);
+  const [assessment, setAssessment] = useState({ impact: 3, readiness: 3, complexity: 3 });
+
+  const questionnaire = useMemo(() => getDiscoveryQuestionnaire(serviceId), [serviceId]);
+  const missing = useMemo(
+    () => findMissingRequiredAnswers(questionnaire, answers),
+    [answers, questionnaire],
+  );
+  const requiredCount = questionnaire.questions.filter((question) => question.required).length;
+  const completedRequired = requiredCount - missing.length;
+  const progress = requiredCount === 0 ? 100 : Math.round((completedRequired / requiredCount) * 100);
+  const scores = calculateDiscoveryScores({
+    opportunity: { expectedImpact: assessment.impact },
+    readiness: { selfAssessment: assessment.readiness },
+    complexity: { selfAssessment: assessment.complexity },
+  });
+
+  function selectService(nextServiceId: ServiceId) {
+    setServiceId(nextServiceId);
+    setAnswers({});
+    setShowValidation(false);
+  }
+
+  function updateAnswer(id: string, value: string) {
+    setAnswers((current) => ({ ...current, [id]: value }));
+  }
+
+  function handlePreview(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setShowValidation(true);
+  }
+
+  const ready = missing.length === 0 && consented;
+
+  return (
+    <form className={styles.workspace} onSubmit={handlePreview} noValidate>
+      <aside className={styles.sidebar}>
+        <div className={styles.progressHeader}>
+          <span>Kelengkapan</span>
+          <strong>{progress}%</strong>
+        </div>
+        <div className={styles.progressTrack} aria-label={`Kelengkapan ${progress}%`}>
+          <span style={{ width: `${progress}%` }} />
+        </div>
+        <ol className={styles.steps}>
+          <li className={styles.activeStep}><span>01</span>Pilih kebutuhan</li>
+          <li className={progress > 0 ? styles.activeStep : ""}><span>02</span>Kondisi bisnis</li>
+          <li className={ready ? styles.activeStep : ""}><span>03</span>Penilaian awal</li>
+        </ol>
+        <div className={styles.safetyNote}>
+          <strong>Anda tetap memegang kendali.</strong>
+          <p>AI tidak membuat komitmen harga atau keputusan final tanpa review QIRA.</p>
+        </div>
+      </aside>
+
+      <div className={styles.formContent}>
+        <section className={styles.formSection} aria-labelledby="service-heading">
+          <div className={styles.sectionNumber}>01</div>
+          <div className={styles.sectionTitle}>
+            <h2 id="service-heading">Apa kebutuhan utama Anda?</h2>
+            <p>Pilih satu fokus untuk Discovery pertama. Kebutuhan lain dapat ditambahkan saat review.</p>
+          </div>
+          <div className={styles.serviceOptions}>
+            {services.map((service) => (
+              <button
+                className={service.id === serviceId ? styles.selectedService : styles.serviceOption}
+                key={service.id}
+                type="button"
+                aria-pressed={service.id === serviceId}
+                onClick={() => selectService(service.id)}
+              >
+                <strong>{service.name}</strong>
+                <span>{service.outcome}</span>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.formSection} aria-labelledby="business-heading">
+          <div className={styles.sectionNumber}>02</div>
+          <div className={styles.sectionTitle}>
+            <h2 id="business-heading">Ceritakan kondisi bisnis Anda.</h2>
+            <p>Pertanyaan menyesuaikan layanan yang dipilih. Tanda * wajib diisi.</p>
+          </div>
+          <div className={styles.questionGrid}>
+            {questionnaire.questions.map((question) => {
+              const hasError = showValidation && missing.includes(question.id);
+              const fieldId = `question-${question.id}`;
+              return (
+                <label className={styles.field} key={question.id} htmlFor={fieldId}>
+                  <span>{question.prompt}{question.required ? " *" : ""}</span>
+                  {question.answerType === "long_text" ? (
+                    <textarea
+                      id={fieldId}
+                      rows={4}
+                      value={String(answers[question.id] ?? "")}
+                      aria-invalid={hasError}
+                      onChange={(event) => updateAnswer(question.id, event.target.value)}
+                    />
+                  ) : (
+                    <input
+                      id={fieldId}
+                      type={question.answerType === "number" ? "number" : "text"}
+                      min={question.answerType === "number" ? 0 : undefined}
+                      value={String(answers[question.id] ?? "")}
+                      aria-invalid={hasError}
+                      onChange={(event) => updateAnswer(question.id, event.target.value)}
+                    />
+                  )}
+                  {hasError ? <small>Jawaban ini diperlukan.</small> : null}
+                </label>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className={styles.formSection} aria-labelledby="assessment-heading">
+          <div className={styles.sectionNumber}>03</div>
+          <div className={styles.sectionTitle}>
+            <h2 id="assessment-heading">Penilaian awal.</h2>
+            <p>Geser berdasarkan pemahaman saat ini. QIRA akan memvalidasi faktor lengkap saat review.</p>
+          </div>
+          <div className={styles.assessmentGrid}>
+            {([
+              ["impact", "Perkiraan dampak", "Seberapa besar manfaat jika masalah diselesaikan?"],
+              ["readiness", "Kesiapan", "Seberapa siap proses, data, dan pemiliknya?"],
+              ["complexity", "Kompleksitas", "Seberapa banyak sistem dan pengecualian terlibat?"],
+            ] as const).map(([key, label, help]) => (
+              <label className={styles.rangeField} key={key}>
+                <span><strong>{label}</strong><output>{assessment[key]}/5</output></span>
+                <small>{help}</small>
+                <input
+                  type="range"
+                  min="0"
+                  max="5"
+                  step="1"
+                  value={assessment[key]}
+                  onChange={(event) => setAssessment((current) => ({ ...current, [key]: Number(event.target.value) }))}
+                />
+              </label>
+            ))}
+          </div>
+          <div className={styles.scoreGrid} aria-label="Preview skor Discovery">
+            {scores.map((score) => (
+              <div className={styles.scoreCard} key={score.type}>
+                <span>{SCORE_LABELS[score.type]}</span>
+                <strong>{score.value}</strong>
+                <small>dari 100 · ruleset {score.rulesetVersion}</small>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.consentSection}>
+          <label className={styles.consent}>
+            <input type="checkbox" checked={consented} onChange={(event) => setConsented(event.target.checked)} />
+            <span>Saya memahami bahwa ini adalah preview dan jawaban belum dikirim atau disimpan oleh QIRA.</span>
+          </label>
+          <button className={styles.submitButton} type="submit">
+            Periksa kesiapan Discovery
+          </button>
+          {showValidation ? (
+            <div className={ready ? styles.successMessage : styles.errorMessage} role="status">
+              {ready
+                ? "Discovery preview lengkap. Penyimpanan dan pengiriman akan diaktifkan setelah keamanan database terverifikasi."
+                : `Lengkapi ${missing.length} jawaban wajib dan persetujuan preview sebelum melanjutkan.`}
+            </div>
+          ) : null}
+        </section>
+      </div>
+    </form>
+  );
+}
+

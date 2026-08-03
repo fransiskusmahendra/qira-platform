@@ -1,0 +1,41 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+
+import { SERVICE_CATALOG } from "@qira/domain";
+import { DiscoveryForm } from "./_components/DiscoveryForm";
+import styles from "./discovery.module.css";
+
+export const metadata: Metadata = {
+  title: "Discovery Workspace",
+  description: "Mulai Discovery terstruktur untuk kebutuhan AI, otomasi, atau aplikasi bisnis Anda.",
+};
+
+export default function DiscoveryPage() {
+  return (
+    <main className={styles.page}>
+      <header className={styles.header}>
+        <Link className={styles.brand} href="/" aria-label="Kembali ke beranda QIRA">
+          QIRA<span>.</span>
+        </Link>
+        <div className={styles.previewBadge}>Preview · data belum dikirim</div>
+      </header>
+
+      <section className={styles.intro}>
+        <p className={styles.eyebrow}>AI & Digital Discovery</p>
+        <h1>Mari pahami proses yang paling penting untuk bisnis Anda.</h1>
+        <p>
+          Pilih kebutuhan utama, ceritakan kondisi saat ini, lalu lihat penilaian awal
+          yang transparan. Estimasi waktu pengisian 10–15 menit.
+        </p>
+      </section>
+
+      <DiscoveryForm services={SERVICE_CATALOG.map(({ id, name, outcome }) => ({ id, name, outcome }))} />
+
+      <footer className={styles.footer}>
+        <span>QIRA · PT Rays Solusi Informasi</span>
+        <span>Jawaban preview hanya tersimpan selama halaman terbuka.</span>
+      </footer>
+    </main>
+  );
+}
+
