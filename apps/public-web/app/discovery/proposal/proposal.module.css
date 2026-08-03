@@ -9,6 +9,10 @@
 .packagePicker span { color: #66758a; font-size: 12px; }
 .packagePicker strong { margin-top: 6px; }
 .packagePicker .activePackage { border-color: #1769ff; box-shadow: 0 0 0 2px #cfe0ff; }
+.editor { width: min(1060px, 100%); margin: 16px auto; padding: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; border: 1px solid #cdd7e4; border-radius: 16px; background: #f8fafc; }
+.editor h2 { margin: 0 0 16px; font-size: 18px; }.editor label { display: grid; gap: 6px; margin-bottom: 12px; color: #53647a; font-size: 12px; }.editor input { min-width: 0; padding: 10px 11px; border: 1px solid #cbd6e4; border-radius: 9px; background: white; color: #071a33; font: inherit; }.inlineFields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.calculation { margin: 0; }.calculation div { display: flex; justify-content: space-between; gap: 15px; padding: 9px 0; border-bottom: 1px solid #dce3ec; }.calculation dd { margin: 0; font-weight: 700; }
+.versionBox button { min-height: 40px; padding: 0 15px; border: 0; border-radius: 999px; background: #1769ff; color: white; font-weight: 700; }.versionBox > p { color: #66758a; font-size: 11px; }.versionBox ol { max-height: 170px; overflow: auto; margin: 12px 0 0; padding: 0; list-style: none; }.versionBox li { display: grid; grid-template-columns: auto 1fr; gap: 2px 9px; padding: 8px 0; border-top: 1px solid #dce3ec; font-size: 11px; }.versionBox li small { grid-column: 2; color: #758399; }
 .document { width: min(1060px, 100%); margin: auto; background: white; box-shadow: 0 20px 60px #1127471c; }
 .cover { min-height: 700px; padding: clamp(40px, 8vw, 90px); display: flex; flex-direction: column; background: #071a33; color: white; }
 .logo { font-size: 28px; font-weight: 800; }.logo span, .kicker { color: #4c8cff; }
@@ -16,6 +20,7 @@
 .cover h1 { max-width: 800px; margin: 18px 0 8px; font-size: clamp(52px, 9vw, 100px); line-height: .92; letter-spacing: -.065em; }
 .cover h2 { margin: 0; color: #8fb9ff; font-weight: 450; }
 .coverMeta { margin-top: auto; display: grid; gap: 7px; }.coverMeta span, .coverMeta small { color: #9daec3; }.coverMeta strong { font-size: 28px; }
+.clientMeta { display: grid; gap: 5px; margin-top: 25px; color: #b5c1d0; font-size: 12px; }
 .section { padding: clamp(45px, 8vw, 90px); border-bottom: 1px solid #e2e7ee; }
 .kicker { margin: 0 0 20px; text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: 750; }
 .section h2 { margin: 0 0 28px; font-size: clamp(38px, 6vw, 66px); line-height: 1; letter-spacing: -.05em; }
@@ -28,6 +33,6 @@
 .threeColumns { padding: clamp(45px, 8vw, 90px); display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }.threeColumns h3 { font-size: 22px; }.threeColumns ul { padding-left: 18px; color: #526176; line-height: 1.55; }.threeColumns li { margin-bottom: 10px; }
 .approval { padding: 35px clamp(30px, 8vw, 90px); background: #eaf2ff; }.approval label { display: flex; gap: 12px; line-height: 1.5; }.approval input { width: 19px; height: 19px; accent-color: #1769ff; }.approval p { margin: 12px 0 0 31px; color: #53647a; font-size: 12px; }
 .empty { min-height: 100vh; padding: 40px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+@media (max-width: 850px) { .editor { grid-template-columns: 1fr; } }
 @media (max-width: 700px) { .toolbar { align-items: stretch; flex-direction: column; }.packagePicker, .cards, .timeline, .payments, .threeColumns { grid-template-columns: 1fr; }.cover { min-height: 620px; }.cover > p { margin-top: 90px; } }
-@media print { .page { padding: 0; background: white; }.toolbar, .packagePicker, .approval { display: none; }.document { width: 100%; box-shadow: none; }.section, .cover, .threeColumns { break-inside: avoid; } }
-
+@media print { .page { padding: 0; background: white; }.toolbar, .packagePicker, .editor, .approval { display: none; }.document { width: 100%; box-shadow: none; }.section, .cover, .threeColumns { break-inside: avoid; } }
