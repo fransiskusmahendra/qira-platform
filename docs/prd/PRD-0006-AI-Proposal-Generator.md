@@ -625,11 +625,12 @@ When a Discovery is approved, QIRA needs a fast, consistent proposal draft that 
 | Export without human approval | 0 |
 | Median consultant preparation time | ≤ 60 minutes after Discovery approval |
 
-## Open Approval Decisions
+## Approved MVP Decisions
 
-- Approved proposal visual template and legal disclaimer.
-- Tax handling and commercial approval thresholds.
-- Production document-rendering method and retention period.
+- PDF is the first export format; final visual template and legal disclaimer remain a release-content gate.
+- QIRA Founder approves all tax treatment, discounts, payment terms, and commercial values in the MVP.
+- The standard early-project payment option is 50% DP and 50% after implementation when explicitly selected.
+- Proposal retention is engagement duration plus two years; the PDF rendering library remains an implementation ADR.
 
 ---
 

@@ -634,11 +634,11 @@ When a qualified prospect explains a business need, QIRA must convert the conver
 | Score reproducibility | 100% |
 | Proposal handoff without manual re-entry | ≥ 90% |
 
-## Open Approval Decisions
+## Approved MVP Decisions
 
-- Production AI provider and data-processing region.
-- Maximum upload size, retention period, and allowed document classifications.
-- Final score weights after at least five reviewed Discovery cases.
+- OpenAI adapter is the production default; the precise data-processing region remains a deployment gate.
+- Upload limit is 20 MB per file. Retention is engagement duration plus two years unless contract or law overrides it.
+- Score factors begin with equal weights and are reviewed after at least five approved Discovery cases.
 
 ---
 

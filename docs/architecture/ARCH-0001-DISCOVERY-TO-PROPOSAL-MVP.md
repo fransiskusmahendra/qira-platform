@@ -1,7 +1,7 @@
 # ARCH-0001 — Discovery to Proposal MVP
 
 **Version:** 1.0.0
-**Status:** Proposed
+**Status:** Accepted
 **Related PRDs:** PRD-0001, PRD-0004, PRD-0005, PRD-0006
 **Owner:** QIRA
 **Last Updated:** 2026-08-03
@@ -244,9 +244,8 @@ Production secrets never enter source control or client-side bundles.
 
 ## Decisions still requiring ADRs
 
-- Identity/database/storage provider and tenancy enforcement method.
-- Production AI provider, region, retention, and fallback policy.
 - PDF/DOCX rendering approach.
 - Background job mechanism.
 - Analytics and consent solution.
 
+Identity, storage, initial AI routing, retention, upload limit, scoring validation, and commercial defaults are accepted in ADR-0002. The precise production AI data region remains a deployment gate.
