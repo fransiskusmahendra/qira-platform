@@ -105,6 +105,30 @@ export type Database = {
           },
         ]
       }
+      discovery_snapshots: {
+        Row: {
+          approved_at: string
+          approved_by: string
+          checksum_sha256: string
+          discovery_id: string
+          discovery_version: number
+          id: string
+          organization_id: string
+          snapshot: Json
+        }
+        Insert: {
+          approved_at?: string
+          approved_by: string
+          checksum_sha256: string
+          discovery_id: string
+          discovery_version: number
+          id?: string
+          organization_id: string
+          snapshot: Json
+        }
+        Update: never
+        Relationships: []
+      }
       memberships: {
         Row: {
           created_at: string
@@ -221,6 +245,7 @@ export type Database = {
           created_at: string
           created_by: string
           discovery_id: string | null
+          discovery_snapshot_id: string | null
           id: string
           issue_date: string
           organization_id: string
@@ -239,6 +264,7 @@ export type Database = {
           created_at?: string
           created_by: string
           discovery_id?: string | null
+          discovery_snapshot_id?: string | null
           id?: string
           issue_date: string
           organization_id: string
@@ -257,6 +283,7 @@ export type Database = {
           created_at?: string
           created_by?: string
           discovery_id?: string | null
+          discovery_snapshot_id?: string | null
           id?: string
           issue_date?: string
           organization_id?: string
@@ -313,6 +340,7 @@ export type Database = {
           issued_on: string
           proposal_no: string
           recipient: string
+          source_discovery_id: string
           target_organization_id: string
           terms: Json
           valid_through: string
@@ -329,6 +357,7 @@ export type Database = {
           created_at: string
           created_by: string
           discovery_id: string | null
+          discovery_snapshot_id: string | null
           id: string
           issue_date: string
           organization_id: string

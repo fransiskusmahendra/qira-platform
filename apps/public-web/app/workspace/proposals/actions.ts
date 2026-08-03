@@ -36,7 +36,8 @@ export async function createProposal(formData: FormData) {
   const issueDate = String(formData.get("issue_date") ?? "");
   const validUntil = String(formData.get("valid_until") ?? "");
   const packageId = String(formData.get("package_id") ?? "digital-foundation");
-  if (!client || !recipient || !issueDate || !validUntil) redirect("/workspace/proposals/new?error=required");
+  const discoveryId = String(formData.get("discovery_id") ?? "");
+  if (!client || !recipient || !issueDate || !validUntil || !discoveryId) redirect("/workspace/proposals/new?error=required");
 
   const terms = {
     packageId,
@@ -51,6 +52,7 @@ export async function createProposal(formData: FormData) {
   const proposalNumber = `PROP/QIRA/${now.getUTCFullYear()}/${String(now.getUTCMonth() + 1).padStart(2, "0")}/${String(Date.now()).slice(-6)}`;
   const { data: proposalId, error } = await supabase.rpc("create_proposal", {
     target_organization_id: organizationId,
+    source_discovery_id: discoveryId,
     proposal_no: proposalNumber,
     client,
     recipient,
