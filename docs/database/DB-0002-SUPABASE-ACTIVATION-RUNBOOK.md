@@ -33,6 +33,15 @@ This runbook records how the tested QIRA persistence contracts are activated in 
 
 The `proposals` table stores client recipient data, proposal dates, status, version, and commercial terms. `proposal_versions.snapshot` stores an immutable JSONB snapshot so a printed proposal remains reproducible.
 
+The development project now also contains:
+
+- the active organization `QIRA — PT Rays Solusi Informasi`;
+- `create_proposal`, an atomic security-invoker function that creates the proposal, first snapshot, and audit event;
+- `transition_proposal`, an atomic security-invoker function enforcing `draft → review → approved → shared`;
+- database constraints for non-blank client/recipient names and valid package, price, discount, tax, and DP values.
+
+Both functions are executable by `authenticated` only, remain subject to RLS, and are denied to `anon`.
+
 ## RLS acceptance criteria
 
 - Enable and force RLS on every exposed tenant table.

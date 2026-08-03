@@ -289,7 +289,45 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_proposal: {
+        Args: {
+          client: string
+          issued_on: string
+          proposal_no: string
+          recipient: string
+          target_organization_id: string
+          terms: Json
+          valid_through: string
+        }
+        Returns: string
+      }
+      transition_proposal: {
+        Args: { target_proposal_id: string; target_status: string }
+        Returns: {
+          approved_at: string | null
+          approved_by: string | null
+          client_name: string
+          commercial_terms: Json
+          created_at: string
+          created_by: string
+          discovery_id: string | null
+          id: string
+          issue_date: string
+          organization_id: string
+          proposal_number: string
+          recipient_name: string
+          status: string
+          updated_at: string
+          valid_until: string
+          version: number
+        }
+        SetofOptions: {
+          from: "*"
+          to: "proposals"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
     }
     Enums: {
       [_ in never]: never
