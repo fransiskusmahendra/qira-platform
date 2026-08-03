@@ -1,0 +1,11 @@
+"use server";
+import { createHash, randomBytes } from "node:crypto";
+import { redirect } from "next/navigation";
+import { createClient } from "../../../lib/supabase/server";
+export async function createInvitation(formData: FormData) {
+ const s:any=await createClient(); const email=String(formData.get("email")||"").trim().toLowerCase();
+ const {data:m}=await s.from("memberships").select("organization_id,role").eq("status","active"); const admin=m?.find((x:any)=>x.role==="qira_admin"); if(!admin) redirect("/workspace");
+ const token=randomBytes(24).toString("base64url"); const token_hash=createHash("sha256").update(token).digest("hex");
+ const {error}=await s.from("invitations").insert({organization_id:admin.organization_id,email,role:"prospect_member",token_hash,invited_by:(await s.auth.getUser()).data.user.id,expires_at:new Date(Date.now()+7*864e5).toISOString()});
+ if(error) redirect("/workspace/invitations?error=create"); redirect(`/workspace/invitations?token=${token}`);
+}
