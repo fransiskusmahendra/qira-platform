@@ -1,0 +1,33 @@
+.page { min-height: 100vh; padding: 24px; background: #e9eef5; color: #071a33; }
+.toolbar { width: min(1060px, 100%); min-height: 58px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 13px; }
+.toolbar span { color: #66758a; }
+.toolbar button { min-height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: #1769ff; color: white; font-weight: 700; }
+.toolbar button:disabled { background: #a7b3c2; cursor: not-allowed; }
+.packagePicker { width: min(1060px, 100%); margin: 16px auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.packagePicker button { padding: 16px; border: 1px solid #cdd7e4; border-radius: 13px; background: #f8fafc; color: #071a33; text-align: left; cursor: pointer; }
+.packagePicker span, .packagePicker strong { display: block; }
+.packagePicker span { color: #66758a; font-size: 12px; }
+.packagePicker strong { margin-top: 6px; }
+.packagePicker .activePackage { border-color: #1769ff; box-shadow: 0 0 0 2px #cfe0ff; }
+.document { width: min(1060px, 100%); margin: auto; background: white; box-shadow: 0 20px 60px #1127471c; }
+.cover { min-height: 700px; padding: clamp(40px, 8vw, 90px); display: flex; flex-direction: column; background: #071a33; color: white; }
+.logo { font-size: 28px; font-weight: 800; }.logo span, .kicker { color: #4c8cff; }
+.cover > p { margin-top: 130px; color: #9daec3; text-transform: uppercase; letter-spacing: 1.8px; font-size: 11px; }
+.cover h1 { max-width: 800px; margin: 18px 0 8px; font-size: clamp(52px, 9vw, 100px); line-height: .92; letter-spacing: -.065em; }
+.cover h2 { margin: 0; color: #8fb9ff; font-weight: 450; }
+.coverMeta { margin-top: auto; display: grid; gap: 7px; }.coverMeta span, .coverMeta small { color: #9daec3; }.coverMeta strong { font-size: 28px; }
+.section { padding: clamp(45px, 8vw, 90px); border-bottom: 1px solid #e2e7ee; }
+.kicker { margin: 0 0 20px; text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: 750; }
+.section h2 { margin: 0 0 28px; font-size: clamp(38px, 6vw, 66px); line-height: 1; letter-spacing: -.05em; }
+.lead { max-width: 760px; color: #45556a; font-size: 23px; line-height: 1.55; }
+.cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.cards li { padding: 20px; border-radius: 13px; background: #f3f6fa; }
+.timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }.timeline div { padding: 20px; border-top: 2px solid #1769ff; }.timeline strong, .timeline span { display: block; }.timeline strong { color: #1769ff; }.timeline span { margin-top: 35px; }
+.payments { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }.payments div { padding: 22px; border-radius: 13px; background: #071a33; color: white; }.payments span, .payments strong { display: block; }.payments span { color: #9daec3; font-size: 12px; }.payments strong { margin-top: 10px; font-size: 22px; }
+.disclaimer { margin-top: 22px; color: #66758a; font-size: 12px; }
+.threeColumns { padding: clamp(45px, 8vw, 90px); display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }.threeColumns h3 { font-size: 22px; }.threeColumns ul { padding-left: 18px; color: #526176; line-height: 1.55; }.threeColumns li { margin-bottom: 10px; }
+.approval { padding: 35px clamp(30px, 8vw, 90px); background: #eaf2ff; }.approval label { display: flex; gap: 12px; line-height: 1.5; }.approval input { width: 19px; height: 19px; accent-color: #1769ff; }.approval p { margin: 12px 0 0 31px; color: #53647a; font-size: 12px; }
+.empty { min-height: 100vh; padding: 40px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+@media (max-width: 700px) { .toolbar { align-items: stretch; flex-direction: column; }.packagePicker, .cards, .timeline, .payments, .threeColumns { grid-template-columns: 1fr; }.cover { min-height: 620px; }.cover > p { margin-top: 90px; } }
+@media print { .page { padding: 0; background: white; }.toolbar, .packagePicker, .approval { display: none; }.document { width: 100%; box-shadow: none; }.section, .cover, .threeColumns { break-inside: avoid; } }
+
