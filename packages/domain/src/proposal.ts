@@ -27,6 +27,78 @@ export interface ProposalPreview {
   commercialStatus: "indicative";
 }
 
+export interface CommercialTerms {
+  basePriceIdr: number;
+  discountPercentage: number;
+  discountAmountIdr: number;
+  subtotalIdr: number;
+  taxPercentage: number;
+  taxAmountIdr: number;
+  totalIdr: number;
+  paymentTerms: readonly [
+    { label: "DP"; percentage: 50; amountIdr: number },
+    { label: "Setelah implementasi"; percentage: 50; amountIdr: number },
+  ];
+}
+
+function assertPercentage(name: string, value: number, maximum: number): void {
+  if (!Number.isFinite(value) || value < 0 || value > maximum) {
+    throw new RangeError(`${name} must be between 0 and ${maximum}`);
+  }
+}
+
+export function calculateCommercialTerms(input: {
+  basePriceIdr: number;
+  discountPercentage: number;
+  taxPercentage: number;
+}): CommercialTerms {
+  if (!Number.isInteger(input.basePriceIdr) || input.basePriceIdr < 0) {
+    throw new RangeError("basePriceIdr must be a non-negative integer");
+  }
+  assertPercentage("discountPercentage", input.discountPercentage, 30);
+  assertPercentage("taxPercentage", input.taxPercentage, 20);
+
+  const discountAmountIdr = Math.round(input.basePriceIdr * (input.discountPercentage / 100));
+  const subtotalIdr = input.basePriceIdr - discountAmountIdr;
+  const taxAmountIdr = Math.round(subtotalIdr * (input.taxPercentage / 100));
+  const totalIdr = subtotalIdr + taxAmountIdr;
+  const dpAmountIdr = Math.round(totalIdr / 2);
+
+  return {
+    basePriceIdr: input.basePriceIdr,
+    discountPercentage: input.discountPercentage,
+    discountAmountIdr,
+    subtotalIdr,
+    taxPercentage: input.taxPercentage,
+    taxAmountIdr,
+    totalIdr,
+    paymentTerms: [
+      { label: "DP", percentage: 50, amountIdr: dpAmountIdr },
+      { label: "Setelah implementasi", percentage: 50, amountIdr: totalIdr - dpAmountIdr },
+    ],
+  };
+}
+
+export function createProposalNumber(issueDate: string, sequence: number): string {
+  const date = new Date(`${issueDate}T00:00:00.000Z`);
+  if (Number.isNaN(date.valueOf()) || !Number.isInteger(sequence) || sequence < 1 || sequence > 9999) {
+    throw new RangeError("Invalid proposal number input");
+  }
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+  return `PRP/QIRA/${year}/${month}/${String(sequence).padStart(3, "0")}`;
+}
+
+export function calculateValidUntil(issueDate: string, validityDays = 14): string {
+  if (!Number.isInteger(validityDays) || validityDays < 1 || validityDays > 90) {
+    throw new RangeError("validityDays must be between 1 and 90");
+  }
+  const date = new Date(`${issueDate}T00:00:00.000Z`);
+  if (Number.isNaN(date.valueOf())) throw new RangeError("Invalid issue date");
+  date.setUTCDate(date.getUTCDate() + validityDays);
+  return date.toISOString().slice(0, 10);
+}
+
 export const PROPOSAL_PACKAGES: readonly ProposalPackage[] = Object.freeze([
   {
     id: "digital-foundation",
@@ -89,4 +161,3 @@ export function createProposalPreview(input: {
     commercialStatus: "indicative",
   };
 }
-
