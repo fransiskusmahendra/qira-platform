@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   calculateDiscoveryScores,
@@ -9,6 +10,12 @@ import {
   type ServiceId,
 } from "@qira/domain";
 import styles from "../discovery.module.css";
+import {
+  clearDiscoveryDraft,
+  DISCOVERY_DRAFT_VERSION,
+  readDiscoveryDraft,
+  writeDiscoveryDraft,
+} from "../_lib/draft";
 
 interface ServiceOption {
   id: ServiceId;
@@ -29,11 +36,39 @@ const SCORE_LABELS = {
 } as const;
 
 export function DiscoveryForm({ services }: DiscoveryFormProps) {
+  const router = useRouter();
   const [serviceId, setServiceId] = useState<ServiceId>(services[0]?.id ?? "discovery");
   const [answers, setAnswers] = useState<Answers>({});
   const [consented, setConsented] = useState(false);
   const [showValidation, setShowValidation] = useState(false);
   const [assessment, setAssessment] = useState({ impact: 3, readiness: 3, complexity: 3 });
+  const [draftReady, setDraftReady] = useState(false);
+  const [draftMessage, setDraftMessage] = useState("Draft lokal belum dibuat.");
+
+  useEffect(() => {
+    const draft = readDiscoveryDraft();
+    if (draft) {
+      setServiceId(draft.serviceId);
+      setAnswers(draft.answers);
+      setAssessment(draft.assessment);
+      setConsented(draft.consented);
+      setDraftMessage("Draft dari tab ini berhasil dipulihkan.");
+    }
+    setDraftReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!draftReady) return;
+    writeDiscoveryDraft({
+      schemaVersion: DISCOVERY_DRAFT_VERSION,
+      serviceId,
+      answers,
+      assessment,
+      consented,
+      savedAt: new Date().toISOString(),
+    });
+    setDraftMessage("Draft tersimpan sementara di tab ini.");
+  }, [answers, assessment, consented, draftReady, serviceId]);
 
   const questionnaire = useMemo(() => getDiscoveryQuestionnaire(serviceId), [serviceId]);
   const missing = useMemo(
@@ -62,6 +97,18 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
   function handlePreview(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setShowValidation(true);
+    if (ready) {
+      router.push("/discovery/review");
+    }
+  }
+
+  function removeDraft() {
+    clearDiscoveryDraft();
+    setAnswers({});
+    setAssessment({ impact: 3, readiness: 3, complexity: 3 });
+    setConsented(false);
+    setShowValidation(false);
+    setDraftMessage("Draft lokal sudah dihapus.");
   }
 
   const ready = missing.length === 0 && consented;
@@ -84,6 +131,10 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
         <div className={styles.safetyNote}>
           <strong>Anda tetap memegang kendali.</strong>
           <p>AI tidak membuat komitmen harga atau keputusan final tanpa review QIRA.</p>
+        </div>
+        <div className={styles.draftStatus}>
+          <span>{draftMessage}</span>
+          <button type="button" onClick={removeDraft}>Hapus draft</button>
         </div>
       </aside>
 
@@ -191,7 +242,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
             <span>Saya memahami bahwa ini adalah preview dan jawaban belum dikirim atau disimpan oleh QIRA.</span>
           </label>
           <button className={styles.submitButton} type="submit">
-            Periksa kesiapan Discovery
+            {ready ? "Buka ringkasan Discovery" : "Periksa kesiapan Discovery"}
           </button>
           {showValidation ? (
             <div className={ready ? styles.successMessage : styles.errorMessage} role="status">
@@ -205,4 +256,3 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
     </form>
   );
 }
-

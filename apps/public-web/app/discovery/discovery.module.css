@@ -19,6 +19,8 @@
 .safetyNote { padding-top: 24px; border-top: 1px solid #263b54; }
 .safetyNote strong { font-size: 13px; }
 .safetyNote p { margin: 8px 0 0; color: #aebacc; font-size: 12px; line-height: 1.5; }
+.draftStatus { display: grid; gap: 9px; margin-top: 22px; color: #aebacc; font-size: 11px; line-height: 1.4; }
+.draftStatus button { width: fit-content; padding: 0; border: 0; border-bottom: 1px solid #6f8299; background: transparent; color: white; font: inherit; cursor: pointer; }
 .formContent { display: grid; gap: 16px; }
 .formSection, .consentSection { padding: clamp(26px, 4vw, 48px); border: 1px solid #dce3ec; border-radius: 22px; background: white; }
 .sectionNumber { font-family: var(--font-geist-mono), monospace; font-size: 12px; font-weight: 700; }
@@ -54,6 +56,30 @@
 .successMessage { background: #e8f7ef; color: #14633b; }
 .errorMessage { background: #fff0f1; color: #972638; }
 .footer { width: min(1240px, calc(100% - 40px)); min-height: 150px; margin: auto; display: flex; align-items: center; justify-content: space-between; color: #68778a; font-size: 12px; }
+.reviewPage { width: min(1080px, calc(100% - 40px)); margin: 0 auto; padding: 80px 0 120px; display: grid; gap: 18px; }
+.reviewHeader { display: flex; align-items: end; justify-content: space-between; gap: 30px; padding-bottom: 40px; }
+.reviewHeader h1, .reviewState h1 { margin: 12px 0; font-size: clamp(44px, 7vw, 78px); line-height: 1; letter-spacing: -.055em; }
+.reviewHeader > div > p:last-child, .reviewState > p { color: #66758a; }
+.reviewPanel { padding: clamp(26px, 5vw, 50px); border: 1px solid #dce3ec; border-radius: 22px; background: white; }
+.reviewPanel h2 { margin: 0 0 26px; font-size: 30px; letter-spacing: -.035em; }
+.answerList { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.answerList article { padding: 18px; border-radius: 13px; background: #f5f7fa; }
+.answerList span { color: #66758a; font-size: 12px; }
+.answerList p { margin: 9px 0 0; line-height: 1.5; white-space: pre-wrap; }
+.reviewScoreGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.reviewScoreGrid article { padding: 22px; border: 1px solid #dce3ec; border-radius: 15px; }
+.reviewScoreGrid > article > span { color: #66758a; font-size: 13px; }
+.reviewScoreGrid strong { display: block; margin: 12px 0; color: #1769ff; font-size: 45px; }
+.reviewScoreGrid strong small { font-size: 13px; }
+.reviewScoreGrid p { min-height: 76px; color: #66758a; font-size: 13px; line-height: 1.5; }
+.reviewScoreGrid details { padding-top: 12px; border-top: 1px solid #e2e7ee; font-size: 12px; }
+.reviewScoreGrid summary { cursor: pointer; font-weight: 650; }
+.factorRow { display: flex; justify-content: space-between; gap: 12px; margin-top: 9px; color: #66758a; }
+.reviewHint { color: #66758a; }
+.decisionActions { display: flex; gap: 12px; margin: 24px 0; }
+.decisionActions button, .reviewLink, .reviewLinkSecondary { min-height: 48px; padding: 0 20px; border: 1px solid #cbd6e4; border-radius: 999px; background: white; color: #071a33; font: inherit; font-weight: 680; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+.decisionActions button:last-child, .reviewLink { border-color: #1769ff; background: #1769ff; color: white; }
+.reviewState { min-height: 100vh; padding: 40px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
 @media (max-width: 850px) {
   .workspace { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -65,9 +91,10 @@
   .intro { width: min(100% - 28px, 900px); margin-top: 55px; }
   .previewBadge { font-size: 10px; }
   .serviceOptions, .scoreGrid { grid-template-columns: 1fr; }
+  .answerList, .reviewScoreGrid { grid-template-columns: 1fr; }
+  .reviewHeader, .decisionActions { align-items: stretch; flex-direction: column; }
   .steps { grid-template-columns: 1fr; }
   .formSection, .consentSection { border-radius: 17px; }
   .footer { align-items: flex-start; justify-content: center; flex-direction: column; gap: 7px; }
 }
 @media (prefers-reduced-motion: reduce) { .progressTrack span { transition: none; } }
-
