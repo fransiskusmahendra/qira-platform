@@ -35,6 +35,7 @@ export default async function WorkspacePage() {
         <article><span>Discovery terlihat</span><strong>{discoveries?.length ?? 0}</strong></article>
       </section>
       <section className={styles.panel}>
+        {canManageProposals && <Link className={styles.primaryAction} href="/workspace/invitations">Kelola undangan</Link>}
         <div className={styles.panelHeading}><div><p className={styles.kicker}>Discovery terbaru</p><h2>Submission untuk direview</h2></div><Link className={styles.primaryAction} href="/discovery">Mulai Discovery</Link></div>
         {!discoveries?.length && <p className={styles.empty}>Belum ada Discovery resmi pada organisasi ini.</p>}
         {discoveries?.map((discovery) => <Link className={styles.row} href={`/workspace/discoveries/${discovery.id}`} key={discovery.id}><strong>{discovery.service_ids.join(", ")}</strong><span>Versi {discovery.version}</span><span>{discovery.status}</span></Link>)}

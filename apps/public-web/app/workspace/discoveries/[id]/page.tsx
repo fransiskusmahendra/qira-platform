@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { createClient } from "../../../../lib/supabase/server";
 import { transitionDiscovery } from "../actions";
 import styles from "../../workspace.module.css";
+import { downloadEvidence, uploadEvidence } from "./evidence-actions";
 
 export default async function DiscoveryDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -11,10 +12,11 @@ export default async function DiscoveryDetailPage({ params }: { params: Promise<
   const { data: claimsData } = await supabase.auth.getClaims();
   if (!claimsData?.claims?.sub) redirect("/login");
 
-  const [{ data: discovery }, { data: memberships }, { data: auditEvents }] = await Promise.all([
+  const [{ data: discovery }, { data: memberships }, { data: auditEvents }, { data: evidence }] = await Promise.all([
     supabase.from("discoveries").select("*").eq("id", id).maybeSingle(),
     supabase.from("memberships").select("role").eq("status", "active"),
     supabase.from("audit_events").select("action, reason, occurred_at").eq("resource_id", id).order("occurred_at", { ascending: false }),
+    (supabase as any).from("evidence").select("id, original_name, size_bytes, scan_status, checksum_sha256").eq("discovery_id", id),
   ]);
   if (!discovery) notFound();
   const canReview = memberships?.some(({ role }) => role === "qira_admin" || role === "qira_consultant");
@@ -35,6 +37,7 @@ export default async function DiscoveryDetailPage({ params }: { params: Promise<
       <form action={transitionDiscovery}><input type="hidden" name="discovery_id" value={id}/><input type="hidden" name="target_status" value="approved"/><button className={styles.primaryAction} type="submit">Setujui Discovery</button></form>
       <form action={transitionDiscovery}><input type="hidden" name="discovery_id" value={id}/><input type="hidden" name="target_status" value="draft"/><label>Alasan dikembalikan <input name="reason" required/></label><button type="submit">Kembalikan ke draft</button></form>
     </section>}
+    <section className={styles.panel}><h2>Evidence privat</h2><form action={uploadEvidence}><input type="hidden" name="discovery_id" value={id}/><input name="file" type="file" accept=".pdf,.png,.jpg,.jpeg,.txt" required/><button type="submit">Upload evidence</button></form>{evidence?.map((e:any)=><form action={downloadEvidence} className={styles.row} key={e.id}><input type="hidden" name="evidence_id" value={e.id}/><strong>{e.original_name}</strong><span>{Math.ceil(e.size_bytes/1024)} KB · {e.scan_status}</span><button>Download 60 detik</button></form>)}</section>
     <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Audit</p><h2>Riwayat keputusan</h2></div></div>
       {!auditEvents?.length && <p className={styles.empty}>Belum ada audit event yang dapat dilihat.</p>}
       {auditEvents?.map((event) => <div className={styles.row} key={`${event.action}-${event.occurred_at}`}><strong>{event.action}</strong><span>{event.reason ?? "—"}</span><span>{new Date(event.occurred_at).toLocaleString("id-ID")}</span></div>)}

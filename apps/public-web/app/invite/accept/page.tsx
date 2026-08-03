@@ -1,0 +1,2 @@
+import { redirect } from "next/navigation"; import { createClient } from "../../../lib/supabase/server";
+export default async function Page({searchParams}:{searchParams:Promise<{token?:string}>}){const {token}=await searchParams;if(!token)redirect("/login");const s:any=await createClient();const {error}=await s.rpc("accept_invitation",{invitation_token:token});if(error)return <main><h1>Undangan tidak valid</h1><p>Token sudah dipakai, kedaluwarsa, atau email tidak cocok.</p></main>;redirect("/workspace")}
