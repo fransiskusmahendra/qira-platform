@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "../../lib/supabase/server";
 import { signOut } from "./actions";
+import { markNotificationRead } from "./notifications/actions";
 import styles from "./workspace.module.css";
 
 export default async function WorkspacePage() {
@@ -11,12 +12,13 @@ export default async function WorkspacePage() {
   const userId = claimsData?.claims?.sub;
   if (!userId) redirect("/login");
 
-  const [{ data: memberships }, { data: proposals }, { data: discoveries }, { data: decisions }, { data: clientEvents }] = await Promise.all([
+  const [{ data: memberships }, { data: proposals }, { data: discoveries }, { data: decisions }, { data: clientEvents }, { data: notifications }] = await Promise.all([
     supabase.from("memberships").select("organization_id, role, organizations(name, slug)").eq("status", "active"),
     supabase.from("proposals").select("id, proposal_number, client_name, status, version, valid_until, updated_at").order("updated_at", { ascending: false }).limit(100),
     supabase.from("discoveries").select("id, service_ids, status, version, updated_at").order("updated_at", { ascending: false }).limit(10),
     (supabase as any).from("proposal_client_decisions").select("id,proposal_id,proposal_version,decision,comment,decided_at").order("decided_at", { ascending: false }).limit(100),
     (supabase as any).from("proposal_client_events").select("id,proposal_id,proposal_version,event_type,occurred_at").order("occurred_at", { ascending: false }).limit(20),
+    (supabase as any).from("notifications").select("id,proposal_id,title,body,created_at,read_at,email_status").order("created_at",{ascending:false}).limit(20),
   ]);
   const canManageProposals = memberships?.some((item) => item.role === "qira_consultant" || item.role === "qira_admin");
   const isClientOnly = !canManageProposals && memberships?.some((item) => item.role === "client_viewer" || item.role === "client_member");
@@ -60,6 +62,7 @@ export default async function WorkspacePage() {
         <article><span>Diterima klien</span><strong>{acceptedProposals.length}</strong><small>Keputusan accepted pada versi aktif.</small></article>
         <article><span>Berakhir ≤ 7 hari</span><strong>{expiringSoon.length}</strong><small>Perlu follow-up sebelum masa berlaku habis.</small></article>
       </section>
+      <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Notification inbox</p><h2>Notifikasi tim QIRA</h2></div><span className={styles.neutralBadge}>{notifications?.filter((item:any)=>!item.read_at).length??0} belum dibaca</span></div>{!notifications?.length&&<p className={styles.empty}>Belum ada notifikasi.</p>}{notifications?.slice(0,8).map((item:any)=><div className={styles.attentionRow} key={item.id}><Link href={item.proposal_id?`/workspace/proposals/${item.proposal_id}`:"/workspace"}><strong>{item.title}</strong><p>{item.body} · {new Date(item.created_at).toLocaleString("id-ID")}</p></Link>{!item.read_at&&<form action={markNotificationRead}><input name="notification_id" type="hidden" value={item.id}/><button type="submit">Tandai dibaca</button></form>}</div>)}</section>
       <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Action queue</p><h2>Tindak lanjut prioritas</h2></div></div>{!revisionRequests.length && !expiringSoon.length && !awaitingResponse.length && <p className={styles.empty}>Tidak ada proposal yang memerlukan tindak lanjut saat ini.</p>}{revisionRequests.map((proposal) => <Link className={styles.attentionRow} href={`/workspace/proposals/${proposal.id}`} key={`revision-${proposal.id}`}><div><strong>{proposal.client_name}</strong><p>{decisionByVersion.get(`${proposal.id}:${proposal.version}`)?.comment}</p></div><span className={styles.urgentBadge}>Buat revisi</span></Link>)}{expiringSoon.filter((proposal) => !revisionRequests.some((item) => item.id === proposal.id)).map((proposal) => <Link className={styles.attentionRow} href={`/workspace/proposals/${proposal.id}`} key={`expiry-${proposal.id}`}><div><strong>{proposal.client_name}</strong><p>{proposal.proposal_number} · berlaku sampai {proposal.valid_until}</p></div><span className={styles.warningBadge}>Segera berakhir</span></Link>)}{awaitingResponse.filter((proposal) => !expiringSoon.some((item) => item.id === proposal.id)).slice(0, 5).map((proposal) => <Link className={styles.attentionRow} href={`/workspace/proposals/${proposal.id}`} key={`waiting-${proposal.id}`}><div><strong>{proposal.client_name}</strong><p>{proposal.proposal_number} · versi {proposal.version}</p></div><span className={styles.neutralBadge}>Follow-up</span></Link>)}</section>
       <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Client activity</p><h2>Aktivitas terbaru</h2></div></div>{!clientEvents?.length && <p className={styles.empty}>Belum ada aktivitas klien.</p>}{clientEvents?.slice(0, 8).map((event: any) => { const proposal = proposalById.get(event.proposal_id); return <Link className={styles.row} href={`/workspace/proposals/${event.proposal_id}`} key={event.id}><strong>{proposal?.client_name ?? "Proposal"}</strong><span>PDF diunduh · versi {event.proposal_version}</span><span>{new Date(event.occurred_at).toLocaleString("id-ID")}</span></Link>; })}</section></>}
       <section className={styles.panel}>
