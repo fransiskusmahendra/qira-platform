@@ -236,6 +236,12 @@ export type Database = {
           },
         ]
       }
+      proposal_exports: {
+        Row: { checksum_sha256: string; format: string; generated_at: string; generated_by: string; id: string; organization_id: string; proposal_id: string; proposal_version: number }
+        Insert: { checksum_sha256: string; format?: string; generated_at?: string; generated_by: string; id?: string; organization_id: string; proposal_id: string; proposal_version: number }
+        Update: never
+        Relationships: []
+      }
       proposals: {
         Row: {
           approved_at: string | null
@@ -325,6 +331,10 @@ export type Database = {
           target_organization_id: string
         }
         Returns: Database["public"]["Tables"]["discoveries"]["Row"][]
+      }
+      record_proposal_export: {
+        Args: { pdf_checksum_sha256: string; target_proposal_id: string }
+        Returns: string
       }
       transition_discovery: {
         Args: {
