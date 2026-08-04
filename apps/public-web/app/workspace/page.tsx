@@ -17,6 +17,8 @@ export default async function WorkspacePage() {
     supabase.from("discoveries").select("id, service_ids, status, version, updated_at").order("updated_at", { ascending: false }).limit(10),
   ]);
   const canManageProposals = memberships?.some((item) => item.role === "qira_consultant" || item.role === "qira_admin");
+  const isClientOnly = !canManageProposals && memberships?.some((item) => item.role === "client_viewer" || item.role === "client_member");
+  if (isClientOnly) redirect("/client");
 
   return (
     <main className={styles.page}>
