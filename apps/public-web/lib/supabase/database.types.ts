@@ -242,6 +242,37 @@ export type Database = {
         Update: never
         Relationships: []
       }
+      proposal_email_deliveries: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          id: string
+          organization_id: string
+          proposal_id: string
+          provider_message_id: string | null
+          recipient_email: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          organization_id: string
+          proposal_id: string
+          provider_message_id?: string | null
+          recipient_email: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          error_message?: string | null
+          provider_message_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       proposals: {
         Row: {
           approved_at: string | null
@@ -257,6 +288,7 @@ export type Database = {
           organization_id: string
           proposal_number: string
           recipient_name: string
+          recipient_email: string | null
           status: string
           updated_at: string
           valid_until: string
@@ -276,6 +308,7 @@ export type Database = {
           organization_id: string
           proposal_number: string
           recipient_name: string
+          recipient_email?: string | null
           status?: string
           updated_at?: string
           valid_until: string
@@ -295,6 +328,7 @@ export type Database = {
           organization_id?: string
           proposal_number?: string
           recipient_name?: string
+          recipient_email?: string | null
           status?: string
           updated_at?: string
           valid_until?: string
@@ -350,6 +384,7 @@ export type Database = {
           issued_on: string
           proposal_no: string
           recipient: string
+          recipient_email_address: string
           source_discovery_id: string
           target_organization_id: string
           terms: Json
@@ -373,6 +408,7 @@ export type Database = {
           organization_id: string
           proposal_number: string
           recipient_name: string
+          recipient_email: string | null
           status: string
           updated_at: string
           valid_until: string

@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createClient } from "../../../lib/supabase/server";
+import { sendProposalSharedEmail } from "../../../lib/email/proposal-shared";
 
 const QIRA_ROLES = new Set(["qira_consultant", "qira_admin"]);
 
@@ -33,11 +34,12 @@ export async function createProposal(formData: FormData) {
   const { supabase, organizationId } = await getAuthorizedContext();
   const client = String(formData.get("client_name") ?? "").trim();
   const recipient = String(formData.get("recipient_name") ?? "").trim();
+  const recipientEmail = String(formData.get("recipient_email") ?? "").trim().toLowerCase();
   const issueDate = String(formData.get("issue_date") ?? "");
   const validUntil = String(formData.get("valid_until") ?? "");
   const packageId = String(formData.get("package_id") ?? "digital-foundation");
   const discoveryId = String(formData.get("discovery_id") ?? "");
-  if (!client || !recipient || !issueDate || !validUntil || !discoveryId) redirect("/workspace/proposals/new?error=required");
+  if (!client || !recipient || !recipientEmail || !issueDate || !validUntil || !discoveryId) redirect("/workspace/proposals/new?error=required");
 
   const terms = {
     packageId,
@@ -56,6 +58,7 @@ export async function createProposal(formData: FormData) {
     proposal_no: proposalNumber,
     client,
     recipient,
+    recipient_email_address: recipientEmail,
     issued_on: issueDate,
     valid_through: validUntil,
     terms,
@@ -78,9 +81,48 @@ export async function transitionProposal(formData: FormData) {
   });
   if (error) redirect(`/workspace/proposals/${proposalId}?error=transition`);
 
+  let emailResult: "sent" | "failed" | null = null;
+  if (targetStatus === "shared") {
+    const { data: proposal } = await (supabase as any)
+      .from("proposals")
+      .select("id,organization_id,proposal_number,client_name,recipient_name,recipient_email")
+      .eq("id", proposalId)
+      .single();
+
+    if (proposal?.recipient_email) {
+      const { data: delivery, error: deliveryError } = await (supabase as any)
+        .from("proposal_email_deliveries")
+        .insert({
+          organization_id: proposal.organization_id,
+          proposal_id: proposal.id,
+          recipient_email: proposal.recipient_email,
+          status: "pending",
+        })
+        .select("id")
+        .single();
+
+      if (!deliveryError && delivery) {
+        const result = await sendProposalSharedEmail({
+          proposalId: proposal.id,
+          proposalNumber: proposal.proposal_number,
+          clientName: proposal.client_name,
+          recipientName: proposal.recipient_name,
+          recipientEmail: proposal.recipient_email,
+        });
+        emailResult = result.ok ? "sent" : "failed";
+        await (supabase as any).from("proposal_email_deliveries").update({
+          status: emailResult,
+          provider_message_id: result.ok ? result.messageId : null,
+          error_message: result.ok ? null : result.error.slice(0, 500),
+          updated_at: new Date().toISOString(),
+        }).eq("id", delivery.id);
+      }
+    }
+  }
+
   revalidatePath("/workspace");
   revalidatePath(`/workspace/proposals/${proposalId}`);
-  redirect(`/workspace/proposals/${proposalId}`);
+  redirect(`/workspace/proposals/${proposalId}${emailResult ? `?email=${emailResult}` : ""}`);
 }
 
 export async function createProposalRevision(formData: FormData) {
