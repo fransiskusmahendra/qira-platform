@@ -11,7 +11,7 @@ const rupiah = new Intl.NumberFormat("id-ID", { style: "currency", currency: "ID
 
 interface ProposalPageProps {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ error?: string; revision?: string }>;
+  searchParams: Promise<{ email?: string; error?: string; revision?: string }>;
 }
 
 function parseTerms(value: Json) {
@@ -51,6 +51,8 @@ export default async function ProposalPage({ params, searchParams }: ProposalPag
     <main className={styles.page}>
       <header className={styles.header}><Link className={styles.brand} href="/workspace">QIRA.</Link><Link href="/workspace">← Semua proposal</Link></header>
       {query.error && <p className={styles.alert}>Perubahan status ditolak. Muat ulang halaman dan periksa role Anda.</p>}
+      {query.email === "sent" && <p className={styles.success}>Proposal dibagikan dan notifikasi email berhasil dikirim kepada pelanggan.</p>}
+      {query.email === "failed" && <p className={styles.alert}>Proposal berhasil dibagikan, tetapi email belum terkirim. Periksa verifikasi domain Resend sebelum mencoba kembali.</p>}
       {query.revision === "1" && <p className={styles.success}>Versi revisi berhasil dibuat sebagai draft. Proposal harus melalui review dan approval lagi sebelum dibagikan.</p>}
       <section className={styles.detailHero}><div><p className={styles.kicker}>{proposal.proposal_number}</p><h1>{proposal.client_name}</h1><p>Untuk {proposal.recipient_name} · berlaku sampai {proposal.valid_until}</p></div><span className={styles.status}>{proposal.status}</span></section>
       <section className={styles.grid}><article><span>Total proposal</span><strong>{rupiah.format(commercial.totalIdr)}</strong></article><article><span>DP {commercial.downPaymentPercent}%</span><strong>{rupiah.format(commercial.downPaymentAmountIdr)}</strong></article><article><span>Versi tersimpan</span><strong>{versions?.length ?? 0}</strong></article></section>
