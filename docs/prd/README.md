@@ -13,9 +13,11 @@ Only one primary outcome should be in active implementation at a time. A PRD mov
 | Order | PRD | Outcome | State |
 |---:|---|---|---|
 | 1 | PRD-0001 Public Platform | Visitors understand QIRA and initiate Discovery | In Progress |
-| 2 | PRD-0004 Discovery Workspace | A prospect completes structured discovery online | Candidate |
-| 3 | PRD-0006 AI Proposal Generator | QIRA produces a reviewed proposal from discovery evidence | Candidate |
-| 4 | PRD-0005 Client Workspace | A client can access work and deliverables securely | Candidate |
+| 2 | PRD-0004 Discovery Workspace | A prospect completes structured discovery online | In Progress |
+| 3 | PRD-0006 AI Proposal Generator | QIRA produces a reviewed proposal from discovery evidence | In Progress |
+| 4 | PRD-0005 Client Workspace | A client can access work and deliverables securely | Review |
+
+Implementation status reflects the currently deployed MVP subset, not the full strategic scope of each PRD. Release decisions remain subject to the gates in [MVP-RELEASE-READINESS.md](MVP-RELEASE-READINESS.md).
 
 All other PRDs remain strategic backlog until QIRA has validated the preceding customer need.
 

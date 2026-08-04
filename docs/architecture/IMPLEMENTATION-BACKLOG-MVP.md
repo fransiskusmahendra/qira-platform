@@ -2,15 +2,16 @@
 
 **Status:** Active
 **Owner:** QIRA
-**Last Updated:** 2026-08-03
+**Last Updated:** 2026-08-04
 
 This backlog turns the approved delivery sequence into independently demonstrable increments. Estimates are relative, not commercial commitments.
 
 ## Current delivery checkpoint
 
-- MVP-001, MVP-002, and the authenticated internal portion of MVP-003 are implemented.
-- MVP-004, MVP-005, MVP-006, MVP-008, and MVP-009 are in progress through the production Discovery workflow.
-- Prospect invitation, evidence upload, immutable approved snapshots, and proposal PDF export remain release blockers.
+- MVP-001 through MVP-010 are implemented in the production path.
+- MVP-012 through MVP-015 have a controlled, human-led implementation in production.
+- MVP-011 AI provider integration is deferred without blocking the human-led proposal workflow.
+- MVP-016 operational readiness is the active increment. See `docs/prd/MVP-RELEASE-READINESS.md`.
 
 | ID | Increment | Evidence of completion | Size | Depends on |
 |---|---|---|---:|---|
@@ -31,11 +32,25 @@ This backlog turns the approved delivery sequence into independently demonstrabl
 | MVP-015 | Client projection | Only shared approved content is visible | M | MVP-003, MVP-014 |
 | MVP-016 | Operational readiness | CI, audit, backup restore, runbook, and launch gate pass | L | All |
 
-## Suggested first development sprint
+## Current status by increment
 
-- MVP-001 Domain state machines.
-- MVP-002 Organization and tenant context.
-- MVP-004 Discovery question schema.
-- MVP-008 Scoring rules.
+| Increment | Status | Production evidence / remaining work |
+|---|---|---|
+| MVP-001–002 | Implemented | State-machine and tenant-boundary tests run in CI. |
+| MVP-003 | Implemented; validation open | Invitation acceptance exists; revocation SLA test remains. |
+| MVP-004–006 | Implemented | Dynamic Discovery, persisted draft, consent, and submission are deployed. |
+| MVP-007 | Implemented; enforcement open | Private evidence upload and metadata exist; malware scanning must move from hook/status to enforced processing. |
+| MVP-008–010 | Implemented | Deterministic scoring, consultant approval, and immutable snapshot handoff are deployed. |
+| MVP-011 | Deferred | Human-led proposal creation remains the approved fallback until an AI provider adapter is evaluated. |
+| MVP-012–015 | Implemented MVP subset | Versioning, commercial approval, PDF export, client projection, decisions, and activity tracking are deployed. AI regeneration remains deferred. |
+| MVP-016 | In Progress | Production smoke tests, backup-restore evidence, monitoring, KPI events, and launch sign-off remain. |
 
-The sprint demo should show the same synthetic Discovery producing repeatable scores, allowed state transitions succeeding, invalid transitions failing, and one tenant being unable to read another tenant's data.
+## Active operational sprint
+
+- Execute the authenticated production smoke-test matrix.
+- Prove backup restore and record the recovery evidence.
+- Enforce evidence malware-scan state before consultant download/use.
+- Add measurable funnel events for Discovery completion and proposal sharing.
+- Complete domain verification and one email-delivery test only after `myqira.io` is active.
+
+The sprint demo should show a synthetic prospect completing Discovery, a consultant approving and sharing a proposal, a client responding, all audit events remaining tenant-isolated, and operational evidence attached to the release checklist.
