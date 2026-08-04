@@ -47,3 +47,4 @@ export * from "./scoring.ts";
 export * from "./proposal.ts";
 export * from "./state-machine.ts";
 export * from "./tenancy.ts";
+export * from "./invitation.ts";

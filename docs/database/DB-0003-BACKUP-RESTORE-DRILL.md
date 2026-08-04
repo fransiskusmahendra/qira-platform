@@ -14,6 +14,13 @@
 
 Never run a restore drill against the production project. A destructive restore requires an explicitly selected non-production target and Founder approval immediately before execution.
 
+## Cost and production safety gate
+
+- Never run a restore drill against the production project.
+- As of 4 August 2026, a Supabase development branch for this organization costs US$0.01344/hour.
+- Create a temporary branch only after explicit cost approval, then delete it after evidence is captured.
+- If no non-production target is approved, record the drill as blocked rather than weakening this safety gate.
+
 ## Drill procedure
 
 1. Create or designate an isolated non-production Supabase project.
