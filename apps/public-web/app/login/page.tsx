@@ -4,7 +4,7 @@ import { signInWithMagicLink } from "./actions";
 import styles from "./login.module.css";
 
 interface LoginPageProps {
-  searchParams: Promise<{ sent?: string; error?: string }>;
+  searchParams: Promise<{ sent?: string; error?: string; next?: string }>;
 }
 
 export default async function LoginPage({ searchParams }: LoginPageProps) {
@@ -20,6 +20,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         {query.sent === "1" && <p className={styles.success}>Magic link sudah dikirim. Silakan periksa inbox Anda.</p>}
         {query.error && <p className={styles.error}>Link belum dapat dikirim. Periksa email dan coba kembali.</p>}
         <form action={signInWithMagicLink}>
+          <input name="next" type="hidden" value={query.next ?? "/workspace"} />
           <label htmlFor="email">Email kerja</label>
           <input id="email" name="email" type="email" autoComplete="email" required placeholder="nama@perusahaan.com" />
           <button type="submit">Kirim magic link</button>
