@@ -129,6 +129,50 @@ export type Database = {
         Update: never
         Relationships: []
       }
+      evidence: {
+        Row: {
+          checksum_sha256: string
+          created_at: string
+          discovery_id: string
+          id: string
+          mime_type: string
+          object_path: string
+          organization_id: string
+          original_name: string
+          scan_provider: string | null
+          scan_reference: string | null
+          scan_status: string
+          scanned_at: string | null
+          scanned_by: string | null
+          size_bytes: number
+          uploaded_by: string
+        }
+        Insert: {
+          checksum_sha256: string
+          created_at?: string
+          discovery_id: string
+          id?: string
+          mime_type: string
+          object_path: string
+          organization_id: string
+          original_name: string
+          scan_provider?: string | null
+          scan_reference?: string | null
+          scan_status?: string
+          scanned_at?: string | null
+          scanned_by?: string | null
+          size_bytes: number
+          uploaded_by: string
+        }
+        Update: {
+          scan_provider?: string | null
+          scan_reference?: string | null
+          scan_status?: string
+          scanned_at?: string | null
+          scanned_by?: string | null
+        }
+        Relationships: []
+      }
       memberships: {
         Row: {
           created_at: string
