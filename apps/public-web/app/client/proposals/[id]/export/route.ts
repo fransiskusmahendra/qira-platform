@@ -23,7 +23,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
   const { data: proposal } = await supabase
     .from("proposals")
-    .select("id,proposal_number,client_name,recipient_name,issue_date,valid_until,status,version,commercial_terms")
+    .select("id,organization_id,proposal_number,client_name,recipient_name,issue_date,valid_until,status,version,commercial_terms")
     .eq("id", id)
     .eq("status", "shared")
     .maybeSingle();
@@ -54,6 +54,15 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     discoverySummary: "Proposal ini merangkum ruang lingkup dan ketentuan komersial yang telah disetujui QIRA untuk dibagikan kepada klien.",
   });
   const checksum = createHash("sha256").update(bytes).digest("hex");
+  const { error: eventError } = await (supabase as any).from("proposal_client_events").insert({
+    proposal_id: proposal.id,
+    organization_id: proposal.organization_id,
+    proposal_version: proposal.version,
+    event_type: "pdf_downloaded",
+    checksum_sha256: checksum,
+    actor_id: claimsData.claims.sub,
+  });
+  if (eventError) return new NextResponse("Aktivitas unduhan gagal dicatat", { status: 500 });
   const filename = proposal.proposal_number.replace(/[^a-zA-Z0-9-]/g, "-");
 
   return new NextResponse(Buffer.from(bytes), {

@@ -31,11 +31,13 @@ export default async function ProposalPage({ params, searchParams }: ProposalPag
   const { data: claimsData } = await supabase.auth.getClaims();
   if (!claimsData?.claims?.sub) redirect("/login");
 
-  const [{ data: proposal }, { data: versions }, { data: events }, { data: exports }] = await Promise.all([
+  const [{ data: proposal }, { data: versions }, { data: events }, { data: exports }, { data: decisions }, { data: clientEvents }] = await Promise.all([
     supabase.from("proposals").select("*").eq("id", id).maybeSingle(),
     supabase.from("proposal_versions").select("id, version, created_at").eq("proposal_id", id).order("version"),
     supabase.from("audit_events").select("id, action, occurred_at").eq("resource_id", id).order("occurred_at", { ascending: false }),
     supabase.from("proposal_exports").select("id, checksum_sha256, generated_at").eq("proposal_id", id).order("generated_at", { ascending: false }),
+    (supabase as any).from("proposal_client_decisions").select("id,decision,comment,proposal_version,decided_at").eq("proposal_id", id).order("decided_at", { ascending: false }),
+    (supabase as any).from("proposal_client_events").select("id,event_type,proposal_version,occurred_at").eq("proposal_id", id).order("occurred_at", { ascending: false }).limit(20),
   ]);
   if (!proposal) notFound();
 
@@ -54,6 +56,7 @@ export default async function ProposalPage({ params, searchParams }: ProposalPag
         <article className={styles.panel}><p className={styles.kicker}>Audit timeline</p>{!events?.length && <p className={styles.empty}>Belum ada audit event.</p>}{events?.map((event) => <div className={styles.timelineRow} key={event.id}><strong>{event.action}</strong><time>{new Date(event.occurred_at).toLocaleString("id-ID")}</time></div>)}</article>
       </section>
       {(["approved", "shared"].includes(proposal.status)) && <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Approved export</p><h2>PDF proposal</h2></div><a className={styles.primaryAction} href={`/workspace/proposals/${proposal.id}/export`}>Download PDF</a></div><p>Setiap ekspor dicatat dengan checksum SHA-256 dan terikat pada versi approved.</p>{exports?.map((item) => <div className={styles.row} key={item.id}><strong>{new Date(item.generated_at).toLocaleString("id-ID")}</strong><span>{item.checksum_sha256.slice(0, 16)}...</span><span>PDF</span></div>)}</section>}
+      <section className={styles.detailGrid}><article className={styles.panel}><p className={styles.kicker}>Client decisions</p><h2>Respons klien</h2>{!decisions?.length && <p className={styles.empty}>Belum ada keputusan klien.</p>}{decisions?.map((item: any) => <div className={styles.timelineRow} key={item.id}><div><strong>{item.decision}</strong>{item.comment && <p>{item.comment}</p>}</div><time>v{item.proposal_version} · {new Date(item.decided_at).toLocaleString("id-ID")}</time></div>)}</article><article className={styles.panel}><p className={styles.kicker}>Client activity</p><h2>Aktivitas proposal</h2>{!clientEvents?.length && <p className={styles.empty}>Belum ada aktivitas klien.</p>}{clientEvents?.map((item: any) => <div className={styles.timelineRow} key={item.id}><strong>PDF diunduh</strong><time>v{item.proposal_version} · {new Date(item.occurred_at).toLocaleString("id-ID")}</time></div>)}</article></section>
     </main>
   );
 }
