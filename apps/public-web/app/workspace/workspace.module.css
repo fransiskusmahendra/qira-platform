@@ -24,7 +24,9 @@
 .proposalForm fieldset { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 0; padding: 22px; border: 1px solid var(--line); border-radius: 14px; }
 .proposalForm legend { padding: 0 8px; font-weight: 750; }
 .proposalForm label { display: grid; gap: 7px; color: var(--muted); font-size: 13px; font-weight: 650; }
-.proposalForm input, .proposalForm select { min-height: 48px; padding: 0 13px; border: 1px solid var(--line); border-radius: 9px; background: white; color: var(--ink); font: inherit; }
+.proposalForm input, .proposalForm select, .proposalForm textarea { min-height: 48px; padding: 12px 13px; border: 1px solid var(--line); border-radius: 9px; background: white; color: var(--ink); font: inherit; }
+.proposalForm textarea { resize: vertical; }
+.success { padding: 14px 18px; border: 1px solid #9ad8bd; border-radius: 12px; background: #e9f8f0; color: #155f43; }
 .primaryAction { display: inline-flex; align-items: center; justify-content: center; width: fit-content; min-height: 45px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--blue); color: white; font: inherit; font-weight: 700; cursor: pointer; }
 .alert { margin: 0 0 20px; padding: 14px 16px; border-radius: 12px; background: #fff0f0; color: #9a2424; }
 .detailHero { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; }
