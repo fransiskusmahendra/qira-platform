@@ -82,3 +82,37 @@ export async function transitionProposal(formData: FormData) {
   revalidatePath(`/workspace/proposals/${proposalId}`);
   redirect(`/workspace/proposals/${proposalId}`);
 }
+
+export async function createProposalRevision(formData: FormData) {
+  const { supabase } = await getAuthorizedContext();
+  const proposalId = String(formData.get("proposal_id") ?? "");
+  const destination = `/workspace/proposals/${encodeURIComponent(proposalId)}`;
+  const validUntil = String(formData.get("valid_until") ?? "");
+  if (!proposalId || !validUntil) redirect(`${destination}?error=revision`);
+
+  const readNumber = (name: string, maximum = Number.MAX_SAFE_INTEGER) => {
+    const value = Number(formData.get(name));
+    if (!Number.isFinite(value) || value < 0 || value > maximum) redirect(`${destination}?error=revision`);
+    return value;
+  };
+  const revisedTerms = {
+    packageId: String(formData.get("package_id") ?? "custom"),
+    basePriceIdr: readNumber("base_price"),
+    discountPercent: readNumber("discount_percent", 100),
+    taxPercent: readNumber("tax_percent", 100),
+    downPaymentPercent: readNumber("down_payment_percent", 100),
+  };
+  calculateCommercialTerms(revisedTerms);
+
+  const { error } = await (supabase as any).rpc("create_proposal_revision", {
+    target_proposal_id: proposalId,
+    revised_terms: revisedTerms,
+    valid_through: validUntil,
+  });
+  if (error) redirect(`${destination}?error=revision`);
+
+  revalidatePath("/workspace");
+  revalidatePath(destination);
+  revalidatePath(`/client/proposals/${proposalId}`);
+  redirect(`${destination}?revision=1`);
+}
