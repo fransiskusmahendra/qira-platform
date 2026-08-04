@@ -15,7 +15,7 @@ interface ProposalPdfInput {
     totalIdr: number;
   };
   discoverySummary: string;
-  discoveryChecksum: string;
+  discoveryChecksum?: string;
 }
 
 const rupiah = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 });
@@ -82,7 +82,9 @@ export async function buildProposalPdf(input: ProposalPdfInput) {
   });
 
   page.drawText("Human approval required. Dokumen ini mengikuti versi Proposal dan Discovery yang terkunci.", { x: margin, y: 75, size: 8, font: regular, color: rgb(0.35, 0.4, 0.43) });
-  page.drawText(`Discovery SHA-256: ${input.discoveryChecksum}`, { x: margin, y: 58, size: 7, font: regular, color: rgb(0.35, 0.4, 0.43) });
+  if (input.discoveryChecksum) {
+    page.drawText(`Discovery SHA-256: ${input.discoveryChecksum}`, { x: margin, y: 58, size: 7, font: regular, color: rgb(0.35, 0.4, 0.43) });
+  }
   page.drawText("QIRA - PT Rays Solusi Informasi", { x: margin, y: 35, size: 8, font: bold, color: rgb(0.04, 0.45, 0.34) });
   return pdf.save();
 }

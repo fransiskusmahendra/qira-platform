@@ -11,7 +11,7 @@ export default async function InvitationsPage({ searchParams }: { searchParams: 
   const supabase: any = await createClient();
   const { data: memberships } = await supabase.from("memberships").select("role").eq("status", "active");
   if (!memberships?.some(({ role }: { role: string }) => role === "qira_admin")) redirect("/workspace");
-  const { data: invitations } = await supabase.from("invitations").select("id,email,role,status,expires_at,created_at").order("created_at", { ascending: false }).limit(20);
+  const { data: invitations } = await supabase.from("invitations").select("id,email,role,status,expires_at,created_at,accepted_at").order("created_at", { ascending: false }).limit(20);
   const headerList = await headers();
   const host = headerList.get("x-forwarded-host") ?? headerList.get("host") ?? "";
   const protocol = headerList.get("x-forwarded-proto") ?? "https";
@@ -26,6 +26,6 @@ export default async function InvitationsPage({ searchParams }: { searchParams: 
       <fieldset><legend>Penerima</legend><label>Email<input name="email" type="email" required /></label><label>Role<select name="role" defaultValue="client_viewer"><option value="prospect_member">Prospect member</option><option value="client_viewer">Client viewer</option><option value="client_member">Client member</option></select></label></fieldset>
       <button className={styles.primaryAction} type="submit">Buat invitation link</button>
     </form>
-    <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Riwayat</p><h2>Undangan terbaru</h2></div></div>{!invitations?.length && <p className={styles.empty}>Belum ada undangan.</p>}{invitations?.map((item: any) => <div className={styles.row} key={item.id}><strong>{item.email}</strong><span>{item.role}</span><span>{item.status} · {new Date(item.expires_at).toLocaleDateString("id-ID")}</span></div>)}</section>
+    <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Riwayat</p><h2>Undangan terbaru</h2></div></div>{!invitations?.length && <p className={styles.empty}>Belum ada undangan.</p>}{invitations?.map((item: any) => { const expired = item.status === "pending" && new Date(item.expires_at) < new Date(); const label = expired ? "expired" : item.status; return <div className={styles.row} key={item.id}><strong>{item.email}</strong><span>{item.role}</span><span>{label} · {item.accepted_at ? `diterima ${new Date(item.accepted_at).toLocaleDateString("id-ID")}` : `berlaku s.d. ${new Date(item.expires_at).toLocaleDateString("id-ID")}`}</span></div>; })}</section>
   </main>;
 }
