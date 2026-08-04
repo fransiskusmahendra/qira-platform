@@ -20,8 +20,8 @@ Prove the production journey `Discovery → consultant approval → proposal →
 | Discovery workflow | Implemented; validation open | Draft, consent, scoring, approval, evidence, and immutable snapshot exist. | Complete one synthetic end-to-end production run. |
 | Proposal workflow | Implemented; validation open | Approval, revision, PDF checksum, sharing, decisions, and notifications exist. | Validate approved amounts and PDF against the stored version. |
 | Client access | Implemented; validation open | Invitations and client-only projection exist. | Validate expired/reused invitation and revoked-member behavior. |
-| Evidence safety | Blocked | Private bucket and scan status hook exist. | Prevent unscanned/failed evidence from entering a trusted workflow. |
-| Product metrics | Blocked | Operational UI exists without the required funnel events. | Measure Discovery completion, time-to-proposal, share, and client decision. |
+| Evidence safety | Enforced; automation open | Uploads are quarantined by default; database and Storage policies allow download only after an Admin records a clean external scan reference. | Integrate an automatic malware scanner and remove the manual operational dependency. |
+| Product metrics | Baseline implemented | The workspace reports tenant-scoped Discovery approval, proposal creation/sharing, and client acceptance conversion. | Add period filters and time-to-proposal measurement after pilot data exists. |
 | Customer email | Deferred final gate | Resend integration and application code are deployed. | When `myqira.io` is active: publish DNS records, verify domain, and send one test email from `hello@myqira.io`. |
 
 ## Production smoke-test matrix
