@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { assertTenantAccess, canAccessTenantResource, TenantAccessDeniedError } from "../src/index.ts";
+import { assertTenantAccess, canAccessTenantResource, canRevokeMembership, TenantAccessDeniedError } from "../src/index.ts";
 
 const member = { actorId: "user-1", organizationId: "org-a", role: "prospect_member" as const };
 
@@ -26,3 +26,12 @@ test("admin cross-tenant support access requires a reason", () => {
   );
 });
 
+test("only a same-tenant admin can revoke another active member", () => {
+  const admin = { actorId: "admin-1", organizationId: "org-a", role: "qira_admin" as const };
+  const target = { userId: "member-1", organizationId: "org-a", status: "active" as const };
+  assert.equal(canRevokeMembership(admin, target), true);
+  assert.equal(canRevokeMembership({ ...admin, actorId: target.userId }, target), false);
+  assert.equal(canRevokeMembership({ ...admin, role: "qira_consultant" }, target), false);
+  assert.equal(canRevokeMembership(admin, { ...target, organizationId: "org-b" }), false);
+  assert.equal(canRevokeMembership(admin, { ...target, status: "suspended" }), false);
+});

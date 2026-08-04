@@ -16,6 +16,12 @@ export interface TenantResource {
   organizationId: string;
 }
 
+export interface MembershipTarget {
+  userId: string;
+  organizationId: string;
+  status: "active" | "suspended";
+}
+
 export class TenantAccessDeniedError extends Error {
   constructor() {
     super("Tenant access denied");
@@ -67,4 +73,11 @@ export function assertTenantAccess(
   if (!canAccessTenantResource(context, resource)) {
     throw new TenantAccessDeniedError();
   }
+}
+
+export function canRevokeMembership(context: TenantContext, target: MembershipTarget): boolean {
+  return context.role === "qira_admin"
+    && context.organizationId === target.organizationId
+    && context.actorId !== target.userId
+    && target.status === "active";
 }

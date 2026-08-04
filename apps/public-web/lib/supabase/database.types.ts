@@ -414,6 +414,14 @@ export type Database = {
         Args: { pdf_checksum_sha256: string; target_proposal_id: string }
         Returns: string
       }
+      revoke_membership: {
+        Args: {
+          revocation_reason: string
+          target_organization_id: string
+          target_user_id: string
+        }
+        Returns: boolean
+      }
       transition_discovery: {
         Args: {
           target_discovery_id: string

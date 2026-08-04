@@ -15,11 +15,12 @@ Prove the production journey `Discovery → consultant approval → proposal →
 |---|---|---|---|
 | Source and CI | Passed | GitHub CI passes typecheck and automated domain/persistence tests. | Keep required CI green on `main`. |
 | Production deployment | Passed | QIRA production deployment is Ready on Vercel. | Smoke test the canonical production alias after every release. |
-| Database migrations | Passed | Supabase migrations through customer proposal email delivery are applied. | Record backup-restore evidence. |
+| Database migrations | Passed | Supabase migrations through evidence scan enforcement are applied. | Keep migration and schema checks green. |
+| Backup and recovery | Ready; drill open | Production is healthy on PostgreSQL 17 and the non-production drill is defined in `DB-0003-BACKUP-RESTORE-DRILL.md`. | Execute only against an explicitly approved isolated target and record actual RTO evidence. |
 | Tenant isolation | Automated coverage passed | Domain and persistence tests reject cross-tenant access. | Add authenticated production smoke evidence for two organizations. |
 | Discovery workflow | Implemented; validation open | Draft, consent, scoring, approval, evidence, and immutable snapshot exist. | Complete one synthetic end-to-end production run. |
 | Proposal workflow | Implemented; validation open | Approval, revision, PDF checksum, sharing, decisions, and notifications exist. | Validate approved amounts and PDF against the stored version. |
-| Client access | Implemented; validation open | Invitations and client-only projection exist. | Validate expired/reused invitation and revoked-member behavior. |
+| Client access | Revocation implemented; validation open | Invitations, client projection, and immediate membership deactivation exist. | Validate expired/reused invitation and revoked-member behavior in the two-tenant smoke test. |
 | Evidence safety | Enforced; automation open | Uploads are quarantined by default; database and Storage policies allow download only after an Admin records a clean external scan reference. | Integrate an automatic malware scanner and remove the manual operational dependency. |
 | Product metrics | Baseline implemented | The workspace reports tenant-scoped Discovery approval, proposal creation/sharing, and client acceptance conversion. | Add period filters and time-to-proposal measurement after pilot data exists. |
 | Customer email | Deferred final gate | Resend integration and application code are deployed. | When `myqira.io` is active: publish DNS records, verify domain, and send one test email from `hello@myqira.io`. |
