@@ -3,7 +3,7 @@
 **Version:** 1.0.0
 **Status:** Active
 **Owner:** QIRA Founder
-**Last Updated:** 2026-08-03
+**Last Updated:** 2026-08-04
 
 ## Product principle
 
@@ -51,13 +51,23 @@ IAM, notifications, search, analytics, AI gateway, observability, and integratio
 - Produce deterministic readiness, opportunity, and complexity scores with explanations.
 - Provide consultant review and approval.
 
+**Current checkpoint:** Implemented in production; release validation remains open for signed-in end-to-end smoke testing, malware-scan enforcement, and KPI collection.
+
 ### Gate C — Proposal MVP
 
 - Generate a proposal from one approved Discovery version.
 - Support assumptions, scope, deliverables, timeline, indicative pricing, payment terms, and risks.
 - Require human approval before export or client sharing.
 
+**Current checkpoint:** Controlled proposal creation, approval, PDF export, revisions, client decisions, notifications, and email delivery plumbing are implemented. AI-assisted section generation and production acceptance testing remain open.
+
 ### Gate D — Client access
 
 - Provide invitation-based access to approved proposal, documents, status, and timeline.
 - Validate organization isolation and audit history.
+
+**Current checkpoint:** Invitation acceptance, tenant-scoped client projection, PDF download, client decision, and activity tracking are implemented. Revocation SLA testing and client usability validation remain open.
+
+## Release source of truth
+
+Operational release evidence and remaining blockers are maintained in [MVP-RELEASE-READINESS.md](MVP-RELEASE-READINESS.md). DNS verification for customer email is intentionally the final launch task while `myqira.io` is inactive.
