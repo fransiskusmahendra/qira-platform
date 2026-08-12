@@ -1,5 +1,5 @@
 import { CARE_PLANS, PROPOSAL_PACKAGES, SERVICE_CATALOG } from "@qira/domain";
-import Link from "next/link";
+import Link from "next/link";\nimport { DemoShowcase } from "./DemoShowcase";
 
 const whatsappNumber = "628211076517";
 const discoveryMessage = encodeURIComponent(
@@ -15,7 +15,7 @@ export default function HomePage() {
         <a className="brand" href="#top" aria-label="QIRA beranda">QIRA<span>.</span></a>
         <div className="navLinks">
           <a href="#packages">Paket</a>
-          <Link className="navCta" href="/discovery">Mulai Discovery</Link>
+          <a href="#demo">Demo</a>\n          <Link className="navCta" href="/start">Mulai Konsultasi</Link>
         </div>
       </nav>
 
@@ -27,8 +27,8 @@ export default function HomePage() {
           kebutuhan Anda, membuat demo, lalu membangun solusi yang benar-benar dapat digunakan.
         </p>
         <div className="heroActions">
-          <Link className="primaryButton" href="/discovery">Ceritakan kebutuhan Anda</Link>
-          <a className="textLink" href="#packages">Lihat paket <span aria-hidden="true">↓</span></a>
+          <Link className="primaryButton" href="/start">Ceritakan kebutuhan Anda</Link>
+          <a className="textLink" href="#demo">Coba demo <span aria-hidden="true">↓</span></a>
         </div>
         <div className="trustRow" aria-label="Prinsip kerja QIRA">
           <span>Konsultasi awal gratis</span><span>Harga dan scope transparan</span><span>Solusi dapat disesuaikan</span>
@@ -50,7 +50,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="packages shell" id="packages">
+      <DemoShowcase />\n\n      <section className="packages shell" id="packages">
         <div className="sectionHeading">
           <div><p className="kicker">Harga perkenalan QIRA</p><h2>Tiga cara sederhana untuk mulai.</h2></div>
           <p>Pilih paket yang paling mendekati kebutuhan Anda. Harga final dan ruang lingkup dikonfirmasi setelah discovery.</p>
@@ -63,7 +63,7 @@ export default function HomePage() {
               <div className="packagePrice"><span>{item.priceLabel}</span><strong>{rupiah.format(item.introductoryPriceIdr)}</strong></div>
               <ul>{item.deliverables.map((deliverable) => <li key={deliverable}>{deliverable}</li>)}</ul>
               <div className="packageMeta"><span>{item.durationWeeks[0]}–{item.durationWeeks[1]} minggu</span><span>{item.revisions}x revisi</span><span>{item.supportDays} hari dukungan awal</span></div>
-              <Link className="packageButton" href="/discovery">Pilih sebagai titik awal</Link>
+              <div className="packageActions"><a className="packageDemoButton" href="#demo">Lihat demo</a><Link className="packageButton" href={`/start?package=${item.id}`}>Pilih paket</Link></div>
             </article>
           ))}
         </div>
@@ -76,7 +76,7 @@ export default function HomePage() {
           <h2>Kebutuhan Anda tidak cocok dengan paket?</h2>
           <p>QIRA dapat merancang dashboard, aplikasi operasional, otomasi, dokumen otomatis, atau integrasi berdasarkan hasil discovery. Harga diberikan setelah kebutuhan dan batas proyek disepakati.</p>
         </div>
-        <Link className="primaryButton" href="/discovery">Minta solusi custom</Link>
+        <Link className="primaryButton" href="/start?package=custom">Minta solusi custom</Link>
       </section>
 
       <section className="care shell">
