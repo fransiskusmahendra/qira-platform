@@ -1,5 +1,6 @@
 import { CARE_PLANS, PROPOSAL_PACKAGES, SERVICE_CATALOG } from "@qira/domain";
-import Link from "next/link";\nimport { DemoShowcase } from "./DemoShowcase";
+import Link from "next/link";
+import { DemoShowcase } from "./DemoShowcase";
 
 const whatsappNumber = "628211076517";
 const discoveryMessage = encodeURIComponent(
@@ -15,7 +16,8 @@ export default function HomePage() {
         <a className="brand" href="#top" aria-label="QIRA beranda">QIRA<span>.</span></a>
         <div className="navLinks">
           <a href="#packages">Paket</a>
-          <a href="#demo">Demo</a>\n          <Link className="navCta" href="/start">Mulai Konsultasi</Link>
+          <a href="#demo">Demo</a>
+          <Link className="navCta" href="/start">Mulai Konsultasi</Link>
         </div>
       </nav>
 
@@ -50,7 +52,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <DemoShowcase />\n\n      <section className="packages shell" id="packages">
+      <DemoShowcase />
+
+      <section className="packages shell" id="packages">
         <div className="sectionHeading">
           <div><p className="kicker">Harga perkenalan QIRA</p><h2>Tiga cara sederhana untuk mulai.</h2></div>
           <p>Pilih paket yang paling mendekati kebutuhan Anda. Harga final dan ruang lingkup dikonfirmasi setelah discovery.</p>
