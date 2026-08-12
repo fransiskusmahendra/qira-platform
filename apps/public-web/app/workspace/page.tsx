@@ -18,9 +18,11 @@ export default async function WorkspacePage() {
     supabase.from("discoveries").select("id, service_ids, status, version, updated_at").order("updated_at", { ascending: false }).limit(100),
     (supabase as any).from("proposal_client_decisions").select("id,proposal_id,proposal_version,decision,comment,decided_at").order("decided_at", { ascending: false }).limit(100),
     (supabase as any).from("proposal_client_events").select("id,proposal_id,proposal_version,event_type,occurred_at").order("occurred_at", { ascending: false }).limit(20),
-    (supabase as any).from("notifications").select("id,proposal_id,title,body,created_at,read_at,email_status").order("created_at",{ascending:false}).limit(20),\n    supabase.from("public_leads").select("id,full_name,business_name,whatsapp,package_interest,business_need,budget_range,lead_temperature,status,created_at").order("created_at",{ascending:false}).limit(30),
+    (supabase as any).from("notifications").select("id,proposal_id,title,body,created_at,read_at,email_status").order("created_at",{ascending:false}).limit(20),
+    supabase.from("public_leads").select("id,full_name,business_name,whatsapp,package_interest,business_need,budget_range,lead_temperature,status,created_at").order("created_at",{ascending:false}).limit(30),
   ]);
-  const hotLeadCount = publicLeads?.filter((lead) => lead.lead_temperature === "hot" && lead.status === "new").length ?? 0;\n  const canManageProposals = memberships?.some((item) => item.role === "qira_consultant" || item.role === "qira_admin");
+  const hotLeadCount = publicLeads?.filter((lead) => lead.lead_temperature === "hot" && lead.status === "new").length ?? 0;
+  const canManageProposals = memberships?.some((item) => item.role === "qira_consultant" || item.role === "qira_admin");
   const isClientOnly = !canManageProposals && memberships?.some((item) => item.role === "client_viewer" || item.role === "client_member");
   if (isClientOnly) redirect("/client");
 
