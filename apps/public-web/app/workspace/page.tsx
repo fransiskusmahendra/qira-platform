@@ -12,15 +12,15 @@ export default async function WorkspacePage() {
   const userId = claimsData?.claims?.sub;
   if (!userId) redirect("/login");
 
-  const [{ data: memberships }, { data: proposals }, { data: discoveries }, { data: decisions }, { data: clientEvents }, { data: notifications }] = await Promise.all([
+  const [{ data: memberships }, { data: proposals }, { data: discoveries }, { data: decisions }, { data: clientEvents }, { data: notifications }, { data: publicLeads }] = await Promise.all([
     supabase.from("memberships").select("organization_id, role, organizations(name, slug)").eq("status", "active"),
     supabase.from("proposals").select("id, proposal_number, client_name, status, version, valid_until, updated_at").order("updated_at", { ascending: false }).limit(100),
     supabase.from("discoveries").select("id, service_ids, status, version, updated_at").order("updated_at", { ascending: false }).limit(100),
     (supabase as any).from("proposal_client_decisions").select("id,proposal_id,proposal_version,decision,comment,decided_at").order("decided_at", { ascending: false }).limit(100),
     (supabase as any).from("proposal_client_events").select("id,proposal_id,proposal_version,event_type,occurred_at").order("occurred_at", { ascending: false }).limit(20),
-    (supabase as any).from("notifications").select("id,proposal_id,title,body,created_at,read_at,email_status").order("created_at",{ascending:false}).limit(20),
+    (supabase as any).from("notifications").select("id,proposal_id,title,body,created_at,read_at,email_status").order("created_at",{ascending:false}).limit(20),\n    supabase.from("public_leads").select("id,full_name,business_name,whatsapp,package_interest,business_need,budget_range,lead_temperature,status,created_at").order("created_at",{ascending:false}).limit(30),
   ]);
-  const canManageProposals = memberships?.some((item) => item.role === "qira_consultant" || item.role === "qira_admin");
+  const hotLeadCount = publicLeads?.filter((lead) => lead.lead_temperature === "hot" && lead.status === "new").length ?? 0;\n  const canManageProposals = memberships?.some((item) => item.role === "qira_consultant" || item.role === "qira_admin");
   const isClientOnly = !canManageProposals && memberships?.some((item) => item.role === "client_viewer" || item.role === "client_member");
   if (isClientOnly) redirect("/client");
 
@@ -59,7 +59,7 @@ export default async function WorkspacePage() {
         <article><span>Proposal terlihat</span><strong>{proposals?.length ?? 0}</strong></article>
         <article><span>Discovery terlihat</span><strong>{discoveries?.length ?? 0}</strong></article>
       </section>
-      {canManageProposals && <><section className={styles.followUpGrid}>
+      {canManageProposals && <><section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Prospek website</p><h2>Lead baru dari formulir publik</h2></div><span className={hotLeadCount ? styles.urgentBadge : styles.neutralBadge}>{hotLeadCount} hot lead</span></div>{!publicLeads?.length&&<p className={styles.empty}>Belum ada lead dari website.</p>}{publicLeads?.slice(0,8).map((lead)=><div className={styles.attentionRow} key={lead.id}><div><strong>{lead.business_name} · {lead.full_name}</strong><p>{lead.package_interest} · {lead.budget_range} · {lead.whatsapp}</p></div><span className={lead.lead_temperature==="hot"?styles.urgentBadge:styles.neutralBadge}>{lead.lead_temperature==="hot"?"Hot lead":"Warm"}</span></div>)}</section><section className={styles.followUpGrid}>
         <article><span>Perlu revisi</span><strong>{revisionRequests.length}</strong><small>Permintaan klien yang perlu dibuatkan versi baru.</small></article>
         <article><span>Menunggu respons</span><strong>{awaitingResponse.length}</strong><small>Proposal shared tanpa keputusan klien.</small></article>
         <article><span>Diterima klien</span><strong>{acceptedProposals.length}</strong><small>Keputusan accepted pada versi aktif.</small></article>
