@@ -52,6 +52,7 @@
 .consent { display: flex; gap: 12px; align-items: flex-start; color: #526176; line-height: 1.5; }
 .consent input { width: 18px; height: 18px; margin-top: 2px; accent-color: #1769ff; }
 .submitButton { min-height: 54px; padding: 0 24px; border: 0; border-radius: 999px; background: #1769ff; color: white; font: inherit; font-weight: 720; cursor: pointer; }
+.publicSubmitLink { min-height:54px; padding:0 24px; border:1px solid #1769ff; border-radius:999px; color:#1769ff; font-weight:720; display:flex; align-items:center; justify-content:center; }
 .successMessage, .errorMessage { padding: 14px 16px; border-radius: 12px; line-height: 1.5; }
 .successMessage { background: #e8f7ef; color: #14633b; }
 .errorMessage { background: #fff0f1; color: #972638; }

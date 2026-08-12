@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      public_leads: {
+        Row: {
+          budget_range: string
+          business_name: string
+          business_need: string
+          consented_at: string
+          created_at: string
+          email: string | null
+          full_name: string
+          id: string
+          lead_temperature: string
+          package_interest: string
+          source: string
+          status: string
+          whatsapp: string
+        }
+        Insert: {
+          budget_range: string
+          business_name: string
+          business_need: string
+          consented_at?: string
+          created_at?: string
+          email?: string | null
+          full_name: string
+          id?: string
+          lead_temperature?: string
+          package_interest: string
+          source?: string
+          status?: string
+          whatsapp: string
+        }
+        Update: {
+          budget_range?: string
+          business_name?: string
+          business_need?: string
+          consented_at?: string
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          lead_temperature?: string
+          package_interest?: string
+          source?: string
+          status?: string
+          whatsapp?: string
+        }
+        Relationships: []
+      }
       audit_events: {
         Row: {
           action: string

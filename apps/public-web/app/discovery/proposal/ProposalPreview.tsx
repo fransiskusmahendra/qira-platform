@@ -90,6 +90,17 @@ export function ProposalPreview() {
   }
 
   const service = findService(draft.serviceId);
+  const requiresCustomSolution = draft.serviceId !== "business-apps";
+  if (requiresCustomSolution) {
+    return (
+      <main className={styles.customRoute}>
+        <span>Custom Business Solution</span>
+        <h1>{service?.name} perlu proposal yang disusun khusus.</h1>
+        <p>QIRA tidak menggabungkan kebutuhan ini dengan paket standar agar scope, risiko, integrasi, dan harga tetap akurat. Ringkasan Discovery Anda tetap tersimpan di tab ini.</p>
+        <div><Link href="/discovery/review">Kembali ke ringkasan</Link><Link href="/start?package=custom">Lanjutkan sebagai solusi custom</Link></div>
+      </main>
+    );
+  }
   const profileComplete = Boolean(workspace.currentClient.organizationName.trim() && workspace.currentClient.recipientName.trim());
   const printable = commercialApproved && profileComplete;
 
