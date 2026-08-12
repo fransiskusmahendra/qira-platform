@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";\nimport Link from "next/link";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import {
   calculateDiscoveryScores,
@@ -255,7 +256,8 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
           <button className={styles.submitButton} type="button" disabled={!ready || isSubmitting} onClick={submitToWorkspace}>
             {isSubmitting ? "Menyimpan ke workspace…" : "Simpan ke workspace (perlu login)"}
           </button>
-          <Link className={styles.publicSubmitLink} href="/start?package=custom">Kirim kebutuhan tanpa login</Link>\n          {showValidation ? (
+          <Link className={styles.publicSubmitLink} href="/start?package=custom">Kirim kebutuhan tanpa login</Link>
+          {showValidation ? (
             <div className={ready ? styles.successMessage : styles.errorMessage} role="status">
               {ready
                 ? "Discovery lengkap. Anda dapat membuka preview atau mengirim versi resmi ke workspace."
