@@ -76,7 +76,7 @@ export function ProposalPreview() {
     setCommercialApproved(false);
     setWorkspace((current) => current && {
       ...current,
-      currentSettings: { ...current.currentSettings, packageId, basePriceIdr: selected.indicativePriceIdr },
+      currentSettings: { ...current.currentSettings, packageId, basePriceIdr: selected.introductoryPriceIdr },
     });
   }
 
@@ -130,7 +130,7 @@ export function ProposalPreview() {
       <aside className={styles.packagePicker} aria-label="Pilih paket indikatif">
         {PROPOSAL_PACKAGES.map((item) => (
           <button type="button" key={item.id} aria-pressed={workspace.currentSettings.packageId === item.id} className={workspace.currentSettings.packageId === item.id ? styles.activePackage : ""} onClick={() => selectPackage(item.id)}>
-            <span>{item.name}</span><strong>{rupiah.format(item.indicativePriceIdr)}</strong>
+            <span>{item.name}</span><strong>{item.priceLabel} {rupiah.format(item.introductoryPriceIdr)}</strong>
           </button>
         ))}
       </aside>
@@ -146,7 +146,7 @@ export function ProposalPreview() {
             <strong>{workspace.currentClient.organizationName || "Nama calon klien"}</strong>
             <small>{workspace.currentClient.recipientName || "Nama penerima"}{workspace.currentClient.recipientTitle ? ` · ${workspace.currentClient.recipientTitle}` : ""}</small>
           </div>
-          <div className={styles.coverMeta}><span>Total indikatif</span><strong>{rupiah.format(commercial.totalIdr)}</strong><small>Berlaku sampai {workspace.currentSettings.validUntil}</small></div>
+          <div className={styles.coverMeta}><span>Investasi indikatif · harga perkenalan</span><strong>{rupiah.format(commercial.totalIdr)}</strong><small>Berlaku sampai {workspace.currentSettings.validUntil}</small></div>
         </section>
 
         <section className={styles.section}><p className={styles.kicker}>01 · Tujuan</p><h2>Hasil yang ingin dicapai</h2><p className={styles.lead}>{proposal.objective}</p></section>
@@ -156,7 +156,7 @@ export function ProposalPreview() {
           <p className={styles.kicker}>04 · Investasi</p><h2>{rupiah.format(commercial.totalIdr)}</h2>
           <div className={styles.commercialBreakdown}><span>Harga dasar <b>{rupiah.format(commercial.basePriceIdr)}</b></span><span>Diskon <b>− {rupiah.format(commercial.discountAmountIdr)}</b></span><span>Pajak <b>+ {rupiah.format(commercial.taxAmountIdr)}</b></span></div>
           <div className={styles.payments}><div><span>DP · {commercial.downPaymentPercent}%</span><strong>{rupiah.format(commercial.downPaymentAmountIdr)}</strong></div><div><span>Pelunasan · {commercial.finalPaymentPercent}%</span><strong>{rupiah.format(commercial.finalPaymentAmountIdr)}</strong></div></div>
-          <p className={styles.disclaimer}>Simulasi indikatif dan belum menjadi penawaran mengikat.</p>
+          <p className={styles.disclaimer}>Harga perkenalan untuk proyek portofolio terbatas. Nilai final mengikuti scope hasil discovery. Pembayaran 50% saat mulai dan 50% sebelum serah terima. Maintenance, layanan pihak ketiga, dan perubahan di luar scope dihitung terpisah.</p>
         </section>
         <section className={styles.threeColumns}><div><h3>Asumsi</h3><ul>{proposal.assumptions.map((item) => <li key={item}>{item}</li>)}</ul></div><div><h3>Risiko</h3><ul>{proposal.risks.map((item) => <li key={item}>{item}</li>)}</ul></div><div><h3>Di luar scope</h3><ul>{proposal.exclusions.map((item) => <li key={item}>{item}</li>)}</ul></div></section>
         <section className={styles.approval}>
