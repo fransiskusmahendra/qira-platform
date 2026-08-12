@@ -3,11 +3,11 @@ import test from "node:test";
 
 import { calculateCommercialTerms, createProposalPreview, PROPOSAL_PACKAGES } from "../src/index.ts";
 
-test("proposal packages use the approved indicative prices", () => {
-  assert.deepEqual(PROPOSAL_PACKAGES.map((item) => item.indicativePriceIdr), [4_900_000, 9_900_000, 17_500_000]);
+test("proposal packages use the approved introductory prices", () => {
+  assert.deepEqual(PROPOSAL_PACKAGES.map((item) => item.introductoryPriceIdr), [1_500_000, 2_900_000, 4_900_000]);
 });
 
-test("payment terms split the price into 50 percent milestones", () => {
+test("payment terms split the introductory price into 50 percent milestones", () => {
   const proposal = createProposalPreview({
     serviceId: "automation",
     packageId: "growth-engine",
@@ -15,7 +15,7 @@ test("payment terms split the price into 50 percent milestones", () => {
   });
   assert.equal(proposal.paymentTerms[0].percentage, 50);
   assert.equal(proposal.paymentTerms[1].percentage, 50);
-  assert.equal(proposal.paymentTerms[0].amountIdr + proposal.paymentTerms[1].amountIdr, 9_900_000);
+  assert.equal(proposal.paymentTerms[0].amountIdr + proposal.paymentTerms[1].amountIdr, 2_900_000);
 });
 
 test("proposal commercial status remains indicative", () => {

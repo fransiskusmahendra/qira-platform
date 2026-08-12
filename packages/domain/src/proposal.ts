@@ -5,9 +5,14 @@ export type ProposalPackageId = "digital-foundation" | "growth-engine" | "connec
 export interface ProposalPackage {
   id: ProposalPackageId;
   name: string;
-  indicativePriceIdr: number;
+  tagline: string;
+  introductoryPriceIdr: number;
+  priceLabel: "Mulai dari";
   durationWeeks: readonly [number, number];
+  revisions: number;
+  supportDays: number;
   deliverables: readonly string[];
+  exclusions: readonly string[];
 }
 
 export interface ProposalPreview {
@@ -22,7 +27,7 @@ export interface ProposalPreview {
   risks: readonly string[];
   paymentTerms: readonly [
     { label: "DP"; percentage: 50; amountIdr: number },
-    { label: "Setelah implementasi"; percentage: 50; amountIdr: number },
+    { label: "Sebelum serah terima"; percentage: 50; amountIdr: number },
   ];
   commercialStatus: "indicative";
 }
@@ -82,24 +87,59 @@ export const PROPOSAL_PACKAGES: readonly ProposalPackage[] = Object.freeze([
   {
     id: "digital-foundation",
     name: "Digital Foundation",
-    indicativePriceIdr: 4_900_000,
-    durationWeeks: [2, 3],
-    deliverables: ["Discovery terstruktur", "Solusi inti satu proses", "Dokumentasi dan handover"],
+    tagline: "Hadir profesional dan mudah dihubungi secara digital.",
+    introductoryPriceIdr: 1_500_000,
+    priceLabel: "Mulai dari",
+    durationWeeks: [1, 2],
+    revisions: 1,
+    supportDays: 14,
+    deliverables: [
+      "Landing page responsif maksimal 5 bagian",
+      "Profil usaha dan layanan atau produk unggulan",
+      "Tombol WhatsApp dan form kontak sederhana",
+      "Bantuan publikasi awal",
+    ],
+    exclusions: ["Login dan database khusus", "Dashboard atau sistem transaksi", "Domain, hosting, dan layanan berbayar"],
   },
   {
     id: "growth-engine",
     name: "Growth Engine",
-    indicativePriceIdr: 9_900_000,
-    durationWeeks: [4, 6],
-    deliverables: ["Discovery dan blueprint", "Implementasi multi-step", "Dashboard dasar", "Pendampingan adopsi"],
+    tagline: "Tangkap dan kelola calon pelanggan dengan lebih teratur.",
+    introductoryPriceIdr: 2_900_000,
+    priceLabel: "Mulai dari",
+    durationWeeks: [1, 2],
+    revisions: 2,
+    supportDays: 14,
+    deliverables: [
+      "Seluruh fondasi digital yang relevan",
+      "Form pemesanan atau pendaftaran",
+      "Penyimpanan prospek dan dashboard sederhana",
+      "Katalog terbatas dan notifikasi email dasar",
+    ],
+    exclusions: ["WhatsApp API resmi atau chatbot berbayar", "Payment gateway", "Integrasi API pihak ketiga"],
   },
   {
     id: "connected-growth",
     name: "Connected Growth",
-    indicativePriceIdr: 17_500_000,
-    durationWeeks: [6, 10],
-    deliverables: ["Discovery mendalam", "Integrasi beberapa sistem", "Automation dan monitoring", "Training dan support awal"],
+    tagline: "Hubungkan proses inti agar operasional lebih ringan.",
+    introductoryPriceIdr: 4_900_000,
+    priceLabel: "Mulai dari",
+    durationWeeks: [2, 3],
+    revisions: 2,
+    supportDays: 30,
+    deliverables: [
+      "Maksimal dua alur kerja utama",
+      "Database dan dashboard operasional sederhana",
+      "Status permintaan atau pesanan",
+      "Dokumen atau notifikasi dasar dari data",
+    ],
+    exclusions: ["Integrasi enterprise atau sistem legacy", "Migrasi data historis", "Fitur tambahan di luar scope discovery"],
   },
+]);
+
+export const CARE_PLANS = Object.freeze([
+  { name: "Basic Care", priceRange: "Rp150.000–Rp250.000/bulan", outcome: "Pemantauan dan perubahan konten ringan." },
+  { name: "Growth Care", priceRange: "Rp350.000–Rp500.000/bulan", outcome: "Dukungan operasional dan perbaikan minor berkala." },
 ]);
 
 const SERVICE_SCOPE: Readonly<Record<ServiceId, readonly string[]>> = {
@@ -121,7 +161,7 @@ export function createProposalPreview(input: {
   objective: string;
 }): ProposalPreview {
   const proposalPackage = findProposalPackage(input.packageId);
-  const half = proposalPackage.indicativePriceIdr / 2;
+  const half = proposalPackage.introductoryPriceIdr / 2;
 
   return {
     version: "preview-1",
@@ -130,12 +170,18 @@ export function createProposalPreview(input: {
     package: proposalPackage,
     objective: input.objective.trim() || "Meningkatkan efektivitas proses bisnis prioritas.",
     scope: [...SERVICE_SCOPE[input.serviceId], ...proposalPackage.deliverables],
-    exclusions: ["Biaya layanan pihak ketiga", "Perubahan di luar scope yang disetujui", "Migrasi data historis kecuali dinyatakan"],
-    assumptions: ["PIC dan data tersedia sesuai jadwal", "Feedback diberikan maksimal dua hari kerja", "Harga bersifat indikatif sampai Founder QIRA menyetujui"],
+    exclusions: [...proposalPackage.exclusions, "Biaya layanan pihak ketiga", "Perubahan di luar scope yang disetujui"],
+    assumptions: [
+      "Harga perkenalan tersedia untuk proyek portofolio terbatas",
+      "PIC dan data tersedia sesuai jadwal",
+      `Termasuk maksimal ${proposalPackage.revisions} kali revisi`,
+      `Dukungan awal selama ${proposalPackage.supportDays} hari setelah serah terima`,
+      "Harga final dikonfirmasi setelah discovery dan persetujuan Founder QIRA",
+    ],
     risks: ["Perubahan kebutuhan setelah scope disetujui", "Keterlambatan akses data atau sistem", "Adopsi pengguna membutuhkan pendampingan tambahan"],
     paymentTerms: [
       { label: "DP", percentage: 50, amountIdr: half },
-      { label: "Setelah implementasi", percentage: 50, amountIdr: half },
+      { label: "Sebelum serah terima", percentage: 50, amountIdr: half },
     ],
     commercialStatus: "indicative",
   };
