@@ -1,7 +1,7 @@
 import type { ProposalPackageId } from "@qira/domain";
 
-const KEY = "qira.proposal.preview.v1";
-const SCHEMA_VERSION = 1;
+const KEY = "qira.proposal.preview.v2";
+const SCHEMA_VERSION = 2;
 
 export interface ClientProfile {
   organizationName: string;
@@ -46,7 +46,7 @@ export function createProposalWorkspace(today: string, validUntil = today): Prop
       issueDate: today,
       validUntil,
       packageId: "digital-foundation",
-      basePriceIdr: 4_900_000,
+      basePriceIdr: 1_500_000,
       discountPercent: 0,
       taxPercent: 0,
       downPaymentPercent: 50,
