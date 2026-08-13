@@ -10,10 +10,11 @@ const businessNeeds: Record<string, string> = {
   tambak: "Saya mengelola usaha tambak dan membutuhkan monitoring kolam, kualitas air, pakan, pertumbuhan, biaya, serta estimasi panen.",
 };
 
-export default async function StartPage({ searchParams }: { searchParams: Promise<{ package?: string; business?: string }> }) {
+export default async function StartPage({ searchParams }: { searchParams: Promise<{ package?: string; business?: string; need?: string }> }) {
   const params = await searchParams;
   const selected = params.package && validPackages.has(params.package) ? params.package : "digital-foundation";
-  const defaultNeed = params.business ? businessNeeds[params.business] ?? "" : "";
+  const suppliedNeed = typeof params.need === "string" ? params.need.trim().slice(0, 500) : "";
+  const defaultNeed = suppliedNeed || (params.business ? businessNeeds[params.business] ?? "" : "");
   return (
     <main className={styles.page}>
       <nav className={styles.nav}><Link href="/">QIRA<span>.</span></Link><small>Konsultasi awal gratis</small></nav>

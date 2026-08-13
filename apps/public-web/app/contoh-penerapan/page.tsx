@@ -38,11 +38,32 @@ const cases = [
     metric: "1 siklus", metricLabel: "terpantau menyeluruh", business: "tambak",
   },
   {
-    id: "website", sector: "UMKM umum", packageName: "Digital Foundation", duration: "1–2 minggu",
-    before: "Informasi usaha harus dijelaskan berulang kali dan sulit ditemukan calon pelanggan.",
-    solution: "Website responsif, profil usaha, layanan, galeri, lokasi, dan CTA WhatsApp.",
-    outcome: "Usaha terlihat profesional dan informasi dapat diakses pelanggan selama 24 jam.",
-    metric: "24/7", metricLabel: "informasi tersedia", business: "umkm",
+    id: "rental", sector: "Rental kendaraan", packageName: "Growth Engine", duration: "2–4 minggu",
+    before: "Booking masuk melalui chat, ketersediaan armada mudah bentrok, dan jadwal servis belum terpusat.",
+    solution: "Katalog armada, kalender booking, status kendaraan, pembayaran, dan pengingat pengembalian.",
+    outcome: "Armada lebih mudah dialokasikan dan setiap transaksi memiliki status yang jelas.",
+    metric: "12 armada", metricLabel: "booking dan status terpantau", business: "rental",
+  },
+  {
+    id: "laundry", sector: "Laundry", packageName: "Growth Engine", duration: "2–4 minggu",
+    before: "Nota, berat cucian, status proses, pembayaran, dan pemberitahuan pelanggan dicatat terpisah.",
+    solution: "Order digital, status cucian, nota otomatis, rekap pembayaran, dan notifikasi selesai.",
+    outcome: "Order tidak tertukar dan pelanggan mengetahui kapan cucian siap diambil.",
+    metric: "4 tahap", metricLabel: "dari terima sampai selesai", business: "laundry",
+  },
+  {
+    id: "catering", sector: "Kuliner & katering", packageName: "Growth Engine", duration: "2–4 minggu",
+    before: "Pesanan dari banyak percakapan rawan terlewat dan jadwal produksi sulit dirangkum.",
+    solution: "Katalog digital, form pesanan, jadwal produksi, pembayaran, dan status pengiriman.",
+    outcome: "Pesanan lebih rapi dan kebutuhan produksi dapat dipersiapkan lebih awal.",
+    metric: "1 kalender", metricLabel: "pesanan dan produksi", business: "katering",
+  },
+  {
+    id: "salon", sector: "Salon & kecantikan", packageName: "Growth Engine", duration: "2–4 minggu",
+    before: "Reservasi, pilihan layanan, staf, dan pengingat kunjungan dikelola melalui chat manual.",
+    solution: "Daftar layanan, reservasi online, kalender staf, data pelanggan, dan pengingat jadwal.",
+    outcome: "Jadwal lebih tertata dan slot kosong lebih mudah ditawarkan.",
+    metric: "24/7", metricLabel: "reservasi dapat masuk", business: "salon",
   },
 ] as const;
 
@@ -72,7 +93,7 @@ export default function CaseStudiesPage() {
               <div><dt>Solusi QIRA</dt><dd>{item.solution}</dd></div>
               <div><dt>Dampak yang dituju</dt><dd>{item.outcome}</dd></div>
             </dl>
-            <div className={styles.cardBottom}><span>Estimasi {item.duration}</span><Link href={item.business === "umkm" || item.business === "jasa" ? "/#demo" : "/demo-usaha"}>Lihat demo <b>↗</b></Link></div>
+            <div className={styles.cardBottom}><span>Estimasi {item.duration}</span><Link href={["rental", "laundry", "katering", "salon", "jasa"].includes(item.business) ? "/#demo" : "/demo-usaha"}>Lihat demo <b>↗</b></Link></div>
           </article>
         ))}
       </section>

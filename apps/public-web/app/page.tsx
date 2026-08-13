@@ -1,6 +1,7 @@
 import { CARE_PLANS, PROPOSAL_PACKAGES, SERVICE_CATALOG } from "@qira/domain";
 import Link from "next/link";
 import { DemoShowcase } from "./DemoShowcase";
+import { PersonalizedDemo } from "./PersonalizedDemo";
 
 const whatsappNumber = "628211076517";
 const discoveryMessage = encodeURIComponent(
@@ -16,7 +17,7 @@ export default function HomePage() {
         <a className="brand" href="#top" aria-label="QIRA beranda">QIRA<span>.</span></a>
         <div className="navLinks">
           <a href="#packages">Paket</a>
-          <a href="#demo">Demo Paket</a>
+          <a href="#demo-personal">Buat Demo</a>
           <Link href="/demo-usaha">Demo Usaha</Link>
           <Link href="/contoh-penerapan">Contoh Penerapan</Link>
           <Link className="navCta" href="/start">Mulai Konsultasi</Link>
@@ -53,6 +54,8 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      <PersonalizedDemo />
 
       <DemoShowcase />
 
