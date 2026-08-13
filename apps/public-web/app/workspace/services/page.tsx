@@ -10,7 +10,7 @@ export default async function ManagedServicesPage(){
   const supabase=await createClient();
   const {data:claims}=await supabase.auth.getClaims();
   if(!claims?.claims?.sub) redirect("/login");
-  const membership=await supabase.from("memberships").select("role").eq("status","active");
+  const membership=await supabase.from("memberships").select("role").eq("user_id",String(claims.claims.sub)).eq("status","active");
   const canManage=membership.data?.some(item=>item.role==="qira_admin"||item.role==="qira_consultant");
   if(!canManage) redirect("/client");
 
