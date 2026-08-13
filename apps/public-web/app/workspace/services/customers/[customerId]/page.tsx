@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound,redirect } from "next/navigation";
 import { createClient } from "../../../../../lib/supabase/server";
-import styles from "../../workspace.module.css";
+import styles from "../../../workspace.module.css";
 
 const rupiah=new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0});
 const date=(value:string|null)=>value?new Intl.DateTimeFormat("id-ID",{dateStyle:"medium"}).format(new Date(value)):"—";
