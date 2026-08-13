@@ -110,7 +110,7 @@ export default function BusinessDemosPage(){
   const active=businesses.find(item=>item.id===activeId)??businesses[0];
   return <main className={styles.page}>
     <nav className={styles.nav}><Link href="/">QIRA<span>.</span></Link><div><Link href="/#packages">Paket</Link><Link className={styles.navCta} href="/start?package=custom">Konsultasi</Link></div></nav>
-    <header className={styles.hero}><p>Galeri demo usaha</p><h1>Lihat solusi digital dalam konteks <em>usaha Anda.</em></h1><span>Gunakan kontrol di setiap demo untuk merasakan bagaimana data operasional dapat dibuat lebih mudah dibaca dan ditindaklanjuti.</span></header>
+    <header className={styles.hero}><div className={styles.conceptBadge}><b>Concept demo</b><span>Data simulasi · bukan sistem pelanggan aktif</span></div><p>Galeri demo usaha</p><h1>Lihat solusi digital dalam konteks <em>usaha Anda.</em></h1><span>Gunakan kontrol di setiap demo untuk merasakan bagaimana data operasional dapat dibuat lebih mudah dibaca dan ditindaklanjuti.</span></header>
     <section className={styles.showcase}>
       <div className={styles.tabs} role="tablist" aria-label="Pilih jenis usaha">{businesses.map(item=><button key={item.id} type="button" role="tab" aria-selected={activeId===item.id} onClick={()=>setActiveId(item.id)}>{item.label}</button>)}</div>
       <div className={styles.stage} key={activeId}><div className={styles.story}><p>{active.eyebrow}</p><h2>{active.title}</h2><span>{active.copy}</span><Link href={`/start?package=custom&business=${active.id}`}>Minta demo sesuai usaha saya <b>↗</b></Link></div><div className={styles.preview}>{activeId==="properti"?<PropertyDemo/>:activeId==="ternak"?<FarmDemo/>:activeId==="kebun"?<PlantationDemo/>:<PondDemo/>}</div></div>
