@@ -19,8 +19,20 @@ async function update(table:string,id:string,patch:Record<string,unknown>){
  redirect("/workspace/services/actions?saved=1");
 }
 export async function updateProjectStatus(form:FormData){
- const status=value(form,"status");if(!["onboarding","active","attention","maintenance","suspended","offboarded"].includes(status))redirect("/workspace/services/actions?error=invalid");
- await update("managed_projects",value(form,"id"),{service_status:status});
+ const status=value(form,"status"),id=value(form,"id");if(!["onboarding","active","attention","maintenance","suspended","offboarded"].includes(status))redirect("/workspace/services/actions?error=invalid");
+ if(status==="active"){
+  const supabase=await teamClient();if(!id)redirect("/workspace/services/actions?error=invalid");
+  const [{data:deployments},{data:domains},{data:subscriptions}]=await Promise.all([
+   supabase.from("project_deployments").select("id,status").eq("project_id",id),
+   supabase.from("project_domains").select("id,status").eq("project_id",id),
+   supabase.from("project_subscriptions").select("id,status").eq("project_id",id),
+  ]);
+  const deploymentReady=(deployments??[]).some((x:any)=>x.status==="ready");
+  const domainReady=!(domains??[]).length||(domains??[]).some((x:any)=>x.status==="active");
+  const subscriptionReady=!(subscriptions??[]).length||(subscriptions??[]).some((x:any)=>x.status==="active"||x.status==="trial");
+  if(!deploymentReady||!domainReady||!subscriptionReady)redirect(`/workspace/services/actions?error=readiness&project=${id}`);
+ }
+ await update("managed_projects",id,{service_status:status});
 }
 export async function updateDomainStatus(form:FormData){
  const status=value(form,"status");if(!["pending","active","expiring","expired","issue"].includes(status))redirect("/workspace/services/actions?error=invalid");
