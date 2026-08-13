@@ -26,3 +26,7 @@
 @media(max-width:850px){.caseGrid{grid-template-columns:1fr}.caseGrid>article{min-height:0}.caseGrid>aside{grid-column:auto;grid-template-columns:1fr;gap:35px}.phoneWrap{justify-content:flex-start}}
 @media(max-width:560px){.metrics{grid-template-columns:repeat(2,1fr)}.actionRow{align-items:flex-start;flex-direction:column}.dualRange{grid-template-columns:1fr}.caseGrid>aside{padding:32px 20px}.phoneWrap{gap:12px}.phoneWrap>p{display:none}.phone{width:180px}.caseGrid>article{padding:20px}}
 @media(prefers-reduced-motion:reduce){.phone{animation:none}}
+
+.conceptBadge{width:fit-content;margin-bottom:45px;padding:10px 13px;border:1px solid #bed2f5;border-radius:11px;background:#edf4ff;display:flex;align-items:center;gap:10px;color:#60738d;font-size:9px}
+.conceptBadge b{padding:5px 7px;border-radius:7px;background:#1769ff;color:white;font-size:8px;letter-spacing:.8px;text-transform:uppercase}
+@media(max-width:480px){.conceptBadge{align-items:flex-start;flex-direction:column}}
