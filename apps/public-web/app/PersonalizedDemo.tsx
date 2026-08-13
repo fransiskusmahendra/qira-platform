@@ -40,7 +40,8 @@ export function PersonalizedDemo() {
   const [businessName,setBusinessName]=useState("");\n  const [teamSize,setTeamSize]=useState("1–3 orang");\n  const [priority,setPriority]=useState("Merapikan operasional");\n  const [description,setDescription]=useState("");
   const [profile,setProfile]=useState<Profile|null>(null);
   const submit=(event:FormEvent)=>{event.preventDefault();if(description.trim().length>=10)setProfile(buildProfile(description.trim()))};
-  const consultation=profile ? `/start?package=${profile.packageId}&need=${encodeURIComponent(description.slice(0,500))}` : "/start";
+  const consultationContext = [businessName.trim() && `Nama usaha: ${businessName.trim()}`, `Ukuran tim: ${teamSize}`, `Prioritas: ${priority}`, `Cerita usaha: ${description.trim()}`].filter(Boolean).join("\n");
+  const consultation=profile ? `/start?package=${profile.packageId}&need=${encodeURIComponent(consultationContext.slice(0,1000))}` : "/start";
   return <section className={styles.section} id="demo-personal">
     <div className={styles.intro}><p>Demo Builder QIRA</p><h2>Ceritakan sedikit usahamu untuk melihat demonya.</h2><span>Tulis jenis usaha dan proses yang masih manual. QIRA akan menyusun concept demo yang paling mendekati kebutuhanmu.</span></div>
     <form className={styles.form} onSubmit={submit}>
