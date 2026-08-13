@@ -16,7 +16,8 @@ export default function HomePage() {
         <a className="brand" href="#top" aria-label="QIRA beranda">QIRA<span>.</span></a>
         <div className="navLinks">
           <a href="#packages">Paket</a>
-          <a href="#demo">Demo</a>
+          <a href="#demo">Demo Paket</a>
+          <Link href="/demo-usaha">Demo Usaha</Link>
           <Link className="navCta" href="/start">Mulai Konsultasi</Link>
         </div>
       </nav>
@@ -53,6 +54,15 @@ export default function HomePage() {
       </section>
 
       <DemoShowcase />
+
+      <section className="businessDemoCallout shell">
+        <div>
+          <p className="kicker">Demo berdasarkan jenis usaha</p>
+          <h2>Kontrakan, kosan, peternakan, perkebunan, atau tambak?</h2>
+          <p>Coba dashboard interaktif dengan data contoh yang menyerupai kegiatan usaha sehari-hari.</p>
+        </div>
+        <Link className="primaryButton" href="/demo-usaha">Jelajahi demo usaha</Link>
+      </section>
 
       <section className="packages shell" id="packages">
         <div className="sectionHeading">
