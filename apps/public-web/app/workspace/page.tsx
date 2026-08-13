@@ -56,7 +56,7 @@ export default async function WorkspacePage() {
         <h1>Proposal dan Discovery dalam satu ruang kerja.</h1>
         <p>Akses halaman ini sudah dilindungi Supabase Auth dan Row Level Security.</p>
       </section>
-      <nav className={styles.workspaceNav}>{canManageProposals && <><Link href="/workspace/leads">Lead CRM & Follow-up</Link><Link href="/workspace/services">Managed Services</Link></>}<Link href="/discovery">Discovery</Link></nav>\n      <section className={styles.grid}>
+      <nav className={styles.workspaceNav}>{canManageProposals && <><Link href="/workspace/leads">Lead CRM & Follow-up</Link><Link href="/workspace/services">Managed Services</Link><Link href="/workspace/readiness">Production Readiness</Link></>}<Link href="/discovery">Discovery</Link></nav>\n      <section className={styles.grid}>
         <article><span>Organisasi aktif</span><strong>{memberships?.length ?? 0}</strong></article>
         <article><span>Proposal terlihat</span><strong>{proposals?.length ?? 0}</strong></article>
         <article><span>Discovery terlihat</span><strong>{discoveries?.length ?? 0}</strong></article>
