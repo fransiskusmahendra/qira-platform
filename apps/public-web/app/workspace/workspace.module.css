@@ -52,3 +52,10 @@
 @media(max-width:900px){.businessMetrics{grid-template-columns:repeat(2,1fr)}.pipeline{grid-template-columns:repeat(4,1fr)}.serviceRow{grid-template-columns:1fr 1fr}.crmForm{grid-template-columns:1fr 1fr}.notesField{grid-column:1/-1}}
 @media(max-width:600px){.businessMetrics{grid-template-columns:1fr}.pipeline{grid-template-columns:repeat(2,1fr)}.serviceRow,.crmForm{grid-template-columns:1fr}.notesField{grid-column:auto}.leadSummary{align-items:flex-start;flex-direction:column}}
 .workspaceNav{margin:-20px 0 35px;display:flex;flex-wrap:wrap;gap:9px}.workspaceNav a{padding:10px 14px;border:1px solid var(--line);border-radius:99px;background:white;color:var(--ink);font-size:11px;font-weight:700}.workspaceNav a:first-child{border-color:var(--blue);background:var(--blue);color:white}
+
+.onboardForm{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.onboardForm label{display:grid;gap:8px;color:#4b5563;font-size:.84rem;font-weight:700}
+.onboardForm input,.onboardForm select{width:100%;border:1px solid #d9e0e8;border-radius:12px;background:#fff;color:#172033;padding:12px 14px;font:inherit}
+.onboardForm button{border:0;cursor:pointer;justify-self:start}
+.formError{margin:0 0 20px;padding:12px 14px;border-radius:12px;background:#fff0ed;color:#a53a28}
+@media(max-width:720px){.onboardForm{grid-template-columns:1fr}}
