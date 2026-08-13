@@ -1,0 +1,32 @@
+# QIRA public-web reference image for VPS deployments.
+# Customer repositories can reuse the same multi-stage pattern.
+
+FROM node:24-bookworm-slim AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+COPY apps/public-web/package.json apps/public-web/package.json
+COPY packages/domain/package.json packages/domain/package.json
+RUN npm ci
+
+FROM node:24-bookworm-slim AS builder
+WORKDIR /app
+ENV NEXT_TELEMETRY_DISABLED=1
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN npm run build --workspace=@qira/public-web
+
+FROM node:24-bookworm-slim AS runner
+WORKDIR /app
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1 \
+    PORT=3000 \
+    HOSTNAME=0.0.0.0
+
+RUN groupadd --system --gid 1001 nodejs && useradd --system --uid 1001 --gid nodejs nextjs
+
+COPY --from=builder --chown=nextjs:nodejs /app/apps/public-web/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/public-web/.next/static ./apps/public-web/.next/static
+
+USER nextjs
+EXPOSE 3000
+CMD ["node", "apps/public-web/server.js"]
