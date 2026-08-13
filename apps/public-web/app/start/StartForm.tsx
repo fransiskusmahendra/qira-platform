@@ -6,9 +6,12 @@ import styles from "./start.module.css";
 
 const initialState: LeadFormState = { status: "idle", message: "" };
 
-interface StartFormProps { defaultPackage: string }
+interface StartFormProps {
+  defaultPackage: string;
+  defaultNeed?: string;
+}
 
-export function StartForm({ defaultPackage }: StartFormProps) {
+export function StartForm({ defaultPackage, defaultNeed = "" }: StartFormProps) {
   const [state, action, pending] = useActionState(submitPublicLead, initialState);
 
   if (state.status === "success") {
@@ -33,7 +36,7 @@ export function StartForm({ defaultPackage }: StartFormProps) {
           <option value="custom">Custom Business Solution</option>
         </select>
       </label>
-      <label>Ceritakan proses yang ingin diperbaiki *<textarea name="businessNeed" required minLength={20} maxLength={2000} rows={6} placeholder="Contoh: calon pelanggan masuk dari WhatsApp, tetapi pencatatan dan tindak lanjut masih manual..." /></label>
+      <label>Ceritakan proses yang ingin diperbaiki *<textarea name="businessNeed" required minLength={20} maxLength={2000} rows={6} defaultValue={defaultNeed} placeholder="Contoh: calon pelanggan masuk dari WhatsApp, tetapi pencatatan dan tindak lanjut masih manual..." /></label>
       <label>Anggaran awal yang dipertimbangkan *
         <select name="budgetRange" defaultValue="">
           <option value="" disabled>Pilih rentang anggaran</option>
