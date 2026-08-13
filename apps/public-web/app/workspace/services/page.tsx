@@ -45,7 +45,7 @@ export default async function ManagedServicesPage(){
       <article><span>Tiket terbuka</span><strong>{openTickets.length}</strong><small>{openTickets.filter((item:any)=>item.priority==="urgent").length} urgent</small></article>
     </section>
 
-    <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Service portfolio</p><h2>Project dan model pengelolaan</h2></div><Link className={styles.primaryAction} href="/workspace/services/onboard">Onboard customer</Link></div>
+    <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Service portfolio</p><h2>Project dan model pengelolaan</h2></div><div className={styles.panelActions}><Link href="/workspace/services/records">Tambah record</Link><Link className={styles.primaryAction} href="/workspace/services/onboard">Onboard customer</Link></div></div>
       {!projects?.length?<p className={styles.empty}>Belum ada project layanan. Record pertama dibuat setelah proposal pelanggan dinyatakan menang.</p>:(projects??[]).map((project:any)=><div className={styles.serviceRow} key={project.id}><div><strong>{project.name}</strong><p>{customerById.get(project.customer_id)?.display_name??"Customer"} · {project.package_id}</p></div><span>{modelLabel[project.management_model]??project.management_model}</span><span className={project.service_status==="attention"?styles.warningBadge:styles.neutralBadge}>{project.service_status}</span>{project.production_url?<a href={project.production_url} target="_blank" rel="noreferrer">Buka layanan ↗</a>:<small>Belum live</small>}</div>)}
     </section>
 
