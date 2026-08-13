@@ -1,0 +1,38 @@
+{
+    email ops@example.invalid
+}
+
+# Copy only the required site block to /etc/caddy/Caddyfile.
+# Replace the hostname and upstream port for each customer.
+# The application port must bind to 127.0.0.1 on the host, not 0.0.0.0.
+
+customer.example.com {
+    encode zstd gzip
+
+    header {
+        -Server
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        X-Frame-Options "SAMEORIGIN"
+    }
+
+    reverse_proxy 127.0.0.1:3101 {
+        health_uri /api/health
+        health_interval 30s
+        health_timeout 5s
+    }
+
+    log {
+        output file /var/log/caddy/customer.example.com.access.log {
+            roll_size 20MiB
+            roll_keep 10
+            roll_keep_for 720h
+        }
+        format json
+    }
+}
+
+# Optional canonical www redirect after DNS for both hostnames is configured:
+# www.customer.example.com {
+#     redir https://customer.example.com{uri} permanent
+# }
