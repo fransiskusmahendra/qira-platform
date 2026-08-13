@@ -30,8 +30,8 @@ export default async function ManagedServicesPage(){
   const deploymentErrors=(deployments??[]).filter((item:any)=>item.status==="error");
   const openTickets=(tickets??[]).filter((item:any)=>!["resolved","closed"].includes(item.status));
   const monthlyRevenue=(subscriptions??[]).filter((item:any)=>item.status==="active").reduce((total:number,item:any)=>total+(item.billing_cycle==="monthly"?item.amount_idr:item.billing_cycle==="quarterly"?item.amount_idr/3:item.billing_cycle==="annual"?item.amount_idr/12:0),0);
-  const customerById=new Map((customers??[]).map((item:any)=>[item.id,item]));
-  const projectById=new Map((projects??[]).map((item:any)=>[item.id,item]));
+  const customerById=new Map<string,any>((customers??[]).map((item:any)=>[item.id,item]));
+  const projectById=new Map<string,any>((projects??[]).map((item:any)=>[item.id,item]));
 
   return <main className={styles.page}>
     <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA.</Link><p>Managed Services Control Center</p></div><Link className={styles.primaryAction} href="/workspace">Workspace utama</Link></header>
