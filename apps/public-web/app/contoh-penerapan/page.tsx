@@ -72,7 +72,7 @@ export default function CaseStudiesPage() {
               <div><dt>Solusi QIRA</dt><dd>{item.solution}</dd></div>
               <div><dt>Dampak yang dituju</dt><dd>{item.outcome}</dd></div>
             </dl>
-            <div className={styles.cardBottom}><span>Estimasi {item.duration}</span><Link href={item.business === "umkm" || item.business === "jasa" ? "/#demo" : `/demo-usaha#${item.business}`}>Lihat demo <b>↗</b></Link></div>
+            <div className={styles.cardBottom}><span>Estimasi {item.duration}</span><Link href={item.business === "umkm" || item.business === "jasa" ? "/#demo" : "/demo-usaha"}>Lihat demo <b>↗</b></Link></div>
           </article>
         ))}
       </section>
