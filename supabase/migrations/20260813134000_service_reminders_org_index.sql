@@ -1,0 +1,1 @@
+create index service_reminders_organization_idx on public.service_reminders(organization_id);
