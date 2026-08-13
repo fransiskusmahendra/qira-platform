@@ -11,7 +11,6 @@ const businesses = [
     eyebrow: "Hunian sewa",
     title: "Pantau unit, tagihan, dan calon penyewa dalam satu layar.",
     copy: "Cocok untuk pemilik kontrakan atau kos yang ingin mengurangi pencatatan manual dan mempercepat respons kepada calon penyewa.",
-    need: "Saya mengelola kontrakan atau kosan dan membutuhkan pencatatan unit, penyewa, tagihan bulanan, serta calon penyewa dalam satu dashboard.",
   },
   {
     id: "ternak",
@@ -19,7 +18,6 @@ const businesses = [
     eyebrow: "Produksi ternak",
     title: "Perkembangan ternak dan jadwal perawatan lebih mudah diawasi.",
     copy: "Catat populasi, pakan, kesehatan, serta target panen agar keputusan harian tidak hanya mengandalkan ingatan.",
-    need: "Saya menjalankan usaha peternakan dan membutuhkan pencatatan populasi, pakan, kesehatan ternak, biaya, dan jadwal panen.",
   },
   {
     id: "kebun",
@@ -27,7 +25,6 @@ const businesses = [
     eyebrow: "Budidaya tanaman",
     title: "Lihat kondisi lahan dan jadwal kerja tanpa membuka banyak catatan.",
     copy: "Monitoring blok tanam, pemupukan, tenaga kerja, dan proyeksi panen menjadi lebih rapi serta mudah dilaporkan.",
-    need: "Saya menjalankan usaha perkebunan dan membutuhkan monitoring blok tanam, pemupukan, tenaga kerja, biaya, serta proyeksi panen.",
   },
   {
     id: "tambak",
@@ -35,7 +32,6 @@ const businesses = [
     eyebrow: "Budidaya perairan",
     title: "Siklus tambak, kualitas air, dan penggunaan pakan selalu terlihat.",
     copy: "Pantau kolam, umur budidaya, sampling, pakan, dan kesiapan panen dari dashboard operasional sederhana.",
-    need: "Saya mengelola usaha tambak dan membutuhkan monitoring kolam, kualitas air, pakan, pertumbuhan, biaya, serta estimasi panen.",
   },
 ] as const;
 
