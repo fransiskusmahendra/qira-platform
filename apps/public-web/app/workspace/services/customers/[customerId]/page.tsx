@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound,redirect } from "next/navigation";
-import { createClient } from "../../../../lib/supabase/server";
+import { createClient } from "../../../../../lib/supabase/server";
 import styles from "../../workspace.module.css";
 
 const rupiah=new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0});
@@ -9,7 +9,7 @@ const model:Record<string,string>={qira_managed:"Managed by QIRA",hybrid:"Hybrid
 
 export default async function CustomerAccountPage({params}:{params:Promise<{customerId:string}>}){
  const {customerId}=await params;const supabase=await createClient();const {data:claims}=await supabase.auth.getClaims();if(!claims?.claims?.sub)redirect("/login");
- const membership=await supabase.from("memberships").select("role").eq("status","active");if(!membership.data?.some(x=>x.role==="qira_admin"||x.role==="qira_consultant"))redirect("/client");
+ const membership=await supabase.from("memberships").select("role").eq("status","active");if(!membership.data?.some((x:{role:string})=>x.role==="qira_admin"||x.role==="qira_consultant"))redirect("/client");
  const {data:customer}=await (supabase as any).from("customers").select("id,display_name,customer_type,lifecycle_status,primary_contact_name,primary_contact_email,primary_contact_whatsapp,created_at").eq("id",customerId).maybeSingle();
  if(!customer)notFound();
  const {data:projects}=await (supabase as any).from("managed_projects").select("id,name,package_id,management_model,service_status,production_url,repository_url,started_on,launched_on,next_review_on,notes").eq("customer_id",customerId).order("created_at");
