@@ -10,7 +10,7 @@ async function authorizedClient(){
   const supabase=await createClient();
   const {data:claims}=await supabase.auth.getClaims();
   if(!claims?.claims?.sub) redirect("/login");
-  const {data}=await supabase.from("memberships").select("role").eq("status","active");
+  const {data}=await supabase.from("memberships").select("role").eq("user_id",String(claims.claims.sub)).eq("status","active");
   if(!data?.some(item=>item.role==="qira_admin"||item.role==="qira_consultant")) redirect("/client");
   return supabase as any;
 }
