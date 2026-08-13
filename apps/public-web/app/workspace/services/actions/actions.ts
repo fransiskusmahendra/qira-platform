@@ -15,22 +15,32 @@ async function update(table:string,id:string,patch:Record<string,unknown>){
  const supabase=await teamClient();if(!id)redirect("/workspace/services/actions?error=invalid");
  const {error}=await supabase.from(table).update({...patch,updated_at:new Date().toISOString()}).eq("id",id);
  if(error)redirect("/workspace/services/actions?error=save");
- revalidatePath("/workspace/services");revalidatePath("/workspace/services/actions");
+ revalidatePath("/workspace/services");revalidatePath("/workspace/services/actions");revalidatePath("/workspace/services/health");revalidatePath("/workspace/services/reminders");
  redirect("/workspace/services/actions?saved=1");
 }
 export async function updateProjectStatus(form:FormData){
  const status=value(form,"status"),id=value(form,"id");if(!["onboarding","active","attention","maintenance","suspended","offboarded"].includes(status))redirect("/workspace/services/actions?error=invalid");
  if(status==="active"){
   const supabase=await teamClient();if(!id)redirect("/workspace/services/actions?error=invalid");
-  const [{data:deployments},{data:domains},{data:subscriptions}]=await Promise.all([
-   supabase.from("project_deployments").select("id,status").eq("project_id",id),
-   supabase.from("project_domains").select("id,status").eq("project_id",id),
+  const [{data:project},{data:deployments},{data:domains},{data:subscriptions}]=await Promise.all([
+   supabase.from("managed_projects").select("id,customer_id,service_status,next_review_on").eq("id",id).single(),
+   supabase.from("project_deployments").select("id,status,deployment_url").eq("project_id",id),
+   supabase.from("project_domains").select("id,status,hostname").eq("project_id",id),
    supabase.from("project_subscriptions").select("id,status").eq("project_id",id),
   ]);
-  const deploymentReady=(deployments??[]).some((x:any)=>x.status==="ready");
-  const domainReady=!(domains??[]).length||(domains??[]).some((x:any)=>x.status==="active");
+  const readyDeployment=(deployments??[]).find((x:any)=>x.status==="ready");
+  const activeDomain=(domains??[]).find((x:any)=>x.status==="active");
+  const deploymentReady=Boolean(readyDeployment);
+  const domainReady=!(domains??[]).length||Boolean(activeDomain);
   const subscriptionReady=!(subscriptions??[]).length||(subscriptions??[]).some((x:any)=>x.status==="active"||x.status==="trial");
   if(!deploymentReady||!domainReady||!subscriptionReady)redirect(`/workspace/services/actions?error=readiness&project=${id}`);
+  const nextReview=new Date();nextReview.setDate(nextReview.getDate()+30);
+  const productionUrl=activeDomain?`https://${activeDomain.hostname}`:readyDeployment?.deployment_url||null;
+  const {error}=await supabase.from("managed_projects").update({service_status:"active",production_url:productionUrl,next_review_on:project?.next_review_on??nextReview.toISOString().slice(0,10),updated_at:new Date().toISOString()}).eq("id",id);
+  if(error)redirect("/workspace/services/actions?error=save");
+  if(project?.customer_id) await supabase.from("customers").update({lifecycle_status:"active",updated_at:new Date().toISOString()}).eq("id",project.customer_id);
+  revalidatePath("/workspace/services");revalidatePath("/workspace/services/actions");revalidatePath("/workspace/services/health");revalidatePath("/workspace/services/reminders");
+  redirect("/workspace/services/actions?saved=go-live");
  }
  await update("managed_projects",id,{service_status:status});
 }
@@ -46,10 +56,9 @@ export async function updateTicketStatus(form:FormData){
  const status=value(form,"status");if(!["open","in_progress","waiting_customer","resolved","closed"].includes(status))redirect("/workspace/services/actions?error=invalid");
  await update("support_tickets",value(form,"id"),{status,resolved_at:["resolved","closed"].includes(status)?new Date().toISOString():null});
 }
-
 export async function updateDeploymentStatus(form:FormData){
  const status=value(form,"status");if(!["queued","building","ready","error","cancelled","unknown"].includes(status))redirect("/workspace/services/actions?error=invalid");
  const supabase=await teamClient();const id=value(form,"id");if(!id)redirect("/workspace/services/actions?error=invalid");
  const {error}=await supabase.from("project_deployments").update({status,checked_at:new Date().toISOString(),deployed_at:status==="ready"?new Date().toISOString():null}).eq("id",id);
- if(error)redirect("/workspace/services/actions?error=save");revalidatePath("/workspace/services");revalidatePath("/workspace/services/actions");redirect("/workspace/services/actions?saved=1");
+ if(error)redirect("/workspace/services/actions?error=save");revalidatePath("/workspace/services");revalidatePath("/workspace/services/actions");revalidatePath("/workspace/services/health");redirect("/workspace/services/actions?saved=1");
 }
