@@ -7,7 +7,7 @@ import {updateDeploymentStatus,updateDomainStatus,updateProjectStatus,updateSubs
 const date=(value:string|null)=>value?new Intl.DateTimeFormat("id-ID",{dateStyle:"medium"}).format(new Date(value)):"—";
 export default async function ActionCenterPage({searchParams}:{searchParams:Promise<{saved?:string;error?:string}>}){
  const supabase=await createClient();const {data:claims}=await supabase.auth.getClaims();if(!claims?.claims?.sub)redirect("/login");
- const membership=await supabase.from("memberships").select("role").eq("status","active");if(!membership.data?.some(i=>i.role==="qira_admin"||i.role==="qira_consultant"))redirect("/client");
+ const membership=await supabase.from("memberships").select("role").eq("user_id",String(claims.claims.sub)).eq("status","active");if(!membership.data?.some(i=>i.role==="qira_admin"||i.role==="qira_consultant"))redirect("/client");
  const horizon=new Date();horizon.setDate(horizon.getDate()+45);const horizonDate=horizon.toISOString().slice(0,10);const today=new Date().toISOString().slice(0,10);
  const [{data:projects},{data:deployments},{data:domains},{data:subscriptions},{data:tickets}]=await Promise.all([
   (supabase as any).from("managed_projects").select("id,name,service_status,next_review_on").in("service_status",["onboarding","attention","maintenance","suspended"]).order("updated_at"),
