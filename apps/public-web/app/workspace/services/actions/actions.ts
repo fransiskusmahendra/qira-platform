@@ -34,3 +34,10 @@ export async function updateTicketStatus(form:FormData){
  const status=value(form,"status");if(!["open","in_progress","waiting_customer","resolved","closed"].includes(status))redirect("/workspace/services/actions?error=invalid");
  await update("support_tickets",value(form,"id"),{status,resolved_at:["resolved","closed"].includes(status)?new Date().toISOString():null});
 }
+
+export async function updateDeploymentStatus(form:FormData){
+ const status=value(form,"status");if(!["queued","building","ready","error","cancelled","unknown"].includes(status))redirect("/workspace/services/actions?error=invalid");
+ const supabase=await teamClient();const id=value(form,"id");if(!id)redirect("/workspace/services/actions?error=invalid");
+ const {error}=await supabase.from("project_deployments").update({status,checked_at:new Date().toISOString(),deployed_at:status==="ready"?new Date().toISOString():null}).eq("id",id);
+ if(error)redirect("/workspace/services/actions?error=save");revalidatePath("/workspace/services");revalidatePath("/workspace/services/actions");redirect("/workspace/services/actions?saved=1");
+}
