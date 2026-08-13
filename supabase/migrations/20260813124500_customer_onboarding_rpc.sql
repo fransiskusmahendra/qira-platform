@@ -60,7 +60,7 @@ begin
       project_id, name, billing_cycle, amount_idr, status, started_on, next_billing_on
     ) values (
       v_project_id, 'Managed service QIRA', 'monthly',
-      p_monthly_amount_idr, 'active', current_date, current_date + 1
+      p_monthly_amount_idr, 'active', current_date, (current_date + interval '1 month')::date
     );
   end if;
 
