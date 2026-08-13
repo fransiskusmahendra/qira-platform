@@ -156,3 +156,6 @@ create index tickets_customer_idx on public.support_tickets(customer_id, status,
 create index tickets_project_idx on public.support_tickets(project_id) where project_id is not null;
 create index tickets_due_idx on public.support_tickets(due_at) where status in ('open','in_progress','waiting_customer');
 create index public_leads_follow_up_idx on public.public_leads(next_follow_up_at) where status not in ('won','lost','archived');
+
+create index support_tickets_created_by_idx on public.support_tickets(created_by) where created_by is not null;
+create index support_tickets_assigned_to_idx on public.support_tickets(assigned_to) where assigned_to is not null;
