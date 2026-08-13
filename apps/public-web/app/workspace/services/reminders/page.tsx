@@ -7,7 +7,7 @@ import {updateReminder} from "./actions";
 const date=(value:string|null)=>value?new Intl.DateTimeFormat("id-ID",{dateStyle:"medium"}).format(new Date(value)):"—";
 export default async function ReminderPage({searchParams}:{searchParams:Promise<{saved?:string;error?:string}>}){
  const supabase=await createClient();const {data:claims}=await supabase.auth.getClaims();if(!claims?.claims?.sub)redirect("/login");
- const membership=await supabase.from("memberships").select("role").eq("status","active");if(!membership.data?.some(x=>x.role==="qira_admin"||x.role==="qira_consultant"))redirect("/client");
+ const membership=await supabase.from("memberships").select("role").eq("user_id",String(claims.claims.sub)).eq("status","active");if(!membership.data?.some(x=>x.role==="qira_admin"||x.role==="qira_consultant"))redirect("/client");
  const {data:reminders}=await (supabase as any).from("service_reminders").select("id,customer_id,project_id,reminder_type,title,body,due_on,severity,status,created_at").eq("status","open").order("due_on",{ascending:true,nullsFirst:false});
  const customerIds=[...new Set((reminders??[]).map((x:any)=>x.customer_id))];const {data:customers}=customerIds.length?await (supabase as any).from("customers").select("id,display_name").in("id",customerIds):{data:[]};
  const customerById=new Map<string,any>((customers??[]).map((x:any)=>[x.id,x]));const params=await searchParams;
