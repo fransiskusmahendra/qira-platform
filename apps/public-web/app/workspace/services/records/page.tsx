@@ -6,7 +6,7 @@ import { addDeployment,addDomain,addSubscription,addTicket } from "./actions";
 
 export default async function ServiceRecordsPage({searchParams}:{searchParams:Promise<{saved?:string;error?:string}>}){
  const supabase=await createClient();const {data:claims}=await supabase.auth.getClaims();if(!claims?.claims?.sub)redirect("/login");
- const membership=await supabase.from("memberships").select("role").eq("status","active");
+ const membership=await supabase.from("memberships").select("role").eq("user_id",String(claims.claims.sub)).eq("status","active");
  if(!membership.data?.some(item=>item.role==="qira_admin"||item.role==="qira_consultant"))redirect("/client");
  const [{data:projects},{data:customers}]=await Promise.all([(supabase as any).from("managed_projects").select("id,name,customer_id").order("name"),(supabase as any).from("customers").select("id,display_name").order("display_name")]);
  const params=await searchParams;const projectOptions=(projects??[]).map((p:any)=><option key={p.id} value={p.id}>{p.name}</option>);
