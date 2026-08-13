@@ -18,6 +18,7 @@ export default function HomePage() {
           <a href="#packages">Paket</a>
           <a href="#demo">Demo Paket</a>
           <Link href="/demo-usaha">Demo Usaha</Link>
+          <Link href="/contoh-penerapan">Contoh Penerapan</Link>
           <Link className="navCta" href="/start">Mulai Konsultasi</Link>
         </div>
       </nav>
@@ -62,6 +63,16 @@ export default function HomePage() {
           <p>Coba dashboard interaktif dengan data contoh yang menyerupai kegiatan usaha sehari-hari.</p>
         </div>
         <Link className="primaryButton" href="/demo-usaha">Jelajahi demo usaha</Link>
+      </section>
+
+      <section className="caseStudyCallout shell" id="contoh-penerapan">
+        <div className="caseStudyMark"><span>◇</span><small>Concept case studies</small></div>
+        <div>
+          <p className="kicker">Contoh penerapan yang transparan</p>
+          <h2>Lihat perjalanan dari masalah manual menuju solusi QIRA.</h2>
+          <p>Semua contoh menggunakan data simulasi—bukan klaim pelanggan—untuk menunjukkan bentuk solusi, dampak yang dituju, paket, dan estimasi waktu.</p>
+        </div>
+        <Link className="primaryButton" href="/contoh-penerapan">Lihat contoh penerapan</Link>
       </section>
 
       <section className="packages shell" id="packages">
