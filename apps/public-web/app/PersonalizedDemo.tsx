@@ -37,7 +37,10 @@ function buildProfile(input: string): Profile {
 }
 
 export function PersonalizedDemo() {
-  const [businessName,setBusinessName]=useState("");\n  const [teamSize,setTeamSize]=useState("1–3 orang");\n  const [priority,setPriority]=useState("Merapikan operasional");\n  const [description,setDescription]=useState("");
+  const [businessName,setBusinessName]=useState("");
+  const [teamSize,setTeamSize]=useState("1–3 orang");
+  const [priority,setPriority]=useState("Merapikan operasional");
+  const [description,setDescription]=useState("");
   const [profile,setProfile]=useState<Profile|null>(null);
   const submit=(event:FormEvent)=>{event.preventDefault();if(description.trim().length>=10)setProfile(buildProfile(description.trim()))};
   const consultationContext = [businessName.trim() && `Nama usaha: ${businessName.trim()}`, `Ukuran tim: ${teamSize}`, `Prioritas: ${priority}`, `Cerita usaha: ${description.trim()}`].filter(Boolean).join("\n");
