@@ -17,6 +17,7 @@ export interface DiscoveryQuestionnaire {
 }
 
 const COMMON_QUESTIONS: readonly DiscoveryQuestion[] = [
+  { id: "business_profile", prompt: "Ceritakan jenis usaha, produk atau layanan, pelanggan, dan cara operasional utama Anda.", answerType: "long_text", required: true },
   { id: "business_goal", prompt: "Hasil bisnis apa yang ingin dicapai?", answerType: "long_text", required: true },
   { id: "current_process", prompt: "Bagaimana proses berjalan saat ini?", answerType: "long_text", required: true },
   { id: "pain_point", prompt: "Di bagian mana masalah paling sering terjadi?", answerType: "long_text", required: true },
@@ -45,7 +46,7 @@ const SERVICE_QUESTIONS: Readonly<Record<ServiceId, readonly DiscoveryQuestion[]
 
 export function getDiscoveryQuestionnaire(serviceId: ServiceId): DiscoveryQuestionnaire {
   return {
-    version: "2026-08-03.1",
+    version: "2026-08-14.1",
     serviceId,
     questions: [...COMMON_QUESTIONS, ...SERVICE_QUESTIONS[serviceId]],
   };
@@ -63,4 +64,3 @@ export function findMissingRequiredAnswers(
     })
     .map((question) => question.id);
 }
-
