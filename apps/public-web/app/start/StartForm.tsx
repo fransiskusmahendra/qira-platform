@@ -46,7 +46,7 @@ export function StartForm({ defaultPackage, defaultNeed = "" }: StartFormProps) 
       <label className={styles.consent}><input type="checkbox" name="consented" required /><span>Saya bersedia dihubungi QIRA melalui WhatsApp atau email untuk membahas kebutuhan ini.</span></label>
       <label className={styles.honeypot} aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
       {state.status === "error" ? <p className={styles.error} role="alert">{state.message}</p> : null}
-      <button type="submit" disabled={pending}>{pending ? "Mengirim kebutuhan…" : "Kirim kebutuhan tanpa login"}</button>
+      <button type="submit" disabled={pending}>{pending ? "Mengirim kebutuhan…" : "Kirim kebutuhan"}</button>
       <small>Data tidak ditampilkan kepada publik dan hanya digunakan untuk menindaklanjuti konsultasi QIRA.</small>
     </form>
   );
