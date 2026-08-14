@@ -10,6 +10,6 @@ export default function ProblemExperiencePage() {
     <nav className="nav shell"><Link className="brand" href="/">QIRA<span>.</span></Link></nav>
     <header className="subpageIntro shell"><p className="kicker">Langkah 1 · Kenali peluangnya</p><h1>Mulai dari satu masalah yang paling menghambat.</h1><p>Bagian ini hanya memberi rekomendasi singkat. Prototype yang lengkap dibuat setelah Discovery agar sesuai dengan data, role, workflow, dan aturan usaha Anda.</p></header>
     <PersonalizedDemo />
-    <footer className="footer shell"><span>QIRA · Your Business, Understood.</span><span>Langkah berikutnya: harga dan paket</span></footer>
+    <footer className="footer shell"><span>QIRA · Your Business, Understood.</span><span>Langkah berikutnya: cara QIRA membantu</span></footer>
   </main>;
 }

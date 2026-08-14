@@ -100,10 +100,10 @@ export default function CaseStudiesPage() {
       <section className={styles.method}>
         <div><p>Bagaimana contoh menjadi proyek nyata?</p><h2>Simulasi memberi gambaran. Discovery menentukan solusi.</h2></div>
         <ol><li><b>01</b><span><strong>Pahami kondisi</strong>Proses, pengguna, data, masalah, dan anggaran.</span></li><li><b>02</b><span><strong>Validasi demo</strong>Fitur prioritas diuji melalui gambaran solusi.</span></li><li><b>03</b><span><strong>Sepakati scope</strong>Hasil, waktu, harga, dan batas proyek ditulis jelas.</span></li></ol>
-        <Link href="/discovery">Ceritakan proses usaha Anda</Link>
+        <Link href="/harga">Lihat harga dan paket</Link>
       </section>
 
-      <footer className={styles.footer}><span>QIRA · PT Rays Solusi Informasi</span><span>Langkah berikutnya: Discovery</span></footer>
+      <footer className={styles.footer}><span>QIRA · PT Rays Solusi Informasi</span><span>Langkah berikutnya: harga dan paket</span></footer>
     </main>
   );
 }
