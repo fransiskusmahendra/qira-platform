@@ -4,7 +4,6 @@ export default function HomePage() {
   return <main>
     <nav className="nav shell" aria-label="Navigasi utama">
       <Link className="brand" href="/">QIRA<span>.</span></Link>
-      <div className="navLinks"><Link href="/coba-masalah">Temukan Solusi</Link><Link href="/harga">Harga</Link><Link href="/contoh-penerapan">Cara QIRA Membantu</Link><Link className="navCta" href="/discovery">Discovery</Link></div>
     </nav>
 
     <section className="simpleHero shell">
@@ -14,13 +13,7 @@ export default function HomePage() {
       <Link className="primaryButton" href="/coba-masalah">Temukan solusi untuk bisnis Anda</Link>
     </section>
 
-    <section className="entryGrid shell" aria-label="Jalur mengenal QIRA">
-      <Link href="/coba-masalah"><span>01</span><h2>Temukan Solusi</h2><p>Ceritakan proses yang masih manual dan lihat arah solusi awal.</p></Link>
-      <Link href="/harga"><span>02</span><h2>Harga & Paket</h2><p>Bandingkan hasil, durasi, cakupan, dan investasi awal.</p></Link>
-      <Link href="/contoh-penerapan"><span>03</span><h2>Cara QIRA Membantu</h2><p>Lihat bagaimana QIRA membantu membuat proses bisnis lebih jelas dan teratur.</p></Link>
-    </section>
-
-    <section className="simpleProcess shell"><p className="kicker">Satu alur yang jelas</p><h2>Discovery → Prototype → Scope final → Development → UAT → Go Live.</h2><p>Setelah Discovery, Anda menerima prototype personal, proposal awal, dan harga indikatif. Prototype yang disetujui menjadi baseline hasil akhir.</p><Link className="primaryButton" href="/discovery">Mulai Discovery</Link></section>
+    <section className="simpleProcess shell"><p className="kicker">Satu alur yang jelas</p><h2>Discovery → Prototype → Scope final → Development → UAT → Go Live.</h2><p>QIRA akan memandu Anda tahap demi tahap. Setelah Discovery, Anda menerima prototype personal, proposal awal, dan harga indikatif.</p></section>
     <footer className="footer shell"><span>QIRA · PT Rays Solusi Informasi</span><span>Jakarta, Indonesia</span></footer>
   </main>;
 }
