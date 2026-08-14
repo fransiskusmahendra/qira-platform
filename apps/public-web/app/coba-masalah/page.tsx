@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { PersonalizedDemo } from "../PersonalizedDemo";
 
-export const metadata: Metadata = { title: "Coba Masalah Bisnis", description: "Ceritakan proses manual dan lihat rekomendasi awal QIRA." };
+export const metadata: Metadata = { title: "Temukan Solusi Bisnis", description: "Ceritakan proses manual dan lihat arah solusi awal dari QIRA." };
 
 export default function ProblemExperiencePage() {
   return <main>
