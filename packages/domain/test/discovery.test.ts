@@ -13,6 +13,7 @@ test("questionnaire combines common and service-specific questions", () => {
   const questionnaire = getDiscoveryQuestionnaire("automation");
   assert.equal(questionnaire.serviceId, "automation");
   assert.ok(questionnaire.questions.some((question) => question.id === "business_goal"));
+  assert.ok(questionnaire.questions.some((question) => question.id === "business_profile"));
   assert.ok(questionnaire.questions.some((question) => question.id === "handoff_count"));
 });
 
@@ -20,6 +21,7 @@ test("required answer validation returns stable question ids", () => {
   const questionnaire = getDiscoveryQuestionnaire("discovery");
   const missing = findMissingRequiredAnswers(questionnaire, { business_goal: "Grow sales" });
   assert.ok(missing.includes("current_process"));
+  assert.ok(missing.includes("business_profile"));
   assert.ok(missing.includes("decision_needed"));
   assert.equal(missing.includes("budget_range"), false);
 });
@@ -46,4 +48,3 @@ test("all three Discovery scores are returned", () => {
   });
   assert.deepEqual(scores.map((score) => score.type), ["opportunity", "readiness", "complexity"]);
 });
-
