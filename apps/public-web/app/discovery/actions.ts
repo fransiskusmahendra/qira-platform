@@ -2,6 +2,7 @@
 
 import {
   calculateDiscoveryScores,
+  classifyDiscoveryTriage,
   findMissingRequiredAnswers,
   getDiscoveryQuestionnaire,
   type ServiceId,
@@ -10,6 +11,7 @@ import { redirect } from "next/navigation";
 
 import { createAdminClient } from "../../lib/supabase/admin";
 import { createClient } from "../../lib/supabase/server";
+import { sendDiscoveryReviewEmail } from "../../lib/email/discovery-review";
 
 const CONTACT_PHONE_PATTERN = /^[0-9+() -]{8,24}$/;
 const CONTACT_EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -73,12 +75,20 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
     readiness: { selfAssessment: input.assessment.readiness },
     complexity: { selfAssessment: input.assessment.complexity },
   });
+  const triage = classifyDiscoveryTriage({ serviceId: input.serviceId, answers: input.answers, assessment: input.assessment });
   const responses = {
     ...Object.fromEntries(Object.entries(input.answers).filter((entry): entry is [string, string | number] => entry[1] !== undefined)),
     _contact: { fullName, businessName, whatsapp, email: email || null },
     _assessment: input.assessment,
     _consent: { accepted: true, textVersion: "public-discovery-consent-v1", acceptedAt: new Date().toISOString() },
     _questionnaire: { serviceId: input.serviceId, version: questionnaire.version },
+    _triage: {
+      level: triage.level,
+      label: triage.label,
+      reasons: [...triage.reasons],
+      requiresAdminReview: triage.requiresAdminReview,
+      rulesetVersion: triage.rulesetVersion,
+    },
   };
 
   const supabase = createAdminClient();
@@ -102,10 +112,47 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
     };
   }
 
+  if (triage.requiresAdminReview) {
+    try {
+      const configuredRecipients = (process.env.QIRA_ADMIN_NOTIFICATION_EMAILS ?? "")
+        .split(",")
+        .map((recipient) => recipient.trim().toLowerCase())
+        .filter((recipient) => CONTACT_EMAIL_PATTERN.test(recipient));
+      const { data: memberships } = await supabase
+        .from("memberships")
+        .select("user_id")
+        .eq("role", "qira_admin")
+        .eq("status", "active");
+      const adminIds = new Set((memberships ?? []).map((membership) => membership.user_id));
+      const { data: authUsers, error: usersError } = await supabase.auth.admin.listUsers({ page: 1, perPage: 1000 });
+      if (usersError) console.error("discovery_admin_recipient_lookup_failed", { code: usersError.code });
+      const membershipRecipients = (authUsers?.users ?? [])
+        .filter((user) => adminIds.has(user.id) && user.email)
+        .map((user) => user.email!.toLowerCase());
+      const recipients = [...new Set([...configuredRecipients, ...membershipRecipients])];
+      const emailResult = await sendDiscoveryReviewEmail({
+        discoveryId: data[0].discovery_id,
+        reference: data[0].reference,
+        recipients,
+        triage,
+        serviceId: input.serviceId,
+        contact: { fullName, businessName, whatsapp, email: email || null },
+        answers: input.answers,
+      });
+      if (!emailResult.ok) console.error("discovery_review_email_failed", { reason: emailResult.error });
+    } catch (notificationError) {
+      console.error("discovery_review_notification_failed", {
+        message: notificationError instanceof Error ? notificationError.message : "unknown",
+      });
+    }
+  }
+
   return {
     status: "success",
     reference: data[0].reference,
-    message: "Tim QIRA akan meninjau kebutuhan Anda. Rekomendasi dan proposal resmi disiapkan setelah review manusia.",
+    message: triage.level === 1
+      ? "Konsep awal Anda sudah siap. Scope dan proposal resmi tetap divalidasi QIRA sebelum pembayaran."
+      : `${triage.label}. Tim QIRA sudah diberi notifikasi untuk menindaklanjuti kebutuhan Anda.`,
   };
 }
 
