@@ -72,7 +72,7 @@ export default function CaseStudiesPage() {
     <main className={styles.page}>
       <nav className={styles.nav}>
         <Link className={styles.brand} href="/">QIRA<span>.</span></Link>
-        <div><Link href="/demo-usaha">Demo Usaha</Link><Link className={styles.navCta} href="/discovery">Mulai Discovery</Link></div>
+        <div><Link href="/">Beranda QIRA</Link><Link className={styles.navCta} href="/discovery">Mulai Discovery</Link></div>
       </nav>
 
       <header className={styles.hero}>
@@ -93,7 +93,7 @@ export default function CaseStudiesPage() {
               <div><dt>Solusi QIRA</dt><dd>{item.solution}</dd></div>
               <div><dt>Dampak yang dituju</dt><dd>{item.outcome}</dd></div>
             </dl>
-            <div className={styles.cardBottom}><span>Estimasi {item.duration}</span><Link href={["rental", "laundry", "katering", "salon", "jasa"].includes(item.business) ? "/#demo" : "/demo-usaha"}>Lihat demo <b>↗</b></Link></div>
+            <div className={styles.cardBottom}><span>Estimasi {item.duration}</span><Link href="/discovery">Buat demo untuk usaha Anda <b>↗</b></Link></div>
           </article>
         ))}
       </section>
