@@ -17,15 +17,15 @@ export default function DiscoveryPage() {
         <Link className={styles.brand} href="/" aria-label="Kembali ke beranda QIRA">
           QIRA<span>.</span>
         </Link>
-        <div className={styles.previewBadge}>Preview · data belum dikirim</div>
+        <div className={styles.previewBadge}>Aman · tanpa login</div>
       </header>
 
       <section className={styles.intro}>
         <p className={styles.eyebrow}>AI & Digital Discovery</p>
         <h1>Mari pahami proses yang paling penting untuk bisnis Anda.</h1>
         <p>
-          Pilih kebutuhan utama, ceritakan kondisi saat ini, lalu lihat penilaian awal
-          yang transparan. Estimasi waktu pengisian 10–15 menit.
+          Pilih kebutuhan utama dan ceritakan kondisi saat ini. Setelah dikirim, Anda
+          langsung memperoleh proposal, demo, dan estimasi harga awal. Estimasi pengisian 10–15 menit.
         </p>
       </section>
 
@@ -33,9 +33,8 @@ export default function DiscoveryPage() {
 
       <footer className={styles.footer}>
         <span>QIRA · PT Rays Solusi Informasi</span>
-        <span>Jawaban preview hanya tersimpan selama halaman terbuka.</span>
+        <span>Jawaban hanya dikirim setelah Anda menekan tombol Kirim Discovery.</span>
       </footer>
     </main>
   );
 }
-
