@@ -77,12 +77,12 @@ export default function CaseStudiesPage() {
 
       <header className={styles.hero}>
         <div className={styles.badge}><i>◇</i><span><b>Concept case studies</b>Data dan dampak di bawah merupakan simulasi, bukan klaim pelanggan.</span></div>
-        <p>Cara QIRA diterapkan</p>
-        <h1>Dari proses manual menuju alur kerja yang <em>lebih jelas.</em></h1>
-        <span>Gunakan contoh ini untuk memahami bentuk solusi yang mungkin diterapkan. Setiap proyek tetap dimulai dengan discovery agar fitur, waktu, dan hasil sesuai kondisi usaha sebenarnya.</span>
+        <p>Cara QIRA membantu</p>
+        <h1>QIRA memahami masalah bisnis, lalu membantu membuat prosesnya <em>lebih jelas.</em></h1>
+        <span>Lihat bagaimana QIRA dapat membantu berbagai jenis usaha. Setiap solusi tetap dimulai dengan Discovery agar demo, fitur, waktu, dan hasilnya sesuai kebutuhan bisnis sebenarnya.</span>
       </header>
 
-      <section className={styles.grid} aria-label="Contoh penerapan solusi QIRA">
+      <section className={styles.grid} aria-label="Contoh cara QIRA membantu bisnis">
         {cases.map((item, index) => (
           <article key={item.id} className={styles.card}>
             <div className={styles.cardTop}><span>0{index + 1}</span><small>{item.packageName}</small></div>
