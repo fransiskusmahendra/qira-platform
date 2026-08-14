@@ -72,7 +72,7 @@ export default function CaseStudiesPage() {
     <main className={styles.page}>
       <nav className={styles.nav}>
         <Link className={styles.brand} href="/">QIRA<span>.</span></Link>
-        <div><Link href="/demo-usaha">Demo Usaha</Link><Link className={styles.navCta} href="/start">Konsultasi</Link></div>
+        <div><Link href="/demo-usaha">Demo Usaha</Link><Link className={styles.navCta} href="/discovery">Mulai Discovery</Link></div>
       </nav>
 
       <header className={styles.hero}>
@@ -101,7 +101,7 @@ export default function CaseStudiesPage() {
       <section className={styles.method}>
         <div><p>Bagaimana contoh menjadi proyek nyata?</p><h2>Simulasi memberi gambaran. Discovery menentukan solusi.</h2></div>
         <ol><li><b>01</b><span><strong>Pahami kondisi</strong>Proses, pengguna, data, masalah, dan anggaran.</span></li><li><b>02</b><span><strong>Validasi demo</strong>Fitur prioritas diuji melalui gambaran solusi.</span></li><li><b>03</b><span><strong>Sepakati scope</strong>Hasil, waktu, harga, dan batas proyek ditulis jelas.</span></li></ol>
-        <Link href="/start">Ceritakan proses usaha Anda</Link>
+        <Link href="/discovery">Ceritakan proses usaha Anda</Link>
       </section>
 
       <footer className={styles.footer}><span>QIRA · PT Rays Solusi Informasi</span><Link href="/">Kembali ke beranda</Link></footer>

@@ -3,11 +3,6 @@ import Link from "next/link";
 import { DemoShowcase } from "./DemoShowcase";
 import { PersonalizedDemo } from "./PersonalizedDemo";
 
-const whatsappNumber = "628211076517";
-const discoveryMessage = encodeURIComponent(
-  "Halo QIRA, saya ingin mendiskusikan kebutuhan digital atau otomasi untuk bisnis saya.",
-);
-const discoveryUrl = `https://wa.me/${whatsappNumber}?text=${discoveryMessage}`;
 const rupiah = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 });
 
 export default function HomePage() {
@@ -16,11 +11,11 @@ export default function HomePage() {
       <nav className="nav shell" aria-label="Navigasi utama">
         <a className="brand" href="#top" aria-label="QIRA beranda">QIRA<span>.</span></a>
         <div className="navLinks">
-          <a href="#packages">Paket</a>
-          <a href="#demo-personal">Buat Demo</a>
+          <a href="#live-experience">Coba Masalah Anda</a>
+          <a href="#packages">Harga & Paket</a>
           <Link href="/demo-usaha">Demo Usaha</Link>
           <Link href="/contoh-penerapan">Contoh Penerapan</Link>
-          <Link className="navCta" href="/start">Mulai Konsultasi</Link>
+          <Link className="navCta" href="/discovery">Mulai Discovery</Link>
         </div>
       </nav>
 
@@ -32,7 +27,7 @@ export default function HomePage() {
           kebutuhan Anda, membuat demo, lalu membangun solusi yang benar-benar dapat digunakan.
         </p>
         <div className="heroActions">
-          <Link className="primaryButton" href="/start">Ceritakan kebutuhan Anda</Link>
+          <a className="primaryButton" href="#live-experience">Coba pengalaman langsung</a>
           <a className="textLink" href="#demo">Coba demo <span aria-hidden="true">↓</span></a>
         </div>
         <div className="trustRow" aria-label="Prinsip kerja QIRA">
@@ -91,7 +86,7 @@ export default function HomePage() {
               <div className="packagePrice"><span>{item.priceLabel}</span><strong>{rupiah.format(item.introductoryPriceIdr)}</strong></div>
               <ul>{item.deliverables.map((deliverable) => <li key={deliverable}>{deliverable}</li>)}</ul>
               <div className="packageMeta"><span>{item.durationWeeks[0]}–{item.durationWeeks[1]} minggu</span><span>{item.revisions}x revisi</span><span>{item.supportDays} hari dukungan awal</span></div>
-              <div className="packageActions"><a className="packageDemoButton" href="#demo">Lihat demo</a><Link className="packageButton" href={`/start?package=${item.id}`}>Pilih paket</Link></div>
+              <div className="packageActions"><a className="packageDemoButton" href="#demo">Lihat demo</a><Link className="packageButton" href="/discovery">Pilih dan mulai Discovery</Link></div>
             </article>
           ))}
         </div>
@@ -104,7 +99,7 @@ export default function HomePage() {
           <h2>Kebutuhan Anda tidak cocok dengan paket?</h2>
           <p>QIRA dapat merancang dashboard, aplikasi operasional, otomasi, dokumen otomatis, atau integrasi berdasarkan hasil discovery. Harga diberikan setelah kebutuhan dan batas proyek disepakati.</p>
         </div>
-        <Link className="primaryButton" href="/start?package=custom">Minta solusi custom</Link>
+        <Link className="primaryButton" href="/discovery">Mulai Discovery custom</Link>
       </section>
 
       <section className="care shell">
@@ -121,15 +116,17 @@ export default function HomePage() {
       <section className="process shell">
         <p className="kicker">Cara kerja</p>
         <div className="processGrid">
-          <div><strong>01</strong><h3>Understand</h3><p>Memahami hasil bisnis, anggaran, dan kondisi nyata.</p></div>
-          <div><strong>02</strong><h3>Propose</h3><p>Menentukan paket atau solusi custom beserta scope dan harga.</p></div>
-          <div><strong>03</strong><h3>Build</h3><p>DP 50%, pembangunan dan validasi, lalu pelunasan sebelum serah terima.</p></div>
+          <div><strong>01</strong><h3>Explore</h3><p>Coba live experience, bandingkan paket, demo, harga, dan contoh penerapan.</p></div>
+          <div><strong>02</strong><h3>Discover</h3><p>Isi kebutuhan tanpa login dan dapatkan proposal, demo, serta harga awal.</p></div>
+          <div><strong>03</strong><h3>Agree</h3><p>Setujui atau minta revisi, konfirmasi scope final, lalu bayar DP 50%.</p></div>
+          <div><strong>04</strong><h3>Build & UAT</h3><p>Development, pengujian, perbaikan sesuai scope, dan persetujuan UAT.</p></div>
+          <div><strong>05</strong><h3>Go Live</h3><p>Pelunasan, peluncuran, onboarding, dan opsi Managed by QIRA.</p></div>
         </div>
       </section>
 
       <section className="closing shell">
         <div><p className="kicker">Your Business, Understood.</p><h2>Mulai dari satu proses yang ingin Anda perbaiki.</h2></div>
-        <a className="primaryButton light" href={discoveryUrl} target="_blank" rel="noreferrer">Konsultasi awal gratis</a>
+        <Link className="primaryButton light" href="/discovery">Mulai Discovery tanpa login</Link>
       </section>
 
       <footer className="footer shell"><span>QIRA · PT Rays Solusi Informasi</span><span>Jakarta, Indonesia</span></footer>
