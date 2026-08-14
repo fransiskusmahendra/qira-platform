@@ -1,6 +1,5 @@
 import { CARE_PLANS, PROPOSAL_PACKAGES, SERVICE_CATALOG } from "@qira/domain";
 import Link from "next/link";
-import { DemoShowcase } from "./DemoShowcase";
 import { PersonalizedDemo } from "./PersonalizedDemo";
 
 const rupiah = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 });
@@ -13,8 +12,7 @@ export default function HomePage() {
         <div className="navLinks">
           <a href="#live-experience">Coba Masalah Anda</a>
           <a href="#packages">Harga & Paket</a>
-          <Link href="/demo-usaha">Demo Usaha</Link>
-          <Link href="/contoh-penerapan">Contoh Penerapan</Link>
+          <a href="#contoh-penerapan">Cara Diterapkan</a>
           <Link className="navCta" href="/discovery">Mulai Discovery</Link>
         </div>
       </nav>
@@ -28,7 +26,6 @@ export default function HomePage() {
         </p>
         <div className="heroActions">
           <a className="primaryButton" href="#live-experience">Coba pengalaman langsung</a>
-          <a className="textLink" href="#demo">Coba demo <span aria-hidden="true">↓</span></a>
         </div>
         <div className="trustRow" aria-label="Prinsip kerja QIRA">
           <span>Konsultasi awal gratis</span><span>Harga dan scope transparan</span><span>Solusi dapat disesuaikan</span>
@@ -52,17 +49,6 @@ export default function HomePage() {
 
       <PersonalizedDemo />
 
-      <DemoShowcase />
-
-      <section className="businessDemoCallout shell">
-        <div>
-          <p className="kicker">Demo berdasarkan jenis usaha</p>
-          <h2>Kontrakan, kosan, peternakan, perkebunan, atau tambak?</h2>
-          <p>Coba dashboard interaktif dengan data contoh yang menyerupai kegiatan usaha sehari-hari.</p>
-        </div>
-        <Link className="primaryButton" href="/demo-usaha">Jelajahi demo usaha</Link>
-      </section>
-
       <section className="caseStudyCallout shell" id="contoh-penerapan">
         <div className="caseStudyMark"><span>◇</span><small>Concept case studies</small></div>
         <div>
@@ -70,7 +56,6 @@ export default function HomePage() {
           <h2>Lihat perjalanan dari masalah manual menuju solusi QIRA.</h2>
           <p>Semua contoh menggunakan data simulasi—bukan klaim pelanggan—untuk menunjukkan bentuk solusi, dampak yang dituju, paket, dan estimasi waktu.</p>
         </div>
-        <Link className="primaryButton" href="/contoh-penerapan">Lihat contoh penerapan</Link>
       </section>
 
       <section className="packages shell" id="packages">
@@ -86,10 +71,10 @@ export default function HomePage() {
               <div className="packagePrice"><span>{item.priceLabel}</span><strong>{rupiah.format(item.introductoryPriceIdr)}</strong></div>
               <ul>{item.deliverables.map((deliverable) => <li key={deliverable}>{deliverable}</li>)}</ul>
               <div className="packageMeta"><span>{item.durationWeeks[0]}–{item.durationWeeks[1]} minggu</span><span>{item.revisions}x revisi</span><span>{item.supportDays} hari dukungan awal</span></div>
-              <div className="packageActions"><a className="packageDemoButton" href="#demo">Lihat demo</a><Link className="packageButton" href="/discovery">Pilih dan mulai Discovery</Link></div>
             </article>
           ))}
         </div>
+        <div className="packageCta"><Link className="primaryButton" href="/discovery">Pilih paket melalui Discovery</Link></div>
         <p className="pricingNote">Domain, hosting, layanan pihak ketiga, integrasi berbayar, dan perubahan di luar scope tidak termasuk kecuali tertulis dalam proposal.</p>
       </section>
 
@@ -99,7 +84,6 @@ export default function HomePage() {
           <h2>Kebutuhan Anda tidak cocok dengan paket?</h2>
           <p>QIRA dapat merancang dashboard, aplikasi operasional, otomasi, dokumen otomatis, atau integrasi berdasarkan hasil discovery. Harga diberikan setelah kebutuhan dan batas proyek disepakati.</p>
         </div>
-        <Link className="primaryButton" href="/discovery">Mulai Discovery custom</Link>
       </section>
 
       <section className="care shell">
