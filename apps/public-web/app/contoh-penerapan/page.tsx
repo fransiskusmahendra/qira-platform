@@ -72,7 +72,7 @@ export default function CaseStudiesPage() {
     <main className={styles.page}>
       <nav className={styles.nav}>
         <Link className={styles.brand} href="/">QIRA<span>.</span></Link>
-        <div><Link href="/coba-masalah">Coba Masalah</Link><Link href="/harga">Harga</Link><Link className={styles.navCta} href="/discovery">Discovery</Link></div>
+        <div><Link href="/coba-masalah">Temukan Solusi</Link><Link href="/harga">Harga</Link><Link className={styles.navCta} href="/discovery">Discovery</Link></div>
       </nav>
 
       <header className={styles.hero}>
