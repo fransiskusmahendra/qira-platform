@@ -72,12 +72,12 @@ export default function CaseStudiesPage() {
     <main className={styles.page}>
       <nav className={styles.nav}>
         <Link className={styles.brand} href="/">QIRA<span>.</span></Link>
-        <div><Link href="/">Beranda QIRA</Link><Link className={styles.navCta} href="/discovery">Mulai Discovery</Link></div>
+        <div><Link href="/coba-masalah">Coba Masalah</Link><Link href="/harga">Harga</Link><Link className={styles.navCta} href="/discovery">Discovery</Link></div>
       </nav>
 
       <header className={styles.hero}>
         <div className={styles.badge}><i>◇</i><span><b>Concept case studies</b>Data dan dampak di bawah merupakan simulasi, bukan klaim pelanggan.</span></div>
-        <p>Contoh penerapan QIRA</p>
+        <p>Cara QIRA diterapkan</p>
         <h1>Dari proses manual menuju alur kerja yang <em>lebih jelas.</em></h1>
         <span>Gunakan contoh ini untuk memahami bentuk solusi yang mungkin diterapkan. Setiap proyek tetap dimulai dengan discovery agar fitur, waktu, dan hasil sesuai kondisi usaha sebenarnya.</span>
       </header>
@@ -93,7 +93,7 @@ export default function CaseStudiesPage() {
               <div><dt>Solusi QIRA</dt><dd>{item.solution}</dd></div>
               <div><dt>Dampak yang dituju</dt><dd>{item.outcome}</dd></div>
             </dl>
-            <div className={styles.cardBottom}><span>Estimasi {item.duration}</span><Link href="/discovery">Buat demo untuk usaha Anda <b>↗</b></Link></div>
+            <div className={styles.cardBottom}><span>Estimasi {item.duration}</span></div>
           </article>
         ))}
       </section>
