@@ -72,7 +72,6 @@ export default function CaseStudiesPage() {
     <main className={styles.page}>
       <nav className={styles.nav}>
         <Link className={styles.brand} href="/">QIRA<span>.</span></Link>
-        <div><Link href="/coba-masalah">Temukan Solusi</Link><Link href="/harga">Harga</Link><Link className={styles.navCta} href="/discovery">Discovery</Link></div>
       </nav>
 
       <header className={styles.hero}>
@@ -104,7 +103,7 @@ export default function CaseStudiesPage() {
         <Link href="/discovery">Ceritakan proses usaha Anda</Link>
       </section>
 
-      <footer className={styles.footer}><span>QIRA · PT Rays Solusi Informasi</span><Link href="/">Kembali ke beranda</Link></footer>
+      <footer className={styles.footer}><span>QIRA · PT Rays Solusi Informasi</span><span>Langkah berikutnya: Discovery</span></footer>
     </main>
   );
 }

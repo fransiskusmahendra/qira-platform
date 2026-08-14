@@ -7,9 +7,9 @@ export const metadata: Metadata = { title: "Temukan Solusi Bisnis", description:
 
 export default function ProblemExperiencePage() {
   return <main>
-    <nav className="nav shell"><Link className="brand" href="/">QIRA<span>.</span></Link><div className="navLinks"><Link href="/harga">Harga</Link><Link href="/contoh-penerapan">Cara QIRA Membantu</Link><Link className="navCta" href="/discovery">Discovery</Link></div></nav>
+    <nav className="nav shell"><Link className="brand" href="/">QIRA<span>.</span></Link></nav>
     <header className="subpageIntro shell"><p className="kicker">Langkah 1 · Kenali peluangnya</p><h1>Mulai dari satu masalah yang paling menghambat.</h1><p>Bagian ini hanya memberi rekomendasi singkat. Prototype yang lengkap dibuat setelah Discovery agar sesuai dengan data, role, workflow, dan aturan usaha Anda.</p></header>
     <PersonalizedDemo />
-    <footer className="footer shell"><span>QIRA · Your Business, Understood.</span><Link href="/">Kembali ke beranda</Link></footer>
+    <footer className="footer shell"><span>QIRA · Your Business, Understood.</span><span>Langkah berikutnya: harga dan paket</span></footer>
   </main>;
 }
