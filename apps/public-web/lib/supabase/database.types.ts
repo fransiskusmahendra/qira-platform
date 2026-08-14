@@ -65,7 +65,7 @@ export type Database = {
       audit_events: {
         Row: {
           action: string
-          actor_id: string
+          actor_id: string | null
           id: string
           occurred_at: string
           organization_id: string
@@ -76,7 +76,7 @@ export type Database = {
         }
         Insert: {
           action: string
-          actor_id: string
+          actor_id?: string | null
           id?: string
           occurred_at?: string
           organization_id: string
@@ -87,7 +87,7 @@ export type Database = {
         }
         Update: {
           action?: string
-          actor_id?: string
+          actor_id?: string | null
           id?: string
           occurred_at?: string
           organization_id?: string
@@ -109,9 +109,11 @@ export type Database = {
       discoveries: {
         Row: {
           created_at: string
-          created_by: string
+          created_by: string | null
           id: string
           organization_id: string
+          public_lead_id: string | null
+          public_reference: string | null
           responses: Json
           scores: Json
           service_ids: string[]
@@ -121,9 +123,11 @@ export type Database = {
         }
         Insert: {
           created_at?: string
-          created_by: string
+          created_by?: string | null
           id?: string
           organization_id: string
+          public_lead_id?: string | null
+          public_reference?: string | null
           responses?: Json
           scores?: Json
           service_ids?: string[]
@@ -133,9 +137,11 @@ export type Database = {
         }
         Update: {
           created_at?: string
-          created_by?: string
+          created_by?: string | null
           id?: string
           organization_id?: string
+          public_lead_id?: string | null
+          public_reference?: string | null
           responses?: Json
           scores?: Json
           service_ids?: string[]
@@ -144,6 +150,13 @@ export type Database = {
           version?: number
         }
         Relationships: [
+          {
+            foreignKeyName: "discoveries_public_lead_id_fkey"
+            columns: ["public_lead_id"]
+            isOneToOne: true
+            referencedRelation: "public_leads"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "discoveries_organization_id_fkey"
             columns: ["organization_id"]
@@ -448,6 +461,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      submit_public_discovery: {
+        Args: {
+          p_business_name: string
+          p_email: string | null
+          p_full_name: string
+          p_responses: Json
+          p_scores: Json
+          p_service_id: string
+          p_whatsapp: string
+        }
+        Returns: { discovery_id: string; lead_id: string; reference: string }[]
+      }
       save_discovery_draft: {
         Args: {
           response_payload: Json
