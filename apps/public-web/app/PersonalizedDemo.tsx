@@ -51,7 +51,7 @@ export function PersonalizedDemo() {
     </form>
     {profile ? <div className={styles.result} aria-live="polite">
       <div className={styles.story}><span>Rekomendasi untuk</span><h3>{profile.name}</h3><p>{profile.problem}</p><div><small>Paket yang mungkin sesuai</small><strong>{profile.packageName}</strong></div></div>
-      <div className={styles.dashboard}><div className={styles.dashTop}><div><small>Preview rekomendasi</small><h3>{profile.title}</h3></div><span>Detail setelah Discovery</span></div><p>Demo dashboard yang detail, modul, alur operasional, proposal, dan estimasi harga akan dibuat setelah Anda menyelesaikan Discovery.</p><div className={styles.modules}>{profile.modules.slice(0,3).map((item,index)=><span key={item}><i>{index+1}</i>{item}</span>)}</div><Link href="/discovery">Buat demo personal saya <b>→</b></Link></div>
+      <div className={styles.dashboard}><div className={styles.dashTop}><div><small>Preview rekomendasi</small><h3>{profile.title}</h3></div><span>Detail setelah Discovery</span></div><p>Demo dashboard yang detail, modul, alur operasional, proposal, dan estimasi harga akan dibuat setelah Anda menyelesaikan Discovery.</p><div className={styles.modules}>{profile.modules.slice(0,3).map((item,index)=><span key={item}><i>{index+1}</i>{item}</span>)}</div><Link href="/harga">Lihat harga dan paket <b>→</b></Link></div>
     </div>:<div className={styles.empty}><span>✦</span><p>Demo personalmu akan muncul di sini setelah kamu menceritakan usaha.</p></div>}
     <p className={styles.disclosure}>Demo dibuat dari pola kebutuhan umum dan data simulasi. Rancangan final ditentukan setelah discovery bersama QIRA.</p>
   </section>;
