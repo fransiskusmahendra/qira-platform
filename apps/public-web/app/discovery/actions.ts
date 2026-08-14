@@ -8,13 +8,105 @@ import {
 } from "@qira/domain";
 import { redirect } from "next/navigation";
 
+import { createAdminClient } from "../../lib/supabase/admin";
 import { createClient } from "../../lib/supabase/server";
+
+const CONTACT_PHONE_PATTERN = /^[0-9+() -]{8,24}$/;
+const CONTACT_EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PUBLIC_SERVICE_IDS = new Set(["ai-employees", "automation", "business-apps", "discovery"]);
 
 interface SubmitDiscoveryInput {
   serviceId: ServiceId;
   answers: Record<string, string | number | undefined>;
   assessment: { impact: number; readiness: number; complexity: number };
   consented: boolean;
+}
+
+export interface PublicDiscoverySubmissionInput extends SubmitDiscoveryInput {
+  contact: {
+    fullName: string;
+    businessName: string;
+    whatsapp: string;
+    email: string;
+  };
+  website: string;
+}
+
+export interface PublicDiscoverySubmissionState {
+  status: "idle" | "success" | "error";
+  message: string;
+  reference?: string;
+}
+
+function clean(value: string, maxLength: number) {
+  return String(value ?? "").trim().slice(0, maxLength);
+}
+
+export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInput): Promise<PublicDiscoverySubmissionState> {
+  if (!input || !input.contact || !PUBLIC_SERVICE_IDS.has(input.serviceId)) {
+    return { status: "error", message: "Data Discovery tidak valid. Silakan muat ulang halaman dan coba kembali." };
+  }
+  if (clean(input.website, 200)) {
+    return { status: "success", message: "Discovery Anda sudah diterima." };
+  }
+
+  const fullName = clean(input.contact.fullName, 100);
+  const businessName = clean(input.contact.businessName, 160);
+  const whatsapp = clean(input.contact.whatsapp, 24);
+  const email = clean(input.contact.email, 254).toLowerCase();
+  const validEmail = !email || CONTACT_EMAIL_PATTERN.test(email);
+  const assessmentValues = Object.values(input.assessment ?? {});
+  const validAssessment = assessmentValues.length === 3
+    && assessmentValues.every((value) => Number.isInteger(value) && value >= 0 && value <= 5);
+  if (fullName.length < 2 || businessName.length < 2 || !CONTACT_PHONE_PATTERN.test(whatsapp) || !validEmail || !validAssessment) {
+    return { status: "error", message: "Mohon periksa nama, usaha, WhatsApp, dan email Anda." };
+  }
+
+  const questionnaire = getDiscoveryQuestionnaire(input.serviceId);
+  const missing = findMissingRequiredAnswers(questionnaire, input.answers);
+  if (missing.length || !input.consented) {
+    return { status: "error", message: `Lengkapi ${missing.length} jawaban wajib dan persetujuan sebelum mengirim.` };
+  }
+
+  const scores = calculateDiscoveryScores({
+    opportunity: { expectedImpact: input.assessment.impact },
+    readiness: { selfAssessment: input.assessment.readiness },
+    complexity: { selfAssessment: input.assessment.complexity },
+  });
+  const responses = {
+    ...Object.fromEntries(Object.entries(input.answers).filter((entry): entry is [string, string | number] => entry[1] !== undefined)),
+    _contact: { fullName, businessName, whatsapp, email: email || null },
+    _assessment: input.assessment,
+    _consent: { accepted: true, textVersion: "public-discovery-consent-v1", acceptedAt: new Date().toISOString() },
+    _questionnaire: { serviceId: input.serviceId, version: questionnaire.version },
+  };
+
+  const supabase = createAdminClient();
+  const { data, error } = await supabase.rpc("submit_public_discovery", {
+    p_full_name: fullName,
+    p_business_name: businessName,
+    p_whatsapp: whatsapp,
+    p_email: email || null,
+    p_service_id: input.serviceId,
+    p_responses: responses,
+    p_scores: scores.map((score) => ({ ...score, factors: { ...score.factors } })),
+  });
+  if (error || !data?.[0]) {
+    console.error("public_discovery_submission_failed", { code: error?.code });
+    const duplicate = error?.message?.includes("submitted recently");
+    return {
+      status: "error",
+      message: duplicate
+        ? "Discovery dengan nomor ini baru saja dikirim. Tim QIRA akan segera meninjaunya."
+        : "Discovery belum berhasil dikirim. Silakan coba kembali atau hubungi QIRA melalui WhatsApp.",
+    };
+  }
+
+  return {
+    status: "success",
+    reference: data[0].reference,
+    message: "Tim QIRA akan meninjau kebutuhan Anda. Rekomendasi dan proposal resmi disiapkan setelah review manusia.",
+  };
 }
 
 export async function submitDiscovery(input: SubmitDiscoveryInput) {
