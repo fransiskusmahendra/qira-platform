@@ -43,6 +43,7 @@ export function findService(id: string): ServiceOffering | undefined {
 }
 
 export * from "./discovery-questions.ts";
+export * from "./discovery-triage.ts";
 export * from "./scoring.ts";
 export * from "./proposal.ts";
 export * from "./state-machine.ts";
