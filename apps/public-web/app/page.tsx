@@ -20,7 +20,7 @@ export default function HomePage() {
       <Link href="/contoh-penerapan"><span>03</span><h2>Cara QIRA Membantu</h2><p>Lihat bagaimana QIRA membantu membuat proses bisnis lebih jelas dan teratur.</p></Link>
     </section>
 
-    <section className="simpleProcess shell"><p className="kicker">Satu alur yang jelas</p><h2>Discovery → Prototype → Scope final → Development → UAT → Go Live.</h2><p>Setelah Discovery, Anda menerima prototype personal, proposal awal, dan harga indikatif. Prototype yang disetujui menjadi baseline hasil akhir.</p><Link className="primaryButton" href="/discovery">Mulai Discovery tanpa login</Link></section>
+    <section className="simpleProcess shell"><p className="kicker">Satu alur yang jelas</p><h2>Discovery → Prototype → Scope final → Development → UAT → Go Live.</h2><p>Setelah Discovery, Anda menerima prototype personal, proposal awal, dan harga indikatif. Prototype yang disetujui menjadi baseline hasil akhir.</p><Link className="primaryButton" href="/discovery">Mulai Discovery</Link></section>
     <footer className="footer shell"><span>QIRA · PT Rays Solusi Informasi</span><span>Jakarta, Indonesia</span></footer>
   </main>;
 }
