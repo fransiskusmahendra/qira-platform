@@ -20,7 +20,7 @@ export default async function StartPage({ searchParams }: { searchParams: Promis
       <nav className={styles.nav}><Link href="/">QIRA<span>.</span></Link><small>Konsultasi awal gratis</small></nav>
       <section className={styles.layout}>
         <div className={styles.intro}>
-          <p>Mulai tanpa login</p>
+          <p>Konsultasi awal</p>
           <h1>Ceritakan satu proses yang ingin Anda perbaiki.</h1>
           <span>QIRA akan membaca kebutuhan Anda terlebih dahulu, lalu menghubungi Anda untuk discovery singkat. Belum ada komitmen biaya pada tahap ini.</span>
           <div className={styles.steps}><div><b>01</b>Isi kebutuhan singkat</div><div><b>02</b>Discovery bersama QIRA</div><div><b>03</b>Demo dan proposal sesuai scope</div></div>
