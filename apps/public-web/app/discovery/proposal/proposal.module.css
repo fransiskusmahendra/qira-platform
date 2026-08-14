@@ -3,6 +3,7 @@
 .customerToolbar > a { font-size: 23px; font-weight: 800; }
 .customerToolbar span { color: #66758a; font-size: 12px; }
 .customerToolbar button { min-height: 40px; padding: 0 17px; border: 1px solid #cbd7e4; border-radius: 999px; background: white; color: #071a33; font-weight: 700; cursor: pointer; }
+.customerToolbar button:hover { border-color: #1769ff; color: #1769ff; }
 .indicativeNotice { width: min(1060px, 100%); margin: 12px auto 18px; padding: 16px 20px; border: 1px solid #b9d1ff; border-radius: 14px; background: #edf4ff; display: flex; gap: 10px 20px; flex-wrap: wrap; }
 .indicativeNotice strong { color: #1769ff; }.indicativeNotice span { color: #53647a; }
 .toolbar { width: min(1060px, 100%); min-height: 58px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 13px; }
