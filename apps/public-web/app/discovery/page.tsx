@@ -17,7 +17,7 @@ export default function DiscoveryPage() {
         <Link className={styles.brand} href="/" aria-label="Kembali ke beranda QIRA">
           QIRA<span>.</span>
         </Link>
-        <div className={styles.previewBadge}>Aman · tanpa login</div>
+        <div className={styles.previewBadge}>Aman · langsung dimulai</div>
       </header>
 
       <section className={styles.intro}>
