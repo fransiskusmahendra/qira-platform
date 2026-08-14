@@ -109,14 +109,14 @@ export default function BusinessDemosPage(){
   const [activeId,setActiveId]=useState<BusinessId>("properti");
   const active=businesses.find(item=>item.id===activeId)??businesses[0];
   return <main className={styles.page}>
-    <nav className={styles.nav}><Link href="/">QIRA<span>.</span></Link><div><Link href="/#packages">Paket</Link><Link className={styles.navCta} href="/start?package=custom">Konsultasi</Link></div></nav>
+    <nav className={styles.nav}><Link href="/">QIRA<span>.</span></Link><div><Link href="/#packages">Paket</Link><Link className={styles.navCta} href="/discovery">Mulai Discovery</Link></div></nav>
     <header className={styles.hero}><div className={styles.conceptBadge}><b>Concept demo</b><span>Data simulasi · bukan sistem pelanggan aktif</span></div><p>Galeri demo usaha</p><h1>Lihat solusi digital dalam konteks <em>usaha Anda.</em></h1><span>Gunakan kontrol di setiap demo untuk merasakan bagaimana data operasional dapat dibuat lebih mudah dibaca dan ditindaklanjuti.</span></header>
     <section className={styles.showcase}>
       <div className={styles.tabs} role="tablist" aria-label="Pilih jenis usaha">{businesses.map(item=><button key={item.id} type="button" role="tab" aria-selected={activeId===item.id} onClick={()=>setActiveId(item.id)}>{item.label}</button>)}</div>
-      <div className={styles.stage} key={activeId}><div className={styles.story}><p>{active.eyebrow}</p><h2>{active.title}</h2><span>{active.copy}</span><Link href={`/start?package=custom&business=${active.id}`}>Minta demo sesuai usaha saya <b>↗</b></Link></div><div className={styles.preview}>{activeId==="properti"?<PropertyDemo/>:activeId==="ternak"?<FarmDemo/>:activeId==="kebun"?<PlantationDemo/>:<PondDemo/>}</div></div>
+      <div className={styles.stage} key={activeId}><div className={styles.story}><p>{active.eyebrow}</p><h2>{active.title}</h2><span>{active.copy}</span><Link href="/discovery">Discovery untuk usaha saya <b>↗</b></Link></div><div className={styles.preview}>{activeId==="properti"?<PropertyDemo/>:activeId==="ternak"?<FarmDemo/>:activeId==="kebun"?<PlantationDemo/>:<PondDemo/>}</div></div>
       <div className={styles.caseGrid}>
         <article><small>Masalah umum</small><p>{active.problem}</p></article><article><small>Solusi QIRA</small><p>{active.solution}</p></article><article><small>Hasil yang dituju</small><p>{active.outcome}</p></article>
-        <aside><PhonePreview business={active}/><div><small>Rekomendasi awal</small><h3>{active.package}</h3><p>Estimasi implementasi {active.duration}. Scope dan paket final ditentukan setelah discovery.</p><Link href={`/start?package=custom&business=${active.id}`}>Diskusikan kebutuhan ini</Link></div></aside>
+        <aside><PhonePreview business={active}/><div><small>Rekomendasi awal</small><h3>{active.package}</h3><p>Estimasi implementasi {active.duration}. Scope dan paket final ditentukan setelah discovery.</p><Link href="/discovery">Lanjutkan ke Discovery</Link></div></aside>
       </div>
     </section>
     <section className={styles.explain}><p>Yang dapat disesuaikan</p><div><article><b>01</b><h3>Data usaha</h3><span>Jenis unit, komoditas, kolam, siklus, atau indikator mengikuti proses nyata Anda.</span></article><article><b>02</b><h3>Alur kerja</h3><span>Status, pengingat, bukti kegiatan, dan persetujuan disusun sesuai cara tim bekerja.</span></article><article><b>03</b><h3>Tampilan & akses</h3><span>Brand, laporan, hak akses, serta pengalaman desktop dan ponsel dapat disesuaikan.</span></article></div></section>
