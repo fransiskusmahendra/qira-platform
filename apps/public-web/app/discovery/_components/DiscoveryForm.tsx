@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 import {
   calculateDiscoveryScores,
@@ -11,7 +10,10 @@ import {
   type ServiceId,
 } from "@qira/domain";
 import styles from "../discovery.module.css";
-import { submitDiscovery } from "../actions";
+import {
+  submitPublicDiscovery,
+  type PublicDiscoverySubmissionState,
+} from "../actions";
 import {
   clearDiscoveryDraft,
   DISCOVERY_DRAFT_VERSION,
@@ -39,6 +41,8 @@ const SCORE_LABELS = {
 
 export function DiscoveryForm({ services }: DiscoveryFormProps) {
   const router = useRouter();
+  const [contact, setContact] = useState({ fullName: "", businessName: "", whatsapp: "", email: "" });
+  const [website, setWebsite] = useState("");
   const [serviceId, setServiceId] = useState<ServiceId>(services[0]?.id ?? "discovery");
   const [answers, setAnswers] = useState<Answers>({});
   const [consented, setConsented] = useState(false);
@@ -47,6 +51,10 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
   const [draftReady, setDraftReady] = useState(false);
   const [draftMessage, setDraftMessage] = useState("Draft lokal belum dibuat.");
   const [isSubmitting, startSubmitting] = useTransition();
+  const [submission, setSubmission] = useState<PublicDiscoverySubmissionState>({
+    status: "idle",
+    message: "",
+  });
 
   useEffect(() => {
     const draft = readDiscoveryDraft();
@@ -97,12 +105,26 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
     setAnswers((current) => ({ ...current, [id]: value }));
   }
 
-  function handlePreview(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setShowValidation(true);
-    if (ready) {
-      router.push("/discovery/review");
-    }
+    setSubmission({ status: "idle", message: "" });
+    if (!ready) return;
+    startSubmitting(async () => {
+      const result = await submitPublicDiscovery({
+        contact,
+        website,
+        serviceId,
+        answers,
+        assessment,
+        consented,
+      });
+      setSubmission(result);
+      if (result.status === "success" && result.reference) {
+        sessionStorage.setItem("qira.discovery.reference", result.reference);
+        router.push("/discovery/proposal");
+      }
+    });
   }
 
   function removeDraft() {
@@ -114,16 +136,14 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
     setDraftMessage("Draft lokal sudah dihapus.");
   }
 
-  const ready = missing.length === 0 && consented;
-
-  function submitToWorkspace() {
-    setShowValidation(true);
-    if (!ready) return;
-    startSubmitting(() => submitDiscovery({ serviceId, answers, assessment, consented }));
-  }
+  const contactReady = contact.fullName.trim().length >= 2
+    && contact.businessName.trim().length >= 2
+    && /^[0-9+() -]{8,24}$/.test(contact.whatsapp.trim())
+    && (!contact.email.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email.trim()));
+  const ready = contactReady && missing.length === 0 && consented;
 
   return (
-    <form className={styles.workspace} onSubmit={handlePreview} noValidate>
+    <form className={styles.workspace} onSubmit={handleSubmit} noValidate>
       <aside className={styles.sidebar}>
         <div className={styles.progressHeader}>
           <span>Kelengkapan</span>
@@ -133,9 +153,10 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
           <span style={{ width: `${progress}%` }} />
         </div>
         <ol className={styles.steps}>
-          <li className={styles.activeStep}><span>01</span>Pilih kebutuhan</li>
-          <li className={progress > 0 ? styles.activeStep : ""}><span>02</span>Kondisi bisnis</li>
-          <li className={ready ? styles.activeStep : ""}><span>03</span>Penilaian awal</li>
+          <li className={contactReady ? styles.activeStep : ""}><span>01</span>Data kontak</li>
+          <li className={styles.activeStep}><span>02</span>Pilih kebutuhan</li>
+          <li className={progress > 0 ? styles.activeStep : ""}><span>03</span>Kondisi bisnis</li>
+          <li className={ready ? styles.activeStep : ""}><span>04</span>Kirim Discovery</li>
         </ol>
         <div className={styles.safetyNote}>
           <strong>Anda tetap memegang kendali.</strong>
@@ -148,8 +169,49 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
       </aside>
 
       <div className={styles.formContent}>
-        <section className={styles.formSection} aria-labelledby="service-heading">
+        <section className={styles.formSection} aria-labelledby="contact-heading">
           <div className={styles.sectionNumber}>01</div>
+          <div className={styles.sectionTitle}>
+            <h2 id="contact-heading">Mari berkenalan.</h2>
+            <p>Tim QIRA memakai data ini hanya untuk meninjau dan menindaklanjuti Discovery Anda.</p>
+          </div>
+          <div className={styles.contactGrid}>
+            {([
+              ["fullName", "Nama lengkap *", "text", "name"],
+              ["businessName", "Nama bisnis/perusahaan *", "text", "organization"],
+              ["whatsapp", "Nomor WhatsApp *", "tel", "tel"],
+              ["email", "Email (opsional)", "email", "email"],
+            ] as const).map(([key, label, type, autoComplete]) => {
+              const invalid = showValidation && (
+                key === "fullName" || key === "businessName"
+                  ? contact[key].trim().length < 2
+                  : key === "whatsapp"
+                    ? !/^[0-9+() -]{8,24}$/.test(contact.whatsapp.trim())
+                    : Boolean(contact.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email.trim()))
+              );
+              return (
+                <label className={styles.field} key={key}>
+                  <span>{label}</span>
+                  <input
+                    type={type}
+                    autoComplete={autoComplete}
+                    value={contact[key]}
+                    aria-invalid={invalid}
+                    onChange={(event) => setContact((current) => ({ ...current, [key]: event.target.value }))}
+                  />
+                  {invalid ? <small>Mohon periksa data ini.</small> : null}
+                </label>
+              );
+            })}
+          </div>
+          <label className={styles.honeypot} aria-hidden="true">
+            Website
+            <input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} />
+          </label>
+        </section>
+
+        <section className={styles.formSection} aria-labelledby="service-heading">
+          <div className={styles.sectionNumber}>02</div>
           <div className={styles.sectionTitle}>
             <h2 id="service-heading">Apa kebutuhan utama Anda?</h2>
             <p>Pilih satu fokus untuk Discovery pertama. Kebutuhan lain dapat ditambahkan saat review.</p>
@@ -171,7 +233,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
         </section>
 
         <section className={styles.formSection} aria-labelledby="business-heading">
-          <div className={styles.sectionNumber}>02</div>
+          <div className={styles.sectionNumber}>03</div>
           <div className={styles.sectionTitle}>
             <h2 id="business-heading">Ceritakan kondisi bisnis Anda.</h2>
             <p>Pertanyaan menyesuaikan layanan yang dipilih. Tanda * wajib diisi.</p>
@@ -209,7 +271,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
         </section>
 
         <section className={styles.formSection} aria-labelledby="assessment-heading">
-          <div className={styles.sectionNumber}>03</div>
+          <div className={styles.sectionNumber}>04</div>
           <div className={styles.sectionTitle}>
             <h2 id="assessment-heading">Penilaian awal.</h2>
             <p>Geser berdasarkan pemahaman saat ini. QIRA akan memvalidasi faktor lengkap saat review.</p>
@@ -248,20 +310,19 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
         <section className={styles.consentSection}>
           <label className={styles.consent}>
             <input type="checkbox" checked={consented} onChange={(event) => setConsented(event.target.checked)} />
-            <span>Saya memahami bahwa ini adalah preview dan jawaban belum dikirim atau disimpan oleh QIRA.</span>
+            <span>Saya menyetujui data ini disimpan oleh QIRA dan tim QIRA dapat menghubungi saya melalui WhatsApp atau email untuk menindaklanjuti Discovery.</span>
           </label>
-          <button className={styles.submitButton} type="submit">
-            {ready ? "Buka ringkasan Discovery" : "Periksa kesiapan Discovery"}
+          <button className={styles.submitButton} type="submit" disabled={isSubmitting || submission.status === "success"}>
+            {isSubmitting ? "Mengirim Discovery…" : submission.status === "success" ? "Discovery sudah terkirim" : "Kirim Discovery ke QIRA"}
           </button>
-          <button className={styles.submitButton} type="button" disabled={!ready || isSubmitting} onClick={submitToWorkspace}>
-            {isSubmitting ? "Menyimpan ke workspace…" : "Simpan ke workspace (perlu login)"}
-          </button>
-          <Link className={styles.publicSubmitLink} href="/start?package=custom">Kirim kebutuhan tanpa login</Link>
-          {showValidation ? (
-            <div className={ready ? styles.successMessage : styles.errorMessage} role="status">
-              {ready
-                ? "Discovery lengkap. Anda dapat membuka preview atau mengirim versi resmi ke workspace."
-                : `Lengkapi ${missing.length} jawaban wajib dan persetujuan preview sebelum melanjutkan.`}
+          {submission.status !== "idle" ? (
+            <div className={submission.status === "success" ? styles.successMessage : styles.errorMessage} role="status">
+              {submission.status === "success" && submission.reference ? <strong>Referensi: {submission.reference}</strong> : null}
+              <span>{submission.message}</span>
+            </div>
+          ) : showValidation && !ready ? (
+            <div className={styles.errorMessage} role="status">
+              Lengkapi data kontak, {missing.length} jawaban wajib, dan persetujuan sebelum mengirim.
             </div>
           ) : null}
         </section>
