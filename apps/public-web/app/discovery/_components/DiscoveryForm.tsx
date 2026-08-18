@@ -100,6 +100,9 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
   useEffect(() => {
     const draft = readDiscoveryDraft();
     const problemAssessment = readProblemAssessment();
+    if (problemAssessment?.businessName?.trim()) {
+      setContact((current) => ({ ...current, businessName: problemAssessment.businessName?.trim() ?? "" }));
+    }
     if (draft) {
       setServiceId(draft.serviceId);
       setAnswers(draft.answers);
@@ -109,7 +112,6 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
     } else if (problemAssessment) {
       setServiceId("business-apps");
       setAnswers(problemAssessmentAnswers(problemAssessment));
-      setContact((current) => ({ ...current, businessName: problemAssessment.businessName?.trim() ?? "" }));
       setDraftMessage("Data awal dari Coba Masalah sudah diisikan. Silakan periksa dan lengkapi.");
     }
     setDraftReady(true);
