@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 
 import { calculateCommercialTerms, classifyDiscoveryTriage, createProposalPreview, findService, getBusinessBlueprint, findBusinessBlueprint, PROPOSAL_PACKAGES, type ProposalPackageId } from "@qira/domain";
 import { readDiscoveryDraft, type DiscoveryPreviewDraft } from "../_lib/draft";
 import styles from "./proposal.module.css";
+import { submitProposalDecision, type DecisionResult } from "./actions";
 
 const rupiah = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 });
 
@@ -102,6 +103,10 @@ export function ProposalPreview() {
   const [reference, setReference] = useState("");
   const [loaded, setLoaded] = useState(false);
   const [prototypeView, setPrototypeView] = useState<PrototypeView>("dashboard");
+  const [decision, setDecision] = useState<"approved"|"revision_requested">("approved");
+  const [signer, setSigner] = useState({name:"",email:"",whatsapp:"",consented:false});
+  const [decisionResult, setDecisionResult] = useState<DecisionResult>();
+  const [isDeciding, startDecision] = useTransition();
 
   useEffect(() => {
     setDraft(readDiscoveryDraft());
@@ -127,8 +132,14 @@ export function ProposalPreview() {
   const issuedOn = new Date();
   const validUntil = new Date(issuedOn);
   validUntil.setDate(validUntil.getDate() + 14);
-  const approvalMessage = encodeURIComponent(`Halo QIRA, saya tertarik melanjutkan proposal awal ${reference}. Mohon konfirmasi scope final dan invoice DP 50%.`);
-  const revisionMessage = encodeURIComponent(`Halo QIRA, saya ingin meminta revisi untuk proposal awal ${reference}.`);
+  function submitDecision(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    startDecision(async()=>{
+      const response=await submitProposalDecision({reference,businessTypeId:draft.businessTypeId,decision,signerName:signer.name,signerEmail:signer.email,signerWhatsapp:signer.whatsapp,consented:signer.consented});
+      setDecisionResult(response);
+      if(response.status==="success"&&response.implementationUrl) window.location.href=response.implementationUrl;
+    });
+  }
 
   return <main className={styles.page}>
     <header className={styles.customerToolbar}><Link href="/">QIRA.</Link><span>Proposal awal · {reference}</span><button type="button" onClick={() => window.print()}>Simpan / cetak</button></header>
@@ -145,6 +156,6 @@ export function ProposalPreview() {
       <section className={styles.section}><p className={styles.kicker}>04 · Harga awal</p><h2>{rupiah.format(commercial.totalIdr)}</h2><div className={styles.payments}><div><span>DP · 50% setelah scope final</span><strong>{rupiah.format(commercial.downPaymentAmountIdr)}</strong></div><div><span>Pelunasan · setelah UAT disetujui</span><strong>{rupiah.format(commercial.finalPaymentAmountIdr)}</strong></div></div><p className={styles.disclaimer}>Harga bersifat indikatif. Integrasi berbayar, domain, hosting, layanan pihak ketiga, dan permintaan di luar scope dihitung terpisah. Bug atau ketidaksesuaian terhadap scope diperbaiki dalam proses UAT.</p></section>
       <section className={styles.threeColumns}><div><h3>Termasuk</h3><ul>{proposal.scope.map((item) => <li key={item}>{item}</li>)}</ul></div><div><h3>Asumsi</h3><ul>{proposal.assumptions.map((item) => <li key={item}>{item}</li>)}</ul></div><div><h3>Belum termasuk</h3><ul>{proposal.exclusions.map((item) => <li key={item}>{item}</li>)}</ul></div></section>
     </article>
-    <section className={styles.customerDecision}><div><p className={styles.kicker}>Langkah berikutnya</p><h2>Setujui arah awal atau minta penyesuaian.</h2><p>QIRA akan memvalidasi scope, harga, jadwal, kriteria UAT, serta Managed by QIRA sebelum menerbitkan dokumen final.</p></div><div><a href={`https://wa.me/628211076517?text=${approvalMessage}`} target="_blank" rel="noreferrer">Setuju dan konfirmasi scope</a><a href={`https://wa.me/628211076517?text=${revisionMessage}`} target="_blank" rel="noreferrer">Minta revisi manual</a></div></section>
+    <section className={styles.customerDecision}><div><p className={styles.kicker}>Persetujuan digital</p><h2>Setujui arah awal atau minta penyesuaian.</h2><p>Keputusan, nama pemberi persetujuan, waktu, versi consent, dan blueprint akan dicatat. Persetujuan membuat workspace implementasi; harga serta scope final tetap divalidasi QIRA.</p></div><form className={styles.decisionForm} onSubmit={submitDecision}><div className={styles.decisionChoices}><button type="button" aria-pressed={decision==="approved"} onClick={()=>setDecision("approved")}>Setuju & mulai implementasi</button><button type="button" aria-pressed={decision==="revision_requested"} onClick={()=>setDecision("revision_requested")}>Minta revisi</button></div><label>Nama pemberi persetujuan<input required minLength={2} value={signer.name} onChange={event=>setSigner(current=>({...current,name:event.target.value}))}/></label><label>WhatsApp<input required inputMode="tel" value={signer.whatsapp} onChange={event=>setSigner(current=>({...current,whatsapp:event.target.value}))}/></label><label>Email (opsional)<input type="email" value={signer.email} onChange={event=>setSigner(current=>({...current,email:event.target.value}))}/></label><label className={styles.decisionConsent}><input type="checkbox" checked={signer.consented} onChange={event=>setSigner(current=>({...current,consented:event.target.checked}))}/><span>Saya menyatakan berwenang dan menyetujui keputusan ini dicatat secara elektronik oleh QIRA.</span></label><button className={styles.decisionSubmit} type="submit" disabled={isDeciding}>{isDeciding?"Mencatat keputusan…":decision==="approved"?"Setujui dan buat workspace":"Kirim permintaan revisi"}</button>{decisionResult?<p className={decisionResult.status==="success"?styles.decisionSuccess:styles.decisionError}>{decisionResult.message}</p>:null}</form></section>
   </main>;
 }
