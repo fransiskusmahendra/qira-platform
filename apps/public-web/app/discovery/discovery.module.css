@@ -14,8 +14,13 @@
 .progressTrack span { display: block; height: 100%; border-radius: inherit; background: #4c8cff; transition: width .2s ease; }
 .steps { list-style: none; margin: 34px 0; padding: 0; display: grid; gap: 18px; color: #8494a8; font-size: 14px; }
 .steps li { display: flex; gap: 12px; align-items: center; }
+.steps button { width: 100%; padding: 0; border: 0; display: flex; gap: 12px; align-items: center; background: transparent; color: inherit; text-align: left; font: inherit; }
+.steps button > span:last-child { display: grid; gap: 3px; }
+.steps button strong { font-size: 13px; }
+.steps button small { color: #8494a8; font-size: 10px; }
 .steps span { font-family: var(--font-geist-mono), monospace; font-size: 11px; }
-.steps .activeStep { color: white; }
+.steps .currentStep, .steps .completedStep { color: white; }
+.steps .completedStep button { cursor: pointer; }
 .safetyNote { padding-top: 24px; border-top: 1px solid #263b54; }
 .safetyNote strong { font-size: 13px; }
 .safetyNote p { margin: 8px 0 0; color: #aebacc; font-size: 12px; line-height: 1.5; }
@@ -35,8 +40,8 @@
 .contactGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 34px; }
 .honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .field { display: grid; gap: 9px; font-weight: 620; }
-.field input, .field textarea { width: 100%; padding: 14px 15px; border: 1px solid #cfd9e6; border-radius: 12px; background: white; color: #071a33; font: inherit; resize: vertical; }
-.field input:focus, .field textarea:focus { outline: 3px solid #dceaff; border-color: #1769ff; }
+.field input, .field textarea, .field select { width: 100%; padding: 14px 15px; border: 1px solid #cfd9e6; border-radius: 12px; background: white; color: #071a33; font: inherit; resize: vertical; }
+.field input:focus, .field textarea:focus, .field select:focus { outline: 3px solid #dceaff; border-color: #1769ff; }
 .field [aria-invalid="true"] { border-color: #c53a4b; }
 .field small, .rangeField small { color: #66758a; font-weight: 450; }
 .field > small { color: #b42336; }
@@ -55,6 +60,17 @@
 .consent input { width: 18px; height: 18px; margin-top: 2px; accent-color: #1769ff; }
 .submitButton { min-height: 54px; padding: 0 24px; border: 0; border-radius: 999px; background: #1769ff; color: white; font: inherit; font-weight: 720; cursor: pointer; }
 .submitButton:disabled { cursor: not-allowed; opacity: .65; }
+.mobileProgress { display: none; }
+.serviceSummary { display: grid; gap: 6px; margin-top: 28px; padding: 20px; border-radius: 15px; background: #f2f6fc; }
+.serviceSummary span { color: #66758a; font-size: 12px; }
+.serviceSummary strong { font-size: 18px; }
+.serviceSummary p { margin: 0; color: #66758a; }
+.emptySector { margin-top: 28px; padding: 22px; border: 1px dashed #b9c6d7; border-radius: 14px; background: #f8fafc; }
+.emptySector p { margin: 7px 0 0; color: #66758a; }
+.stepActions { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 4px 20px; }
+.backButton { min-height: 50px; padding: 0 22px; border: 1px solid #cbd6e4; border-radius: 999px; background: white; color: #071a33; font: inherit; font-weight: 680; cursor: pointer; }
+.stepActions .submitButton { min-width: 220px; }
+.formSection .consent { margin-top: 28px; padding-top: 24px; border-top: 1px solid #e0e6ee; }
 .successMessage { display: grid; gap: 5px; }
 .successMessage, .errorMessage { padding: 14px 16px; border-radius: 12px; line-height: 1.5; }
 .successMessage { background: #e8f7ef; color: #14633b; }
@@ -87,7 +103,8 @@
 @media (max-width: 850px) {
   .workspace { grid-template-columns: 1fr; }
   .sidebar { position: static; }
-  .steps { grid-template-columns: repeat(3, 1fr); }
+  .steps { grid-template-columns: repeat(4, 1fr); }
+  .steps button { align-items: flex-start; }
   .safetyNote { display: none; }
 }
 @media (max-width: 620px) {
@@ -98,6 +115,11 @@
   .answerList, .reviewScoreGrid { grid-template-columns: 1fr; }
   .reviewHeader, .decisionActions { align-items: stretch; flex-direction: column; }
   .steps { grid-template-columns: 1fr; }
+  .sidebar .steps, .sidebar .safetyNote { display: none; }
+  .mobileProgress { display: flex; justify-content: space-between; padding: 0 4px; color: #66758a; font-size: 12px; font-weight: 650; }
+  .stepActions { align-items: stretch; flex-direction: column-reverse; }
+  .stepActions > span { display: none; }
+  .stepActions button { width: 100%; }
   .formSection, .consentSection { border-radius: 17px; }
   .footer { align-items: flex-start; justify-content: center; flex-direction: column; gap: 7px; }
 }
