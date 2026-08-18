@@ -42,6 +42,7 @@ export function findService(id: string): ServiceOffering | undefined {
   return SERVICE_CATALOG.find((service) => service.id === id);
 }
 
+export * from "./business-blueprints.ts";
 export * from "./discovery-questions.ts";
 export * from "./discovery-triage.ts";
 export * from "./scoring.ts";
