@@ -32,3 +32,21 @@
 .scope li{padding:12px;border-radius:10px;background:#f1f6fd;color:#52647a;font-size:10px}.scope>div:last-child li{background:white}
 @media(max-width:780px){.productTour,.automation,.scope{grid-template-columns:1fr}.automation{gap:30px}.dayGrid{grid-template-columns:1fr}.pagePreview{min-height:0}}
 @media(max-width:480px){.received,.automation,.daily,.scope{width:min(100% - 28px,1160px)}.scope ul{grid-template-columns:1fr}.pageTabs button{min-height:50px}}
+
+
+.pricing{width:min(1160px,calc(100% - 40px));margin:22px auto 0;padding:clamp(30px,5vw,55px);border:1px solid #dbe4ee;border-radius:25px;background:white}
+.pricingHead{display:flex;align-items:flex-end;justify-content:space-between;gap:30px}
+.pricingHead p{margin:0 0 12px;color:#1769ff;font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase}
+.pricingHead h2{max-width:720px;margin:0;font-size:clamp(30px,4.5vw,50px);line-height:1.05;letter-spacing:-.05em}
+.pricingHead>span{flex:0 0 auto;padding:9px 13px;border-radius:99px;background:#e6f8ee;color:#16814c;font-size:10px;font-weight:750}
+.pricingGrid{margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pricingGrid article{position:relative;min-height:265px;padding:25px;border:1px solid #dbe4ee;border-radius:17px;background:#f7f9fc;display:flex;flex-direction:column}
+.pricingGrid article>small{color:#1769ff;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.pricingGrid h3{margin:16px 0 8px;font-size:22px;letter-spacing:-.03em}
+.pricingGrid article>strong{font-size:32px;letter-spacing:-.045em}
+.pricingGrid article>p{margin:17px 0 0;color:#65758b;font-size:11px;line-height:1.6}
+.pricingGrid article>b{width:fit-content;margin-top:auto;padding:7px 10px;border-radius:99px;background:#1769ff;color:white;font-size:9px}
+.pricingGrid .recommendedPrice{border:2px solid #1769ff;background:#edf4ff;box-shadow:0 14px 32px #1769ff17;transform:translateY(-4px)}
+.pricingNote{max-width:900px;margin:22px 0 0;color:#718198;font-size:10px;line-height:1.65}
+@media(max-width:780px){.pricingHead{align-items:flex-start;flex-direction:column}.pricingGrid{grid-template-columns:1fr}.pricingGrid .recommendedPrice{transform:none}}
+@media(max-width:480px){.pricing{width:min(100% - 28px,1160px)}}
