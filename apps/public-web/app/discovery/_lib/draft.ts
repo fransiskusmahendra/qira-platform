@@ -6,6 +6,7 @@ export const DISCOVERY_DRAFT_VERSION = 1;
 export interface DiscoveryPreviewDraft {
   schemaVersion: typeof DISCOVERY_DRAFT_VERSION;
   serviceId: ServiceId;
+  businessTypeId?: string;
   answers: Record<string, string | number | undefined>;
   assessment: {
     impact: number;
