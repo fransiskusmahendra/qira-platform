@@ -225,6 +225,16 @@ export default function RecommendationDashboard(){
 
     <section className={styles.roadmap}><div className={styles.sectionHead}><div><p>Rencana penerapan</p><h2>Dari masalah menuju solusi yang siap digunakan.</h2></div></div><ol><li><b>01</b><span><strong>Discovery</strong>Memastikan proses dan kebutuhan sebenarnya.</span></li><li><b>02</b><span><strong>Prototype</strong>Calon tampilan diuji sebelum dibangun penuh.</span></li><li><b>03</b><span><strong>Implementasi</strong>Fitur dibuat, diuji, dan disiapkan untuk tim.</span></li><li><b>04</b><span><strong>Pendampingan</strong>Tim dibantu sampai memahami cara penggunaannya.</span></li></ol></section>
 
+    <section className={styles.pricing}>
+      <div className={styles.pricingHead}><div><p>Harga portofolio terbatas</p><h2>Kamu sudah bisa memperkirakan budget sebelum lanjut.</h2></div><span>Discovery gratis · tidak mengikat</span></div>
+      <div className={styles.pricingGrid}>
+        <article className={profile.packageId==="digital-foundation"?styles.recommendedPrice:""}><small>Mulai lebih rapi</small><h3>Digital Foundation</h3><strong>Rp1,5 juta</strong><p>Untuk kebutuhan dasar dan proses sederhana yang ingin segera dibuat digital.</p>{profile.packageId==="digital-foundation"?<b>Rekomendasi untukmu</b>:null}</article>
+        <article className={profile.packageId==="growth-engine"?styles.recommendedPrice:""}><small>Mulai berkembang</small><h3>Growth Engine</h3><strong>Rp2,9 juta</strong><p>Untuk mengelola pelanggan, pesanan, pekerjaan, dan laporan dengan lebih teratur.</p>{profile.packageId==="growth-engine"?<b>Rekomendasi untukmu</b>:null}</article>
+        <article className={profile.packageId==="connected-growth"?styles.recommendedPrice:""}><small>Lebih terhubung</small><h3>Connected Growth</h3><strong>Rp4,9 juta</strong><p>Untuk alur operasional, dashboard, hak akses, dan otomasi yang lebih lengkap.</p>{profile.packageId==="connected-growth"?<b>Rekomendasi untukmu</b>:null}</article>
+      </div>
+      <p className={styles.pricingNote}>Harga ini berlaku selama QIRA membangun portofolio dan merupakan estimasi awal. Harga final mengikuti fitur, integrasi, jumlah pengguna, dan scope yang disepakati setelah Discovery.</p>
+    </section>
+
     <section className={styles.cta}><div><small>Langkah berikutnya</small><h2>Lengkapi Discovery agar QIRA dapat menyusun tampilan, fitur, waktu, dan harga yang tepat.</h2></div><Link href="/discovery">Lanjutkan ke Discovery <b>→</b></Link></section>
     <p className={styles.disclosure}>Tampilan, angka, dan alur di atas merupakan simulasi awal untuk membantu Anda membayangkan hasilnya. Rancangan final ditentukan bersama setelah Discovery.</p>
   </main>;
