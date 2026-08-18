@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-import { calculateCommercialTerms, classifyDiscoveryTriage, createProposalPreview, findService, PROPOSAL_PACKAGES, type ProposalPackageId } from "@qira/domain";
+import { calculateCommercialTerms, classifyDiscoveryTriage, createProposalPreview, findService, getBusinessBlueprint, findBusinessBlueprint, PROPOSAL_PACKAGES, type ProposalPackageId } from "@qira/domain";
 import { readDiscoveryDraft, type DiscoveryPreviewDraft } from "../_lib/draft";
 import styles from "./proposal.module.css";
 
@@ -69,16 +69,32 @@ const BUSINESS_DEMOS: { terms: string[]; demo: BusinessDemoCore }[] = [
 ];
 
 function createBusinessDemo(draft: DiscoveryPreviewDraft): BusinessDemo {
-  const context = [draft.answers.business_profile, draft.answers.current_process, draft.answers.pain_point].join(" ").toLowerCase();
-  const demo = BUSINESS_DEMOS.find((item) => item.terms.some((term) => context.includes(term)))?.demo ?? {
+  const context = [draft.answers.business_profile, draft.answers.current_process, draft.answers.pain_point].join(" ");
+  const blueprint = getBusinessBlueprint(draft.businessTypeId) ?? findBusinessBlueprint(context);
+  if (blueprint) return {
+    name: blueprint.name,
+    headline: blueprint.headline,
+    modules: [...blueprint.modules],
+    metrics: blueprint.metrics.map(item => ({ ...item })),
+    flow: [...blueprint.flow],
+    entities: [...blueprint.entities],
+    roles: [...blueprint.roles],
+    rules: [...blueprint.rules],
+    outputs: [...blueprint.outputs],
+    integrations: [...blueprint.integrations],
+  };
+  return {
     name: "Operasional usaha Anda",
     headline: "Permintaan, pekerjaan, status, dan laporan dirangkum dalam satu alur.",
     modules: ["Dashboard utama", "Status pekerjaan", "Pengingat otomatis", "Laporan ringkas"],
     metrics: [{ label: "Proses aktif", value: "12" }, { label: "Perlu tindak lanjut", value: "3" }, { label: "Tepat waktu", value: "92%" }],
     flow: ["Permintaan", "Diproses", "Review", "Selesai"],
+    entities: ["Pelanggan", "Permintaan", "Pekerjaan", "Dokumen", "Pembayaran"],
+    roles: ["Owner", "Admin", "Operator"],
+    rules: ["Setiap pekerjaan memiliki pemilik dan status", "Perubahan penting tercatat", "Penyelesaian membutuhkan validasi"],
+    outputs: ["Ringkasan pekerjaan", "Dokumen transaksi", "Laporan periodik"],
+    integrations: ["WhatsApp", "Email", "Spreadsheet export"],
   };
-  const blueprint = BLUEPRINTS[demo.name] ?? { entities: ["Customer", "Permintaan", "Pekerjaan", "Dokumen", "Pembayaran"], roles: ["Owner", "Admin", "Operator"], rules: ["Setiap pekerjaan memiliki pemilik dan status", "Perubahan penting tercatat", "Penyelesaian membutuhkan validasi"], outputs: ["Ringkasan pekerjaan", "Dokumen transaksi", "Laporan periodik"], integrations: ["WhatsApp", "Email", "Spreadsheet export"] };
-  return { ...demo, ...blueprint };
 }
 
 export function ProposalPreview() {
