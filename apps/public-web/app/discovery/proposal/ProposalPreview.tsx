@@ -134,8 +134,9 @@ export function ProposalPreview() {
   validUntil.setDate(validUntil.getDate() + 14);
   function submitDecision(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const businessTypeId=draft.businessTypeId;
     startDecision(async()=>{
-      const response=await submitProposalDecision({reference,businessTypeId:draft.businessTypeId,decision,signerName:signer.name,signerEmail:signer.email,signerWhatsapp:signer.whatsapp,consented:signer.consented});
+      const response=await submitProposalDecision({reference,businessTypeId,decision,signerName:signer.name,signerEmail:signer.email,signerWhatsapp:signer.whatsapp,consented:signer.consented});
       setDecisionResult(response);
       if(response.status==="success"&&response.implementationUrl) window.location.href=response.implementationUrl;
     });
