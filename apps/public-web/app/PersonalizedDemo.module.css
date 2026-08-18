@@ -12,3 +12,31 @@
 @keyframes previewGlow{50%{transform:scale(1.18);opacity:.65}}@keyframes previewCard{50%{transform:translateY(-3px);border-color:#458cff55}}@keyframes previewBars{50%{filter:brightness(1.35);transform:scaleY(.82);transform-origin:bottom}}@keyframes previewPulse{50%{box-shadow:0 0 0 8px #377ff311}}
 @media(max-width:600px){.previewHeader{flex-direction:column}.previewMetrics{grid-template-columns:1fr 1fr}.previewMetrics>span:last-child{grid-column:1/-1}.previewBody{grid-template-columns:1fr}.emptyDashboard{min-height:auto}}
 @media(prefers-reduced-motion:reduce){.emptyDashboard:before,.previewMetrics>span,.previewChart i,.previewTasks>span i{animation:none}.nextButton:hover{transform:none}}
+
+
+/* Recommendation reveal: only rendered after form submission */
+.result .story{animation:resultStory .65s cubic-bezier(.2,.8,.2,1) both}
+.result .dashboard{animation:resultDashboard .7s .12s cubic-bezier(.2,.8,.2,1) both}
+.result .dashTop{animation:resultItem .45s .28s ease-out both}
+.result .metrics>div{animation:resultCard .5s cubic-bezier(.2,.8,.2,1) both}
+.result .metrics>div:nth-child(1){animation-delay:.38s}
+.result .metrics>div:nth-child(2){animation-delay:.48s}
+.result .metrics>div:nth-child(3){animation-delay:.58s}
+.result .modules>span{animation:resultItem .45s ease-out both}
+.result .modules>span:nth-child(1){animation-delay:.65s}
+.result .modules>span:nth-child(2){animation-delay:.72s}
+.result .modules>span:nth-child(3){animation-delay:.79s}
+.result .modules>span:nth-child(4){animation-delay:.86s}
+.result .flow:after{content:"";position:absolute;top:14px;left:10%;right:10%;height:2px;background:#1769ff;transform-origin:left;animation:resultLine .9s .9s ease-out both}
+.result .flow>div{animation:resultItem .4s ease-out both}
+.result .flow>div:nth-child(1){animation-delay:.9s}
+.result .flow>div:nth-child(2){animation-delay:1s}
+.result .flow>div:nth-child(3){animation-delay:1.1s}
+.result .flow>div:nth-child(4){animation-delay:1.2s}
+.result .nextButton{animation:resultItem .45s 1.28s ease-out both}
+@keyframes resultStory{from{opacity:0;transform:translateX(-22px)}to{opacity:1;transform:none}}
+@keyframes resultDashboard{from{opacity:0;transform:translateX(22px)}to{opacity:1;transform:none}}
+@keyframes resultItem{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes resultCard{0%{opacity:0;transform:translateY(12px) scale(.94)}70%{transform:translateY(-2px) scale(1.015)}100%{opacity:1;transform:none}}
+@keyframes resultLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){.result .story,.result .dashboard,.result .dashTop,.result .metrics>div,.result .modules>span,.result .flow:after,.result .flow>div,.result .nextButton{animation:none}}
