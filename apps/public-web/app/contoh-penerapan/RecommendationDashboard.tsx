@@ -5,70 +5,214 @@ import { useEffect, useMemo, useState } from "react";
 import styles from "./case-studies.module.css";
 
 type Assessment = {
-  businessName: string;
-  teamSize: string;
-  priority: string;
-  description: string;
-  profile: {
-    name: string;
-    packageId: string;
-    packageName: string;
-    title: string;
-    problem: string;
-    modules: string[];
-    metrics: { label: string; value: string }[];
-    flow: string[];
-  };
+  businessName: string; teamSize: string; priority: string; description: string;
+  profile: { name: string; packageId: string; packageName: string; title: string; problem: string; modules: string[]; metrics: { label: string; value: string }[]; flow: string[] };
+};
+type Detail = { users:string[]; pages:{name:string;description:string}[]; automations:string[]; day:{time:string;activity:string;result:string}[]; records:string[] };
+
+const common: Detail = {
+  users:["Pemilik usaha","Admin atau staf operasional"],
+  pages:[
+    {name:"Ringkasan usaha",description:"Melihat pekerjaan aktif, hal yang terlambat, dan angka penting tanpa membuka banyak catatan."},
+    {name:"Data pelanggan",description:"Nama, kontak, riwayat transaksi, serta catatan tindak lanjut tersimpan rapi."},
+    {name:"Pekerjaan & status",description:"Setiap permintaan memiliki penanggung jawab, tahapan, dan status yang mudah dipahami."},
+    {name:"Laporan ringkas",description:"Pemilik dapat melihat aktivitas dan hasil usaha dari data yang sudah masuk."}
+  ],
+  automations:["Mengingatkan pekerjaan yang mendekati jatuh tempo","Membuat ringkasan aktivitas tanpa rekap ulang","Menandai data yang belum lengkap"],
+  day:[
+    {time:"Pagi",activity:"Pemilik membuka dashboard",result:"Langsung melihat prioritas hari ini."},
+    {time:"Siang",activity:"Staf memperbarui pekerjaan",result:"Status berubah dan dapat dilihat semua pihak terkait."},
+    {time:"Sore",activity:"QIRA merangkum aktivitas",result:"Pemilik tidak perlu mengumpulkan laporan manual."}
+  ],
+  records:["Pelanggan","Pekerjaan","Status","Catatan","Laporan"]
 };
 
-const impactByPriority: Record<string, string[]> = {
-  "Mendapatkan pelanggan": ["Jalur calon pelanggan menjadi lebih jelas", "Pertanyaan masuk tercatat dalam satu tempat", "Tindak lanjut lebih konsisten"],
-  "Merapikan operasional": ["Status pekerjaan mudah dipantau", "Tanggung jawab tim lebih jelas", "Risiko proses terlewat berkurang"],
-  "Mengurangi pencatatan manual": ["Input berulang dapat dipangkas", "Data lebih seragam dan mudah dicari", "Kesalahan salin data dapat dikurangi"],
-  "Membuat laporan lebih cepat": ["Ringkasan tersedia dari data operasional", "Kondisi usaha lebih cepat terlihat", "Keputusan tidak menunggu rekap manual"],
+const details: Record<string, Detail> = {
+  "Rental Kendaraan":{
+    users:["Pemilik rental","Admin booking","Petugas serah-terima"],
+    pages:[
+      {name:"Kalender booking",description:"Menunjukkan kendaraan yang tersedia, dipesan, sedang disewa, atau akan kembali."},
+      {name:"Daftar armada",description:"Status kendaraan, jadwal servis, dokumen, dan kondisi terakhir terlihat per unit."},
+      {name:"Data penyewa",description:"Identitas, kontak, riwayat sewa, pembayaran, dan catatan tersimpan bersama."},
+      {name:"Serah-terima",description:"Checklist kondisi, waktu keluar-kembali, foto, serta konfirmasi petugas tercatat."}
+    ],
+    automations:["Mencegah dua booking memakai kendaraan yang sama","Mengingatkan waktu pengembalian dan keterlambatan","Memberi tanda kendaraan yang mendekati jadwal servis"],
+    day:[
+      {time:"08.00",activity:"Admin menerima permintaan sewa",result:"Sistem menampilkan armada yang benar-benar tersedia."},
+      {time:"10.00",activity:"Penyewa mengambil kendaraan",result:"Checklist dan pembayaran tercatat dalam satu transaksi."},
+      {time:"17.00",activity:"Pemilik mengecek dashboard",result:"Terlihat kendaraan disewa, kembali, dan perlu servis."}
+    ],
+    records:["Armada","Booking","Penyewa","Pembayaran","Servis","Serah-terima"]
+  },
+  "Laundry":{
+    users:["Pemilik laundry","Petugas penerimaan","Tim cuci/setrika"],
+    pages:[
+      {name:"Penerimaan order",description:"Berat, layanan, harga, nama pelanggan, dan estimasi selesai dicatat sekali."},
+      {name:"Status cucian",description:"Order terlihat pada tahap diterima, dicuci, disetrika, atau siap diambil."},
+      {name:"Nota & pembayaran",description:"Nota tersusun otomatis dan status lunas atau belum lunas mudah diperiksa."},
+      {name:"Pelanggan",description:"Riwayat order dan kontak membantu pelayanan pelanggan berikutnya."}
+    ],
+    automations:["Menghitung estimasi harga dari berat dan layanan","Mengingatkan staf ketika target selesai mendekat","Menyiapkan pesan bahwa cucian siap diambil"],
+    day:[
+      {time:"09.00",activity:"Petugas menerima cucian",result:"Order dan nota langsung tercatat."},
+      {time:"13.00",activity:"Tim memindahkan status ke disetrika",result:"Pemilik mengetahui posisi setiap order."},
+      {time:"16.00",activity:"Order ditandai selesai",result:"Pesan siap diambil dapat dikirim ke pelanggan."}
+    ],
+    records:["Order","Berat","Layanan","Status proses","Pembayaran","Pelanggan"]
+  },
+  "Kuliner & Katering":{
+    users:["Pemilik usaha","Admin pesanan","Tim produksi","Petugas pengiriman"],
+    pages:[
+      {name:"Daftar pesanan",description:"Tanggal acara, menu, jumlah, alamat, catatan, DP, dan status pesanan tersimpan bersama."},
+      {name:"Jadwal produksi",description:"Pesanan dikelompokkan berdasarkan hari agar kebutuhan produksi terlihat lebih awal."},
+      {name:"Kebutuhan bahan",description:"Ringkasan menu dan jumlah membantu tim memperkirakan bahan yang perlu disiapkan."},
+      {name:"Pengiriman",description:"Jam kirim, alamat, petugas, dan status diterima dapat dipantau."}
+    ],
+    automations:["Mengelompokkan pesanan berdasarkan tanggal produksi","Mengingatkan kekurangan DP atau pelunasan","Membuat ringkasan jumlah menu yang harus diproduksi"],
+    day:[
+      {time:"Pagi",activity:"Admin membuka jadwal produksi",result:"Jumlah pesanan dan menu hari itu langsung terlihat."},
+      {time:"Siang",activity:"Tim menandai pesanan siap kirim",result:"Admin mengetahui order mana yang belum selesai."},
+      {time:"Sore",activity:"Pengiriman dikonfirmasi",result:"Pemilik melihat pesanan selesai dan pembayaran masuk."}
+    ],
+    records:["Pesanan","Menu","Jadwal","Pelanggan","Pembayaran","Pengiriman"]
+  },
+  "Salon & Kecantikan":{
+    users:["Pemilik salon","Resepsionis","Terapis atau stylist"],
+    pages:[
+      {name:"Kalender reservasi",description:"Jadwal pelanggan, layanan, durasi, dan staf yang menangani terlihat dalam satu kalender."},
+      {name:"Daftar layanan",description:"Harga, durasi, dan staf yang tersedia tersusun jelas."},
+      {name:"Profil pelanggan",description:"Riwayat kunjungan, preferensi, dan catatan layanan membantu pelayanan berikutnya."},
+      {name:"Kinerja jadwal",description:"Jam sibuk, slot kosong, dan pelanggan kembali dapat dipantau."}
+    ],
+    automations:["Mencegah jadwal staf bertabrakan","Mengingatkan pelanggan sebelum jadwal layanan","Menandai pelanggan yang sudah waktunya ditindaklanjuti"],
+    day:[
+      {time:"09.00",activity:"Resepsionis melihat kalender",result:"Staf dan slot yang tersedia langsung diketahui."},
+      {time:"13.00",activity:"Pelanggan menyelesaikan layanan",result:"Riwayat kunjungan diperbarui."},
+      {time:"18.00",activity:"Pemilik melihat ringkasan",result:"Terlihat layanan terlaris dan slot yang masih kosong."}
+    ],
+    records:["Reservasi","Layanan","Staf","Pelanggan","Pembayaran","Riwayat"]
+  },
+  "Kontrakan & Kosan":{
+    users:["Pemilik properti","Admin pengelola","Petugas lapangan"],
+    pages:[
+      {name:"Status unit",description:"Unit kosong, dipesan, terisi, atau perlu perbaikan terlihat dalam satu denah daftar."},
+      {name:"Data penyewa",description:"Kontak, periode sewa, dokumen, deposit, dan catatan tersimpan per penyewa."},
+      {name:"Tagihan bulanan",description:"Jatuh tempo, nominal, bukti bayar, dan tunggakan dapat diperiksa dengan cepat."},
+      {name:"Keluhan & perbaikan",description:"Keluhan memiliki status, petugas, biaya, dan catatan penyelesaian."}
+    ],
+    automations:["Membuat daftar tagihan yang akan jatuh tempo","Menyiapkan pengingat pembayaran untuk penyewa","Menandai unit kosong dan keluhan yang belum selesai"],
+    day:[
+      {time:"Awal bulan",activity:"Tagihan penyewa disiapkan",result:"Pemilik melihat siapa yang sudah dan belum membayar."},
+      {time:"Siang",activity:"Penyewa mengirim keluhan",result:"Keluhan tercatat dan diberikan kepada petugas."},
+      {time:"Sore",activity:"Pemilik mengecek okupansi",result:"Unit kosong dan calon penyewa terlihat jelas."}
+    ],
+    records:["Unit","Penyewa","Kontrak","Tagihan","Pembayaran","Keluhan"]
+  },
+  "Peternakan":{
+    users:["Pemilik peternakan","Kepala kandang","Petugas lapangan"],
+    pages:[
+      {name:"Monitoring batch",description:"Populasi awal, umur, bobot, mortalitas, dan target panen dibandingkan per batch."},
+      {name:"Pakan & stok",description:"Pakan masuk, pemakaian harian, sisa stok, dan perkiraan kebutuhan tercatat."},
+      {name:"Kesehatan ternak",description:"Gejala, tindakan, obat, petugas, dan hasil pemantauan tersimpan."},
+      {name:"Biaya & proyeksi",description:"Biaya berjalan dan perkiraan hasil membantu pemilik menilai kondisi batch."}
+    ],
+    automations:["Memberi tanda ketika mortalitas melewati batas","Mengingatkan stok pakan yang menipis","Membuat perbandingan performa antar-batch"],
+    day:[
+      {time:"Pagi",activity:"Petugas mengisi populasi dan pakan",result:"Kondisi kandang langsung masuk ke dashboard."},
+      {time:"Siang",activity:"Ada perubahan kesehatan",result:"Pemilik menerima tanda untuk tindak lanjut."},
+      {time:"Mingguan",activity:"Bobot sampling dimasukkan",result:"Proyeksi panen diperbarui."}
+    ],
+    records:["Batch","Populasi","Pakan","Kesehatan","Bobot","Biaya"]
+  },
+  "Perkebunan":{
+    users:["Pemilik kebun","Koordinator lapangan","Pekerja atau mandor"],
+    pages:[
+      {name:"Dashboard blok",description:"Luas, komoditas, umur tanaman, kondisi, dan pekerjaan berikutnya terlihat per blok."},
+      {name:"Kalender kegiatan",description:"Pemupukan, penyemprotan, perawatan, dan panen dijadwalkan dengan penanggung jawab."},
+      {name:"Pemakaian bahan",description:"Jenis, jumlah, lokasi pemakaian, dan sisa bahan tercatat."},
+      {name:"Biaya & panen",description:"Biaya tenaga kerja dan bahan dibandingkan dengan estimasi atau hasil panen."}
+    ],
+    automations:["Mengingatkan kegiatan lapangan yang jatuh tempo","Menandai tugas yang belum selesai","Menyusun ringkasan biaya dan aktivitas per blok"],
+    day:[
+      {time:"Pagi",activity:"Mandor melihat tugas blok",result:"Tim mengetahui lokasi dan pekerjaan hari itu."},
+      {time:"Siang",activity:"Pekerjaan ditandai selesai",result:"Pemilik dapat memantau progres dari jauh."},
+      {time:"Akhir pekan",activity:"Dashboard merangkum aktivitas",result:"Biaya dan kesiapan panen terlihat per blok."}
+    ],
+    records:["Blok","Tanaman","Aktivitas","Tenaga kerja","Bahan","Panen"]
+  },
+  "Tambak & Budidaya Ikan":{
+    users:["Pemilik tambak","Koordinator kolam","Petugas lapangan"],
+    pages:[
+      {name:"Monitoring kolam",description:"Umur tebar, populasi, kualitas air, pakan, dan kondisi terakhir terlihat per kolam."},
+      {name:"Kualitas air",description:"pH, suhu, DO, dan catatan tindakan dapat dibandingkan dari waktu ke waktu."},
+      {name:"Pakan & sampling",description:"Pemakaian pakan, bobot sampling, dan pertumbuhan tercatat teratur."},
+      {name:"Proyeksi panen",description:"Estimasi waktu, ukuran, hasil, dan biaya membantu persiapan panen."}
+    ],
+    automations:["Memberi tanda jika parameter air di luar batas","Mengingatkan jadwal sampling dan pencatatan","Memperbarui estimasi panen dari data pertumbuhan"],
+    day:[
+      {time:"Pagi",activity:"Petugas memasukkan kualitas air",result:"Kolam yang perlu perhatian langsung terlihat."},
+      {time:"Siang",activity:"Pakan harian dicatat",result:"Pemakaian dan sisa stok terpantau."},
+      {time:"Mingguan",activity:"Hasil sampling dimasukkan",result:"Pertumbuhan dan proyeksi panen diperbarui."}
+    ],
+    records:["Kolam","Kualitas air","Pakan","Sampling","Kesehatan","Panen"]
+  }
 };
 
-export default function RecommendationDashboard() {
-  const [assessment, setAssessment] = useState<Assessment | null>(null);
-  useEffect(() => {
-    try {
-      const saved = window.localStorage.getItem("qira-problem-assessment");
-      if (saved) setAssessment(JSON.parse(saved));
-    } catch {}
-  }, []);
+const impactByPriority: Record<string,string[]> = {
+  "Mendapatkan pelanggan":["Jalur calon pelanggan menjadi lebih jelas","Pertanyaan masuk tercatat dalam satu tempat","Tindak lanjut lebih konsisten"],
+  "Merapikan operasional":["Status pekerjaan mudah dipantau","Tanggung jawab tim lebih jelas","Risiko proses terlewat berkurang"],
+  "Mengurangi pencatatan manual":["Input berulang dapat dipangkas","Data lebih seragam dan mudah dicari","Kesalahan salin data dapat dikurangi"],
+  "Membuat laporan lebih cepat":["Ringkasan tersedia dari data operasional","Kondisi usaha lebih cepat terlihat","Keputusan tidak menunggu rekap manual"]
+};
 
-  const impacts = useMemo(() => assessment ? (impactByPriority[assessment.priority] || impactByPriority["Merapikan operasional"]) : [], [assessment]);
+export default function RecommendationDashboard(){
+  const [assessment,setAssessment]=useState<Assessment|null>(null);
+  const [activePage,setActivePage]=useState(0);
+  useEffect(()=>{try{const saved=window.localStorage.getItem("qira-problem-assessment");if(saved)setAssessment(JSON.parse(saved))}catch{}},[]);
+  const impacts=useMemo(()=>assessment?(impactByPriority[assessment.priority]||impactByPriority["Merapikan operasional"]):[],[assessment]);
+  if(!assessment)return <main className={styles.page}><nav className={styles.nav}><Link className={styles.brand} href="/">QIRA<span>.</span></Link></nav><section className={styles.empty}><span>Rekomendasi personal belum tersedia</span><h1>Ceritakan masalah usahamu terlebih dahulu.</h1><p>Dashboard ini disusun dari jawaban pada tahap Coba Masalah agar yang ditampilkan benar-benar relevan.</p><Link href="/coba-masalah">Mulai Coba Masalah <b>→</b></Link></section></main>;
 
-  if (!assessment) return <main className={styles.page}><nav className={styles.nav}><Link className={styles.brand} href="/">QIRA<span>.</span></Link></nav><section className={styles.empty}><span>Rekomendasi personal belum tersedia</span><h1>Ceritakan masalah usahamu terlebih dahulu.</h1><p>Dashboard ini disusun dari jawaban pada tahap Coba Masalah agar yang ditampilkan benar-benar relevan.</p><Link href="/coba-masalah">Mulai Coba Masalah <b>→</b></Link></section></main>;
-
-  const { profile } = assessment;
-  const displayName = assessment.businessName.trim() || profile.name;
+  const {profile}=assessment;
+  const detail=details[profile.name]||common;
+  const displayName=assessment.businessName.trim()||profile.name;
+  const duration=profile.packageId==="connected-growth"?"3–6 minggu":profile.packageId==="growth-engine"?"2–4 minggu":"1–2 minggu";
   return <main className={styles.page}>
     <nav className={styles.nav}><Link className={styles.brand} href="/">QIRA<span>.</span></Link><Link className={styles.editLink} href="/coba-masalah">Ubah jawaban</Link></nav>
-    <header className={styles.hero}>
-      <div><p>Dashboard rekomendasi QIRA</p><h1>Inilah cara QIRA dapat membantu <em>{displayName}.</em></h1><span>Disusun dari masalah, ukuran tim, dan prioritas yang kamu masukkan.</span></div>
-      <aside><small>Rekomendasi awal</small><strong>{profile.packageName}</strong><span>Estimasi implementasi {profile.packageId === "connected-growth" ? "3–6 minggu" : profile.packageId === "growth-engine" ? "2–4 minggu" : "1–2 minggu"}</span></aside>
-    </header>
+    <header className={styles.hero}><div><p>Rekomendasi khusus untuk {profile.name}</p><h1>Beginilah QIRA membantu <em>{displayName}.</em></h1><span>Lihat dengan bahasa sederhana apa yang akan digunakan tim Anda setiap hari.</span></div><aside><small>Solusi yang disarankan</small><strong>{profile.packageName}</strong><span>Perkiraan pengerjaan {duration} · disesuaikan lagi setelah Discovery</span></aside></header>
 
-    <section className={styles.summary}>
-      <article className={styles.problem}><small>Masalah yang QIRA pahami</small><h2>{profile.problem}</h2><blockquote>“{assessment.description}”</blockquote></article>
-      <div className={styles.context}><div><small>Ukuran tim</small><strong>{assessment.teamSize}</strong></div><div><small>Prioritas utama</small><strong>{assessment.priority}</strong></div><div><small>Arah solusi</small><strong>{profile.title}</strong></div></div>
-    </section>
+    <section className={styles.summary}><article className={styles.problem}><small>Yang kami pahami</small><h2>{profile.problem}</h2><blockquote>“{assessment.description}”</blockquote></article><div className={styles.context}><div><small>Digunakan oleh</small><strong>{detail.users.join(", ")}</strong></div><div><small>Prioritas Anda</small><strong>{assessment.priority}</strong></div><div><small>Hasil akhirnya</small><strong>{profile.title}</strong></div></div></section>
 
     <section className={styles.dashboard}>
-      <div className={styles.sectionHead}><div><p>Gambaran solusi</p><h2>Satu dashboard untuk proses yang paling penting.</h2></div><span>Data simulasi</span></div>
+      <div className={styles.sectionHead}><div><p>Contoh tampilan utama</p><h2>Saat membuka QIRA, informasi penting langsung terlihat.</h2></div><span>Data simulasi</span></div>
       <div className={styles.metrics}>{profile.metrics.map(item=><article key={item.label}><small>{item.label}</small><strong>{item.value}</strong><i>↗</i></article>)}</div>
-      <div className={styles.workspace}>
-        <article><small>Modul yang disarankan</small><div className={styles.modules}>{profile.modules.map((item,index)=><span key={item}><b>0{index+1}</b>{item}</span>)}</div></article>
-        <article><small>Alur kerja yang dirapikan</small><ol>{profile.flow.map((item,index)=><li key={item}><b>{index+1}</b><span>{item}</span></li>)}</ol></article>
+      <div className={styles.workspace}><article><small>Menu yang tersedia</small><div className={styles.modules}>{profile.modules.map((item,index)=><span key={item}><b>0{index+1}</b>{item}</span>)}</div></article><article><small>Proses setelah menggunakan QIRA</small><ol>{profile.flow.map((item,index)=><li key={item}><b>{index+1}</b><span>{item}</span></li>)}</ol></article></div>
+    </section>
+
+    <section className={styles.received}>
+      <div className={styles.sectionHead}><div><p>Apa yang Anda dapatkan</p><h2>Bukan satu halaman saja—setiap bagian memiliki fungsi yang jelas.</h2></div></div>
+      <div className={styles.productTour}>
+        <div className={styles.pageTabs} role="tablist" aria-label="Bagian solusi">{detail.pages.map((item,index)=><button key={item.name} className={activePage===index?styles.activeTab:""} onClick={()=>setActivePage(index)} role="tab" aria-selected={activePage===index}><b>0{index+1}</b><span>{item.name}</span></button>)}</div>
+        <article className={styles.pagePreview}><span>Halaman {activePage+1} dari {detail.pages.length}</span><h3>{detail.pages[activePage].name}</h3><p>{detail.pages[activePage].description}</p><div><small>Data yang dapat dikelola</small>{detail.records.map(item=><i key={item}>✓ {item}</i>)}</div></article>
       </div>
     </section>
 
-    <section className={styles.impact}><div><p>Dampak yang dituju</p><h2>Bukan sekadar aplikasi, tetapi proses kerja yang lebih jelas.</h2></div><ul>{impacts.map(item=><li key={item}><i>✓</i><span>{item}</span></li>)}</ul></section>
+    <section className={styles.automation}><div><p>Yang dibantu secara otomatis</p><h2>Tim tetap bekerja seperti biasa, tetapi pekerjaan berulang menjadi lebih ringan.</h2></div><ol>{detail.automations.map((item,index)=><li key={item}><b>0{index+1}</b><span>{item}</span></li>)}</ol></section>
 
-    <section className={styles.roadmap}><div className={styles.sectionHead}><div><p>Rencana penerapan</p><h2>Dari masalah menuju solusi yang siap digunakan.</h2></div></div><ol><li><b>01</b><span><strong>Discovery</strong>Validasi proses, pengguna, data, dan target.</span></li><li><b>02</b><span><strong>Prototype</strong>Dashboard dan alur utama dibuat untuk diuji.</span></li><li><b>03</b><span><strong>Implementasi</strong>Solusi dibangun, diuji, lalu disiapkan untuk tim.</span></li><li><b>04</b><span><strong>Pendampingan</strong>Penggunaan dipantau dan diperbaiki berdasarkan kondisi nyata.</span></li></ol></section>
+    <section className={styles.daily}>
+      <div className={styles.sectionHead}><div><p>Contoh penggunaan sehari-hari</p><h2>Bayangkan satu hari kerja setelah solusi digunakan.</h2></div></div>
+      <div className={styles.dayGrid}>{detail.day.map((item,index)=><article key={item.time}><div><b>{index+1}</b><span>{item.time}</span></div><h3>{item.activity}</h3><p>{item.result}</p></article>)}</div>
+    </section>
 
-    <section className={styles.cta}><div><small>Langkah berikutnya</small><h2>Lengkapi Discovery agar QIRA dapat menyusun scope dan harga yang tepat.</h2></div><Link href="/discovery">Lanjutkan ke Discovery <b>→</b></Link></section>
-    <p className={styles.disclosure}>Rekomendasi dan angka pada dashboard ini adalah simulasi awal. Solusi final, integrasi, waktu, dan dampak ditentukan setelah Discovery.</p>
+    <section className={styles.impact}><div><p>Dampak yang dituju</p><h2>Proses lebih jelas, bukan sekadar memindahkan catatan ke layar.</h2></div><ul>{impacts.map(item=><li key={item}><i>✓</i><span>{item}</span></li>)}</ul></section>
+
+    <section className={styles.scope}>
+      <div><p>Termasuk dalam pengerjaan</p><ul><li>Discovery dan pemetaan proses</li><li>Desain tampilan sesuai usaha</li><li>Pembuatan fitur yang disepakati</li><li>Pengujian dan perbaikan</li><li>Panduan penggunaan</li><li>Pendampingan awal</li></ul></div>
+      <div><p>Ditentukan setelah Discovery</p><ul><li>Jumlah pengguna dan hak akses</li><li>Integrasi WhatsApp atau pembayaran</li><li>Migrasi data lama</li><li>Kebutuhan domain dan hosting</li><li>Laporan khusus</li><li>Biaya serta jadwal final</li></ul></div>
+    </section>
+
+    <section className={styles.roadmap}><div className={styles.sectionHead}><div><p>Rencana penerapan</p><h2>Dari masalah menuju solusi yang siap digunakan.</h2></div></div><ol><li><b>01</b><span><strong>Discovery</strong>Memastikan proses dan kebutuhan sebenarnya.</span></li><li><b>02</b><span><strong>Prototype</strong>Calon tampilan diuji sebelum dibangun penuh.</span></li><li><b>03</b><span><strong>Implementasi</strong>Fitur dibuat, diuji, dan disiapkan untuk tim.</span></li><li><b>04</b><span><strong>Pendampingan</strong>Tim dibantu sampai memahami cara penggunaannya.</span></li></ol></section>
+
+    <section className={styles.cta}><div><small>Langkah berikutnya</small><h2>Lengkapi Discovery agar QIRA dapat menyusun tampilan, fitur, waktu, dan harga yang tepat.</h2></div><Link href="/discovery">Lanjutkan ke Discovery <b>→</b></Link></section>
+    <p className={styles.disclosure}>Tampilan, angka, dan alur di atas merupakan simulasi awal untuk membantu Anda membayangkan hasilnya. Rancangan final ditentukan bersama setelah Discovery.</p>
   </main>;
 }
