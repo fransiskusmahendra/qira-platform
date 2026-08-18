@@ -29,6 +29,7 @@ const COMMON_QUESTIONS: readonly DiscoveryQuestion[] = [
   { id: "integration_details", prompt: "Aplikasi atau layanan apa yang perlu dihubungkan?", answerType: "long_text", required: true, stage: "implementation", showWhen: { questionId: "integration_needed", equals: "Ya, perlu integrasi" } },
   { id: "target_timeline", prompt: "Kapan hasil pertama perlu digunakan?", answerType: "short_text", required: true, stage: "implementation" },
   { id: "budget_range", prompt: "Berapa rentang anggaran yang dipertimbangkan?", answerType: "short_text", required: false, stage: "implementation" },
+  { id: "qira_care_interest", prompt: "Apakah kamu membutuhkan dukungan QIRA Care setelah aplikasi digunakan?", answerType: "single_select", required: true, options: ["Ya, saya tertarik", "Mungkin, ingin tahu lebih lanjut", "Tidak untuk sekarang"], stage: "implementation" },
 ];
 
 const SERVICE_QUESTIONS: Readonly<Record<ServiceId, readonly DiscoveryQuestion[]>> = {
@@ -52,7 +53,7 @@ const SERVICE_QUESTIONS: Readonly<Record<ServiceId, readonly DiscoveryQuestion[]
 
 export function getDiscoveryQuestionnaire(serviceId: ServiceId): DiscoveryQuestionnaire {
   return {
-    version: "2026-08-18.2",
+    version: "2026-08-18.3",
     serviceId,
     questions: [...COMMON_QUESTIONS, ...SERVICE_QUESTIONS[serviceId]],
   };
