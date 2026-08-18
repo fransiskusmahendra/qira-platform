@@ -25,7 +25,7 @@ export default function DiscoveryPage() {
         <h1>Mari pahami proses yang paling penting untuk bisnis Anda.</h1>
         <p>
           Pilih kebutuhan utama dan ceritakan kondisi saat ini. Setelah dikirim, Anda
-          langsung memperoleh proposal, demo, dan estimasi harga awal. Estimasi pengisian 10–15 menit.
+          langsung memperoleh proposal, demo, dan estimasi harga awal. Empat tahap adaptif, sekitar 8–12 menit.
         </p>
       </section>
 
