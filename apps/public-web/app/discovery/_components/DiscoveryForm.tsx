@@ -39,6 +39,47 @@ const SCORE_LABELS = {
   complexity: "Kompleksitas",
 } as const;
 
+type ProblemAssessment = {
+  businessName?: string;
+  teamSize?: string;
+  priority?: string;
+  description?: string;
+  profile?: { name?: string; title?: string; problem?: string; packageName?: string };
+};
+
+function readProblemAssessment(): ProblemAssessment | undefined {
+  try {
+    const raw = window.localStorage.getItem("qira-problem-assessment");
+    if (!raw) return undefined;
+    const parsed = JSON.parse(raw) as ProblemAssessment;
+    return parsed.description && parsed.profile?.name ? parsed : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function estimatedUserCount(teamSize = ""): number {
+  if (teamSize.includes("1–3")) return 3;
+  if (teamSize.includes("4–10")) return 7;
+  if (teamSize.includes("11–25")) return 18;
+  if (teamSize.includes("25")) return 26;
+  return 1;
+}
+
+function problemAssessmentAnswers(source: ProblemAssessment): Answers {
+  const businessName = source.businessName?.trim();
+  const businessType = source.profile?.name ?? "Usaha";
+  const description = source.description?.trim() ?? "";
+  return {
+    business_profile: `${businessType}${businessName ? ` bernama ${businessName}` : ""}, dengan ukuran tim ${source.teamSize ?? "yang akan dikonfirmasi"}. Produk, pelanggan, dan detail operasional dapat dilengkapi di sini.`,
+    business_goal: `${source.priority ?? "Merapikan operasional"}. Arah hasil awal: ${source.profile?.title ?? "proses bisnis yang lebih jelas dan mudah dipantau"}`,
+    current_process: `Kondisi awal yang disampaikan: ${description}`,
+    pain_point: source.profile?.problem ?? description,
+    current_tools: "WhatsApp, catatan manual, atau spreadsheet — mohon sesuaikan dengan kondisi sebenarnya.",
+    user_count: estimatedUserCount(source.teamSize),
+  };
+}
+
 export function DiscoveryForm({ services }: DiscoveryFormProps) {
   const router = useRouter();
   const [contact, setContact] = useState({ fullName: "", businessName: "", whatsapp: "", email: "" });
@@ -58,12 +99,18 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
 
   useEffect(() => {
     const draft = readDiscoveryDraft();
+    const problemAssessment = readProblemAssessment();
     if (draft) {
       setServiceId(draft.serviceId);
       setAnswers(draft.answers);
       setAssessment(draft.assessment);
       setConsented(draft.consented);
-      setDraftMessage("Draft dari tab ini berhasil dipulihkan.");
+      setDraftMessage("Draft Discovery dari tab ini berhasil dipulihkan.");
+    } else if (problemAssessment) {
+      setServiceId("business-apps");
+      setAnswers(problemAssessmentAnswers(problemAssessment));
+      setContact((current) => ({ ...current, businessName: problemAssessment.businessName?.trim() ?? "" }));
+      setDraftMessage("Data awal dari Coba Masalah sudah diisikan. Silakan periksa dan lengkapi.");
     }
     setDraftReady(true);
   }, []);
