@@ -5,6 +5,8 @@ import {
   classifyDiscoveryTriage,
   findMissingRequiredAnswers,
   getDiscoveryQuestionnaire,
+  getBusinessBlueprint,
+  businessBlueprintSnapshot,
   type ServiceId,
 } from "@qira/domain";
 import { redirect } from "next/navigation";
@@ -19,6 +21,7 @@ const PUBLIC_SERVICE_IDS = new Set(["ai-employees", "automation", "business-apps
 
 interface SubmitDiscoveryInput {
   serviceId: ServiceId;
+  businessTypeId?: string;
   answers: Record<string, string | number | undefined>;
   assessment: { impact: number; readiness: number; complexity: number };
   consented: boolean;
@@ -64,7 +67,9 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
     return { status: "error", message: "Mohon periksa nama, usaha, WhatsApp, dan email Anda." };
   }
 
-  const questionnaire = getDiscoveryQuestionnaire(input.serviceId);
+  const baseQuestionnaire = getDiscoveryQuestionnaire(input.serviceId);
+  const blueprint = getBusinessBlueprint(input.businessTypeId);
+  const questionnaire = { ...baseQuestionnaire, questions: [...baseQuestionnaire.questions, ...(blueprint?.sectorQuestions ?? [])] };
   const missing = findMissingRequiredAnswers(questionnaire, input.answers);
   if (missing.length || !input.consented) {
     return { status: "error", message: `Lengkapi ${missing.length} jawaban wajib dan persetujuan sebelum mengirim.` };
@@ -81,7 +86,8 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
     _contact: { fullName, businessName, whatsapp, email: email || null },
     _assessment: input.assessment,
     _consent: { accepted: true, textVersion: "public-discovery-consent-v1", acceptedAt: new Date().toISOString() },
-    _questionnaire: { serviceId: input.serviceId, version: questionnaire.version },
+    _questionnaire: { serviceId: input.serviceId, version: questionnaire.version, businessTypeId: blueprint?.id ?? null },
+    _businessBlueprint: blueprint ? businessBlueprintSnapshot(blueprint) : null,
     _triage: {
       level: triage.level,
       label: triage.label,
