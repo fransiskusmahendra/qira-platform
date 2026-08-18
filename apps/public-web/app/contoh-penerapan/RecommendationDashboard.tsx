@@ -1,5 +1,6 @@
 "use client";
 
+import { CARE_PLANS } from "@qira/domain";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./case-studies.module.css";
@@ -233,6 +234,12 @@ export default function RecommendationDashboard(){
         <article className={profile.packageId==="connected-growth"?styles.recommendedPrice:""}><small>Lebih terhubung</small><h3>Connected Growth</h3><strong>Rp4,9 juta</strong><p>Untuk alur operasional, dashboard, hak akses, dan otomasi yang lebih lengkap.</p>{profile.packageId==="connected-growth"?<b>Rekomendasi untukmu</b>:null}</article>
       </div>
       <p className={styles.pricingNote}>Harga ini berlaku selama QIRA membangun portofolio dan merupakan estimasi awal. Harga final mengikuti fitur, integrasi, jumlah pengguna, dan scope yang disepakati setelah Discovery.</p>
+    </section>
+
+    <section className={styles.care}>
+      <div className={styles.careIntro}><p>Setelah aplikasinya jadi</p><h2>Kalau butuh bantuan, QIRA tetap bisa mendampingi.</h2><span>QIRA Care bersifat opsional dan baru berlaku setelah aplikasi digunakan.</span></div>
+      <div className={styles.careGrid}>{CARE_PLANS.map((plan)=><article key={plan.name}><small>Pilihan bulanan</small><h3>{plan.name}</h3><strong>{plan.priceRange}</strong><p>{plan.outcome}</p></article>)}</div>
+      <p className={styles.careNote}>Penambahan fitur baru atau perubahan besar akan menggunakan penawaran terpisah.</p>
     </section>
 
     <section className={styles.cta}><div><small>Langkah berikutnya</small><h2>Lengkapi Discovery agar QIRA dapat menyusun tampilan, fitur, waktu, dan harga yang tepat.</h2></div><Link href="/discovery">Lanjutkan ke Discovery <b>→</b></Link></section>
