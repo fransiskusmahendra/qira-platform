@@ -7,6 +7,7 @@ import {
   calculateDiscoveryScores,
   findMissingRequiredAnswers,
   getDiscoveryQuestionnaire,
+  getBusinessBlueprint,
   type ServiceId,
 } from "@qira/domain";
 import styles from "../discovery.module.css";
@@ -44,7 +45,7 @@ type ProblemAssessment = {
   teamSize?: string;
   priority?: string;
   description?: string;
-  profile?: { name?: string; title?: string; problem?: string; packageName?: string };
+  profile?: { businessTypeId?: string; name?: string; title?: string; problem?: string; packageName?: string };
 };
 
 function readProblemAssessment(): ProblemAssessment | undefined {
@@ -85,6 +86,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
   const [contact, setContact] = useState({ fullName: "", businessName: "", whatsapp: "", email: "" });
   const [website, setWebsite] = useState("");
   const [serviceId, setServiceId] = useState<ServiceId>(services[0]?.id ?? "discovery");
+  const [businessTypeId, setBusinessTypeId] = useState<string>();
   const [answers, setAnswers] = useState<Answers>({});
   const [consented, setConsented] = useState(false);
   const [showValidation, setShowValidation] = useState(false);
@@ -105,12 +107,14 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
     }
     if (draft) {
       setServiceId(draft.serviceId);
+      setBusinessTypeId(draft.businessTypeId);
       setAnswers(draft.answers);
       setAssessment(draft.assessment);
       setConsented(draft.consented);
       setDraftMessage("Draft Discovery dari tab ini berhasil dipulihkan.");
     } else if (problemAssessment) {
       setServiceId("business-apps");
+      setBusinessTypeId(problemAssessment.profile?.businessTypeId);
       setAnswers(problemAssessmentAnswers(problemAssessment));
       setDraftMessage("Data awal dari Coba Masalah sudah diisikan. Silakan periksa dan lengkapi.");
     }
@@ -122,15 +126,20 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
     writeDiscoveryDraft({
       schemaVersion: DISCOVERY_DRAFT_VERSION,
       serviceId,
+      businessTypeId,
       answers,
       assessment,
       consented,
       savedAt: new Date().toISOString(),
     });
     setDraftMessage("Draft tersimpan sementara di tab ini.");
-  }, [answers, assessment, consented, draftReady, serviceId]);
+  }, [answers, assessment, businessTypeId, consented, draftReady, serviceId]);
 
-  const questionnaire = useMemo(() => getDiscoveryQuestionnaire(serviceId), [serviceId]);
+  const blueprint = useMemo(() => getBusinessBlueprint(businessTypeId), [businessTypeId]);
+  const questionnaire = useMemo(() => {
+    const base = getDiscoveryQuestionnaire(serviceId);
+    return { ...base, questions: [...base.questions, ...(blueprint?.sectorQuestions ?? [])] };
+  }, [blueprint, serviceId]);
   const missing = useMemo(
     () => findMissingRequiredAnswers(questionnaire, answers),
     [answers, questionnaire],
@@ -164,6 +173,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
         contact,
         website,
         serviceId,
+        businessTypeId,
         answers,
         assessment,
         consented,
@@ -285,7 +295,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
           <div className={styles.sectionNumber}>03</div>
           <div className={styles.sectionTitle}>
             <h2 id="business-heading">Ceritakan kondisi bisnis Anda.</h2>
-            <p>Pertanyaan menyesuaikan layanan yang dipilih. Tanda * wajib diisi.</p>
+            <p>Pertanyaan menyesuaikan layanan yang dipilih{blueprint ? ` dan operasional ${blueprint.name}` : ""}. Tanda * wajib diisi.</p>
           </div>
           <div className={styles.questionGrid}>
             {questionnaire.questions.map((question) => {
