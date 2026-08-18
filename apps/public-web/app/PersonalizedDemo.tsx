@@ -42,7 +42,7 @@ export function PersonalizedDemo() {
   const [priority,setPriority]=useState("Merapikan operasional");
   const [description,setDescription]=useState("");
   const [profile,setProfile]=useState<Profile|null>(null);
-  const submit=(event:FormEvent)=>{event.preventDefault();if(description.trim().length>=10)setProfile(buildProfile(description.trim()))};
+  const submit=(event:FormEvent)=>{event.preventDefault();if(description.trim().length>=10){const nextProfile=buildProfile(description.trim());setProfile(nextProfile);window.localStorage.setItem("qira-problem-assessment",JSON.stringify({businessName,teamSize,priority,description:description.trim(),profile:nextProfile}));}};
   return <section className={styles.section} id="live-experience">
     <div className={styles.intro}><p>Live Problem Experience</p><h2>Rasakan bentuk solusi dari masalah usahamu.</h2><span>Tulis proses yang masih manual. QIRA akan memperlihatkan masalah, alur solusi, dashboard, dan paket yang paling mendekati kebutuhanmu.</span></div>
     <form className={styles.form} onSubmit={submit}>
