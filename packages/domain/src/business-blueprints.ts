@@ -1,7 +1,7 @@
 export type BusinessPackageId = "digital-foundation" | "growth-engine" | "connected-growth";
 
 export interface BusinessMetric { label: string; value: string }
-export interface BusinessSectorQuestion { id: string; prompt: string; required: boolean }
+export interface BusinessSectorQuestion { id: string; prompt: string; answerType: "long_text"; required: boolean }
 export interface BusinessImportTemplate { id: string; name: string; description: string; columns: readonly string[] }
 export interface BusinessBlueprint {
   id: string;
@@ -23,7 +23,7 @@ export interface BusinessBlueprint {
   importTemplates: readonly BusinessImportTemplate[];
 }
 
-const q=(id:string,prompt:string,required=true):BusinessSectorQuestion=>({id:`sector_${id}`,prompt,required});
+const q=(id:string,prompt:string,required=true):BusinessSectorQuestion=>({id:`sector_${id}`,prompt,answerType:"long_text",required});
 const t=(id:string,name:string,description:string,columns:string[]):BusinessImportTemplate=>({id,name,description,columns});
 const bp=(value:BusinessBlueprint)=>Object.freeze(value);
 
