@@ -138,8 +138,9 @@ export const PROPOSAL_PACKAGES: readonly ProposalPackage[] = Object.freeze([
 ]);
 
 export const CARE_PLANS = Object.freeze([
-  { name: "Basic Care", priceRange: "Rp150.000–Rp250.000/bulan", outcome: "Pemantauan dan perubahan konten ringan." },
-  { name: "Growth Care", priceRange: "Rp350.000–Rp500.000/bulan", outcome: "Dukungan operasional dan perbaikan minor berkala." },
+  { name: "Care Basic", priceRange: "Rp150.000/bulan", outcome: "Pemeriksaan rutin dan bantuan untuk kendala ringan." },
+  { name: "Care Plus", priceRange: "Rp300.000/bulan", outcome: "Dukungan prioritas dan penyesuaian kecil sesuai scope." },
+  { name: "Care Pro", priceRange: "Rp500.000/bulan", outcome: "Pendampingan rutin dan laporan pemeliharaan bulanan." },
 ]);
 
 const SERVICE_SCOPE: Readonly<Record<ServiceId, readonly string[]>> = {
