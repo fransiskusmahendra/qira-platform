@@ -120,7 +120,7 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
 
   if (triage.requiresAdminReview) {
     try {
-      const configuredRecipients = (process.env.QIRA_ADMIN_NOTIFICATION_EMAILS ?? "")
+      const configuredRecipients = (process.env.QIRA_ADMIN_NOTIFICATION_EMAILS ?? "fransiskusmahendra@gmail.com")
         .split(",")
         .map((recipient) => recipient.trim().toLowerCase())
         .filter((recipient) => CONTACT_EMAIL_PATTERN.test(recipient));
