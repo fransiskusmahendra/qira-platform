@@ -18,10 +18,10 @@
         let html = await response.text();
 
         html = html
-          .replace('<head>', '<head><base href="' + LEGACY_ORIGIN + '/">')
           .replaceAll('hello@myqira.io', 'hello@qirasolution.com')
           .replaceAll('https://qira-umkm-sales-demo.vercel.app', 'https://demo.qirasolution.com')
-          .replaceAll('https://qira-discovery-scope.vercel.app', 'https://discovery.qirasolution.com');
+          .replaceAll('https://qira-discovery-scope.vercel.app', 'https://discovery.qirasolution.com')
+          .replace('<head>', '<head><base href="' + LEGACY_ORIGIN + '/">');
 
         document.open();
         document.write(html);
