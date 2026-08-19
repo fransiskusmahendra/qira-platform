@@ -2,5 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "mkdir -p public && cp index.html public/index.html",
   "installCommand": "",
-  "outputDirectory": "public"
+  "outputDirectory": "public",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://www.qirasolution.com/discovery",
+      "permanent": false
+    }
+  ]
 }
