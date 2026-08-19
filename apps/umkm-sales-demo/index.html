@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <title>QIRA — Solusi Digital UMKM</title>
+</head>
+<body>
+  <noscript>Aktifkan JavaScript untuk membuka QIRA Demo.</noscript>
+  <script>
+    (async () => {
+      const LEGACY_ORIGIN = 'https://qira-umkm-sales-demo.vercel.app';
+      try {
+        const response = await fetch(LEGACY_ORIGIN + '/', { cache: 'no-store' });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        let html = await response.text();
+
+        html = html
+          .replace('<head>', '<head><base href="' + LEGACY_ORIGIN + '/">')
+          .replaceAll('hello@myqira.io', 'hello@qirasolution.com')
+          .replaceAll('https://qira-discovery-scope.vercel.app', 'https://discovery.qirasolution.com')
+          .replaceAll('https://qira-umkm-sales-demo.vercel.app', 'https://demo.qirasolution.com');
+
+        document.open();
+        document.write(html);
+        document.close();
+      } catch (error) {
+        document.body.innerHTML = '<main style="max-width:720px;margin:80px auto;padding:24px;font-family:Arial,sans-serif"><h1>QIRA Demo</h1><p>Demo sedang diperbarui. Silakan coba kembali beberapa saat lagi atau hubungi <a href="mailto:hello@qirasolution.com">hello@qirasolution.com</a>.</p></main>';
+        console.error(error);
+      }
+    })();
+  </script>
+</body>
+</html>
