@@ -2,6 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "installCommand": "npm install",
-  "buildCommand": "npm ls nanoid || true; npm run build --workspace=@qira/public-web",
+  "buildCommand": "npm view nanoid@3.3.18 version dist.integrity dist.tarball || true; npm run build --workspace=@qira/public-web",
   "outputDirectory": "apps/public-web/.next"
 }
