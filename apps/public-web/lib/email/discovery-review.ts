@@ -22,7 +22,7 @@ function escapeHtml(value: string) {
 function publicUrl(path: string) {
   const configuredBaseUrl = process.env.QIRA_PUBLIC_URL?.replace(/\/+$/, "");
   const baseUrl = configuredBaseUrl
-    ?? (process.env.NODE_ENV === "production" ? "https://qirasolution.com" : "http://localhost:3000");
+    ?? (process.env.NODE_ENV === "production" ? "https://www.qirasolution.com" : "http://localhost:3000");
   return `${baseUrl}${path}`;
 }
 
