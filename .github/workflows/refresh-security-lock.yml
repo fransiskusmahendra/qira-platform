@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - chore/security-nanoid-fix
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
