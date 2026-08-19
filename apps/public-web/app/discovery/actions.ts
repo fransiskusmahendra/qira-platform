@@ -97,16 +97,31 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
     },
   };
 
-  const supabase = createAdminClient();
-  const { data, error } = await supabase.rpc("submit_public_discovery", {
-    p_full_name: fullName,
-    p_business_name: businessName,
-    p_whatsapp: whatsapp,
-    p_email: email || null,
-    p_service_id: input.serviceId,
-    p_responses: responses,
-    p_scores: scores.map((score) => ({ ...score, factors: { ...score.factors } })),
-  });
+  let supabase: ReturnType<typeof createAdminClient>;
+  let data: { discovery_id: string; reference: string }[] | null = null;
+  let error: { code?: string; message?: string } | null = null;
+  try {
+    supabase = createAdminClient();
+    const result = await supabase.rpc("submit_public_discovery", {
+      p_full_name: fullName,
+      p_business_name: businessName,
+      p_whatsapp: whatsapp,
+      p_email: email || null,
+      p_service_id: input.serviceId,
+      p_responses: responses,
+      p_scores: scores.map((score) => ({ ...score, factors: { ...score.factors } })),
+    });
+    data = result.data;
+    error = result.error;
+  } catch (submissionError) {
+    console.error("public_discovery_submission_exception", {
+      message: submissionError instanceof Error ? submissionError.message : "unknown",
+    });
+    return {
+      status: "error",
+      message: "Discovery belum berhasil dikirim. Silakan coba kembali atau hubungi QIRA melalui WhatsApp.",
+    };
+  }
   if (error || !data?.[0]) {
     console.error("public_discovery_submission_failed", { code: error?.code });
     const duplicate = error?.message?.includes("submitted recently");

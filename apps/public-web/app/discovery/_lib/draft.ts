@@ -1,6 +1,7 @@
 import type { ServiceId } from "@qira/domain";
 
 export const DISCOVERY_DRAFT_KEY = "qira.discovery.adaptive.v2";
+export const SUBMITTED_DISCOVERY_PREVIEW_KEY = "qira.discovery.submitted-preview.v2";
 export const DISCOVERY_DRAFT_VERSION = 2;
 
 export interface DiscoveryPreviewDraft {
@@ -53,4 +54,19 @@ export function writeDiscoveryDraft(draft: DiscoveryPreviewDraft): void {
 
 export function clearDiscoveryDraft(): void {
   localStorage.removeItem(DISCOVERY_DRAFT_KEY);
+}
+
+export function writeSubmittedDiscoveryPreview(draft: DiscoveryPreviewDraft): void {
+  sessionStorage.setItem(SUBMITTED_DISCOVERY_PREVIEW_KEY, JSON.stringify(draft));
+}
+
+export function readSubmittedDiscoveryPreview(): DiscoveryPreviewDraft | undefined {
+  try {
+    const raw = sessionStorage.getItem(SUBMITTED_DISCOVERY_PREVIEW_KEY);
+    if (!raw) return undefined;
+    const parsed: unknown = JSON.parse(raw);
+    return isDiscoveryPreviewDraft(parsed) ? parsed : undefined;
+  } catch {
+    return undefined;
+  }
 }

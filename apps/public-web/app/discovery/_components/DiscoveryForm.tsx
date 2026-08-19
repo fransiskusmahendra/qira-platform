@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { calculateDiscoveryScores, findMissingRequiredAnswers, getBusinessBlueprint, getDiscoveryQuestionnaire, type DiscoveryQuestion, type ServiceId } from "@qira/domain";
 import styles from "../discovery.module.css";
 import { submitPublicDiscovery, type PublicDiscoverySubmissionState } from "../actions";
-import { clearDiscoveryDraft, DISCOVERY_DRAFT_VERSION, readDiscoveryDraft, writeDiscoveryDraft } from "../_lib/draft";
+import { clearDiscoveryDraft, DISCOVERY_DRAFT_VERSION, readDiscoveryDraft, writeDiscoveryDraft, writeSubmittedDiscoveryPreview } from "../_lib/draft";
 
 interface ServiceOption { id: ServiceId; name: string; outcome: string }
 interface DiscoveryFormProps { services: readonly ServiceOption[] }
@@ -131,6 +131,17 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
       const result = await submitPublicDiscovery({ contact, website, serviceId, businessTypeId, answers, assessment, consented });
       setSubmission(result);
       if (result.status === "success" && result.reference) {
+        writeSubmittedDiscoveryPreview({
+          schemaVersion: DISCOVERY_DRAFT_VERSION,
+          serviceId,
+          businessTypeId,
+          contact,
+          currentStep,
+          answers,
+          assessment,
+          consented,
+          savedAt: new Date().toISOString(),
+        });
         sessionStorage.setItem("qira.discovery.reference", result.reference);
         clearDiscoveryDraft(); router.push("/discovery/proposal");
       }

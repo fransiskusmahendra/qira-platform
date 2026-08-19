@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState, useTransition } from "react";
 
 import { calculateCommercialTerms, classifyDiscoveryTriage, createProposalPreview, findService, getBusinessBlueprint, findBusinessBlueprint, PROPOSAL_PACKAGES, type ProposalPackageId } from "@qira/domain";
-import { readDiscoveryDraft, type DiscoveryPreviewDraft } from "../_lib/draft";
+import { readDiscoveryDraft, readSubmittedDiscoveryPreview, type DiscoveryPreviewDraft } from "../_lib/draft";
 import styles from "./proposal.module.css";
 import { submitProposalDecision, type DecisionResult } from "./actions";
 
@@ -109,7 +109,7 @@ export function ProposalPreview() {
   const [isDeciding, startDecision] = useTransition();
 
   useEffect(() => {
-    setDraft(readDiscoveryDraft());
+    setDraft(readSubmittedDiscoveryPreview() ?? readDiscoveryDraft());
     setReference(sessionStorage.getItem("qira.discovery.reference") ?? "QIRA-DISC-PREVIEW");
     setLoaded(true);
   }, []);
