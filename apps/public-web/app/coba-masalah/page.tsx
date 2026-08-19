@@ -3,13 +3,20 @@ import Link from "next/link";
 
 import { PersonalizedDemo } from "../PersonalizedDemo";
 
-export const metadata: Metadata = { title: "Temukan Solusi Bisnis", description: "Ceritakan proses manual dan lihat arah solusi awal dari QIRA." };
+export const metadata: Metadata = {
+  title: "Ceritakan Masalah Usahamu",
+  description: "Jawab beberapa pertanyaan sederhana agar QIRA memahami masalah usahamu.",
+};
 
 export default function ProblemExperiencePage() {
   return <main>
     <nav className="nav shell"><Link className="brand" href="/">QIRA<span>.</span></Link></nav>
-    <header className="subpageIntro shell"><p className="kicker">Langkah 1 · Kenali peluangnya</p><h1>Mulai dari satu masalah yang paling menghambat.</h1><p>Bagian ini hanya memberi rekomendasi singkat. Prototype yang lengkap dibuat setelah Discovery agar sesuai dengan data, role, workflow, dan aturan usaha Anda.</p></header>
+    <header className="subpageIntro shell">
+      <p className="kicker">Mulai dari ceritamu</p>
+      <h1>Tidak perlu tahu solusinya. Ceritakan saja yang bikin repot.</h1>
+      <p>QIRA akan bertanya sedikit demi sedikit supaya masalahnya lebih mudah dipahami.</p>
+    </header>
     <PersonalizedDemo />
-    <footer className="footer shell"><span>QIRA · Your Business, Understood.</span><span>Langkah berikutnya: cara QIRA membantu</span></footer>
+    <footer className="footer shell"><span>QIRA · Your Business, Understood.</span><span>Satu langkah setiap kali.</span></footer>
   </main>;
 }
