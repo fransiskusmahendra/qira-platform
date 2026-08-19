@@ -2,7 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "installCommand": "npm install",
-  "buildCommand": "cp .env.production apps/public-web/.env.production && npm run build --workspace=@qira/public-web",
-  "outputDirectory": "apps/public-web/.next",
-  "ignoreCommand": "git diff HEAD^ HEAD --quiet -- apps/public-web packages package.json package-lock.json .env.production vercel.json"
+  "buildCommand": "npm install --package-lock-only --ignore-scripts; git diff -- package-lock.json; npm audit --audit-level=high || true; cp .env.production apps/public-web/.env.production; npm run build --workspace=@qira/public-web",
+  "outputDirectory": "apps/public-web/.next"
 }
