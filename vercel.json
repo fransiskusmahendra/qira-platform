@@ -3,5 +3,6 @@
   "framework": "nextjs",
   "installCommand": "npm install",
   "buildCommand": "cp .env.production apps/public-web/.env.production && npm run build --workspace=@qira/public-web",
-  "outputDirectory": "apps/public-web/.next"
+  "outputDirectory": "apps/public-web/.next",
+  "ignoreCommand": "git diff HEAD^ HEAD --quiet -- apps/public-web packages package.json package-lock.json .env.production vercel.json"
 }
