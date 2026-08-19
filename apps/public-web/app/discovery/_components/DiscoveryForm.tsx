@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { calculateDiscoveryScores, findMissingRequiredAnswers, getBusinessBlueprint, getDiscoveryQuestionnaire, type DiscoveryQuestion, type ServiceId } from "@qira/domain";
+import { getBusinessBlueprint, getDiscoveryQuestionnaire, type DiscoveryQuestion, type ServiceId } from "@qira/domain";
 import styles from "../discovery.module.css";
 import { submitPublicDiscovery, type PublicDiscoverySubmissionState } from "../actions";
 import { clearDiscoveryDraft, DISCOVERY_DRAFT_VERSION, readDiscoveryDraft, writeDiscoveryDraft, writeSubmittedDiscoveryPreview } from "../_lib/draft";
@@ -12,15 +12,10 @@ interface DiscoveryFormProps { services: readonly ServiceOption[] }
 type Answers = Record<string, string | number | undefined>;
 type Contact = { fullName: string; businessName: string; whatsapp: string; email: string };
 type ProblemAssessment = { businessName?: string; teamSize?: string; priority?: string; description?: string; profile?: { businessTypeId?: string; name?: string; title?: string; problem?: string } };
+type Screen = { kind: "identity" } | { kind: "contact" } | { kind: "question"; question: DiscoveryQuestion } | { kind: "consent" };
 
 const EMPTY_CONTACT: Contact = { fullName: "", businessName: "", whatsapp: "", email: "" };
-const STEPS = [
-  { number: "01", title: "Profil usaha", time: "± 1 menit" },
-  { number: "02", title: "Proses & masalah", time: "± 3 menit" },
-  { number: "03", title: "Kebutuhan sektoral", time: "± 3 menit" },
-  { number: "04", title: "Kesiapan implementasi", time: "± 3 menit" },
-] as const;
-const SCORE_LABELS = { opportunity: "Peluang dampak", readiness: "Kesiapan digital", complexity: "Kompleksitas" } as const;
+const DEFAULT_ASSESSMENT = { impact: 3, readiness: 3, complexity: 3 };
 
 function readProblemAssessment(): ProblemAssessment | undefined {
   try {
@@ -45,32 +40,48 @@ function problemAssessmentAnswers(source: ProblemAssessment): Answers {
   const description = source.description?.trim() ?? "";
   return {
     business_profile: `${businessType}${businessName ? ` bernama ${businessName}` : ""}, dengan ukuran tim ${source.teamSize ?? "yang akan dikonfirmasi"}.`,
-    business_goal: `${source.priority ?? "Merapikan operasional"}. Target awal: ${source.profile?.title ?? "proses lebih jelas dan mudah dipantau"}`,
-    current_process: `Kondisi awal yang disampaikan: ${description}`,
+    business_goal: `${source.priority ?? "Merapikan pekerjaan sehari-hari"}. Target awal: ${source.profile?.title ?? "pekerjaan lebih jelas dan mudah dipantau"}`,
+    current_process: description,
     pain_point: source.profile?.problem ?? description,
-    current_tools: "WhatsApp, catatan manual, atau spreadsheet — mohon sesuaikan dengan kondisi sebenarnya.",
+    current_tools: "Catatan manual, WhatsApp, atau Excel",
     user_count: estimatedUserCount(source.teamSize),
   };
+}
+
+function normalizeOldAnswers(input: Answers): Answers {
+  const answers = { ...input };
+  if (answers.integration_needed === "Ya, perlu integrasi") answers.integration_needed = "Ya, ada aplikasi lain";
+  if (answers.integration_needed === "Tidak untuk tahap awal") answers.integration_needed = "Tidak, cukup QIRA dulu";
+  if (answers.qira_care_interest === "Ya, saya tertarik") answers.qira_care_interest = "Ya, saya ingin dibantu";
+  if (answers.qira_care_interest === "Mungkin, ingin tahu lebih lanjut") answers.qira_care_interest = "Mungkin, jelaskan dulu";
+  if (answers.qira_care_interest === "Tidak untuk sekarang") answers.qira_care_interest = "Belum perlu";
+  return answers;
 }
 
 function isVisible(question: DiscoveryQuestion, answers: Answers) {
   return !question.showWhen || String(answers[question.showWhen.questionId] ?? "") === question.showWhen.equals;
 }
 
+function stageLabel(question?: DiscoveryQuestion) {
+  if (!question) return "Sedikit lagi";
+  if (question.stage === "profile") return "Tentang usahamu";
+  if (question.stage === "process") return "Cerita sehari-hari";
+  if (question.stage === "sector") return "Sedikit lebih spesifik";
+  return "Hampir selesai";
+}
+
 export function DiscoveryForm({ services }: DiscoveryFormProps) {
   const router = useRouter();
-  const topRef = useRef<HTMLDivElement>(null);
+  const defaultService: ServiceId = services.some((service) => service.id === "business-apps") ? "business-apps" : (services[0]?.id ?? "discovery");
   const [contact, setContact] = useState<Contact>(EMPTY_CONTACT);
   const [website, setWebsite] = useState("");
-  const [serviceId, setServiceId] = useState<ServiceId>(services[0]?.id ?? "discovery");
+  const [serviceId, setServiceId] = useState<ServiceId>(defaultService);
   const [businessTypeId, setBusinessTypeId] = useState<string>();
   const [answers, setAnswers] = useState<Answers>({});
-  const [assessment, setAssessment] = useState({ impact: 3, readiness: 3, complexity: 3 });
+  const [assessment, setAssessment] = useState(DEFAULT_ASSESSMENT);
   const [consented, setConsented] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
-  const [showValidation, setShowValidation] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [draftReady, setDraftReady] = useState(false);
-  const [draftMessage, setDraftMessage] = useState("Menyiapkan Discovery…");
   const [isSubmitting, startSubmitting] = useTransition();
   const [submission, setSubmission] = useState<PublicDiscoverySubmissionState>({ status: "idle", message: "" });
 
@@ -78,25 +89,21 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
     const draft = readDiscoveryDraft();
     const source = readProblemAssessment();
     if (draft) {
-      setContact(draft.contact); setServiceId(draft.serviceId); setBusinessTypeId(draft.businessTypeId);
-      setAnswers(draft.answers); setAssessment(draft.assessment); setConsented(draft.consented);
-      setCurrentStep(Math.min(4, Math.max(1, draft.currentStep)));
-      setDraftMessage("Jawaban terakhir Anda sudah dipulihkan.");
+      setContact(draft.contact);
+      setServiceId(draft.serviceId);
+      setBusinessTypeId(draft.businessTypeId);
+      setAnswers(normalizeOldAnswers(draft.answers));
+      setAssessment(draft.assessment);
+      setConsented(draft.consented);
+      setCurrentIndex(Math.max(0, draft.currentStep - 1));
     } else if (source) {
       setContact((value) => ({ ...value, businessName: source.businessName?.trim() ?? "" }));
-      setServiceId("business-apps"); setBusinessTypeId(source.profile?.businessTypeId);
+      setServiceId("business-apps");
+      setBusinessTypeId(source.profile?.businessTypeId);
       setAnswers(problemAssessmentAnswers(source));
-      setDraftMessage("Data dari Coba Masalah sudah terisi. Anda cukup memeriksa dan melengkapinya.");
     }
     setDraftReady(true);
   }, []);
-
-  useEffect(() => {
-    if (!draftReady) return;
-    writeDiscoveryDraft({ schemaVersion: DISCOVERY_DRAFT_VERSION, serviceId, businessTypeId, contact, currentStep, answers, assessment, consented, savedAt: new Date().toISOString() });
-    const timer = window.setTimeout(() => setDraftMessage("Tersimpan otomatis di perangkat ini."), 400);
-    return () => window.clearTimeout(timer);
-  }, [answers, assessment, businessTypeId, consented, contact, currentStep, draftReady, serviceId]);
 
   const blueprint = useMemo(() => getBusinessBlueprint(businessTypeId), [businessTypeId]);
   const questionnaire = useMemo(() => {
@@ -104,29 +111,61 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
     const sector = (blueprint?.sectorQuestions ?? []).map((question) => ({ ...question, stage: "sector" as const }));
     return { ...base, questions: [...base.questions, ...sector] };
   }, [blueprint, serviceId]);
-  const visibleQuestions = questionnaire.questions.filter((question) => isVisible(question, answers));
-  const stage = (["profile", "process", "sector", "implementation"] as const)[currentStep - 1];
-  const stepQuestions = visibleQuestions.filter((question) => question.stage === stage);
-  const missing = useMemo(() => findMissingRequiredAnswers(questionnaire, answers), [answers, questionnaire]);
-  const stepMissing = stepQuestions.filter((question) => question.required && missing.includes(question.id));
-  const requiredCount = visibleQuestions.filter((question) => question.required).length;
-  const progress = requiredCount ? Math.round(((requiredCount - missing.length) / requiredCount) * 100) : 100;
-  const contactReady = contact.fullName.trim().length >= 2 && contact.businessName.trim().length >= 2 && /^[0-9+() -]{8,24}$/.test(contact.whatsapp.trim()) && (!contact.email.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email.trim()));
-  const scores = calculateDiscoveryScores({ opportunity: { expectedImpact: assessment.impact }, readiness: { selfAssessment: assessment.readiness }, complexity: { selfAssessment: assessment.complexity } });
-  const ready = contactReady && missing.length === 0 && consented;
 
-  function changeStep(next: number) {
-    setCurrentStep(next); setShowValidation(false); setSubmission({ status: "idle", message: "" });
-    window.setTimeout(() => topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
+  const visibleQuestions = useMemo(() => questionnaire.questions.filter((question) => isVisible(question, answers)), [answers, questionnaire]);
+  const screens = useMemo<Screen[]>(() => [
+    { kind: "identity" },
+    { kind: "contact" },
+    ...visibleQuestions.map((question) => ({ kind: "question" as const, question })),
+    { kind: "consent" },
+  ], [visibleQuestions]);
+
+  const safeIndex = Math.min(currentIndex, Math.max(0, screens.length - 1));
+  const screen = screens[safeIndex];
+  const progress = Math.round(((safeIndex + 1) / screens.length) * 100);
+
+  useEffect(() => {
+    if (!draftReady) return;
+    writeDiscoveryDraft({ schemaVersion: DISCOVERY_DRAFT_VERSION, serviceId, businessTypeId, contact, currentStep: safeIndex + 1, answers, assessment, consented, savedAt: new Date().toISOString() });
+  }, [answers, assessment, businessTypeId, consented, contact, draftReady, safeIndex, serviceId]);
+
+  function currentIsValid() {
+    if (!screen) return false;
+    if (screen.kind === "identity") return contact.fullName.trim().length >= 2 && contact.businessName.trim().length >= 2;
+    if (screen.kind === "contact") return /^[0-9+() -]{8,24}$/.test(contact.whatsapp.trim()) && (!contact.email.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email.trim()));
+    if (screen.kind === "consent") return consented;
+    const value = answers[screen.question.id];
+    return !screen.question.required || !(value === undefined || (typeof value === "string" && value.trim() === ""));
   }
-  function nextStep() {
-    setShowValidation(true);
-    if ((currentStep === 1 && !contactReady) || stepMissing.length) return;
-    changeStep(Math.min(4, currentStep + 1));
+
+  function updateAnswer(id: string, value: string) {
+    setAnswers((current) => ({ ...current, [id]: value }));
   }
+
+  function resetFlow() {
+    clearDiscoveryDraft();
+    setContact(EMPTY_CONTACT);
+    setAnswers({});
+    setAssessment(DEFAULT_ASSESSMENT);
+    setConsented(false);
+    setBusinessTypeId(undefined);
+    setServiceId(defaultService);
+    setCurrentIndex(0);
+  }
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setShowValidation(true); setSubmission({ status: "idle", message: "" });
-    if (!ready) return;
+    event.preventDefault();
+    setSubmission({ status: "idle", message: "" });
+    if (!currentIsValid()) {
+      setSubmission({ status: "error", message: "Lengkapi jawaban ini dulu sebelum lanjut." });
+      return;
+    }
+
+    if (safeIndex < screens.length - 1) {
+      setCurrentIndex(safeIndex + 1);
+      return;
+    }
+
     startSubmitting(async () => {
       const result = await submitPublicDiscovery({ contact, website, serviceId, businessTypeId, answers, assessment, consented });
       setSubmission(result);
@@ -136,75 +175,72 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
           serviceId,
           businessTypeId,
           contact,
-          currentStep,
+          currentStep: safeIndex + 1,
           answers,
           assessment,
           consented,
           savedAt: new Date().toISOString(),
         });
         sessionStorage.setItem("qira.discovery.reference", result.reference);
-        clearDiscoveryDraft(); router.push("/discovery/proposal");
+        clearDiscoveryDraft();
+        router.push("/discovery/proposal");
       }
     });
   }
-  function removeDraft() {
-    clearDiscoveryDraft(); setContact(EMPTY_CONTACT); setAnswers({}); setAssessment({ impact: 3, readiness: 3, complexity: 3 });
-    setConsented(false); setCurrentStep(1); setDraftMessage("Draft sudah dihapus.");
-  }
-  function updateAnswer(id: string, value: string) { setAnswers((current) => ({ ...current, [id]: value })); }
 
   function renderQuestion(question: DiscoveryQuestion) {
-    const hasError = showValidation && missing.includes(question.id);
     const id = `question-${question.id}`;
-    return <label className={styles.field} key={question.id} htmlFor={id}>
-      <span>{question.prompt}{question.required ? " *" : " (opsional)"}</span>
-      {question.answerType === "long_text" ? <textarea id={id} rows={4} value={String(answers[question.id] ?? "")} aria-invalid={hasError} onChange={(event) => updateAnswer(question.id, event.target.value)} />
-        : question.answerType === "single_select" ? <select id={id} value={String(answers[question.id] ?? "")} aria-invalid={hasError} onChange={(event) => updateAnswer(question.id, event.target.value)}><option value="">Pilih jawaban</option>{question.options?.map((option) => <option key={option}>{option}</option>)}</select>
-          : <input id={id} type={question.answerType === "number" ? "number" : "text"} min={question.answerType === "number" ? 0 : undefined} value={String(answers[question.id] ?? "")} aria-invalid={hasError} onChange={(event) => updateAnswer(question.id, event.target.value)} />}
-      {hasError ? <small>Jawaban ini diperlukan untuk melanjutkan.</small> : null}
+    return <label className={styles.field} htmlFor={id}>
+      <span>{question.prompt}{question.required ? "" : " (boleh dilewati)"}</span>
+      {question.answerType === "long_text" ? <textarea id={id} autoFocus rows={5} value={String(answers[question.id] ?? "")} onChange={(event) => updateAnswer(question.id, event.target.value)} />
+        : question.answerType === "single_select" ? <select id={id} autoFocus value={String(answers[question.id] ?? "")} onChange={(event) => updateAnswer(question.id, event.target.value)}><option value="">Pilih yang paling sesuai</option>{question.options?.map((option) => <option key={option}>{option}</option>)}</select>
+          : <input id={id} autoFocus type={question.answerType === "number" ? "number" : "text"} min={question.answerType === "number" ? 0 : undefined} value={String(answers[question.id] ?? "")} onChange={(event) => updateAnswer(question.id, event.target.value)} />}
     </label>;
   }
 
-  return <form className={styles.workspace} onSubmit={handleSubmit} noValidate>
-    <aside className={styles.sidebar}>
-      <div className={styles.progressHeader}><span>Kelengkapan jawaban</span><strong>{progress}%</strong></div>
-      <div className={styles.progressTrack} aria-label={`Kelengkapan ${progress}%`}><span style={{ width: `${progress}%` }} /></div>
-      <ol className={styles.steps}>{STEPS.map((item, index) => <li key={item.number} className={index + 1 === currentStep ? styles.currentStep : index + 1 < currentStep ? styles.completedStep : ""}><button type="button" onClick={() => index + 1 < currentStep && changeStep(index + 1)}><span>{index + 1 < currentStep ? "✓" : item.number}</span><span><strong>{item.title}</strong><small>{item.time}</small></span></button></li>)}</ol>
-      <div className={styles.safetyNote}><strong>Detail tanpa terasa panjang.</strong><p>QIRA hanya menampilkan pertanyaan yang relevan dengan usaha dan jawaban Anda.</p></div>
-      <div className={styles.draftStatus}><span>{draftMessage}</span><button type="button" onClick={removeDraft}>Hapus draft</button></div>
-    </aside>
+  return <form className={styles.workspace} style={{ gridTemplateColumns: "1fr", maxWidth: 820 }} onSubmit={handleSubmit} noValidate>
+    <div className={styles.formContent}>
+      <div className={styles.mobileProgress} style={{ display: "flex" }}><span>{safeIndex + 1} dari {screens.length}</span><span>{progress}%</span></div>
+      <div className={styles.progressTrack} aria-label={`Progres ${progress}%`}><span style={{ width: `${progress}%` }} /></div>
 
-    <div className={styles.formContent} ref={topRef}>
-      <div className={styles.mobileProgress}>Tahap {currentStep} dari 4 <span>{STEPS[currentStep - 1].time}</span></div>
       <section className={styles.formSection}>
-        <div className={styles.sectionNumber}>{STEPS[currentStep - 1].number} · {STEPS[currentStep - 1].time}</div>
-        <div className={styles.sectionTitle}>
-          <h2>{currentStep === 1 ? "Konfirmasi profil usaha Anda." : currentStep === 2 ? "Bagaimana usaha berjalan saat ini?" : currentStep === 3 ? `Detail operasional ${blueprint?.name ?? "usaha Anda"}.` : "Siapkan rancangan implementasi."}</h2>
-          <p>{currentStep === 1 ? "Sebagian jawaban sudah diambil dari Coba Masalah. Periksa, lalu lengkapi data kontak." : currentStep === 2 ? "Kami memetakan proses dan titik masalah agar solusi tidak sekadar terlihat menarik." : currentStep === 3 ? "Pertanyaan ini dipilih khusus dari blueprint usaha Anda." : "Informasi ini membantu QIRA menyusun ruang lingkup, data awal, dan jadwal yang realistis."}</p>
-        </div>
+        <div className={styles.sectionNumber}>{screen?.kind === "question" ? stageLabel(screen.question) : screen?.kind === "identity" ? "Kenalan dulu" : screen?.kind === "contact" ? "Biar kami bisa menghubungi" : "Sebelum dikirim"}</div>
 
-        {currentStep === 1 ? <>
-          <div className={styles.contactGrid}>{([['fullName','Nama lengkap *','text','name'],['businessName','Nama bisnis/perusahaan *','text','organization'],['whatsapp','Nomor WhatsApp *','tel','tel'],['email','Email (opsional)','email','email']] as const).map(([key,label,type,autoComplete]) => <label className={styles.field} key={key}><span>{label}</span><input type={type} autoComplete={autoComplete} value={contact[key]} aria-invalid={showValidation && ((key === "fullName" || key === "businessName") ? contact[key].trim().length < 2 : key === "whatsapp" ? !/^[0-9+() -]{8,24}$/.test(contact.whatsapp.trim()) : Boolean(contact.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email.trim())))} onChange={(event) => setContact((value) => ({ ...value, [key]: event.target.value }))} /></label>)}</div>
-          <div className={styles.serviceSummary}><span>Solusi yang sedang disiapkan</span><strong>{services.find((service) => service.id === serviceId)?.name}</strong><p>{blueprint ? `Disesuaikan untuk ${blueprint.name}` : "Disesuaikan dengan kebutuhan utama Anda"}</p></div>
-          <label className={styles.honeypot} aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} /></label>
+        {screen?.kind === "identity" ? <>
+          <div className={styles.sectionTitle}><h2>Siapa yang sedang bercerita?</h2><p>Dua hal saja dulu.</p></div>
+          <div className={styles.contactGrid}>
+            <label className={styles.field}><span>Nama Anda</span><input autoFocus autoComplete="name" value={contact.fullName} onChange={(event) => setContact((value) => ({ ...value, fullName: event.target.value }))} /></label>
+            <label className={styles.field}><span>Nama usaha</span><input autoComplete="organization" value={contact.businessName} onChange={(event) => setContact((value) => ({ ...value, businessName: event.target.value }))} /></label>
+          </div>
         </> : null}
 
-        <div className={styles.questionGrid}>{stepQuestions.map(renderQuestion)}</div>
-        {currentStep === 3 && stepQuestions.length === 0 ? <div className={styles.emptySector}><strong>Profil sektoral belum terbaca.</strong><p>Kembali ke Coba Masalah agar QIRA dapat memilih pertanyaan khusus usaha Anda.</p></div> : null}
-
-        {currentStep === 4 ? <>
-          <div className={styles.assessmentGrid}>{([['impact','Perkiraan dampak','Seberapa besar manfaat jika masalah diselesaikan?'],['readiness','Kesiapan','Seberapa siap proses, data, dan pemiliknya?'],['complexity','Kompleksitas','Seberapa banyak sistem dan pengecualian terlibat?']] as const).map(([key,label,help]) => <label className={styles.rangeField} key={key}><span><strong>{label}</strong><output>{assessment[key]}/5</output></span><small>{help}</small><input type="range" min="0" max="5" step="1" value={assessment[key]} onChange={(event) => setAssessment((value) => ({ ...value, [key]: Number(event.target.value) }))} /></label>)}</div>
-          <div className={styles.scoreGrid}>{scores.map((score) => <div className={styles.scoreCard} key={score.type}><span>{SCORE_LABELS[score.type]}</span><strong>{score.value}</strong><small>dari 100</small></div>)}</div>
-          <label className={styles.consent}><input type="checkbox" checked={consented} onChange={(event) => setConsented(event.target.checked)} /><span>Saya menyetujui data ini disimpan oleh QIRA dan dapat dihubungi untuk tindak lanjut Discovery.</span></label>
+        {screen?.kind === "contact" ? <>
+          <div className={styles.sectionTitle}><h2>Kalau nanti perlu kami jelaskan, hubungi ke mana?</h2><p>Email boleh dikosongkan.</p></div>
+          <div className={styles.contactGrid}>
+            <label className={styles.field}><span>WhatsApp</span><input autoFocus type="tel" autoComplete="tel" value={contact.whatsapp} onChange={(event) => setContact((value) => ({ ...value, whatsapp: event.target.value }))} /></label>
+            <label className={styles.field}><span>Email (opsional)</span><input type="email" autoComplete="email" value={contact.email} onChange={(event) => setContact((value) => ({ ...value, email: event.target.value }))} /></label>
+          </div>
         </> : null}
+
+        {screen?.kind === "question" ? <>
+          <div className={styles.sectionTitle}><h2>Ceritakan dengan cara Anda sendiri.</h2><p>Tidak harus rapi. Yang penting sesuai keadaan sebenarnya.</p></div>
+          <div className={styles.questionGrid}>{renderQuestion(screen.question)}</div>
+        </> : null}
+
+        {screen?.kind === "consent" ? <>
+          <div className={styles.sectionTitle}><h2>Selesai. Boleh kami siapkan sarannya?</h2><p>Setelah dikirim, QIRA akan merangkum cerita Anda dan menunjukkan langkah yang paling masuk akal.</p></div>
+          <label className={styles.consent}><input type="checkbox" checked={consented} onChange={(event) => setConsented(event.target.checked)} /><span>Saya setuju QIRA menggunakan jawaban ini untuk menyiapkan saran dan menghubungi saya bila diperlukan.</span></label>
+        </> : null}
+
+        <label className={styles.honeypot} aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} /></label>
       </section>
 
+      {submission.status === "error" ? <div className={styles.errorMessage}>{submission.message}</div> : null}
+
       <div className={styles.stepActions}>
-        {currentStep > 1 ? <button className={styles.backButton} type="button" onClick={() => changeStep(currentStep - 1)}>Kembali</button> : <span />}
-        {currentStep < 4 ? <button className={styles.submitButton} type="button" onClick={nextStep}>Lanjut ke tahap {currentStep + 1}</button> : <button className={styles.submitButton} type="submit" disabled={isSubmitting}>{isSubmitting ? "Menyiapkan rancangan…" : "Kirim & lihat rancangan QIRA"}</button>}
+        <button type="button" className={styles.backButton} onClick={() => safeIndex > 0 ? setCurrentIndex(safeIndex - 1) : resetFlow()}>{safeIndex > 0 ? "Kembali" : "Mulai ulang"}</button>
+        <button className={styles.submitButton} type="submit" disabled={isSubmitting}>{isSubmitting ? "Mengirim…" : safeIndex === screens.length - 1 ? "Kirim ceritaku" : "Lanjut"}</button>
       </div>
-      {showValidation && ((currentStep === 1 && !contactReady) || stepMissing.length > 0 || (currentStep === 4 && !consented)) ? <div className={styles.errorMessage} role="status">Lengkapi bagian yang ditandai sebelum melanjutkan.</div> : null}
-      {submission.status === "error" ? <div className={styles.errorMessage} role="status">{submission.message}</div> : null}
     </div>
   </form>;
 }

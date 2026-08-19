@@ -42,7 +42,17 @@ export function findService(id: string): ServiceOffering | undefined {
   return SERVICE_CATALOG.find((service) => service.id === id);
 }
 
-export * from "./business-blueprints.ts";
+export {
+  BUSINESS_BLUEPRINTS,
+  getBusinessBlueprint,
+  businessBlueprintSnapshot,
+  type BusinessPackageId,
+  type BusinessMetric,
+  type BusinessSectorQuestion,
+  type BusinessImportTemplate,
+  type BusinessBlueprint,
+} from "./business-blueprints.ts";
+export { findBusinessBlueprint } from "./business-blueprint-matcher.ts";
 export * from "./discovery-questions.ts";
 export * from "./discovery-triage.ts";
 export * from "./scoring.ts";
