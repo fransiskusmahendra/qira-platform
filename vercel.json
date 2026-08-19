@@ -2,6 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "installCommand": "npm install",
-  "buildCommand": "cp .env.production apps/public-web/.env.production && npm run build --workspace=@qira/public-web",
+  "buildCommand": "npm run build --workspace=@qira/public-web",
   "outputDirectory": "apps/public-web/.next"
 }
