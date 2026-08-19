@@ -47,6 +47,11 @@ function clean(value: string, maxLength: number) {
   return String(value ?? "").trim().slice(0, maxLength);
 }
 
+function fallbackReference() {
+  const stamp = new Date().toISOString().replace(/\D/g, "").slice(0, 14);
+  return `QIRA-EMAIL-${stamp}`;
+}
+
 export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInput): Promise<PublicDiscoverySubmissionState> {
   if (!input || !input.contact || !PUBLIC_SERVICE_IDS.has(input.serviceId)) {
     return { status: "error", message: "Data Discovery tidak valid. Silakan muat ulang halaman dan coba kembali." };
@@ -97,6 +102,39 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
     },
   };
 
+  const configuredRecipients = (process.env.QIRA_ADMIN_NOTIFICATION_EMAILS ?? "fransiskusmahendra@gmail.com")
+    .split(",")
+    .map((recipient) => recipient.trim().toLowerCase())
+    .filter((recipient) => CONTACT_EMAIL_PATTERN.test(recipient));
+  const contact = { fullName, businessName, whatsapp, email: email || null };
+
+  async function sendFallbackEmail(reason: string): Promise<PublicDiscoverySubmissionState> {
+    const reference = fallbackReference();
+    const emailResult = await sendDiscoveryReviewEmail({
+      discoveryId: reference,
+      reference,
+      persisted: false,
+      recipients: configuredRecipients,
+      triage,
+      serviceId: input.serviceId,
+      contact,
+      answers: input.answers,
+    });
+    if (emailResult.ok) {
+      console.warn("public_discovery_delivered_by_email", { reason, reference });
+      return {
+        status: "success",
+        reference,
+        message: "Discovery sudah diterima tim QIRA melalui email. Rancangan awal Anda sedang dibuka.",
+      };
+    }
+    console.error("public_discovery_fallback_email_failed", { reason, emailError: emailResult.error });
+    return {
+      status: "error",
+      message: "Discovery belum berhasil dikirim. Silakan simpan jawaban Anda dan hubungi QIRA melalui WhatsApp.",
+    };
+  }
+
   let supabase: ReturnType<typeof createAdminClient>;
   let data: { discovery_id: string; reference: string }[] | null = null;
   let error: { code?: string; message?: string } | null = null;
@@ -117,28 +155,17 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
     console.error("public_discovery_submission_exception", {
       message: submissionError instanceof Error ? submissionError.message : "unknown",
     });
-    return {
-      status: "error",
-      message: "Discovery belum berhasil dikirim. Silakan coba kembali atau hubungi QIRA melalui WhatsApp.",
-    };
+    return sendFallbackEmail("database_exception");
   }
   if (error || !data?.[0]) {
     console.error("public_discovery_submission_failed", { code: error?.code });
     const duplicate = error?.message?.includes("submitted recently");
-    return {
-      status: "error",
-      message: duplicate
-        ? "Discovery dengan nomor ini baru saja dikirim. Tim QIRA akan segera meninjaunya."
-        : "Discovery belum berhasil dikirim. Silakan coba kembali atau hubungi QIRA melalui WhatsApp.",
-    };
+    if (!duplicate) return sendFallbackEmail(`database_${error?.code ?? "unknown"}`);
+    return { status: "error", message: "Discovery dengan nomor ini baru saja dikirim. Tim QIRA akan segera meninjaunya." };
   }
 
-  if (triage.requiresAdminReview) {
+  {
     try {
-      const configuredRecipients = (process.env.QIRA_ADMIN_NOTIFICATION_EMAILS ?? "fransiskusmahendra@gmail.com")
-        .split(",")
-        .map((recipient) => recipient.trim().toLowerCase())
-        .filter((recipient) => CONTACT_EMAIL_PATTERN.test(recipient));
       const { data: memberships } = await supabase
         .from("memberships")
         .select("user_id")
@@ -154,10 +181,11 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
       const emailResult = await sendDiscoveryReviewEmail({
         discoveryId: data[0].discovery_id,
         reference: data[0].reference,
+        persisted: true,
         recipients,
         triage,
         serviceId: input.serviceId,
-        contact: { fullName, businessName, whatsapp, email: email || null },
+        contact,
         answers: input.answers,
       });
       if (!emailResult.ok) console.error("discovery_review_email_failed", { reason: emailResult.error });
