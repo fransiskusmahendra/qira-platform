@@ -41,7 +41,8 @@ export async function sendProposalSharedEmail(input: SendProposalSharedEmailInpu
   const clientName = escapeHtml(input.clientName);
   const proposalNumber = escapeHtml(input.proposalNumber);
   const { data, error } = await resend.emails.send({
-    from: process.env.EMAIL_FROM ?? "QIRA <hello@qirasolution.com>",
+    from: process.env.QIRA_EMAIL_FROM ?? "QIRA <hello@qirasolution.com>",
+    replyTo: process.env.QIRA_REPLY_TO ?? "fransiskusmahendra@gmail.com",
     to: [input.recipientEmail],
     subject: `Proposal ${input.proposalNumber} dari QIRA`,
     html: `<div style="font-family:Arial,sans-serif;line-height:1.6;color:#17221b;max-width:640px;margin:auto">
