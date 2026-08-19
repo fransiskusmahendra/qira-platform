@@ -19,9 +19,15 @@ function escapeHtml(value: string) {
   return value.replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character] ?? character);
 }
 
+function publicUrl(path: string) {
+  const configuredBaseUrl = process.env.QIRA_PUBLIC_URL?.replace(/\/+$/, "");
+  const baseUrl = configuredBaseUrl
+    ?? (process.env.NODE_ENV === "production" ? "https://qirasolution.com" : "http://localhost:3000");
+  return `${baseUrl}${path}`;
+}
+
 function adminUrl(discoveryId: string) {
-  const host = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
-  return host ? `https://${host}/workspace/discoveries/${discoveryId}` : `http://localhost:3000/workspace/discoveries/${discoveryId}`;
+  return publicUrl(`/workspace/discoveries/${discoveryId}`);
 }
 
 export async function sendDiscoveryReviewEmail(input: SendDiscoveryReviewEmailInput) {
@@ -37,7 +43,7 @@ export async function sendDiscoveryReviewEmail(input: SendDiscoveryReviewEmailIn
     : input.triage.level === 3 ? "QIRA Manual Discovery L3" : input.triage.level === 2 ? "QIRA Review L2" : "QIRA Discovery Baru";
   const resend = new Resend(apiKey);
   const { data, error } = await resend.emails.send({
-    from: process.env.EMAIL_FROM ?? "QIRA <hello@myqira.io>",
+    from: process.env.EMAIL_FROM ?? "QIRA <hello@qirasolution.com>",
     to: input.recipients,
     subject: `[${subjectPrefix}] ${input.contact.businessName} · ${input.reference}`,
     html: `<div style="font-family:Arial,sans-serif;line-height:1.6;color:#17221b;max-width:680px;margin:auto">
