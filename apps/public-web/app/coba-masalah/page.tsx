@@ -17,6 +17,6 @@ export default function ProblemExperiencePage() {
       <p>QIRA akan bertanya sedikit demi sedikit supaya masalahnya lebih mudah dipahami.</p>
     </header>
     <PersonalizedDemo />
-    <footer className="footer shell"><span>QIRA · Your Business, Understood.</span><span>Satu langkah setiap kali.</span></footer>
+    <footer className="footer shell"><span>QIRA · Kami pahami, lalu kami bantu.</span><span>Satu langkah setiap kali.</span></footer>
   </main>;
 }
