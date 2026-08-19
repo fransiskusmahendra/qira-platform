@@ -20,9 +20,15 @@ function escapeHtml(value: string) {
   })[character] ?? character);
 }
 
+function publicUrl(path: string) {
+  const configuredBaseUrl = process.env.QIRA_PUBLIC_URL?.replace(/\/+$/, "");
+  const baseUrl = configuredBaseUrl
+    ?? (process.env.NODE_ENV === "production" ? "https://qirasolution.com" : "http://localhost:3000");
+  return `${baseUrl}${path}`;
+}
+
 function proposalUrl(proposalId: string) {
-  const host = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
-  return host ? `https://${host}/client/proposals/${proposalId}` : `http://localhost:3000/client/proposals/${proposalId}`;
+  return publicUrl(`/client/proposals/${proposalId}`);
 }
 
 export async function sendProposalSharedEmail(input: SendProposalSharedEmailInput) {
@@ -35,7 +41,7 @@ export async function sendProposalSharedEmail(input: SendProposalSharedEmailInpu
   const clientName = escapeHtml(input.clientName);
   const proposalNumber = escapeHtml(input.proposalNumber);
   const { data, error } = await resend.emails.send({
-    from: process.env.EMAIL_FROM ?? "QIRA <hello@myqira.io>",
+    from: process.env.EMAIL_FROM ?? "QIRA <hello@qirasolution.com>",
     to: [input.recipientEmail],
     subject: `Proposal ${input.proposalNumber} dari QIRA`,
     html: `<div style="font-family:Arial,sans-serif;line-height:1.6;color:#17221b;max-width:640px;margin:auto">
