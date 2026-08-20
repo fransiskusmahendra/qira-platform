@@ -139,7 +139,7 @@ export const PROPOSAL_PACKAGES: readonly ProposalPackage[] = Object.freeze([
 
 export const CARE_PLANS = Object.freeze([
   { name: "Care Basic", priceRange: "Rp150.000/bulan", outcome: "Pemeriksaan rutin dan bantuan untuk kendala ringan." },
-  { name: "Care Plus", priceRange: "Rp300.000/bulan", outcome: "Dukungan prioritas dan penyesuaian kecil sesuai scope." },
+  { name: "Care Plus", priceRange: "Rp300.000/bulan", outcome: "Dukungan prioritas dan penyesuaian kecil sesuai kebutuhan yang disepakati." },
   { name: "Care Pro", priceRange: "Rp500.000/bulan", outcome: "Pendampingan rutin dan laporan pemeliharaan bulanan." },
 ]);
 
@@ -179,7 +179,10 @@ export function createProposalPreview(input: {
       `Dukungan awal selama ${proposalPackage.supportDays} hari setelah serah terima`,
       "Harga final dikonfirmasi setelah discovery dan persetujuan Founder QIRA",
     ],
-    risks: ["Perubahan kebutuhan setelah scope disetujui", "Keterlambatan akses data atau sistem", "Adopsi pengguna membutuhkan pendampingan tambahan"],
+    risks: [
+      "Timeline dapat bergeser jika data atau keputusan terlambat",
+      "Integrasi pihak ketiga bergantung pada akses dan limit penyedia",
+    ],
     paymentTerms: [
       { label: "DP", percentage: 50, amountIdr: half },
       { label: "Sebelum serah terima", percentage: 50, amountIdr: half },
