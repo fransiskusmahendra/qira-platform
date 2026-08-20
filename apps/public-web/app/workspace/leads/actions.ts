@@ -29,7 +29,7 @@ export async function updateLeadCrm(formData: FormData) {
   const parsedFollowUp = followUp ? parseWibDateTime(followUp) : null;
   if (followUp && !parsedFollowUp) return;
 
-  const { data: current } = await supabase.from("public_leads").select("status,last_contacted_at").eq("id", id).maybeSingle();
+  const { data: current } = await (supabase as any).from("public_leads").select("status,last_contacted_at").eq("id", id).maybeSingle();
   if (!current) return;
 
   const update: Record<string, unknown> = {
@@ -42,7 +42,7 @@ export async function updateLeadCrm(formData: FormData) {
     update.last_contacted_at = new Date().toISOString();
   }
 
-  await supabase.from("public_leads").update(update as never).eq("id", id);
+  await (supabase as any).from("public_leads").update(update).eq("id", id);
   revalidatePath("/workspace/leads");
   revalidatePath("/workspace");
 }

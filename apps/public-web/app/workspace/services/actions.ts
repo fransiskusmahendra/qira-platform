@@ -55,15 +55,15 @@ export async function onboardCustomer(formData: FormData) {
   const { data: project } = await (supabase as any).from("managed_projects").select("customer_id").eq("id", projectId).maybeSingle();
 
   if (leadId) {
-    const { data: lead } = await supabase.from("public_leads").select("internal_notes").eq("id", leadId).maybeSingle();
+    const { data: lead } = await (supabase as any).from("public_leads").select("internal_notes").eq("id", leadId).maybeSingle();
     const dateLabel = new Intl.DateTimeFormat("id-ID", { timeZone: "Asia/Jakarta", dateStyle: "medium" }).format(new Date());
     const dealNote = `[${dateLabel}] Deal dikonfirmasi dan onboarding project dimulai. Syarat kesepakatan serta pembayaran awal telah dikonfirmasi.`;
     const notes = [lead?.internal_notes, dealNote].filter(Boolean).join("\n\n").slice(0, 4000);
-    await supabase.from("public_leads").update({
+    await (supabase as any).from("public_leads").update({
       status: "won",
       next_follow_up_at: null,
       internal_notes: notes,
-    } as any).eq("id", leadId);
+    }).eq("id", leadId);
   }
 
   revalidatePath("/workspace/services");

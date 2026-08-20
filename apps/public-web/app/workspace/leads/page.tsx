@@ -68,7 +68,7 @@ export default async function LeadsPage() {
   const { data: memberships } = await supabase.from("memberships").select("role").eq("status", "active");
   if (!memberships?.some((item) => item.role === "qira_admin" || item.role === "qira_consultant")) redirect("/client");
 
-  const { data: leads } = await supabase
+  const { data: leads } = await (supabase as any)
     .from("public_leads")
     .select("id,full_name,business_name,whatsapp,email,package_interest,business_need,budget_range,lead_temperature,status,next_follow_up_at,last_contacted_at,internal_notes,created_at")
     .order("created_at", { ascending: false })
