@@ -1,6 +1,8 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
 
+import { ConversionTracker } from "./_components/ConversionTracker";
+
 const FLOW_STEPS = [
   { title: "Ceritakan satu masalah", copy: "Mulai dari bagian usaha yang paling terasa ribet atau memakan waktu." },
   { title: "QIRA menangkap polanya", copy: "Kami bantu merangkum apa yang sebenarnya membuat pekerjaan terasa berat." },
@@ -11,6 +13,7 @@ const FLOW_STEPS = [
 
 export default function HomePage() {
   return <main>
+    <ConversionTracker event="landing_view" />
     <nav className="nav shell" aria-label="Navigasi utama">
       <Link className="brand" href="/">QIRA<span>.</span></Link>
       <Link className="navCta" href="/harga">Lihat harga awal</Link>
@@ -44,6 +47,6 @@ export default function HomePage() {
       </div>
     </section>
 
-    <footer className="footer shell"><span>QIRA · PT Rays Solusi Informasi</span><Link href="/harga">Harga awal & dukungan</Link></footer>
+    <footer className="footer shell"><span>QIRA · PT Rays Solusi Informasi</span><span><Link href="/harga">Harga awal & dukungan</Link> · <Link href="/privasi">Privasi</Link></span></footer>
   </main>;
 }
