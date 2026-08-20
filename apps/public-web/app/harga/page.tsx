@@ -3,14 +3,43 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 const rupiah = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 });
-export const metadata: Metadata = { title: "Harga & Paket", description: "Paket, cakupan, durasi, dan harga awal layanan QIRA." };
+
+export const metadata: Metadata = {
+  title: "Harga & Paket",
+  description: "Lihat harga awal, cakupan bantuan, dan pendampingan QIRA.",
+  alternates: { canonical: "/harga" },
+};
 
 export default function PricingPage() {
   return <main>
     <nav className="nav shell"><Link className="brand" href="/">QIRA<span>.</span></Link></nav>
-    <header className="subpageIntro shell"><p className="kicker">Harga perkenalan QIRA</p><h1>Pilih tingkat solusi, bukan daftar fitur yang membingungkan.</h1><p>Harga final mengikuti prototype dan scope yang disepakati setelah Discovery.</p></header>
-    <section className="packages shell"><div className="packageGrid">{PROPOSAL_PACKAGES.map((item) => <article className="packageCard" key={item.id}><p className="packageLabel">Proyek portofolio terbatas</p><h3>{item.name}</h3><p className="packageTagline">{item.tagline}</p><div className="packagePrice"><span>{item.priceLabel}</span><strong>{rupiah.format(item.introductoryPriceIdr)}</strong></div><ul>{item.deliverables.map((deliverable) => <li key={deliverable}>{deliverable}</li>)}</ul><div className="packageMeta"><span>{item.durationWeeks[0]}–{item.durationWeeks[1]} minggu</span><span>{item.revisions}x revisi</span><span>{item.supportDays} hari dukungan awal</span></div></article>)}</div><div className="packageCta"><Link className="primaryButton" href="/discovery">Mulai Discovery</Link></div><p className="pricingNote">Domain, hosting, layanan pihak ketiga, integrasi berbayar, dan perubahan di luar scope tidak termasuk kecuali tertulis dalam proposal final.</p></section>
-    <section className="care shell"><div className="sectionHeading"><div><p className="kicker">Managed by QIRA</p><h2>Dukungan setelah Go Live bersifat opsional.</h2></div><p>Subscription hanya mencakup dukungan dalam scope paket. Fitur baru menggunakan quotation terpisah.</p></div><div className="careGrid">{CARE_PLANS.map((plan) => <article key={plan.name}><h3>{plan.name}</h3><strong>{plan.priceRange}</strong><p>{plan.outcome}</p></article>)}</div></section>
-    <footer className="footer shell"><span>QIRA · PT Rays Solusi Informasi</span><span>Langkah berikutnya: Discovery</span></footer>
+    <header className="subpageIntro shell">
+      <p className="kicker">Harga awal QIRA</p>
+      <h1>Pilih tingkat bantuan yang paling mendekati kebutuhan.</h1>
+      <p>Harga akhir ditentukan setelah kami memahami kebutuhan dan batas pekerjaan yang disepakati bersama.</p>
+    </header>
+
+    <section className="packages shell">
+      <div className="packageGrid">{PROPOSAL_PACKAGES.map((item) => <article className="packageCard" key={item.id}>
+        <p className="packageLabel">Harga perkenalan</p>
+        <h3>{item.name}</h3>
+        <p className="packageTagline">{item.tagline}</p>
+        <div className="packagePrice"><span>{item.priceLabel}</span><strong>{rupiah.format(item.introductoryPriceIdr)}</strong></div>
+        <ul>{item.deliverables.map((deliverable) => <li key={deliverable}>{deliverable}</li>)}</ul>
+        <div className="packageMeta"><span>{item.durationWeeks[0]}–{item.durationWeeks[1]} minggu</span><span>{item.revisions}x revisi</span><span>{item.supportDays} hari dukungan awal</span></div>
+      </article>)}</div>
+      <div className="packageCta"><Link className="primaryButton" href="/coba-masalah">Ceritakan kebutuhanmu</Link></div>
+      <p className="pricingNote">Biaya domain, hosting, layanan pihak ketiga, dan kebutuhan tambahan di luar kesepakatan awal belum termasuk kecuali disebutkan secara tertulis.</p>
+    </section>
+
+    <section className="care shell">
+      <div className="sectionHeading">
+        <div><p className="kicker">Pendampingan QIRA</p><h2>Dukungan setelah hasil mulai digunakan bersifat opsional.</h2></div>
+        <p>Paket pendampingan hanya mencakup bantuan yang sudah disepakati. Kebutuhan baru akan dibicarakan terpisah terlebih dahulu.</p>
+      </div>
+      <div className="careGrid">{CARE_PLANS.map((plan) => <article key={plan.name}><h3>{plan.name}</h3><strong>{plan.priceRange}</strong><p>{plan.outcome}</p></article>)}</div>
+    </section>
+
+    <footer className="footer shell"><span>QIRA · PT Rays Solusi Informasi</span><span>Mulai dari cerita, bukan daftar fitur.</span></footer>
   </main>;
 }

@@ -1,9 +1,14 @@
 import { createHash } from "node:crypto";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createAdminClient } from "../../../lib/supabase/admin";
 import { ImportWorkspace } from "./ImportWorkspace";
 import styles from "./implementation.module.css";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 const statusLabel: Record<string, string> = {
   awaiting_data: "Menunggu data jika ada",

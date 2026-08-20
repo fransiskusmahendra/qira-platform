@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
-import RecommendationDashboard from "./RecommendationDashboard";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = { title: "Dashboard Rekomendasi QIRA", description: "Lihat cara QIRA membantu berdasarkan masalah bisnis yang Anda ceritakan." };
+export const metadata: Metadata = {
+  title: "Contoh Penerapan",
+  description: "Mulai dari cerita usaha Anda untuk melihat arah yang relevan dari QIRA.",
+  robots: { index: false, follow: true },
+};
 
-export default function RecommendationPage() { return <RecommendationDashboard />; }
+export default function RecommendationPage() {
+  redirect("/coba-masalah");
+}

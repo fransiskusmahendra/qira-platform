@@ -8,6 +8,7 @@ import styles from "./discovery.module.css";
 export const metadata: Metadata = {
   title: "Ceritakan Kebutuhan Usahamu",
   description: "Jawab satu pertanyaan setiap kali agar QIRA memahami kebutuhan usahamu dengan mudah.",
+  robots: { index: false, follow: false },
 };
 
 export default function DiscoveryPage() {
@@ -19,7 +20,7 @@ export default function DiscoveryPage() {
       </header>
 
       <section className={styles.intro}>
-        <p className={styles.eyebrow}>Bagian 2 dari 2</p>
+        <p className={styles.eyebrow}>Ceritakan lebih lengkap</p>
         <h1>Sekarang kami ingin memahami sedikit lebih dalam.</h1>
         <p>Jawab dengan bahasa sehari-hari. Tidak perlu tahu nama fitur, jenis aplikasi, atau istilah teknologi.</p>
       </section>
