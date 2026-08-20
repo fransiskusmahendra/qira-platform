@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { signInWithMagicLink } from "./actions";
 import styles from "./login.module.css";
+
+export const metadata: Metadata = {
+  title: "Masuk",
+  robots: { index: false, follow: false },
+};
 
 interface LoginPageProps {
   searchParams: Promise<{ sent?: string; error?: string; next?: string }>;
