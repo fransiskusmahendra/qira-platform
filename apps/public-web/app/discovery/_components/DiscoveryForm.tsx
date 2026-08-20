@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { getBusinessBlueprint, getDiscoveryQuestionnaire, type DiscoveryQuestion, type ServiceId } from "@qira/domain";
+import { trackConversion } from "../../_components/ConversionTracker";
 import styles from "../discovery.module.css";
 import { submitPublicDiscovery, type PublicDiscoverySubmissionState } from "../actions";
 import { clearDiscoveryDraft, DISCOVERY_DRAFT_VERSION, readDiscoveryDraft, writeDiscoveryDraft, writeSubmittedDiscoveryPreview } from "../_lib/draft";
@@ -131,6 +132,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
       setContinuedFromProblemStory(true);
     }
     setDraftReady(true);
+    void trackConversion("discovery_start");
   }, []);
 
   const blueprint = useMemo(() => getBusinessBlueprint(businessTypeId), [businessTypeId]);
@@ -221,6 +223,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
         clearDiscoveryDraft();
         clearProblemAssessment();
         setContinuedFromProblemStory(false);
+        void trackConversion("discovery_submit");
         router.push("/discovery/proposal");
       }
     });
@@ -267,7 +270,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
 
         {screen?.kind === "consent" ? <>
           <div className={styles.sectionTitle}><h2>Selesai. Boleh kami siapkan sarannya?</h2><p>Setelah dikirim, QIRA akan merangkum cerita Anda dan menunjukkan langkah yang paling masuk akal.</p></div>
-          <label className={styles.consent}><input type="checkbox" required checked={consented} onChange={(event) => setConsented(event.target.checked)} /><span>Saya setuju QIRA menggunakan jawaban ini untuk menyiapkan saran dan menghubungi saya bila diperlukan.</span></label>
+          <label className={styles.consent}><input type="checkbox" required checked={consented} onChange={(event) => setConsented(event.target.checked)} /><span>Saya telah membaca <a href="/privasi" target="_blank" rel="noreferrer">Pemberitahuan Privasi QIRA</a> dan setuju QIRA menggunakan jawaban ini untuk menyiapkan saran serta menghubungi saya bila diperlukan.</span></label>
         </> : null}
 
         <label className={styles.honeypot} aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} /></label>
