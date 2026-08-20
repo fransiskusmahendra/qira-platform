@@ -44,16 +44,17 @@ export async function sendProposalSharedEmail(input: SendProposalSharedEmailInpu
     from: process.env.QIRA_EMAIL_FROM ?? "QIRA <hello@qirasolution.com>",
     replyTo: process.env.QIRA_REPLY_TO ?? "fransiskusmahendra@gmail.com",
     to: [input.recipientEmail],
-    subject: `Proposal ${input.proposalNumber} dari QIRA`,
+    subject: `Penawaran ${input.proposalNumber} dari QIRA`,
     html: `<div style="font-family:Arial,sans-serif;line-height:1.6;color:#17221b;max-width:640px;margin:auto">
-      <p style="font-size:13px;letter-spacing:.08em;color:#4f6f5b">QIRA · YOUR BUSINESS, UNDERSTOOD.</p>
-      <h1 style="font-size:26px">Proposal Anda telah tersedia</h1>
+      <p style="font-size:13px;letter-spacing:.08em;color:#4f6f5b">QIRA · BANTU USAHA JADI LEBIH MUDAH</p>
+      <h1 style="font-size:26px">Penawaran Anda sudah siap dilihat</h1>
       <p>Halo ${recipientName},</p>
-      <p>Proposal <strong>${proposalNumber}</strong> untuk <strong>${clientName}</strong> telah dibagikan oleh tim QIRA.</p>
-      <p><a href="${url}" style="display:inline-block;background:#173f2a;color:white;padding:12px 20px;border-radius:8px;text-decoration:none">Lihat proposal</a></p>
-      <p style="font-size:13px;color:#65746b">Jika Anda tidak mengharapkan email ini, abaikan pesan ini atau hubungi tim QIRA.</p>
+      <p>QIRA sudah menyiapkan penawaran <strong>${proposalNumber}</strong> untuk <strong>${clientName}</strong>.</p>
+      <p>Silakan lihat rincian biaya dan pilih apakah sudah sesuai atau masih ada bagian yang ingin disesuaikan.</p>
+      <p><a href="${url}" style="display:inline-block;background:#173f2a;color:white;padding:12px 20px;border-radius:8px;text-decoration:none">Lihat penawaran</a></p>
+      <p style="font-size:13px;color:#65746b">Jika Anda tidak mengharapkan email ini, abaikan pesan ini atau balas email ini untuk menghubungi QIRA.</p>
     </div>`,
-    text: `Halo ${input.recipientName}, proposal ${input.proposalNumber} untuk ${input.clientName} telah tersedia: ${url}`,
+    text: `Halo ${input.recipientName}, penawaran ${input.proposalNumber} untuk ${input.clientName} sudah siap dilihat: ${url}`,
   }, { idempotencyKey: `proposal-shared-${input.proposalId}` });
 
   if (error) return { ok: false as const, error: error.message };
