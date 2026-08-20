@@ -10,11 +10,11 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono"
 
 export const metadata: Metadata = {
   title: {
-    default: "QIRA — Your Business, Understood",
+    default: "QIRA — Bantu Usaha Jadi Lebih Mudah",
     template: "%s | QIRA",
   },
   description:
-    "QIRA membantu organisasi menemukan, membangun, dan menjalankan solusi AI serta otomasi yang menghasilkan dampak bisnis nyata.",
+    "Ceritakan bagian usaha yang terasa ribet. QIRA membantu memahami masalahnya, menyiapkan arah yang sederhana, lalu membangun solusi yang siap dipakai.",
 };
 
 export const viewport: Viewport = {

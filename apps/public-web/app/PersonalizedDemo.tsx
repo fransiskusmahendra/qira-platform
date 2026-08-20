@@ -12,6 +12,9 @@ type Profile = {
   problem: string;
 };
 
+const PROBLEM_ASSESSMENT_KEY = "qira-problem-assessment";
+const PROBLEM_ASSESSMENT_ORIGIN_KEY = "qira-problem-assessment-origin";
+
 function buildProfile(input: string): Profile {
   const blueprint = findBusinessBlueprint(input);
   if (blueprint) {
@@ -64,11 +67,20 @@ export function PersonalizedDemo() {
     }
 
     const nextProfile = buildProfile(description.trim());
+    const payload = {
+      businessName: businessName.trim(),
+      teamSize,
+      priority,
+      description: description.trim(),
+      profile: nextProfile,
+    };
     setProfile(nextProfile);
-    window.localStorage.setItem(
-      "qira-problem-assessment",
-      JSON.stringify({ businessName: businessName.trim(), teamSize, priority, description: description.trim(), profile: nextProfile }),
-    );
+
+    // Keep the story only for this browser session so a shared device does not
+    // accidentally carry one prospective customer's details into the next one.
+    window.sessionStorage.setItem(PROBLEM_ASSESSMENT_KEY, JSON.stringify(payload));
+    window.sessionStorage.setItem(PROBLEM_ASSESSMENT_ORIGIN_KEY, "1");
+    window.localStorage.removeItem(PROBLEM_ASSESSMENT_KEY);
   }
 
   if (profile) {
@@ -89,7 +101,7 @@ export function PersonalizedDemo() {
 
   return <section className={styles.section} id="live-experience">
     <div className={styles.intro}>
-      <p>Cerita 1 dari 2</p>
+      <p>Bagian 1 dari 2</p>
       <h2>Kita mulai dari hal yang kamu alami setiap hari.</h2>
       <span>Satu pertanyaan setiap kali. Tidak ada istilah teknis.</span>
     </div>

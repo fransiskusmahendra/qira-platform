@@ -28,7 +28,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     .eq("status", "shared")
     .maybeSingle();
 
-  if (!proposal) return new NextResponse("Proposal tidak ditemukan", { status: 404 });
+  if (!proposal) return new NextResponse("Dokumen tidak ditemukan", { status: 404 });
 
   const terms = objectValue(proposal.commercial_terms);
   const commercial = calculateCommercialTerms({
@@ -51,7 +51,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
       downPaymentPercent: commercial.downPaymentPercent,
       totalIdr: commercial.totalIdr,
     },
-    discoverySummary: "Proposal ini merangkum ruang lingkup dan ketentuan komersial yang telah disetujui QIRA untuk dibagikan kepada klien.",
+    discoverySummary: "Penawaran ini merangkum kebutuhan yang sudah dibahas bersama QIRA serta biaya yang disiapkan untuk pekerjaan tersebut.",
   });
   const checksum = createHash("sha256").update(bytes).digest("hex");
   const { error: eventError } = await (supabase as any).from("proposal_client_events").insert({
@@ -62,7 +62,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     checksum_sha256: checksum,
     actor_id: claimsData.claims.sub,
   });
-  if (eventError) return new NextResponse("Aktivitas unduhan gagal dicatat", { status: 500 });
+  if (eventError) return new NextResponse("Unduhan belum dapat diproses. Silakan coba lagi.", { status: 500 });
   const filename = proposal.proposal_number.replace(/[^a-zA-Z0-9-]/g, "-");
 
   return new NextResponse(Buffer.from(bytes), {

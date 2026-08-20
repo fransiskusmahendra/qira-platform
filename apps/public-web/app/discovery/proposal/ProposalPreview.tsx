@@ -28,8 +28,17 @@ export function ProposalPreview() {
   const [isDeciding, startDecision] = useTransition();
 
   useEffect(() => {
-    setDraft(readSubmittedDiscoveryPreview() ?? readDiscoveryDraft());
+    const preview = readSubmittedDiscoveryPreview() ?? readDiscoveryDraft();
+    setDraft(preview);
     setReference(sessionStorage.getItem("qira.discovery.reference") ?? "");
+    if (preview?.contact) {
+      setSigner({
+        name: preview.contact.fullName ?? "",
+        email: preview.contact.email ?? "",
+        whatsapp: preview.contact.whatsapp ?? "",
+        consented: false,
+      });
+    }
     setLoaded(true);
   }, []);
 
@@ -55,9 +64,11 @@ export function ProposalPreview() {
     };
   }, [draft]);
 
+  const decisionCompleted = decisionResult?.status === "success";
+
   function submitDecision(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!draft) return;
+    if (!draft || decisionCompleted) return;
     setDecisionResult(undefined);
     startDecision(async () => {
       const result = await submitProposalDecision({
@@ -124,19 +135,19 @@ export function ProposalPreview() {
         <div>
           <p className={styles.kicker}>Langkah terakhir</p>
           <h2>Apakah arah ini sudah terasa masuk akal?</h2>
-          <p>Anda belum perlu memahami detail teknis. Pilih lanjut jika arahnya sudah cocok, atau minta diubah jika masih ada yang belum pas.</p>
+          <p>Pilih lanjut jika arahnya sudah cocok, atau minta diubah jika masih ada yang belum pas.</p>
         </div>
         <form className={styles.decisionForm} onSubmit={submitDecision}>
           <div className={styles.decisionChoices}>
-            <button type="button" aria-pressed={decision === "approved"} onClick={() => setDecision("approved")}>Ya, lanjutkan</button>
-            <button type="button" aria-pressed={decision === "revision_requested"} onClick={() => setDecision("revision_requested")}>Ada yang ingin diubah</button>
+            <button type="button" disabled={decisionCompleted} aria-pressed={decision === "approved"} onClick={() => setDecision("approved")}>Ya, lanjutkan</button>
+            <button type="button" disabled={decisionCompleted} aria-pressed={decision === "revision_requested"} onClick={() => setDecision("revision_requested")}>Ada yang ingin diubah</button>
           </div>
-          <label>Nama Anda<input required minLength={2} value={signer.name} onChange={(event) => setSigner((current) => ({ ...current, name: event.target.value }))} /></label>
-          <label>WhatsApp<input required inputMode="tel" value={signer.whatsapp} onChange={(event) => setSigner((current) => ({ ...current, whatsapp: event.target.value }))} /></label>
-          <label>Email (opsional)<input type="email" value={signer.email} onChange={(event) => setSigner((current) => ({ ...current, email: event.target.value }))} /></label>
-          <label className={styles.decisionConsent}><input type="checkbox" checked={signer.consented} onChange={(event) => setSigner((current) => ({ ...current, consented: event.target.checked }))} /><span>Saya setuju keputusan ini dicatat oleh QIRA agar bisa ditindaklanjuti.</span></label>
-          <button className={styles.decisionSubmit} type="submit" disabled={isDeciding}>{isDeciding ? "Mengirim…" : decision === "approved" ? "Lanjut bersama QIRA" : "Kirim permintaan perubahan"}</button>
-          {decisionResult ? <div className={decisionResult.status === "success" ? styles.decisionSuccess : styles.decisionError}>
+          <label>Nama Anda<input required minLength={2} disabled={decisionCompleted} value={signer.name} onChange={(event) => setSigner((current) => ({ ...current, name: event.target.value }))} /></label>
+          <label>WhatsApp<input required inputMode="tel" disabled={decisionCompleted} value={signer.whatsapp} onChange={(event) => setSigner((current) => ({ ...current, whatsapp: event.target.value }))} /></label>
+          <label>Email (opsional)<input type="email" disabled={decisionCompleted} value={signer.email} onChange={(event) => setSigner((current) => ({ ...current, email: event.target.value }))} /></label>
+          <label className={styles.decisionConsent}><input type="checkbox" required disabled={decisionCompleted} checked={signer.consented} onChange={(event) => setSigner((current) => ({ ...current, consented: event.target.checked }))} /><span>Saya setuju pilihan ini dicatat oleh QIRA agar bisa ditindaklanjuti.</span></label>
+          <button className={styles.decisionSubmit} type="submit" disabled={isDeciding || decisionCompleted || !signer.consented}>{isDeciding ? "Mengirim…" : decisionCompleted ? "Pilihan sudah tersimpan" : decision === "approved" ? "Lanjut bersama QIRA" : "Kirim permintaan perubahan"}</button>
+          {decisionResult ? <div className={decisionResult.status === "success" ? styles.decisionSuccess : styles.decisionError} aria-live="polite">
             <p>{decisionResult.message}</p>
             {decisionResult.implementationUrl ? <Link href={decisionResult.implementationUrl}>Lihat langkah berikutnya →</Link> : null}
           </div> : null}

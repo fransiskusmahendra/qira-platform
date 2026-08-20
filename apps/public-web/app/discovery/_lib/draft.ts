@@ -3,6 +3,7 @@ import type { ServiceId } from "@qira/domain";
 export const DISCOVERY_DRAFT_KEY = "qira.discovery.adaptive.v2";
 export const SUBMITTED_DISCOVERY_PREVIEW_KEY = "qira.discovery.submitted-preview.v2";
 export const DISCOVERY_DRAFT_VERSION = 2;
+const DISCOVERY_DRAFT_TTL_MS = 24 * 60 * 60 * 1000;
 
 export interface DiscoveryPreviewDraft {
   schemaVersion: typeof DISCOVERY_DRAFT_VERSION;
@@ -42,8 +43,18 @@ export function readDiscoveryDraft(): DiscoveryPreviewDraft | undefined {
     const raw = localStorage.getItem(DISCOVERY_DRAFT_KEY);
     if (!raw) return undefined;
     const parsed: unknown = JSON.parse(raw);
-    return isDiscoveryPreviewDraft(parsed) ? parsed : undefined;
+    if (!isDiscoveryPreviewDraft(parsed)) {
+      localStorage.removeItem(DISCOVERY_DRAFT_KEY);
+      return undefined;
+    }
+    const savedAt = Date.parse(parsed.savedAt);
+    if (!Number.isFinite(savedAt) || Date.now() - savedAt > DISCOVERY_DRAFT_TTL_MS) {
+      localStorage.removeItem(DISCOVERY_DRAFT_KEY);
+      return undefined;
+    }
+    return parsed;
   } catch {
+    localStorage.removeItem(DISCOVERY_DRAFT_KEY);
     return undefined;
   }
 }

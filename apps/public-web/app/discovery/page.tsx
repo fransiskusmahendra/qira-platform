@@ -19,7 +19,7 @@ export default function DiscoveryPage() {
       </header>
 
       <section className={styles.intro}>
-        <p className={styles.eyebrow}>Cerita 2 dari 2</p>
+        <p className={styles.eyebrow}>Bagian 2 dari 2</p>
         <h1>Sekarang kami ingin memahami sedikit lebih dalam.</h1>
         <p>Jawab dengan bahasa sehari-hari. Tidak perlu tahu nama fitur, jenis aplikasi, atau istilah teknologi.</p>
       </section>
