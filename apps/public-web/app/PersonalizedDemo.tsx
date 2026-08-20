@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 import { findBusinessBlueprint } from "@qira/domain";
+import { trackConversion } from "./_components/ConversionTracker";
 import styles from "./PersonalizedDemo.module.css";
 
 type Profile = {
@@ -81,6 +82,7 @@ export function PersonalizedDemo() {
     window.sessionStorage.setItem(PROBLEM_ASSESSMENT_KEY, JSON.stringify(payload));
     window.sessionStorage.setItem(PROBLEM_ASSESSMENT_ORIGIN_KEY, "1");
     window.localStorage.removeItem(PROBLEM_ASSESSMENT_KEY);
+    void trackConversion("story_complete");
   }
 
   if (profile) {

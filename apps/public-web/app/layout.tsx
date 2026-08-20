@@ -9,6 +9,7 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 const siteTitle = "QIRA — Bantu Usaha Jadi Lebih Mudah";
 const siteDescription = "Ceritakan bagian usaha yang terasa ribet. QIRA membantu memahami masalahnya, menyiapkan arah yang sederhana, lalu membangun solusi yang siap dipakai.";
+const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — bantu usaha jadi lebih mudah" };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.qirasolution.com"),
@@ -27,11 +28,13 @@ export const metadata: Metadata = {
     siteName: "QIRA",
     locale: "id_ID",
     type: "website",
+    images: [socialImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
+    images: ["/opengraph-image"],
   },
 };
 
