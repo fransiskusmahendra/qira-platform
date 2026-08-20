@@ -33,6 +33,30 @@ export async function submitProposalDecision(input:DecisionInput):Promise<Decisi
   const {data:discovery,error}=await supabase.from("discoveries").select("id,organization_id,responses,status").eq("public_reference",reference).maybeSingle();
   if(error||!discovery)return {status:"error",message:"Cerita ini belum ditemukan. Muat ulang halaman atau hubungi QIRA."};
 
+  // A browser refresh must not create repeated approvals or rotate the private
+  // next-step token. Keep an already-recorded approval final; repeated revision
+  // requests are also treated as the same request. A revised customer may still
+  // approve later after QIRA has adjusted the direction.
+  const {data:latestDecision,error:latestDecisionError}=await supabase
+    .from("proposal_decisions")
+    .select("decision,created_at")
+    .eq("discovery_id",discovery.id)
+    .order("created_at",{ascending:false})
+    .limit(1)
+    .maybeSingle();
+  if(latestDecisionError){
+    console.error("proposal_decision_lookup_failed",{code:latestDecisionError.code});
+    return {status:"error",message:"Pilihan Anda belum dapat diperiksa. Silakan coba lagi."};
+  }
+  if(latestDecision?.decision==="approved"){
+    return input.decision==="approved"
+      ? {status:"success",message:"Persetujuan Anda sudah tercatat. QIRA akan melanjutkan dari pilihan tersebut."}
+      : {status:"error",message:"Persetujuan sebelumnya sudah tercatat. Hubungi QIRA jika Anda ingin mengubah keputusan."};
+  }
+  if(latestDecision?.decision==="revision_requested"&&input.decision==="revision_requested"){
+    return {status:"success",message:"Permintaan perubahan Anda sudah tercatat. QIRA akan menindaklanjutinya."};
+  }
+
   const responses=discovery.responses??{};
   const storedBlueprintId=responses?._businessBlueprint?.id;
   const context=[responses.business_profile,responses.current_process,responses.pain_point].filter(Boolean).join(" ");

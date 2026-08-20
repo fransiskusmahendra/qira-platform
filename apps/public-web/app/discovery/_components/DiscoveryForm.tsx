@@ -16,14 +16,38 @@ type Screen = { kind: "identity" } | { kind: "contact" } | { kind: "question"; q
 
 const EMPTY_CONTACT: Contact = { fullName: "", businessName: "", whatsapp: "", email: "" };
 const DEFAULT_ASSESSMENT = { impact: 3, readiness: 3, complexity: 3 };
+const PROBLEM_ASSESSMENT_KEY = "qira-problem-assessment";
+const PROBLEM_ASSESSMENT_ORIGIN_KEY = "qira-problem-assessment-origin";
+const AUTO_FILLED_QUESTION_IDS = new Set(["business_profile", "business_goal", "current_process", "pain_point", "current_tools", "user_count"]);
 
 function readProblemAssessment(): ProblemAssessment | undefined {
   try {
-    const raw = window.localStorage.getItem("qira-problem-assessment");
+    const sessionRaw = window.sessionStorage.getItem(PROBLEM_ASSESSMENT_KEY);
+    const legacyRaw = window.localStorage.getItem(PROBLEM_ASSESSMENT_KEY);
+    const raw = sessionRaw ?? legacyRaw;
     if (!raw) return undefined;
     const parsed = JSON.parse(raw) as ProblemAssessment;
-    return parsed.description && parsed.profile?.name ? parsed : undefined;
-  } catch { return undefined; }
+    if (!parsed.description || !parsed.profile?.name) return undefined;
+
+    if (!sessionRaw && legacyRaw) {
+      window.sessionStorage.setItem(PROBLEM_ASSESSMENT_KEY, legacyRaw);
+      window.sessionStorage.setItem(PROBLEM_ASSESSMENT_ORIGIN_KEY, "1");
+      window.localStorage.removeItem(PROBLEM_ASSESSMENT_KEY);
+    }
+    return parsed;
+  } catch {
+    return undefined;
+  }
+}
+
+function clearProblemAssessment() {
+  try {
+    window.sessionStorage.removeItem(PROBLEM_ASSESSMENT_KEY);
+    window.sessionStorage.removeItem(PROBLEM_ASSESSMENT_ORIGIN_KEY);
+    window.localStorage.removeItem(PROBLEM_ASSESSMENT_KEY);
+  } catch {
+    // Storage cleanup is best-effort; submission data has already been persisted server-side.
+  }
 }
 
 function estimatedUserCount(teamSize = ""): number {
@@ -82,12 +106,14 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
   const [consented, setConsented] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [draftReady, setDraftReady] = useState(false);
+  const [continuedFromProblemStory, setContinuedFromProblemStory] = useState(false);
   const [isSubmitting, startSubmitting] = useTransition();
   const [submission, setSubmission] = useState<PublicDiscoverySubmissionState>({ status: "idle", message: "" });
 
   useEffect(() => {
     const draft = readDiscoveryDraft();
     const source = readProblemAssessment();
+    const hasProblemStory = window.sessionStorage.getItem(PROBLEM_ASSESSMENT_ORIGIN_KEY) === "1";
     if (draft) {
       setContact(draft.contact);
       setServiceId(draft.serviceId);
@@ -96,11 +122,13 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
       setAssessment(draft.assessment);
       setConsented(draft.consented);
       setCurrentIndex(Math.max(0, draft.currentStep - 1));
+      setContinuedFromProblemStory(hasProblemStory);
     } else if (source) {
       setContact((value) => ({ ...value, businessName: source.businessName?.trim() ?? "" }));
       setServiceId("business-apps");
       setBusinessTypeId(source.profile?.businessTypeId);
       setAnswers(problemAssessmentAnswers(source));
+      setContinuedFromProblemStory(true);
     }
     setDraftReady(true);
   }, []);
@@ -112,7 +140,11 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
     return { ...base, questions: [...base.questions, ...sector] };
   }, [blueprint, serviceId]);
 
-  const visibleQuestions = useMemo(() => questionnaire.questions.filter((question) => isVisible(question, answers)), [answers, questionnaire]);
+  const visibleQuestions = useMemo(() => questionnaire.questions
+    .filter((question) => isVisible(question, answers))
+    .filter((question) => !(continuedFromProblemStory && AUTO_FILLED_QUESTION_IDS.has(question.id))),
+  [answers, continuedFromProblemStory, questionnaire]);
+
   const screens = useMemo<Screen[]>(() => [
     { kind: "identity" },
     { kind: "contact" },
@@ -144,13 +176,17 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
 
   function resetFlow() {
     clearDiscoveryDraft();
+    clearProblemAssessment();
     setContact(EMPTY_CONTACT);
     setAnswers({});
     setAssessment(DEFAULT_ASSESSMENT);
     setConsented(false);
     setBusinessTypeId(undefined);
     setServiceId(defaultService);
+    setWebsite("");
     setCurrentIndex(0);
+    setContinuedFromProblemStory(false);
+    setSubmission({ status: "idle", message: "" });
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -183,6 +219,8 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
         });
         sessionStorage.setItem("qira.discovery.reference", result.reference);
         clearDiscoveryDraft();
+        clearProblemAssessment();
+        setContinuedFromProblemStory(false);
         router.push("/discovery/proposal");
       }
     });
@@ -204,7 +242,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
       <div className={styles.progressTrack} aria-label={`Progres ${progress}%`}><span style={{ width: `${progress}%` }} /></div>
 
       <section className={styles.formSection}>
-        <div className={styles.sectionNumber}>{screen?.kind === "question" ? stageLabel(screen.question) : screen?.kind === "identity" ? "Kenalan dulu" : screen?.kind === "contact" ? "Biar kami bisa menghubungi" : "Sebelum dikirim"}</div>
+        <div className={styles.sectionNumber}>{screen?.kind === "question" ? stageLabel(screen.question) : screen?.kind === "identity" ? "Kenalan dulu" : screen?.kind === "contact" ? "Kontak Anda" : "Sebelum dikirim"}</div>
 
         {screen?.kind === "identity" ? <>
           <div className={styles.sectionTitle}><h2>Siapa yang sedang bercerita?</h2><p>Dua hal saja dulu.</p></div>
@@ -229,13 +267,13 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
 
         {screen?.kind === "consent" ? <>
           <div className={styles.sectionTitle}><h2>Selesai. Boleh kami siapkan sarannya?</h2><p>Setelah dikirim, QIRA akan merangkum cerita Anda dan menunjukkan langkah yang paling masuk akal.</p></div>
-          <label className={styles.consent}><input type="checkbox" checked={consented} onChange={(event) => setConsented(event.target.checked)} /><span>Saya setuju QIRA menggunakan jawaban ini untuk menyiapkan saran dan menghubungi saya bila diperlukan.</span></label>
+          <label className={styles.consent}><input type="checkbox" required checked={consented} onChange={(event) => setConsented(event.target.checked)} /><span>Saya setuju QIRA menggunakan jawaban ini untuk menyiapkan saran dan menghubungi saya bila diperlukan.</span></label>
         </> : null}
 
         <label className={styles.honeypot} aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} /></label>
       </section>
 
-      {submission.status === "error" ? <div className={styles.errorMessage}>{submission.message}</div> : null}
+      {submission.status === "error" ? <div className={styles.errorMessage} aria-live="polite">{submission.message}</div> : null}
 
       <div className={styles.stepActions}>
         <button type="button" className={styles.backButton} onClick={() => safeIndex > 0 ? setCurrentIndex(safeIndex - 1) : resetFlow()}>{safeIndex > 0 ? "Kembali" : "Mulai ulang"}</button>

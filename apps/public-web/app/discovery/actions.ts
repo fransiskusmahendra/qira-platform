@@ -54,10 +54,10 @@ function fallbackReference() {
 
 export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInput): Promise<PublicDiscoverySubmissionState> {
   if (!input || !input.contact || !PUBLIC_SERVICE_IDS.has(input.serviceId)) {
-    return { status: "error", message: "Data Discovery tidak valid. Silakan muat ulang halaman dan coba kembali." };
+    return { status: "error", message: "Jawaban belum terbaca dengan benar. Muat ulang halaman lalu coba kembali." };
   }
   if (clean(input.website, 200)) {
-    return { status: "success", message: "Discovery Anda sudah diterima." };
+    return { status: "success", message: "Cerita Anda sudah diterima." };
   }
 
   const fullName = clean(input.contact.fullName, 100);
@@ -69,7 +69,7 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
   const validAssessment = assessmentValues.length === 3
     && assessmentValues.every((value) => Number.isInteger(value) && value >= 0 && value <= 5);
   if (fullName.length < 2 || businessName.length < 2 || !CONTACT_PHONE_PATTERN.test(whatsapp) || !validEmail || !validAssessment) {
-    return { status: "error", message: "Mohon periksa nama, usaha, WhatsApp, dan email Anda." };
+    return { status: "error", message: "Mohon periksa nama, nama usaha, WhatsApp, dan email Anda." };
   }
 
   const baseQuestionnaire = getDiscoveryQuestionnaire(input.serviceId);
@@ -77,7 +77,9 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
   const questionnaire = { ...baseQuestionnaire, questions: [...baseQuestionnaire.questions, ...(blueprint?.sectorQuestions ?? [])] };
   const missing = findMissingRequiredAnswers(questionnaire, input.answers);
   if (missing.length || !input.consented) {
-    return { status: "error", message: `Lengkapi ${missing.length} jawaban wajib dan persetujuan sebelum mengirim.` };
+    return { status: "error", message: missing.length
+      ? `Masih ada ${missing.length} jawaban yang perlu dilengkapi sebelum dikirim.`
+      : "Centang persetujuan sebelum mengirim cerita Anda." };
   }
 
   const scores = calculateDiscoveryScores({
@@ -125,13 +127,13 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
       return {
         status: "success",
         reference,
-        message: "Discovery sudah diterima tim QIRA melalui email. Rancangan awal Anda sedang dibuka.",
+        message: "Cerita Anda sudah diterima tim QIRA melalui email.",
       };
     }
     console.error("public_discovery_fallback_email_failed", { reason, emailError: emailResult.error });
     return {
       status: "error",
-      message: "Discovery belum berhasil dikirim. Silakan simpan jawaban Anda dan hubungi QIRA melalui WhatsApp.",
+      message: "Cerita belum berhasil dikirim. Jawaban Anda masih tersimpan di perangkat ini; silakan coba lagi atau hubungi QIRA.",
     };
   }
 
@@ -161,47 +163,43 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
     console.error("public_discovery_submission_failed", { code: error?.code });
     const duplicate = error?.message?.includes("submitted recently");
     if (!duplicate) return sendFallbackEmail(`database_${error?.code ?? "unknown"}`);
-    return { status: "error", message: "Discovery dengan nomor ini baru saja dikirim. Tim QIRA akan segera meninjaunya." };
+    return { status: "error", message: "Cerita dengan nomor ini baru saja dikirim. Tim QIRA sudah menerimanya." };
   }
 
-  {
-    try {
-      const { data: memberships } = await supabase
-        .from("memberships")
-        .select("user_id")
-        .eq("role", "qira_admin")
-        .eq("status", "active");
-      const adminIds = new Set((memberships ?? []).map((membership) => membership.user_id));
-      const { data: authUsers, error: usersError } = await supabase.auth.admin.listUsers({ page: 1, perPage: 1000 });
-      if (usersError) console.error("discovery_admin_recipient_lookup_failed", { code: usersError.code });
-      const membershipRecipients = (authUsers?.users ?? [])
-        .filter((user) => adminIds.has(user.id) && user.email)
-        .map((user) => user.email!.toLowerCase());
-      const recipients = [...new Set([...configuredRecipients, ...membershipRecipients])];
-      const emailResult = await sendDiscoveryReviewEmail({
-        discoveryId: data[0].discovery_id,
-        reference: data[0].reference,
-        persisted: true,
-        recipients,
-        triage,
-        serviceId: input.serviceId,
-        contact,
-        answers: input.answers,
-      });
-      if (!emailResult.ok) console.error("discovery_review_email_failed", { reason: emailResult.error });
-    } catch (notificationError) {
-      console.error("discovery_review_notification_failed", {
-        message: notificationError instanceof Error ? notificationError.message : "unknown",
-      });
-    }
+  try {
+    const { data: memberships } = await supabase
+      .from("memberships")
+      .select("user_id")
+      .eq("role", "qira_admin")
+      .eq("status", "active");
+    const adminIds = new Set((memberships ?? []).map((membership) => membership.user_id));
+    const { data: authUsers, error: usersError } = await supabase.auth.admin.listUsers({ page: 1, perPage: 1000 });
+    if (usersError) console.error("discovery_admin_recipient_lookup_failed", { code: usersError.code });
+    const membershipRecipients = (authUsers?.users ?? [])
+      .filter((user) => adminIds.has(user.id) && user.email)
+      .map((user) => user.email!.toLowerCase());
+    const recipients = [...new Set([...configuredRecipients, ...membershipRecipients])];
+    const emailResult = await sendDiscoveryReviewEmail({
+      discoveryId: data[0].discovery_id,
+      reference: data[0].reference,
+      persisted: true,
+      recipients,
+      triage,
+      serviceId: input.serviceId,
+      contact,
+      answers: input.answers,
+    });
+    if (!emailResult.ok) console.error("discovery_review_email_failed", { reason: emailResult.error });
+  } catch (notificationError) {
+    console.error("discovery_review_notification_failed", {
+      message: notificationError instanceof Error ? notificationError.message : "unknown",
+    });
   }
 
   return {
     status: "success",
     reference: data[0].reference,
-    message: triage.level === 1
-      ? "Konsep awal Anda sudah siap. Scope dan proposal resmi tetap divalidasi QIRA sebelum pembayaran."
-      : `${triage.label}. Tim QIRA sudah diberi notifikasi untuk menindaklanjuti kebutuhan Anda.`,
+    message: "Cerita Anda sudah tersimpan. QIRA sedang menyiapkan ringkasannya.",
   };
 }
 

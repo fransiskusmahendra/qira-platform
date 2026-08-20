@@ -42,7 +42,7 @@ export async function buildProposalPdf(input: ProposalPdfInput) {
   const pdf = await PDFDocument.create();
   pdf.setTitle(`${input.proposalNumber} - ${input.clientName}`);
   pdf.setAuthor("QIRA - PT Rays Solusi Informasi");
-  pdf.setSubject("Approved commercial proposal");
+  pdf.setSubject("Penawaran QIRA");
   const regular = await pdf.embedFont(StandardFonts.Helvetica);
   const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
   const page = pdf.addPage([595.28, 841.89]);
@@ -50,7 +50,7 @@ export async function buildProposalPdf(input: ProposalPdfInput) {
   const margin = 54;
   page.drawRectangle({ x: 0, y: height - 150, width, height: 150, color: rgb(0.04, 0.15, 0.18) });
   page.drawText("QIRA.", { x: margin, y: height - 68, size: 30, font: bold, color: rgb(0.4, 0.9, 0.72) });
-  page.drawText("COMMERCIAL PROPOSAL", { x: margin, y: height - 108, size: 12, font: bold, color: rgb(1, 1, 1) });
+  page.drawText("RINGKASAN PENAWARAN", { x: margin, y: height - 108, size: 12, font: bold, color: rgb(1, 1, 1) });
   page.drawText(input.proposalNumber, { x: margin, y: height - 130, size: 9, font: regular, color: rgb(0.82, 0.9, 0.9) });
 
   let y = height - 195;
@@ -58,19 +58,19 @@ export async function buildProposalPdf(input: ProposalPdfInput) {
   y -= 28;
   page.drawText(`Untuk: ${input.recipientName}`, { x: margin, y, size: 11, font: regular });
   y -= 20;
-  page.drawText(`Tanggal: ${input.issueDate}  |  Berlaku sampai: ${input.validUntil}  |  Versi: ${input.version}`, { x: margin, y, size: 9, font: regular, color: rgb(0.35, 0.4, 0.43) });
+  page.drawText(`Tanggal: ${input.issueDate}  |  Berlaku sampai: ${input.validUntil}  |  Pembaruan: ${input.version}`, { x: margin, y, size: 9, font: regular, color: rgb(0.35, 0.4, 0.43) });
 
   y -= 48;
-  page.drawText("Ringkasan Discovery", { x: margin, y, size: 14, font: bold, color: rgb(0.04, 0.45, 0.34) });
+  page.drawText("Ringkasan kebutuhan", { x: margin, y, size: 14, font: bold, color: rgb(0.04, 0.45, 0.34) });
   y = drawLines(page, wrap(input.discoverySummary, regular, 10, width - margin * 2), regular, 10, margin, y - 22);
 
   y -= 28;
-  page.drawText("Commercial Terms", { x: margin, y, size: 14, font: bold, color: rgb(0.04, 0.45, 0.34) });
+  page.drawText("Rincian biaya", { x: margin, y, size: 14, font: bold, color: rgb(0.04, 0.45, 0.34) });
   const rows = [
-    ["Harga dasar", rupiah.format(input.commercial.basePriceIdr)],
-    ["Diskon", `${input.commercial.discountPercent}%`],
+    ["Harga awal", rupiah.format(input.commercial.basePriceIdr)],
+    ["Potongan", `${input.commercial.discountPercent}%`],
     ["Pajak", `${input.commercial.taxPercent}%`],
-    ["Total approved", rupiah.format(input.commercial.totalIdr)],
+    ["Total", rupiah.format(input.commercial.totalIdr)],
     ["Pembayaran awal", `${input.commercial.downPaymentPercent}%`],
   ];
   y -= 24;
@@ -81,10 +81,7 @@ export async function buildProposalPdf(input: ProposalPdfInput) {
     page.drawLine({ start: { x: margin, y: rowY - 8 }, end: { x: width - margin, y: rowY - 8 }, thickness: 0.5, color: rgb(0.85, 0.87, 0.88) });
   });
 
-  page.drawText("Human approval required. Dokumen ini mengikuti versi Proposal dan Discovery yang terkunci.", { x: margin, y: 75, size: 8, font: regular, color: rgb(0.35, 0.4, 0.43) });
-  if (input.discoveryChecksum) {
-    page.drawText(`Discovery SHA-256: ${input.discoveryChecksum}`, { x: margin, y: 58, size: 7, font: regular, color: rgb(0.35, 0.4, 0.43) });
-  }
+  page.drawText("Dokumen ini merupakan ringkasan penawaran QIRA. Hubungi QIRA jika ada bagian yang ingin disesuaikan.", { x: margin, y: 75, size: 8, font: regular, color: rgb(0.35, 0.4, 0.43) });
   page.drawText("QIRA - PT Rays Solusi Informasi", { x: margin, y: 35, size: 8, font: bold, color: rgb(0.04, 0.45, 0.34) });
   return pdf.save();
 }

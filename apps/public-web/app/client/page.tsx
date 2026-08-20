@@ -17,10 +17,10 @@ export default async function ClientWorkspacePage() {
   if (!isClient) redirect("/workspace");
 
   return <main className={styles.page}>
-    <header className={styles.header}><div><span className={styles.brand}>QIRA.</span><p>Client Workspace</p></div><form action={signOut}><button type="submit">Keluar</button></form></header>
-    <section className={styles.hero}><p className={styles.kicker}>Shared with your organization</p><h1>Proposal yang sudah disetujui.</h1><p>Workspace ini hanya menampilkan materi yang secara eksplisit dibagikan oleh QIRA.</p></section>
-    <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Proposal</p><h2>Dokumen tersedia</h2></div></div>
-      {!proposals?.length && <p className={styles.empty}>Belum ada Proposal approved yang dibagikan kepada organisasi Anda.</p>}
+    <header className={styles.header}><div><span className={styles.brand}>QIRA.</span><p>Dokumen Anda</p></div><form action={signOut}><button type="submit">Keluar</button></form></header>
+    <section className={styles.hero}><p className={styles.kicker}>Dibagikan untuk Anda</p><h1>Dokumen dari QIRA.</h1><p>Di sini Anda dapat melihat penawaran yang memang ditujukan untuk usaha Anda.</p></section>
+    <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Penawaran</p><h2>Dokumen tersedia</h2></div></div>
+      {!proposals?.length && <p className={styles.empty}>Belum ada dokumen yang dibagikan untuk akun Anda.</p>}
       {proposals?.map((proposal) => <Link className={styles.row} href={`/client/proposals/${proposal.id}`} key={proposal.id}><strong>{proposal.proposal_number}</strong><span>{proposal.client_name}</span><span>Berlaku sampai {proposal.valid_until}</span></Link>)}
     </section>
   </main>;
