@@ -179,10 +179,7 @@ export function createProposalPreview(input: {
       `Dukungan awal selama ${proposalPackage.supportDays} hari setelah serah terima`,
       "Harga final dikonfirmasi setelah discovery dan persetujuan Founder QIRA",
     ],
-    risks: [
-      "Timeline dapat bergeser jika data atau keputusan terlambat",
-      "Integrasi pihak ketiga bergantung pada akses dan limit penyedia",
-    ],
+    risks: ["Perubahan kebutuhan setelah scope disetujui", "Keterlambatan akses data atau sistem", "Adopsi pengguna membutuhkan pendampingan tambahan"],
     paymentTerms: [
       { label: "DP", percentage: 50, amountIdr: half },
       { label: "Sebelum serah terima", percentage: 50, amountIdr: half },
