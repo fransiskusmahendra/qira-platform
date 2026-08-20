@@ -3,11 +3,26 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 const rupiah = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 });
+const title = "Harga & Paket";
+const description = "Lihat harga awal, cakupan bantuan, dan pendampingan QIRA.";
 
 export const metadata: Metadata = {
-  title: "Harga & Paket",
-  description: "Lihat harga awal, cakupan bantuan, dan pendampingan QIRA.",
+  title,
+  description,
   alternates: { canonical: "/harga" },
+  openGraph: {
+    title: `${title} | QIRA`,
+    description,
+    url: "/harga",
+    type: "website",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — bantu usaha jadi lebih mudah" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${title} | QIRA`,
+    description,
+    images: ["/opengraph-image"],
+  },
 };
 
 export default function PricingPage() {
@@ -40,6 +55,6 @@ export default function PricingPage() {
       <div className="careGrid">{CARE_PLANS.map((plan) => <article key={plan.name}><h3>{plan.name}</h3><strong>{plan.priceRange}</strong><p>{plan.outcome}</p></article>)}</div>
     </section>
 
-    <footer className="footer shell"><span>QIRA · PT Rays Solusi Informasi</span><span>Mulai dari cerita, bukan daftar fitur.</span></footer>
+    <footer className="footer shell"><span>QIRA · PT Rays Solusi Informasi</span><span>Mulai dari cerita · <Link href="/privasi">Privasi</Link></span></footer>
   </main>;
 }
