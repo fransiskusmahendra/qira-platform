@@ -7,7 +7,7 @@
   "redirects": [
     {
       "source": "/:path*",
-      "destination": "https://www.qirasolution.com/discovery",
+      "destination": "https://www.qirasolution.com/coba-masalah",
       "permanent": false
     }
   ]
