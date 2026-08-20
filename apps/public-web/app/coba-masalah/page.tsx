@@ -3,9 +3,24 @@ import Link from "next/link";
 
 import { PersonalizedDemo } from "../PersonalizedDemo";
 
+const title = "Ceritakan Masalah Usahamu";
+const description = "Jawab beberapa pertanyaan sederhana agar QIRA memahami masalah usahamu dan membantu menentukan langkah berikutnya.";
+
 export const metadata: Metadata = {
-  title: "Ceritakan Masalah Usahamu",
-  description: "Jawab beberapa pertanyaan sederhana agar QIRA memahami masalah usahamu.",
+  title,
+  description,
+  alternates: { canonical: "/coba-masalah" },
+  openGraph: {
+    title: `${title} | QIRA`,
+    description,
+    url: "/coba-masalah",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: `${title} | QIRA`,
+    description,
+  },
 };
 
 export default function ProblemExperiencePage() {
