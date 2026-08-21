@@ -1,9 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+const PORTFOLIO_DESCRIPTION = "Lihat QIRA Products, Client Work, dan Solution Demos: solusi digital praktis untuk workflow, dokumen, discovery, dan operasional bisnis.";
+
 export const metadata: Metadata = {
   title: "Portfolio",
-  description: "Lihat QIRA Products, Client Work, dan Solution Demos: solusi digital praktis untuk workflow, dokumen, discovery, dan operasional bisnis.",
+  description: PORTFOLIO_DESCRIPTION,
+  alternates: { canonical: "/portfolio" },
+  openGraph: {
+    title: "QIRA Products & Work",
+    description: PORTFOLIO_DESCRIPTION,
+    url: "/portfolio",
+  },
+  twitter: {
+    title: "QIRA Products & Work",
+    description: PORTFOLIO_DESCRIPTION,
+  },
 };
 
 type PortfolioItem = {
