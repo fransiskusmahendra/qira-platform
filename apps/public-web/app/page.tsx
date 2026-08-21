@@ -2,6 +2,8 @@ import Link from "next/link";
 
 import { ConversionTracker } from "./_components/ConversionTracker";
 
+const PUBLIC_DEMO_URL = "https://demo.qirasolution.com";
+
 const SERVICES = [
   {
     number: "01",
@@ -64,7 +66,7 @@ const SELECTED_WORK = [
     title: "Business Solution Demo",
     copy: "Demo konsep untuk membantu bisnis melihat contoh workflow, operasional, dokumen, dan pendekatan solusi QIRA sebelum membangun.",
     meta: "Public demo · Sales enablement",
-    href: "https://qira-umkm-sales-demo-fransiskusmahendra-7960s-projects.vercel.app",
+    href: PUBLIC_DEMO_URL,
     external: true,
     action: "Buka demo →",
   },
@@ -175,7 +177,7 @@ export default function HomePage() {
           </Link>
           <a
             className="showcaseCard"
-            href="https://qira-umkm-sales-demo-fransiskusmahendra-7960s-projects.vercel.app"
+            href={PUBLIC_DEMO_URL}
             target="_blank"
             rel="noreferrer"
           >
