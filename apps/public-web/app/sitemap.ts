@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 const baseUrl = "https://www.qirasolution.com";
 
-// Keep the public sitemap focused on customer-facing company, sales, demo, and trust pages.
+// Keep the public sitemap focused on customer-facing company, sales, demo, portfolio, and trust pages.
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
   return [
@@ -14,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/about`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/portfolio`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.85,
