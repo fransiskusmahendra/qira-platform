@@ -11,8 +11,10 @@ export const metadata: Metadata = {
     title: "QIRA Products & Work",
     description: PORTFOLIO_DESCRIPTION,
     url: "/portfolio",
+    type: "website",
   },
   twitter: {
+    card: "summary_large_image",
     title: "QIRA Products & Work",
     description: PORTFOLIO_DESCRIPTION,
   },
