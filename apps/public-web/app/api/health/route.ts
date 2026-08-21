@@ -15,7 +15,9 @@ export async function GET() {
     database = false;
   }
 
-  const email = Boolean(process.env.RESEND_API_KEY && process.env.QIRA_EMAIL_FROM);
+  // QIRA_EMAIL_FROM is optional because the mailer has a verified qirasolution.com fallback sender.
+  // The Resend API key is the actual required dependency for outbound email capability.
+  const email = Boolean(process.env.RESEND_API_KEY);
   const ok = database && email;
 
   return NextResponse.json(
