@@ -87,7 +87,7 @@ const SOLUTION_DEMOS: readonly PortfolioItem[] = [
     solution: "Demo konsep yang menyatukan problem bisnis, contoh solusi, workflow, paket, dan jalur discovery dalam pengalaman yang sederhana.",
     result: "Calon pengguna dapat memahami cara pendekatan QIRA bekerja dan melihat bentuk solusi sebelum memutuskan langkah berikutnya.",
     stack: ["Web experience", "Sales enablement", "Responsive UI"],
-    href: "https://qira-umkm-sales-demo-fransiskusmahendra-7960s-projects.vercel.app",
+    href: "https://demo.qirasolution.com",
     cta: "Buka solution demo",
     external: true,
     note: "Demo konsep QIRA, bukan klaim sebagai project klien.",

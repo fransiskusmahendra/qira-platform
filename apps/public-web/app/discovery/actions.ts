@@ -104,7 +104,7 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
     },
   };
 
-  const configuredRecipients = (process.env.QIRA_ADMIN_NOTIFICATION_EMAILS ?? "fransiskusmahendra@gmail.com")
+  const configuredRecipients = (process.env.QIRA_ADMIN_NOTIFICATION_EMAILS ?? process.env.QIRA_REPLY_TO ?? "hello@qirasolution.com")
     .split(",")
     .map((recipient) => recipient.trim().toLowerCase())
     .filter((recipient) => CONTACT_EMAIL_PATTERN.test(recipient));

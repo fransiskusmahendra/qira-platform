@@ -7,7 +7,8 @@
   "ignoreCommand": "git diff HEAD^ HEAD --quiet -- apps/public-web packages package.json package-lock.json vercel.json",
   "git": {
     "deploymentEnabled": {
-      "skp-online": false
+      "skp-online": false,
+      "qira-site-hardening": false
     }
   }
 }

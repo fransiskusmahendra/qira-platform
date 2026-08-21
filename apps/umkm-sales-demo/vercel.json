@@ -6,7 +6,8 @@
   "ignoreCommand": "git diff HEAD^ HEAD --quiet -- index.html vercel.json",
   "git": {
     "deploymentEnabled": {
-      "skp-online": false
+      "skp-online": false,
+      "qira-site-hardening": false
     }
   }
 }

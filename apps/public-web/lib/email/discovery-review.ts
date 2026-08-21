@@ -44,7 +44,7 @@ export async function sendDiscoveryReviewEmail(input: SendDiscoveryReviewEmailIn
   const resend = new Resend(apiKey);
   const { data, error } = await resend.emails.send({
     from: process.env.QIRA_EMAIL_FROM ?? "QIRA <hello@qirasolution.com>",
-    replyTo: process.env.QIRA_REPLY_TO ?? "fransiskusmahendra@gmail.com",
+    replyTo: process.env.QIRA_REPLY_TO ?? "hello@qirasolution.com",
     to: input.recipients,
     subject: `[${subjectPrefix}] ${input.contact.businessName} · ${input.reference}`,
     html: `<div style="font-family:Arial,sans-serif;line-height:1.6;color:#17221b;max-width:680px;margin:auto">
