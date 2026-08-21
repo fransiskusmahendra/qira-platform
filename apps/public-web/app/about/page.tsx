@@ -20,7 +20,7 @@ export default function AboutPage() {
         <div className="companyNavLinks">
           <Link href="/about">About Us</Link>
           <Link href="/#services">Services</Link>
-          <Link href="/#work">How it works</Link>
+          <Link href="/portfolio">Portfolio</Link>
           <Link href="/harga">Pricing</Link>
         </div>
         <Link className="smallButton" href="/coba-masalah">Mulai konsultasi</Link>
@@ -78,7 +78,7 @@ export default function AboutPage() {
         </div>
         <div className="closingActions">
           <Link className="primaryButton light" href="/coba-masalah">Mulai dari kebutuhanmu</Link>
-          <Link className="closingTextLink" href="/harga">Lihat layanan →</Link>
+          <Link className="closingTextLink" href="/portfolio">Lihat portfolio →</Link>
         </div>
       </section>
 
@@ -89,6 +89,7 @@ export default function AboutPage() {
         </div>
         <div className="footerLinks">
           <Link href="/">Home</Link>
+          <Link href="/portfolio">Portfolio</Link>
           <Link href="/harga">Services & Pricing</Link>
           <Link href="/discovery">Discovery</Link>
           <Link href="/privasi">Privacy</Link>
