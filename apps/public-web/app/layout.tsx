@@ -4,12 +4,13 @@ import type { ReactNode } from "react";
 
 import "./styles.css";
 import "./brand-logo.css";
+import "./company.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
-const siteTitle = "QIRA — Bantu Usaha Jadi Lebih Mudah";
-const siteDescription = "Ceritakan bagian usaha yang terasa ribet. QIRA membantu memahami masalahnya, menyiapkan arah yang sederhana, lalu membangun solusi yang siap dipakai.";
-const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — bantu usaha jadi lebih mudah" };
+const siteTitle = "QIRA — Simple Digital Solutions";
+const siteDescription = "QIRA membantu bisnis dan UMKM membangun website, aplikasi sederhana, automation, integrasi, dan workflow digital yang praktis serta mudah digunakan.";
+const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — Simple Digital Solutions" };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.qirasolution.com"),
