@@ -14,7 +14,8 @@ export async function GET() {
   } catch {
     database = false;
   }
-  const email = Boolean(process.env.RESEND_API_KEY && process.env.EMAIL_FROM);
+
+  const email = Boolean(process.env.RESEND_API_KEY && process.env.QIRA_EMAIL_FROM);
   const ok = database && email;
 
   return NextResponse.json(
