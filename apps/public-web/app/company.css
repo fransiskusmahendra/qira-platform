@@ -1,0 +1,342 @@
+/* QIRA public company profile */
+.companyNav {
+  min-height: 84px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 34px;
+}
+.companyNavLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 620;
+}
+.companyNavLinks a:hover,
+.footerLinks a:hover,
+.closingTextLink:hover { color: var(--blue); }
+.smallButton {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 680;
+}
+.smallButton:hover { background: var(--ink); color: white; }
+
+.companyHero {
+  min-height: 690px;
+  padding: 80px 0 110px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, .62fr);
+  gap: clamp(50px, 8vw, 120px);
+  align-items: center;
+}
+.companyHeroCopy h1 {
+  max-width: 860px;
+  margin: 22px 0 28px;
+  font-size: clamp(52px, 7.4vw, 92px);
+  line-height: .97;
+  letter-spacing: -.065em;
+}
+.companyHeroCopy h1 em { color: var(--blue); font-style: normal; }
+.companyLead {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.6;
+}
+.companyHeroActions {
+  margin-top: 34px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+.companyHeroPanel {
+  min-height: 370px;
+  padding: 34px;
+  border-radius: 28px;
+  background: var(--ink);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.companyHeroPanel .panelLabel {
+  margin: 0 0 44px;
+  color: #8eb9ff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+.companyHeroPanel strong {
+  font-size: clamp(30px, 3.2vw, 46px);
+  letter-spacing: -.045em;
+  line-height: 1.05;
+}
+.companyHeroPanel > p:last-child {
+  max-width: 300px;
+  margin: 42px 0 0;
+  color: #afbed0;
+  line-height: 1.55;
+}
+
+.companyIntro {
+  padding: 90px 0 110px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: .65fr 1.75fr;
+  gap: 60px;
+}
+.companyIntro h2,
+.companySectionHeading h2,
+.aboutStory h2,
+.aboutFocus h2 {
+  margin: 10px 0 20px;
+  font-size: clamp(34px, 4.6vw, 60px);
+  line-height: 1.05;
+  letter-spacing: -.047em;
+}
+.companyIntro > div > p {
+  max-width: 760px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.companyServices,
+.companyWork,
+.companyShowcase { padding: 100px 0 115px; border-top: 1px solid var(--line); }
+.companySectionHeading {
+  display: grid;
+  grid-template-columns: 1.55fr .8fr;
+  gap: 70px;
+  align-items: end;
+}
+.companySectionHeading.compact { grid-template-columns: 1fr; }
+.companySectionHeading > p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.companyServiceGrid {
+  margin-top: 55px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.companyServiceCard {
+  min-height: 300px;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+.companyServiceCard > span,
+.companyProcessGrid span,
+.aboutValues span {
+  color: var(--blue);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+}
+.companyServiceCard h3 {
+  margin: 42px 0 12px;
+  font-size: 28px;
+  letter-spacing: -.03em;
+}
+.companyServiceCard p {
+  max-width: 500px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.companyServiceCard a {
+  margin-top: auto;
+  padding-top: 30px;
+  font-weight: 680;
+}
+.companyServiceCard a:hover { color: var(--blue); }
+
+.companyProcessGrid {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+}
+.companyProcessGrid article { padding: 28px 26px 0 0; }
+.companyProcessGrid h3 { margin: 44px 0 10px; font-size: 23px; letter-spacing: -.025em; }
+.companyProcessGrid p { margin: 0; color: var(--muted); line-height: 1.55; }
+
+.showcaseGrid {
+  margin-top: 55px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.showcaseCard {
+  min-height: 315px;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  transition: transform .18s ease, border-color .18s ease;
+}
+.showcaseCard:hover { transform: translateY(-3px); border-color: #a7b8ce; }
+.showcaseCard.emphasis { background: var(--sky); }
+.showcaseCard > span {
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 720;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+.showcaseCard h3 { margin: 45px 0 12px; font-size: 28px; letter-spacing: -.03em; }
+.showcaseCard p { margin: 0; color: var(--muted); line-height: 1.55; }
+.showcaseCard strong { margin-top: auto; padding-top: 30px; }
+
+.companyClosing {
+  min-height: 410px;
+  margin-top: 25px;
+  margin-bottom: 50px;
+  padding: clamp(38px, 6vw, 68px);
+  border-radius: 30px;
+  background: var(--ink);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 60px;
+}
+.companyClosing .kicker { color: #8eb9ff; }
+.companyClosing h2 {
+  max-width: 760px;
+  margin: 14px 0 0;
+  font-size: clamp(35px, 4.8vw, 60px);
+  line-height: 1.04;
+  letter-spacing: -.048em;
+}
+.closingActions { display: flex; flex-direction: column; gap: 18px; align-items: center; flex: 0 0 auto; }
+.closingTextLink { color: #c7d4e3; font-size: 13px; font-weight: 650; }
+
+.companyFooter {
+  min-height: 190px;
+  padding: 38px 0 46px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 25px 60px;
+  align-items: start;
+  color: var(--muted);
+  font-size: 13px;
+}
+.companyFooter .brand { color: var(--ink); }
+.companyFooter p { margin: 10px 0 0; }
+.footerLinks { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 20px; font-weight: 620; }
+.companyFooter > span { grid-column: 1 / -1; }
+
+.aboutHero {
+  padding: 110px 0 125px;
+  border-bottom: 1px solid var(--line);
+}
+.aboutHero h1 {
+  max-width: 1050px;
+  margin: 22px 0 28px;
+  font-size: clamp(48px, 7vw, 86px);
+  line-height: .99;
+  letter-spacing: -.06em;
+}
+.aboutHero > p:last-child {
+  max-width: 780px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.65;
+}
+.aboutStory {
+  padding: 105px 0;
+  display: grid;
+  grid-template-columns: .65fr 1.75fr;
+  gap: 60px;
+}
+.aboutStory > div > p {
+  max-width: 800px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+.aboutValues {
+  padding-bottom: 110px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.aboutValues article {
+  min-height: 245px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: white;
+}
+.aboutValues h3 { margin: 50px 0 10px; font-size: 24px; letter-spacing: -.025em; }
+.aboutValues p { margin: 0; color: var(--muted); line-height: 1.6; }
+.aboutFocus {
+  padding: 90px 0 110px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 80px;
+}
+.aboutFocusList { border-top: 1px solid var(--line); }
+.aboutFocusList p { margin: 0; padding: 18px 0; border-bottom: 1px solid var(--line); font-weight: 620; }
+
+@media (max-width: 960px) {
+  .companyNav { grid-template-columns: auto 1fr; }
+  .companyNavLinks { display: none; }
+  .smallButton { justify-self: end; }
+  .companyHero { grid-template-columns: 1fr; min-height: auto; gap: 40px; }
+  .companyHeroPanel { min-height: 300px; }
+  .companyIntro,
+  .aboutStory,
+  .aboutFocus,
+  .companySectionHeading { grid-template-columns: 1fr; gap: 25px; }
+  .companyProcessGrid { grid-template-columns: repeat(2, 1fr); }
+  .showcaseGrid { grid-template-columns: 1fr; }
+  .showcaseCard { min-height: 265px; }
+}
+
+@media (max-width: 680px) {
+  .companyNav { min-height: 72px; }
+  .smallButton { min-height: 38px; padding: 0 13px; font-size: 12px; }
+  .companyHero { padding: 70px 0 80px; }
+  .companyHeroActions { align-items: stretch; flex-direction: column; gap: 18px; }
+  .companyHeroActions .textLink { text-align: center; }
+  .companyIntro,
+  .companyServices,
+  .companyWork,
+  .companyShowcase,
+  .aboutStory,
+  .aboutFocus { padding-top: 75px; padding-bottom: 80px; }
+  .companyServiceGrid,
+  .companyProcessGrid,
+  .aboutValues { grid-template-columns: 1fr; }
+  .companyProcessGrid article { padding: 28px 0; border-bottom: 1px solid var(--line); }
+  .companyProcessGrid h3 { margin-top: 25px; }
+  .companyClosing { align-items: stretch; flex-direction: column; gap: 35px; border-radius: 22px; }
+  .closingActions { align-items: stretch; }
+  .companyFooter { grid-template-columns: 1fr; }
+  .footerLinks { justify-content: flex-start; }
+  .companyFooter > span { grid-column: auto; }
+  .aboutHero { padding: 75px 0 85px; }
+  .aboutHero > p:last-child { font-size: 18px; }
+}
