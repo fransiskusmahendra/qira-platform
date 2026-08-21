@@ -40,6 +40,33 @@ const PROCESS = [
   ["04", "Build & implement", "Solusi dibuat bertahap, diuji, lalu disiapkan agar mudah digunakan."],
 ] as const;
 
+const SELECTED_WORK = [
+  {
+    tag: "Live Demo",
+    title: "Business Solution Demo",
+    copy: "Contoh pengalaman digital untuk bisnis kecil: customer flow, operasional, dokumen, dashboard, dan paket solusi dalam satu alur sederhana.",
+    meta: "Web experience · Sales enablement",
+    href: "https://qira-umkm-sales-demo-fransiskusmahendra-7960s-projects.vercel.app",
+    external: true,
+  },
+  {
+    tag: "Discovery",
+    title: "Business Discovery & Scoping",
+    copy: "Alur discovery digital yang membantu calon pengguna menjelaskan masalah, kebutuhan, prioritas, dan kesiapan proyek tanpa istilah teknis.",
+    meta: "Workflow · Qualification · Scoping",
+    href: "/discovery",
+    external: false,
+  },
+  {
+    tag: "Private Solution",
+    title: "Invoice & Document Generator",
+    copy: "Tool internal untuk mempercepat pembuatan invoice dan dokumen operasional dengan format yang konsisten dan siap digunakan.",
+    meta: "Automation · Document workflow",
+    href: "/portfolio",
+    external: false,
+  },
+] as const;
+
 export default function HomePage() {
   return (
     <main>
@@ -50,7 +77,7 @@ export default function HomePage() {
         <div className="companyNavLinks">
           <Link href="/about">About Us</Link>
           <a href="#services">Services</a>
-          <a href="#work">How it works</a>
+          <Link href="/portfolio">Portfolio</Link>
           <Link href="/harga">Pricing</Link>
         </div>
         <Link className="smallButton" href="/coba-masalah">Mulai konsultasi</Link>
@@ -163,6 +190,40 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="companyPortfolio shell" id="portfolio">
+        <div className="companySectionHeading">
+          <div>
+            <p className="kicker">Selected work</p>
+            <h2>Beberapa solusi yang sudah kami bentuk dari kebutuhan nyata.</h2>
+          </div>
+          <p>Portfolio QIRA berfokus pada hasil dan pola masalah. Project internal atau private tetap ditampilkan tanpa membuka data maupun akses aplikasi.</p>
+        </div>
+
+        <div className="portfolioPreviewGrid">
+          {SELECTED_WORK.map((item) => {
+            const content = (
+              <>
+                <span className="portfolioTag">{item.tag}</span>
+                <h3>{item.title}</h3>
+                <p>{item.copy}</p>
+                <small>{item.meta}</small>
+                <strong>{item.external ? "Buka demo →" : "Lihat studi kasus →"}</strong>
+              </>
+            );
+
+            return item.external ? (
+              <a className="portfolioPreviewCard" href={item.href} target="_blank" rel="noreferrer" key={item.title}>{content}</a>
+            ) : (
+              <Link className="portfolioPreviewCard" href={item.href} key={item.title}>{content}</Link>
+            );
+          })}
+        </div>
+
+        <div className="portfolioMore">
+          <Link className="textLink" href="/portfolio">Lihat seluruh portfolio QIRA →</Link>
+        </div>
+      </section>
+
       <section className="companyClosing shell">
         <div>
           <p className="kicker">Start simple</p>
@@ -181,6 +242,7 @@ export default function HomePage() {
         </div>
         <div className="footerLinks">
           <Link href="/about">About Us</Link>
+          <Link href="/portfolio">Portfolio</Link>
           <Link href="/harga">Services & Pricing</Link>
           <Link href="/discovery">Discovery</Link>
           <Link href="/privasi">Privacy</Link>
