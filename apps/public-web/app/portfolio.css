@@ -61,29 +61,79 @@
 }
 
 .portfolioHero {
-  padding: 110px 0 125px;
+  padding: 110px 0 95px;
   border-bottom: 1px solid var(--line);
 }
 .portfolioHero h1 {
-  max-width: 1040px;
+  max-width: 1080px;
   margin: 22px 0 28px;
   font-size: clamp(48px, 7vw, 86px);
   line-height: .99;
   letter-spacing: -.06em;
 }
-.portfolioHero > p:last-child {
-  max-width: 790px;
+.portfolioHero > p:not(.eyebrow) {
+  max-width: 830px;
   margin: 0;
   color: var(--muted);
   font-size: 20px;
   line-height: 1.65;
 }
+.portfolioCategoryNav {
+  margin-top: 42px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.portfolioCategoryNav a {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: white;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 680;
+  transition: border-color .18s ease, color .18s ease, transform .18s ease;
+}
+.portfolioCategoryNav a:hover {
+  color: var(--blue);
+  border-color: #a9b9cc;
+  transform: translateY(-1px);
+}
+.portfolioSections {
+  border-bottom: 1px solid var(--line);
+}
+.portfolioGroup {
+  padding: 90px 0 35px;
+  scroll-margin-top: 30px;
+}
+.portfolioGroup + .portfolioGroup {
+  border-top: 1px solid var(--line);
+}
+.portfolioGroupIntro {
+  display: grid;
+  grid-template-columns: .55fr 1.55fr;
+  gap: clamp(35px, 7vw, 100px);
+  padding-bottom: 30px;
+}
+.portfolioGroupIntro h2 {
+  max-width: 820px;
+  margin: 0 0 18px;
+  font-size: clamp(34px, 4.5vw, 58px);
+  line-height: 1.04;
+  letter-spacing: -.048em;
+}
+.portfolioGroupIntro > div > p {
+  max-width: 790px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
 .portfolioList {
-  padding: 35px 0 110px;
+  padding: 0 0 45px;
 }
 .portfolioCase {
   padding: 45px 0 52px;
-  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
 }
 .portfolioCaseTop {
   display: flex;
@@ -102,7 +152,7 @@
   grid-template-columns: .9fr 1.45fr;
   gap: clamp(45px, 8vw, 110px);
 }
-.portfolioCaseTitle h2 {
+.portfolioCaseTitle h3 {
   margin: 0 0 26px;
   max-width: 520px;
   font-size: clamp(34px, 4.2vw, 54px);
@@ -147,10 +197,13 @@
   font-weight: 680;
 }
 .portfolioCaseLink:hover { color: var(--blue); }
-.portfolioPrivateNote { color: #8a96a6; }
+.portfolioPrivateNote {
+  max-width: 720px;
+  color: #8a96a6;
+  line-height: 1.55;
+}
 .portfolioNote {
   padding: 90px 0 110px;
-  border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: .65fr 1.75fr;
   gap: 60px;
@@ -171,6 +224,7 @@
 @media (max-width: 960px) {
   .portfolioPreviewGrid { grid-template-columns: 1fr; }
   .portfolioPreviewCard { min-height: 270px; }
+  .portfolioGroupIntro,
   .portfolioCaseBody { grid-template-columns: 1fr; gap: 30px; }
   .portfolioNote { grid-template-columns: 1fr; gap: 25px; }
 }
@@ -178,9 +232,12 @@
 @media (max-width: 720px) {
   .companyPortfolio,
   .portfolioNote { padding-top: 75px; padding-bottom: 80px; }
-  .portfolioHero { padding: 75px 0 85px; }
-  .portfolioHero > p:last-child { font-size: 18px; }
+  .portfolioHero { padding: 75px 0 70px; }
+  .portfolioHero > p:not(.eyebrow) { font-size: 18px; }
+  .portfolioCategoryNav { margin-top: 32px; }
+  .portfolioGroup { padding-top: 70px; }
   .portfolioCase { padding: 38px 0 44px; }
+  .portfolioCaseTop { align-items: flex-start; }
   .portfolioCaseDetails { grid-template-columns: 1fr; gap: 20px; }
   .portfolioMore { justify-content: flex-start; }
 }

@@ -42,28 +42,31 @@ const PROCESS = [
 
 const SELECTED_WORK = [
   {
-    tag: "Live Demo",
-    title: "Business Solution Demo",
-    copy: "Contoh pengalaman digital untuk bisnis kecil: customer flow, operasional, dokumen, dashboard, dan paket solusi dalam satu alur sederhana.",
-    meta: "Web experience · Sales enablement",
-    href: "https://qira-umkm-sales-demo-fransiskusmahendra-7960s-projects.vercel.app",
-    external: true,
-  },
-  {
-    tag: "Discovery",
-    title: "Business Discovery & Scoping",
-    copy: "Alur discovery digital yang membantu calon pengguna menjelaskan masalah, kebutuhan, prioritas, dan kesiapan proyek tanpa istilah teknis.",
-    meta: "Workflow · Qualification · Scoping",
+    tag: "QIRA Product",
+    title: "QIRA Business Discovery",
+    copy: "Flow discovery yang digunakan QIRA sendiri untuk memahami masalah, prioritas, anggaran, dan kesiapan implementasi sebelum menyusun solusi.",
+    meta: "Internal use · Discovery · Scoping",
     href: "/discovery",
     external: false,
+    action: "Coba discovery →",
   },
   {
-    tag: "Private Solution",
-    title: "Invoice & Document Generator",
-    copy: "Tool internal untuk mempercepat pembuatan invoice dan dokumen operasional dengan format yang konsisten dan siap digunakan.",
-    meta: "Automation · Document workflow",
-    href: "/portfolio",
+    tag: "Client Work",
+    title: "Transaction & Thermal Receipt Tool",
+    copy: "Aplikasi operasional ringan untuk membantu petugas melakukan transaksi dan menyiapkan nota thermal melalui alur mobile yang sederhana.",
+    meta: "Client solution · Mobile workflow",
+    href: "/portfolio#client-work",
     external: false,
+    action: "Lihat studi kasus →",
+  },
+  {
+    tag: "Solution Demo",
+    title: "Business Solution Demo",
+    copy: "Demo konsep untuk membantu bisnis melihat contoh workflow, operasional, dokumen, dan pendekatan solusi QIRA sebelum membangun.",
+    meta: "Public demo · Sales enablement",
+    href: "https://qira-umkm-sales-demo-fransiskusmahendra-7960s-projects.vercel.app",
+    external: true,
+    action: "Buka demo →",
   },
 ] as const;
 
@@ -193,10 +196,10 @@ export default function HomePage() {
       <section className="companyPortfolio shell" id="portfolio">
         <div className="companySectionHeading">
           <div>
-            <p className="kicker">Selected work</p>
-            <h2>Beberapa solusi yang sudah kami bentuk dari kebutuhan nyata.</h2>
+            <p className="kicker">Products & Work</p>
+            <h2>Apa yang QIRA gunakan sendiri, bangun untuk klien, dan demonstrasikan.</h2>
           </div>
-          <p>Portfolio QIRA berfokus pada hasil dan pola masalah. Project internal atau private tetap ditampilkan tanpa membuka data maupun akses aplikasi.</p>
+          <p>Portfolio dibagi secara transparan menjadi QIRA Products, Client Work, dan Solution Demos agar setiap karya ditampilkan sesuai konteks sebenarnya.</p>
         </div>
 
         <div className="portfolioPreviewGrid">
@@ -207,7 +210,7 @@ export default function HomePage() {
                 <h3>{item.title}</h3>
                 <p>{item.copy}</p>
                 <small>{item.meta}</small>
-                <strong>{item.external ? "Buka demo →" : "Lihat studi kasus →"}</strong>
+                <strong>{item.action}</strong>
               </>
             );
 
@@ -220,7 +223,7 @@ export default function HomePage() {
         </div>
 
         <div className="portfolioMore">
-          <Link className="textLink" href="/portfolio">Lihat seluruh portfolio QIRA →</Link>
+          <Link className="textLink" href="/portfolio">Lihat QIRA Products & Client Work →</Link>
         </div>
       </section>
 
