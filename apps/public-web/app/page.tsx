@@ -1,52 +1,192 @@
-import type { CSSProperties } from "react";
 import Link from "next/link";
 
 import { ConversionTracker } from "./_components/ConversionTracker";
 
-const FLOW_STEPS = [
-  { title: "Ceritakan satu masalah", copy: "Mulai dari bagian usaha yang paling terasa ribet atau memakan waktu." },
-  { title: "QIRA menangkap polanya", copy: "Kami bantu merangkum apa yang sebenarnya membuat pekerjaan terasa berat." },
-  { title: "Lengkapi sedikit konteks", copy: "Beberapa pertanyaan sederhana membantu kami memahami kondisi usaha Anda." },
-  { title: "Lihat arah yang disarankan", copy: "Anda mendapat gambaran awal tentang hal yang paling masuk akal untuk dirapikan." },
-  { title: "Baru tentukan langkah berikutnya", copy: "Kalau terasa relevan, barulah kita bahas apa yang perlu dibuat dan berapa biayanya." },
+const SERVICES = [
+  {
+    number: "01",
+    title: "Website & digital presence",
+    copy: "Website company profile, landing page, katalog sederhana, dan halaman penjualan yang mudah dipahami pelanggan.",
+    href: "/harga",
+    label: "Lihat layanan",
+  },
+  {
+    number: "02",
+    title: "Web app & business tools",
+    copy: "Aplikasi ringan untuk membantu pekerjaan operasional seperti pencatatan, invoice, dashboard, formulir, dan workflow internal.",
+    href: "/contoh-penerapan",
+    label: "Lihat contoh",
+  },
+  {
+    number: "03",
+    title: "Automation & integration",
+    copy: "Mengurangi pekerjaan manual dengan alur otomatis, integrasi data, API, notifikasi, dan proses yang lebih rapi.",
+    href: "/coba-masalah",
+    label: "Ceritakan kebutuhan",
+  },
+  {
+    number: "04",
+    title: "Discovery & digital solution",
+    copy: "Belum tahu harus membuat apa? QIRA membantu memetakan masalah, prioritas, dan solusi digital yang paling masuk akal untuk bisnis Anda.",
+    href: "/discovery",
+    label: "Mulai discovery",
+  },
+] as const;
+
+const PROCESS = [
+  ["01", "Cerita kebutuhan", "Mulai dari masalah atau target bisnis, bukan dari istilah teknologi."],
+  ["02", "Pemetaan sederhana", "Kami bantu menentukan apa yang perlu dirapikan dan mana yang paling penting."],
+  ["03", "Solusi & ruang lingkup", "Anda mendapat gambaran solusi, hasil yang diharapkan, waktu, dan biaya awal."],
+  ["04", "Build & implement", "Solusi dibuat bertahap, diuji, lalu disiapkan agar mudah digunakan."],
 ] as const;
 
 export default function HomePage() {
-  return <main>
-    <ConversionTracker event="landing_view" />
-    <nav className="nav shell" aria-label="Navigasi utama">
-      <Link className="brand" href="/">QIRA<span>.</span></Link>
-      <Link className="navCta" href="/harga">Lihat harga awal</Link>
-    </nav>
+  return (
+    <main>
+      <ConversionTracker event="landing_view" />
 
-    <section className="simpleHero shell">
-      <div className="eyebrow">QIRA · bantu usaha jadi lebih mudah</div>
-      <h1>Ada bagian dari usaha yang terasa <em>ribet setiap hari?</em></h1>
-      <p>Ceritakan satu hal yang paling merepotkan. Tidak perlu tahu harus dibuat aplikasi seperti apa. QIRA akan membantu memahami masalahnya dulu.</p>
-      <Link className="primaryButton" href="/coba-masalah">Mulai dari ceritamu</Link>
-      <div className="trustRow" aria-label="Yang perlu diketahui sebelum mulai">
-        <span>Tidak perlu paham teknologi</span>
-        <span>Tidak ada pembayaran saat bercerita</span>
-        <span>Jawaban Anda tidak ditampilkan ke publik</span>
-      </div>
-    </section>
+      <nav className="companyNav shell" aria-label="Navigasi utama">
+        <Link className="brand" href="/">QIRA<span>.</span></Link>
+        <div className="companyNavLinks">
+          <Link href="/about">About Us</Link>
+          <a href="#services">Services</a>
+          <a href="#work">How it works</a>
+          <Link href="/harga">Pricing</Link>
+        </div>
+        <Link className="smallButton" href="/coba-masalah">Mulai konsultasi</Link>
+      </nav>
 
-    <section className="animatedFlow shell" aria-labelledby="story-title">
-      <div className="flowHeading">
-        <p className="kicker">Mulai pelan-pelan</p>
-        <h2 id="story-title">Satu cerita dulu. Langkah berikutnya kami bantu.</h2>
-        <p>Kamu cukup menjawab pertanyaan sederhana. Kami tidak akan meminta kamu memahami istilah teknologi.</p>
-      </div>
-      <div className="flowTrack">
-        <div className="flowLine" aria-hidden="true"><span /></div>
-        {FLOW_STEPS.map((step, index) => <article className="flowStep" key={step.title} style={{ "--step": index } as CSSProperties}>
-          <div className="flowDot">{String(index + 1).padStart(2, "0")}</div>
-          <h3>{step.title}</h3>
-          <p>{step.copy}</p>
-        </article>)}
-      </div>
-    </section>
+      <section className="companyHero shell">
+        <div className="companyHeroCopy">
+          <p className="eyebrow">QIRA · Simple Digital Solutions</p>
+          <h1>Solusi digital yang membuat bisnis <em>lebih sederhana.</em></h1>
+          <p className="companyLead">
+            QIRA membantu bisnis dan UMKM membangun website, aplikasi sederhana, automation, serta workflow digital tanpa proses yang terasa rumit.
+          </p>
+          <div className="companyHeroActions">
+            <Link className="primaryButton" href="/coba-masalah">Ceritakan kebutuhanmu</Link>
+            <Link className="textLink" href="/about">Kenal QIRA lebih dekat →</Link>
+          </div>
+        </div>
+        <div className="companyHeroPanel" aria-label="Ringkasan pendekatan QIRA">
+          <p className="panelLabel">Yang QIRA lakukan</p>
+          <strong>Understand.</strong>
+          <strong>Simplify.</strong>
+          <strong>Build.</strong>
+          <p>Kami mulai dari kebutuhan nyata, lalu memilih teknologi yang memang perlu.</p>
+        </div>
+      </section>
 
-    <footer className="footer shell"><span>QIRA · PT Rays Solusi Informasi</span><span><Link href="/harga">Harga awal & dukungan</Link> · <Link href="/privasi">Privasi</Link></span></footer>
-  </main>;
+      <section className="companyIntro shell">
+        <p className="kicker">Tentang QIRA</p>
+        <div>
+          <h2>Partner digital untuk bisnis yang ingin bergerak lebih cepat tanpa menambah kerumitan.</h2>
+          <p>
+            QIRA adalah brand solusi digital dari PT Rays Solusi Informasi. Fokus kami adalah membuat teknologi terasa praktis: mudah dipahami, mudah dipakai, dan relevan dengan kebutuhan bisnis sehari-hari.
+          </p>
+          <Link className="textLink" href="/about">Baca About Us →</Link>
+        </div>
+      </section>
+
+      <section className="companyServices shell" id="services">
+        <div className="companySectionHeading">
+          <div>
+            <p className="kicker">Services</p>
+            <h2>Mulai dari kebutuhan kecil, lalu berkembang saat memang diperlukan.</h2>
+          </div>
+          <p>QIRA tidak memaksa bisnis menggunakan sistem yang terlalu besar. Kami memilih solusi sesuai masalah, kapasitas, dan tahap bisnis Anda.</p>
+        </div>
+
+        <div className="companyServiceGrid">
+          {SERVICES.map((service) => (
+            <article className="companyServiceCard" key={service.title}>
+              <span>{service.number}</span>
+              <h3>{service.title}</h3>
+              <p>{service.copy}</p>
+              <Link href={service.href}>{service.label} →</Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="companyWork shell" id="work">
+        <div className="companySectionHeading compact">
+          <div>
+            <p className="kicker">How it works</p>
+            <h2>Proses yang jelas dari masalah sampai solusi.</h2>
+          </div>
+        </div>
+        <div className="companyProcessGrid">
+          {PROCESS.map(([number, title, copy]) => (
+            <article key={number}>
+              <span>{number}</span>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="companyShowcase shell">
+        <div className="companySectionHeading">
+          <div>
+            <p className="kicker">Explore QIRA</p>
+            <h2>Lihat cara QIRA bekerja sebelum memutuskan.</h2>
+          </div>
+          <p>Kami siapkan jalur sederhana untuk mencoba pendekatan QIRA, melihat contoh, atau langsung memetakan kebutuhan bisnis.</p>
+        </div>
+
+        <div className="showcaseGrid">
+          <Link className="showcaseCard" href="/contoh-penerapan">
+            <span>Examples</span>
+            <h3>Contoh penerapan solusi</h3>
+            <p>Lihat gambaran jenis masalah bisnis yang dapat dibantu dengan solusi digital sederhana.</p>
+            <strong>Lihat contoh →</strong>
+          </Link>
+          <a
+            className="showcaseCard"
+            href="https://qira-umkm-sales-demo-fransiskusmahendra-7960s-projects.vercel.app"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span>Live Demo</span>
+            <h3>Demo solusi UMKM</h3>
+            <p>Jelajahi contoh pengalaman digital yang disiapkan QIRA untuk bisnis dan UMKM.</p>
+            <strong>Buka demo →</strong>
+          </a>
+          <Link className="showcaseCard emphasis" href="/discovery">
+            <span>Discovery</span>
+            <h3>Petakan kebutuhan bisnis</h3>
+            <p>Jawab beberapa pertanyaan sederhana untuk membantu QIRA memahami kebutuhan dan peluang solusi.</p>
+            <strong>Mulai discovery →</strong>
+          </Link>
+        </div>
+      </section>
+
+      <section className="companyClosing shell">
+        <div>
+          <p className="kicker">Start simple</p>
+          <h2>Tidak perlu tahu nama teknologinya. Mulai dari masalah yang ingin diselesaikan.</h2>
+        </div>
+        <div className="closingActions">
+          <Link className="primaryButton light" href="/coba-masalah">Ceritakan kebutuhan</Link>
+          <Link className="closingTextLink" href="/harga">Lihat harga awal →</Link>
+        </div>
+      </section>
+
+      <footer className="companyFooter shell">
+        <div>
+          <Link className="brand" href="/">QIRA<span>.</span></Link>
+          <p>Simple digital solutions for growing businesses.</p>
+        </div>
+        <div className="footerLinks">
+          <Link href="/about">About Us</Link>
+          <Link href="/harga">Services & Pricing</Link>
+          <Link href="/discovery">Discovery</Link>
+          <Link href="/privasi">Privacy</Link>
+        </div>
+        <span>QIRA · PT Rays Solusi Informasi</span>
+      </footer>
+    </main>
+  );
 }
