@@ -3,5 +3,10 @@
   "buildCommand": "mkdir -p public && cp index.html public/index.html",
   "installCommand": "",
   "outputDirectory": "public",
-  "ignoreCommand": "git diff HEAD^ HEAD --quiet -- index.html vercel.json"
+  "ignoreCommand": "git diff HEAD^ HEAD --quiet -- index.html vercel.json",
+  "git": {
+    "deploymentEnabled": {
+      "skp-online": false
+    }
+  }
 }

@@ -4,6 +4,11 @@
   "installCommand": "",
   "outputDirectory": "public",
   "ignoreCommand": "git diff HEAD^ HEAD --quiet -- index.html vercel.json",
+  "git": {
+    "deploymentEnabled": {
+      "skp-online": false
+    }
+  },
   "redirects": [
     {
       "source": "/:path*",
