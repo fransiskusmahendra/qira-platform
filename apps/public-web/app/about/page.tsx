@@ -1,9 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+const ABOUT_DESCRIPTION = "Kenali QIRA, partner solusi digital yang membantu bisnis membuat teknologi lebih sederhana, praktis, dan relevan.";
+
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Kenali QIRA, partner solusi digital yang membantu bisnis membuat teknologi lebih sederhana, praktis, dan relevan.",
+  description: ABOUT_DESCRIPTION,
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About QIRA",
+    description: ABOUT_DESCRIPTION,
+    url: "/about",
+    type: "website",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "About QIRA" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About QIRA",
+    description: ABOUT_DESCRIPTION,
+    images: ["/opengraph-image"],
+  },
 };
 
 const VALUES = [
