@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-const PORTFOLIO_DESCRIPTION = "Lihat QIRA Products, Client Work, dan Solution Demos: solusi digital praktis untuk workflow, dokumen, discovery, dan operasional bisnis.";
+import styles from "../SubpageVisual.module.css";
+
+const PORTFOLIO_DESCRIPTION = "Lihat produk internal, pekerjaan klien, dan solution demo QIRA melalui contoh singkat yang mudah dipahami.";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -24,139 +26,64 @@ type PortfolioItem = {
   number: string;
   tag: string;
   title: string;
-  challenge: string;
-  solution: string;
-  result: string;
-  stack: readonly string[];
-  href: string | null;
-  cta: string | null;
-  external: boolean;
+  summary: string;
+  outcome: string;
+  visual: string;
+  href?: string;
+  cta?: string;
+  external?: boolean;
   note?: string;
 };
 
-const QIRA_PRODUCTS: readonly PortfolioItem[] = [
+const ITEMS: readonly PortfolioItem[] = [
   {
     number: "01",
-    tag: "QIRA Product · Internal Use",
+    tag: "QIRA Product",
     title: "QIRA Business Discovery",
-    challenge: "Calon pengguna sering mengetahui masalah bisnisnya, tetapi belum tahu aplikasi atau teknologi apa yang sebenarnya dibutuhkan.",
-    solution: "Flow discovery dan scoping yang digunakan QIRA untuk mengumpulkan konteks bisnis, prioritas, anggaran, dan kesiapan implementasi sebelum menyusun solusi.",
-    result: "Percakapan awal menjadi lebih terstruktur dan QIRA dapat menyusun ruang lingkup solusi berdasarkan kebutuhan nyata, bukan asumsi teknologi.",
-    stack: ["Discovery flow", "Qualification", "Scoping"],
+    summary: "Flow untuk memahami masalah, prioritas, anggaran, dan kesiapan sebelum solusi dibangun.",
+    outcome: "Scope awal lebih jelas",
+    visual: "Masalah → Prioritas → Scope",
     href: "/discovery",
-    cta: "Coba QIRA Discovery",
-    external: false,
+    cta: "Coba discovery",
   },
   {
     number: "02",
-    tag: "QIRA Product · Internal Operations",
-    title: "QIRA Invoice & Document Generator",
-    challenge: "Pembuatan invoice dan dokumen operasional berulang membutuhkan format yang konsisten serta proses yang lebih cepat.",
-    solution: "Tool internal QIRA untuk mengisi data transaksi, menyusun dokumen dengan format standar, dan menyiapkan output yang siap digunakan.",
-    result: "Administrasi internal menjadi lebih ringkas, konsisten, dan tidak perlu mengulang penyusunan dokumen dari awal.",
-    stack: ["Document automation", "Private access", "Operational tool"],
-    href: null,
-    cta: null,
-    external: false,
-    note: "Digunakan untuk operasional internal QIRA. Akses aplikasi tidak dipublikasikan.",
+    tag: "QIRA Product",
+    title: "Invoice & Document Generator",
+    summary: "Tool internal untuk membuat dokumen operasional dengan format yang konsisten tanpa menyusun ulang dari awal.",
+    outcome: "Administrasi lebih ringkas",
+    visual: "Data → Dokumen → Siap pakai",
+    note: "Digunakan untuk operasional internal QIRA. Akses tidak dipublikasikan.",
   },
-];
-
-const CLIENT_WORK: readonly PortfolioItem[] = [
   {
     number: "03",
-    tag: "Client Solution · Operational App",
+    tag: "Client Work",
     title: "Transaction & Thermal Receipt Tool",
-    challenge: "Petugas lapangan membutuhkan alur transaksi yang cepat, sederhana, dan nyaman digunakan dari perangkat mobile.",
-    solution: "Aplikasi operasional ringan untuk mencatat transaksi, membentuk nota, dan mendukung proses cetak thermal dengan input seminimal mungkin.",
-    result: "Alur transaksi harian menjadi lebih cepat dan konsisten tanpa membebani petugas dengan sistem yang kompleks.",
-    stack: ["Mobile workflow", "Receipt generation", "Operational UX"],
-    href: null,
-    cta: null,
-    external: false,
-    note: "Detail klien, data, dan akses aplikasi tidak dipublikasikan.",
+    summary: "Aplikasi mobile ringan untuk mencatat transaksi dan menyiapkan nota thermal dengan input seminimal mungkin.",
+    outcome: "Alur transaksi lebih cepat",
+    visual: "Input → Nota → Cetak",
+    note: "Identitas klien, data, dan akses aplikasi tidak dipublikasikan.",
   },
-];
-
-const SOLUTION_DEMOS: readonly PortfolioItem[] = [
   {
     number: "04",
-    tag: "Solution Demo · Public",
+    tag: "Solution Demo",
     title: "Business Solution Demo",
-    challenge: "Manfaat solusi digital sering sulit dibayangkan jika hanya dijelaskan melalui proposal atau istilah teknis.",
-    solution: "Demo konsep yang menyatukan problem bisnis, contoh solusi, workflow, paket, dan jalur discovery dalam pengalaman yang sederhana.",
-    result: "Calon pengguna dapat memahami cara pendekatan QIRA bekerja dan melihat bentuk solusi sebelum memutuskan langkah berikutnya.",
-    stack: ["Web experience", "Sales enablement", "Responsive UI"],
+    summary: "Demo publik untuk melihat bentuk workflow, operasional, dan pengalaman digital sebelum membangun solusi sendiri.",
+    outcome: "Solusi lebih mudah dibayangkan",
+    visual: "Lihat → Coba → Diskusikan",
     href: "https://demo.qirasolution.com",
-    cta: "Buka solution demo",
+    cta: "Buka demo",
     external: true,
     note: "Demo konsep QIRA, bukan klaim sebagai project klien.",
   },
-];
-
-const SECTIONS = [
-  {
-    id: "products",
-    eyebrow: "QIRA Products",
-    title: "Solusi yang QIRA bangun dan gunakan sendiri.",
-    copy: "Kami menggunakan teknologi yang kami tawarkan untuk merapikan proses QIRA sendiri. Produk internal ini menunjukkan bagaimana workflow sederhana dapat memberi manfaat nyata tanpa harus menjadi sistem besar.",
-    items: QIRA_PRODUCTS,
-  },
-  {
-    id: "client-work",
-    eyebrow: "Client Work",
-    title: "Solusi yang dibuat untuk kebutuhan operasional pengguna.",
-    copy: "Untuk pekerjaan klien, QIRA menampilkan pola masalah, pendekatan, dan hasil tanpa membuka identitas, data, atau akses yang bersifat private.",
-    items: CLIENT_WORK,
-  },
-  {
-    id: "solution-demos",
-    eyebrow: "Solution Demos",
-    title: "Contoh konsep untuk membantu melihat solusi sebelum membangun.",
-    copy: "Solution Demo adalah demonstrasi pendekatan dan pengalaman yang dikembangkan QIRA. Demo ini bukan project klien dan ditampilkan secara terbuka sebagai bahan eksplorasi.",
-    items: SOLUTION_DEMOS,
-  },
 ] as const;
 
-function PortfolioCase({ project }: { project: PortfolioItem }) {
-  return (
-    <article className="portfolioCase">
-      <div className="portfolioCaseTop">
-        <span className="portfolioNumber">{project.number}</span>
-        <span className="portfolioTag">{project.tag}</span>
-      </div>
-      <div className="portfolioCaseBody">
-        <div className="portfolioCaseTitle">
-          <h3>{project.title}</h3>
-          <div className="portfolioStack">
-            {project.stack.map((item) => <span key={item}>{item}</span>)}
-          </div>
-        </div>
-        <div className="portfolioCaseDetails">
-          <div>
-            <small>Challenge</small>
-            <p>{project.challenge}</p>
-          </div>
-          <div>
-            <small>Solution</small>
-            <p>{project.solution}</p>
-          </div>
-          <div>
-            <small>Outcome</small>
-            <p>{project.result}</p>
-          </div>
-        </div>
-      </div>
-      {project.href && project.cta ? (
-        project.external ? (
-          <a className="portfolioCaseLink" href={project.href} target="_blank" rel="noreferrer">{project.cta} →</a>
-        ) : (
-          <Link className="portfolioCaseLink" href={project.href}>{project.cta} →</Link>
-        )
-      ) : null}
-      {project.note ? <p className="portfolioPrivateNote">{project.note}</p> : null}
-    </article>
-  );
+function CaseAction({ item }: { item: PortfolioItem }) {
+  if (!item.href || !item.cta) return null;
+  if (item.external) {
+    return <a href={item.href} target="_blank" rel="noreferrer">{item.cta} →</a>;
+  }
+  return <Link href={item.href}>{item.cta} →</Link>;
 }
 
 export default function PortfolioPage() {
@@ -173,54 +100,70 @@ export default function PortfolioPage() {
         <Link className="smallButton" href="/coba-masalah">Mulai konsultasi</Link>
       </nav>
 
-      <section className="portfolioHero shell">
-        <p className="eyebrow">QIRA · Products & Work</p>
-        <h1>Produk yang kami gunakan. Solusi yang kami bangun. Demo yang bisa Anda coba.</h1>
-        <p>
-          Portfolio QIRA dibagi secara transparan menjadi QIRA Products, Client Work, dan Solution Demos. Produk internal tetap kami tampilkan sebagai bukti penerapan, sementara project klien ditampilkan tanpa membuka informasi yang bersifat private.
-        </p>
-        <div className="portfolioCategoryNav" aria-label="Kategori portfolio">
-          <a href="#products">QIRA Products</a>
-          <a href="#client-work">Client Work</a>
-          <a href="#solution-demos">Solution Demos</a>
+      <section className={`${styles.hero} shell`}>
+        <div className={styles.heroCopy}>
+          <p className="eyebrow">Products & Work</p>
+          <h1>Solusi yang sudah dibangun, digunakan, dan dicoba.</h1>
+          <p>
+            QIRA menampilkan produk internal, pekerjaan klien, dan demo secara terpisah agar konteksnya jelas tanpa membuka informasi yang bersifat private.
+          </p>
+          <div className={styles.heroActions}>
+            <Link className="primaryButton" href="/contoh-penerapan">Lihat contoh penerapan</Link>
+            <Link className="textLink" href="/coba-masalah">Punya kebutuhan serupa? →</Link>
+          </div>
+        </div>
+        <div className={styles.portfolioHeroVisual} aria-label="Ringkasan kategori portfolio QIRA">
+          <div className={styles.portfolioMiniCard}><small>QIRA Product</small><strong>Tools yang QIRA gunakan sendiri</strong></div>
+          <div className={styles.portfolioMiniCard}><small>Client Work</small><strong>Solusi untuk kebutuhan operasional nyata</strong></div>
+          <div className={styles.portfolioMiniCard}><small>Solution Demo</small><strong>Konsep yang bisa dilihat sebelum membangun</strong></div>
         </div>
       </section>
 
-      <div className="portfolioSections">
-        {SECTIONS.map((section) => (
-          <section className="portfolioGroup shell" id={section.id} key={section.id}>
-            <div className="portfolioGroupIntro">
-              <p className="kicker">{section.eyebrow}</p>
-              <div>
-                <h2>{section.title}</h2>
-                <p>{section.copy}</p>
-              </div>
-            </div>
-            <div className="portfolioList">
-              {section.items.map((project) => <PortfolioCase project={project} key={project.title} />)}
-            </div>
-          </section>
-        ))}
-      </div>
+      <section className={`${styles.section} shell`}>
+        <div className={styles.sectionHeader}>
+          <div>
+            <p className="kicker">Selected work</p>
+            <h2>Empat contoh, tanpa penjelasan yang bertele-tele.</h2>
+          </div>
+          <p>Setiap kartu menunjukkan fungsi utama dan hasil yang ingin dicapai. Detail private tetap tidak ditampilkan.</p>
+        </div>
 
-      <section className="portfolioNote shell">
-        <p className="kicker">Built to be useful</p>
-        <div>
-          <h2>Kami lebih memilih solusi yang dipakai daripada fitur yang hanya terlihat canggih.</h2>
-          <p>
-            Sebagian solusi QIRA sengaja fokus pada satu workflow, satu dokumen, atau satu proses operasional. Ukurannya boleh sederhana selama membuat pekerjaan lebih cepat, lebih rapi, atau lebih mudah digunakan.
-          </p>
+        <div className={styles.caseGrid}>
+          {ITEMS.map((item) => (
+            <article className={styles.caseCard} key={item.title}>
+              <div className={styles.caseVisual}>
+                <span>{item.number}</span>
+                <span>{item.visual}</span>
+              </div>
+              <span className={styles.caseTag}>{item.tag}</span>
+              <h3>{item.title}</h3>
+              <p className={styles.caseSummary}>{item.summary}</p>
+              <div className={styles.caseOutcome}>
+                <span><strong>Hasil:</strong> {item.outcome}</span>
+                <CaseAction item={item} />
+              </div>
+              {item.note ? <p className={styles.note}>{item.note}</p> : null}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={`${styles.section} shell`}>
+        <div className={styles.principleStrip}>
+          <span className={styles.miniLabel}>Prinsip QIRA</span>
+          <strong>Lebih baik satu workflow yang benar-benar dipakai daripada banyak fitur yang tidak diperlukan.</strong>
+          <Link className="closingTextLink" href="/harga">Lihat harga awal →</Link>
         </div>
       </section>
 
       <section className="companyClosing shell">
         <div>
           <p className="kicker">Your project</p>
-          <h2>Punya proses yang bisa dibuat lebih cepat atau lebih rapi?</h2>
+          <h2>Ada pekerjaan yang bisa dibuat lebih cepat atau lebih rapi?</h2>
         </div>
         <div className="closingActions">
           <Link className="primaryButton light" href="/coba-masalah">Ceritakan kebutuhan</Link>
-          <Link className="closingTextLink" href="/harga">Lihat layanan →</Link>
+          <Link className="closingTextLink" href="/contoh-penerapan">Lihat contoh solusi →</Link>
         </div>
       </section>
 
@@ -232,7 +175,6 @@ export default function PortfolioPage() {
         <div className="footerLinks">
           <Link href="/">Home</Link>
           <Link href="/about">About Us</Link>
-          <Link href="/portfolio">Portfolio</Link>
           <Link href="/harga">Services & Pricing</Link>
           <Link href="/discovery">Discovery</Link>
           <Link href="/privasi">Privacy</Link>
