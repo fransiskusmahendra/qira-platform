@@ -2,37 +2,31 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ConversionTracker } from "./_components/ConversionTracker";
+import { BusinessExamples } from "./_components/BusinessExamples";
+import { ProblemSelector } from "./_components/ProblemSelector";
 
 const PUBLIC_DEMO_URL = "https://demo.qirasolution.com";
 
 const SERVICES = [
   {
     number: "01",
-    title: "Website & digital presence",
-    copy: "Website company profile, landing page, katalog sederhana, dan halaman penjualan yang mudah dipahami pelanggan.",
-    href: "/harga",
-    label: "Lihat layanan",
+    title: "Terlihat online",
+    copy: "Website yang mudah ditemukan dan dipahami pelanggan.",
   },
   {
     number: "02",
-    title: "Web app & business tools",
-    copy: "Aplikasi ringan untuk membantu pekerjaan operasional seperti pencatatan, invoice, dashboard, formulir, dan workflow internal.",
-    href: "/contoh-penerapan",
-    label: "Lihat contoh",
+    title: "Operasional rapi",
+    copy: "Pencatatan, invoice, dan data dalam satu alur.",
   },
   {
     number: "03",
-    title: "Automation & integration",
-    copy: "Mengurangi pekerjaan manual dengan alur otomatis, integrasi data, API, notifikasi, dan proses yang lebih rapi.",
-    href: "/coba-masalah",
-    label: "Ceritakan kebutuhan",
+    title: "Lebih otomatis",
+    copy: "Tugas rutin dan notifikasi berjalan konsisten.",
   },
   {
     number: "04",
-    title: "Discovery & digital solution",
-    copy: "Belum tahu harus membuat apa? QIRA membantu memetakan masalah, prioritas, dan solusi digital yang paling masuk akal untuk bisnis Anda.",
-    href: "/discovery",
-    label: "Mulai discovery",
+    title: "Mulai dengan jelas",
+    copy: "Prioritas, solusi, waktu, dan biaya awal terpetakan.",
   },
 ] as const;
 
@@ -98,7 +92,7 @@ export default function HomePage() {
           </p>
           <div className="companyHeroActions">
             <Link className="primaryButton" href="/coba-masalah">Ceritakan kebutuhanmu</Link>
-            <Link className="textLink" href="/about">Kenal QIRA lebih dekat →</Link>
+            <Link className="textLink" href="/contoh-penerapan">Lihat contoh solusi →</Link>
           </div>
         </div>
         <figure className="companyHeroVisual">
@@ -114,12 +108,22 @@ export default function HomePage() {
         </figure>
       </section>
 
+      <section className="companyProblems shell">
+        <div className="companySectionHeading compact">
+          <div>
+            <p className="kicker">Mulai dari masalah</p>
+            <h2>Apa yang sedang menghambat bisnis Anda?</h2>
+          </div>
+        </div>
+        <ProblemSelector />
+      </section>
+
       <section className="companyIntro shell">
         <p className="kicker">Tentang QIRA</p>
         <div>
-          <h2>Partner digital untuk bisnis yang ingin bergerak lebih cepat tanpa menambah kerumitan.</h2>
+          <h2>Teknologi praktis untuk pekerjaan bisnis sehari-hari.</h2>
           <p>
-            QIRA adalah brand solusi digital dari PT Rays Solusi Informasi. Fokus kami adalah membuat teknologi terasa praktis: mudah dipahami, mudah dipakai, dan relevan dengan kebutuhan bisnis sehari-hari.
+            QIRA membantu memilih dan membangun solusi yang benar-benar diperlukan.
           </p>
           <Link className="textLink" href="/about">Baca About Us →</Link>
         </div>
@@ -129,9 +133,9 @@ export default function HomePage() {
         <div className="companySectionHeading">
           <div>
             <p className="kicker">Services</p>
-            <h2>Mulai dari kebutuhan kecil, lalu berkembang saat memang diperlukan.</h2>
+            <h2>Empat cara QIRA membantu.</h2>
           </div>
-          <p>QIRA tidak memaksa bisnis menggunakan sistem yang terlalu besar. Kami memilih solusi sesuai masalah, kapasitas, dan tahap bisnis Anda.</p>
+          <p>Mulai dari yang paling dibutuhkan. Berkembang saat bisnis siap.</p>
         </div>
 
         <figure className="companySectionVisual serviceVisual">
@@ -151,9 +155,33 @@ export default function HomePage() {
               <span>{service.number}</span>
               <h3>{service.title}</h3>
               <p>{service.copy}</p>
-              <Link href={service.href}>{service.label} →</Link>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="companyBeforeAfter shell">
+        <div className="companySectionHeading compact">
+          <div>
+            <p className="kicker">Perubahan yang terasa</p>
+            <h2>Dari serba manual menjadi lebih teratur.</h2>
+          </div>
+        </div>
+        <div className="beforeAfterGrid">
+          <div className="beforeColumn">
+            <span>Sebelum</span>
+            <p>Chat dan pesanan tercecer</p>
+            <p>Invoice dibuat berulang</p>
+            <p>Data tersebar di banyak file</p>
+            <p>Follow-up sering terlupa</p>
+          </div>
+          <div className="afterColumn">
+            <span>Setelah</span>
+            <p>Pesanan tersimpan rapi</p>
+            <p>Dokumen dibuat lebih cepat</p>
+            <p>Informasi mudah dipantau</p>
+            <p>Pengingat berjalan otomatis</p>
+          </div>
         </div>
       </section>
 
@@ -188,46 +216,28 @@ export default function HomePage() {
       <section className="companyShowcase shell">
         <div className="companySectionHeading">
           <div>
-            <p className="kicker">Explore QIRA</p>
-            <h2>Lihat cara QIRA bekerja sebelum memutuskan.</h2>
+            <p className="kicker">Sesuai jenis usaha</p>
+            <h2>Pilih bisnis Anda. Lihat yang bisa dirapikan.</h2>
           </div>
-          <p>Kami siapkan jalur sederhana untuk mencoba pendekatan QIRA, melihat contoh, atau langsung memetakan kebutuhan bisnis.</p>
+          <p>Contoh ini membantu membayangkan solusi, bukan paket yang harus diambil seluruhnya.</p>
         </div>
+        <BusinessExamples />
+      </section>
 
-        <div className="showcaseGrid">
-          <Link className="showcaseCard" href="/contoh-penerapan">
-            <span>Examples</span>
-            <h3>Contoh penerapan solusi</h3>
-            <p>Lihat gambaran jenis masalah bisnis yang dapat dibantu dengan solusi digital sederhana.</p>
-            <strong>Lihat contoh →</strong>
-          </Link>
-          <a
-            className="showcaseCard"
-            href={PUBLIC_DEMO_URL}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span>Live Demo</span>
-            <h3>Demo solusi UMKM</h3>
-            <p>Jelajahi contoh pengalaman digital yang disiapkan QIRA untuk bisnis dan UMKM.</p>
-            <strong>Buka demo →</strong>
-          </a>
-          <Link className="showcaseCard emphasis" href="/discovery">
-            <span>Discovery</span>
-            <h3>Petakan kebutuhan bisnis</h3>
-            <p>Jawab beberapa pertanyaan sederhana untuk membantu QIRA memahami kebutuhan dan peluang solusi.</p>
-            <strong>Mulai discovery →</strong>
-          </Link>
-        </div>
+      <section className="companyOutcomes shell" aria-label="Hasil fungsional solusi QIRA">
+        <span><strong>1</strong> tempat untuk data</span>
+        <span><strong>↓</strong> input berulang</span>
+        <span><strong>24/7</strong> akses via ponsel</span>
+        <span><strong>✓</strong> sesuai kebutuhan</span>
       </section>
 
       <section className="companyPortfolio shell" id="portfolio">
         <div className="companySectionHeading">
           <div>
             <p className="kicker">Products & Work</p>
-            <h2>Apa yang QIRA gunakan sendiri, bangun untuk klien, dan demonstrasikan.</h2>
+            <h2>Solusi yang sudah dibangun dan dicoba.</h2>
           </div>
-          <p>Portfolio dibagi secara transparan menjadi QIRA Products, Client Work, dan Solution Demos agar setiap karya ditampilkan sesuai konteks sebenarnya.</p>
+          <p>Produk internal, pekerjaan klien, dan demo ditampilkan sesuai konteksnya.</p>
         </div>
 
         <div className="portfolioPreviewGrid">

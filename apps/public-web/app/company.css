@@ -139,7 +139,9 @@
 
 .companyServices,
 .companyWork,
-.companyShowcase { padding: 100px 0 115px; border-top: 1px solid var(--line); }
+.companyShowcase,
+.companyProblems,
+.companyBeforeAfter { padding: 100px 0 115px; border-top: 1px solid var(--line); }
 .companySectionHeading {
   display: grid;
   grid-template-columns: 1.55fr .8fr;
@@ -174,7 +176,7 @@
 }
 .processVisual img { aspect-ratio: 2.5 / 1; object-fit: cover; }
 .companyServiceCard {
-  min-height: 300px;
+  min-height: 215px;
   padding: 30px;
   border: 1px solid var(--line);
   border-radius: 22px;
@@ -190,7 +192,7 @@
   font-size: 12px;
 }
 .companyServiceCard h3 {
-  margin: 42px 0 12px;
+  margin: 32px 0 12px;
   font-size: 28px;
   letter-spacing: -.03em;
 }
@@ -200,12 +202,98 @@
   color: var(--muted);
   line-height: 1.6;
 }
-.companyServiceCard a {
-  margin-top: auto;
-  padding-top: 30px;
-  font-weight: 680;
+
+.problemExplorer {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: minmax(280px, .8fr) minmax(0, 1.2fr);
+  gap: 16px;
 }
-.companyServiceCard a:hover { color: var(--blue); }
+.problemOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.problemOptions button,
+.businessChips button {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, .74);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.problemOptions button {
+  min-height: 67px;
+  padding: 0 20px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+  font-weight: 650;
+}
+.problemOptions button span {
+  color: var(--blue);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+}
+.problemOptions button:hover,
+.problemOptions button.active,
+.businessChips button:hover,
+.businessChips button.active { border-color: #8eaff0; background: var(--sky); }
+.problemOptions button.active { transform: translateX(4px); }
+.problemResult {
+  min-height: 292px;
+  padding: clamp(30px, 5vw, 52px);
+  border-radius: 24px;
+  background: var(--ink);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.problemResult .panelLabel,
+.businessResult .panelLabel {
+  margin: 0;
+  color: #8eb9ff;
+  font-size: 11px;
+  font-weight: 720;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.problemResult h3 {
+  max-width: 640px;
+  margin: 18px 0 10px;
+  font-size: clamp(29px, 4vw, 46px);
+  line-height: 1.05;
+  letter-spacing: -.04em;
+}
+.problemResult > p:not(.panelLabel) { max-width: 610px; margin: 0; color: #b8c6d8; line-height: 1.6; }
+.problemResult > a { display: inline-block; margin-top: 30px; font-weight: 680; }
+.problemVisual {
+  position: absolute;
+  right: 34px;
+  bottom: 12px;
+  color: rgba(142, 185, 255, .13);
+  font-size: clamp(100px, 17vw, 190px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.beforeAfterGrid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.beforeAfterGrid > div { padding: 30px; border-radius: 22px; }
+.beforeColumn { border: 1px solid var(--line); background: rgba(255,255,255,.72); }
+.afterColumn { background: var(--sky); }
+.beforeAfterGrid span { color: var(--blue); font-size: 11px; font-weight: 720; letter-spacing: 1.1px; text-transform: uppercase; }
+.beforeAfterGrid p { margin: 0; padding: 17px 0; border-bottom: 1px solid rgba(7,26,51,.1); font-size: 18px; font-weight: 620; }
+.beforeAfterGrid p:last-child { border-bottom: 0; }
+.beforeColumn p { color: var(--muted); }
+.afterColumn p::before { content: "✓"; margin-right: 10px; color: var(--blue); }
 
 .companyProcessGrid {
   margin-top: 30px;
@@ -223,6 +311,40 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
+.businessExplorer { margin-top: 50px; }
+.businessChips { display: flex; flex-wrap: wrap; gap: 9px; }
+.businessChips button { min-height: 43px; padding: 0 16px; border-radius: 999px; font-weight: 630; }
+.businessResult {
+  margin-top: 16px;
+  padding: clamp(28px, 5vw, 50px);
+  border-radius: 24px;
+  background: white;
+  border: 1px solid var(--line);
+}
+.businessResult .panelLabel { color: var(--blue); }
+.businessResult > div { margin: 28px 0 34px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.businessResult span { min-height: 90px; padding: 20px; border-radius: 16px; background: var(--paper); display: flex; align-items: end; font-size: 18px; font-weight: 660; }
+.businessResult > a { font-weight: 680; }
+
+.companyOutcomes {
+  padding: 24px 0 100px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.companyOutcomes > span {
+  min-height: 105px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,.72);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 13px;
+}
+.companyOutcomes strong { color: var(--blue); font-size: 27px; letter-spacing: -.03em; }
 .showcaseCard {
   min-height: 315px;
   padding: 30px;
@@ -366,10 +488,19 @@
   .companyWork,
   .companyShowcase,
   .aboutStory,
-  .aboutFocus { padding-top: 75px; padding-bottom: 80px; }
+  .aboutFocus,
+  .companyProblems,
+  .companyBeforeAfter { padding-top: 75px; padding-bottom: 80px; }
   .companyServiceGrid,
   .companyProcessGrid,
   .aboutValues { grid-template-columns: 1fr; }
+  .problemExplorer,
+  .beforeAfterGrid { grid-template-columns: 1fr; }
+  .problemResult { min-height: 330px; }
+  .problemVisual { right: 18px; }
+  .businessResult > div { grid-template-columns: 1fr; }
+  .businessResult span { min-height: 72px; }
+  .companyOutcomes { grid-template-columns: repeat(2, 1fr); padding-bottom: 75px; }
   .companyProcessGrid article { padding: 28px 0; border-bottom: 1px solid var(--line); }
   .companySectionVisual { margin-top: 34px; border-radius: 20px; }
   .processVisual { overflow-x: hidden; }
