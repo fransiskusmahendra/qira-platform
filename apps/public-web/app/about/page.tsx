@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
-const ABOUT_DESCRIPTION = "Kenali QIRA, partner solusi digital yang membantu bisnis membuat teknologi lebih sederhana, praktis, dan relevan.";
+import styles from "../SubpageVisual.module.css";
+
+const ABOUT_DESCRIPTION = "Kenali cara QIRA membantu bisnis membuat teknologi lebih sederhana, praktis, dan sesuai kebutuhan nyata.";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -23,9 +26,17 @@ export const metadata: Metadata = {
 };
 
 const VALUES = [
-  ["Simple first", "Solusi harus mudah dipahami dan digunakan sebelum menjadi canggih."],
-  ["Business before technology", "Kami mulai dari kebutuhan bisnis, bukan dari tren atau tools yang sedang populer."],
-  ["Build what matters", "Fitur dibuat berdasarkan manfaat nyata agar biaya dan waktu tetap terkendali."],
+  ["01", "Simple first", "Mudah dipahami dan digunakan lebih penting daripada terlihat rumit."],
+  ["02", "Business first", "Kami mulai dari pekerjaan yang ingin dibuat lebih cepat, rapi, atau mudah."],
+  ["03", "Build what matters", "Fitur dibuat seperlunya agar waktu dan biaya tetap terkendali."],
+] as const;
+
+const FOCUS = [
+  "Website & digital presence",
+  "Web app & internal tools",
+  "Automation & integration",
+  "Business discovery",
+  "Implementation support",
 ] as const;
 
 export default function AboutPage() {
@@ -42,59 +53,78 @@ export default function AboutPage() {
         <Link className="smallButton" href="/coba-masalah">Mulai konsultasi</Link>
       </nav>
 
-      <section className="aboutHero shell">
-        <p className="eyebrow">About QIRA</p>
-        <h1>Teknologi seharusnya membantu bisnis bekerja lebih mudah, bukan membuatnya semakin rumit.</h1>
-        <p>
-          QIRA adalah brand solusi digital dari PT Rays Solusi Informasi yang membantu bisnis dan UMKM merapikan proses, membangun pengalaman digital, dan membuat tools yang sesuai kebutuhan nyata.
-        </p>
+      <section className={`${styles.hero} shell`}>
+        <div className={styles.heroCopy}>
+          <p className="eyebrow">About QIRA</p>
+          <h1>Teknologi yang terasa lebih sederhana untuk bisnis.</h1>
+          <p>
+            QIRA adalah brand solusi digital dari PT Rays Solusi Informasi. Kami membantu bisnis dan UMKM merapikan proses, membangun tools, dan memilih teknologi yang benar-benar diperlukan.
+          </p>
+          <div className={styles.heroActions}>
+            <Link className="primaryButton" href="/coba-masalah">Ceritakan kebutuhanmu</Link>
+            <Link className="textLink" href="/portfolio">Lihat yang sudah dibangun →</Link>
+          </div>
+        </div>
+        <figure className={styles.heroVisual}>
+          <Image
+            src="/illustrations/qira-services.webp"
+            alt="Website, aplikasi, automation, dan discovery sebagai kemampuan digital QIRA"
+            width={1536}
+            height={1024}
+            priority
+            sizes="(max-width: 960px) 100vw, 48vw"
+          />
+          <figcaption>Satu tujuan: membuat pekerjaan bisnis lebih mudah dijalankan.</figcaption>
+        </figure>
       </section>
 
-      <section className="aboutStory shell">
-        <p className="kicker">Why QIRA</p>
-        <div>
-          <h2>Kami percaya bisnis tidak harus menjadi perusahaan teknologi untuk mendapatkan manfaat dari teknologi.</h2>
-          <p>
-            Banyak kebutuhan sebenarnya bisa diselesaikan dengan solusi yang lebih sederhana: sebuah website yang jelas, form yang lebih rapi, dashboard yang mudah dibaca, proses manual yang diotomatisasi, atau aplikasi kecil yang memang dibuat untuk satu pekerjaan penting.
-          </p>
-          <p>
-            Karena itu, pendekatan QIRA selalu dimulai dari masalah, target, dan cara kerja bisnis. Teknologi dipilih setelah kebutuhan dipahami.
-          </p>
+      <section className={`${styles.section} shell`}>
+        <div className={styles.sectionHeader}>
+          <div>
+            <p className="kicker">Cara kami berpikir</p>
+            <h2>Mulai dari kebutuhan. Teknologi menyusul.</h2>
+          </div>
+          <p>QIRA tidak memulai percakapan dari nama aplikasi atau tren teknologi. Kami mulai dari pekerjaan yang ingin dibuat lebih baik.</p>
+        </div>
+        <div className={styles.valueGrid}>
+          {VALUES.map(([number, title, copy]) => (
+            <article className={styles.valueCard} key={title}>
+              <span className={styles.valueIndex}>{number}</span>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="aboutValues shell">
-        {VALUES.map(([title, copy], index) => (
-          <article key={title}>
-            <span>0{index + 1}</span>
-            <h3>{title}</h3>
-            <p>{copy}</p>
-          </article>
-        ))}
-      </section>
-
-      <section className="aboutFocus shell">
-        <div>
-          <p className="kicker">What we focus on</p>
-          <h2>Solusi kecil yang berguna hari ini, dengan ruang untuk berkembang besok.</h2>
+      <section className={`${styles.section} shell`}>
+        <div className={styles.sectionHeader}>
+          <div>
+            <p className="kicker">From problem to solution</p>
+            <h2>Proses singkat yang menjaga solusi tetap relevan.</h2>
+          </div>
+          <p>Solusi boleh kecil selama langsung membantu pekerjaan penting dan masih punya ruang untuk berkembang.</p>
         </div>
-        <div className="aboutFocusList">
-          <p>Website & digital presence</p>
-          <p>Web application & internal tools</p>
-          <p>Automation & API integration</p>
-          <p>Business process discovery</p>
-          <p>Digital implementation support</p>
+        <div className={styles.flow} aria-label="Alur pendekatan QIRA">
+          <div className={styles.flowCard}><strong>Masalah</strong><span>Apa yang terasa lambat, berulang, atau membingungkan?</span></div>
+          <div className={styles.flowArrow}>→</div>
+          <div className={styles.flowCard}><strong>Prioritas</strong><span>Pilih kebutuhan yang paling memberi dampak.</span></div>
+          <div className={styles.flowArrow}>→</div>
+          <div className={styles.flowCard}><strong>Solusi</strong><span>Bangun secukupnya, gunakan, lalu kembangkan bila perlu.</span></div>
+        </div>
+        <div className={styles.focusPills} aria-label="Fokus layanan QIRA">
+          {FOCUS.map((item) => <span key={item}>{item}</span>)}
         </div>
       </section>
 
       <section className="companyClosing shell">
         <div>
           <p className="kicker">Work with QIRA</p>
-          <h2>Punya proses yang ribet atau ide yang ingin dibuat lebih nyata?</h2>
+          <h2>Punya proses yang ingin dibuat lebih sederhana?</h2>
         </div>
         <div className="closingActions">
           <Link className="primaryButton light" href="/coba-masalah">Mulai dari kebutuhanmu</Link>
-          <Link className="closingTextLink" href="/portfolio">Lihat portfolio →</Link>
+          <Link className="closingTextLink" href="/contoh-penerapan">Lihat contoh penerapan →</Link>
         </div>
       </section>
 
