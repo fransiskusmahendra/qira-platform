@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { ConversionTracker } from "./_components/ConversionTracker";
@@ -100,13 +101,17 @@ export default function HomePage() {
             <Link className="textLink" href="/about">Kenal QIRA lebih dekat →</Link>
           </div>
         </div>
-        <div className="companyHeroPanel" aria-label="Ringkasan pendekatan QIRA">
-          <p className="panelLabel">Yang QIRA lakukan</p>
-          <strong>Understand.</strong>
-          <strong>Simplify.</strong>
-          <strong>Build.</strong>
-          <p>Kami mulai dari kebutuhan nyata, lalu memilih teknologi yang memang perlu.</p>
-        </div>
+        <figure className="companyHeroVisual">
+          <Image
+            src="/illustrations/qira-hero.webp"
+            alt="Pemilik usaha mengelola website, pesanan, dashboard, dan notifikasi dalam satu alur digital"
+            width={1536}
+            height={1024}
+            priority
+            sizes="(max-width: 960px) 100vw, 56vw"
+          />
+          <figcaption><strong>Pekerjaan lebih ringkas.</strong> Informasi, transaksi, dan tindak lanjut terhubung dalam satu alur.</figcaption>
+        </figure>
       </section>
 
       <section className="companyIntro shell">
@@ -129,6 +134,17 @@ export default function HomePage() {
           <p>QIRA tidak memaksa bisnis menggunakan sistem yang terlalu besar. Kami memilih solusi sesuai masalah, kapasitas, dan tahap bisnis Anda.</p>
         </div>
 
+        <figure className="companySectionVisual serviceVisual">
+          <Image
+            src="/illustrations/qira-services.webp"
+            alt="Empat layanan QIRA yang saling terhubung: website, aplikasi bisnis, automation, dan discovery"
+            width={1536}
+            height={1024}
+            sizes="(max-width: 680px) 100vw, 1160px"
+          />
+          <figcaption>Empat kemampuan, dipilih sesuai kebutuhan bisnis Anda—tidak harus semuanya sekaligus.</figcaption>
+        </figure>
+
         <div className="companyServiceGrid">
           {SERVICES.map((service) => (
             <article className="companyServiceCard" key={service.title}>
@@ -148,6 +164,16 @@ export default function HomePage() {
             <h2>Proses yang jelas dari masalah sampai solusi.</h2>
           </div>
         </div>
+        <figure className="companySectionVisual processVisual">
+          <Image
+            src="/illustrations/qira-process.webp"
+            alt="Alur kerja QIRA dari percakapan kebutuhan, penentuan prioritas, penyusunan solusi, hingga peluncuran"
+            width={1984}
+            height={793}
+            sizes="(max-width: 680px) 130vw, 1160px"
+          />
+          <figcaption>Cerita kebutuhan → pilih prioritas → sepakati solusi → gunakan hasilnya.</figcaption>
+        </figure>
         <div className="companyProcessGrid">
           {PROCESS.map(([number, title, copy]) => (
             <article key={number}>
