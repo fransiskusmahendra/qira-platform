@@ -51,7 +51,7 @@ export async function submitPublicLead(_: LeadFormState, formData: FormData): Pr
 
   const nextFollowUp = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
   const supabase = await createClient();
-  const { error } = await supabase.from("public_leads").insert({
+  const { error } = await (supabase as any).from("public_leads").insert({
     full_name: fullName,
     business_name: businessName,
     whatsapp,

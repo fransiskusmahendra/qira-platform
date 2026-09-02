@@ -48,7 +48,7 @@ export default async function ProposalPage({ params, searchParams }: ProposalPag
   const nextStatus = proposal.status === "draft" ? "review" : proposal.status === "review" ? "approved" : proposal.status === "approved" ? "shared" : undefined;
   const nextLabel = nextStatus === "review" ? "Ajukan review" : nextStatus === "approved" ? "Setujui" : nextStatus === "shared" ? "Bagikan" : undefined;
   const packageId = String(rawTerms.packageId ?? "custom");
-  const onboardingUrl = `/workspace/services/onboard?customerName=${encodeURIComponent(proposal.client_name)}&contactName=${encodeURIComponent(proposal.recipient_name)}&contactEmail=${encodeURIComponent(proposal.recipient_email)}&packageId=${encodeURIComponent(packageId)}`;
+  const onboardingUrl = `/workspace/services/onboard?customerName=${encodeURIComponent(proposal.client_name)}&contactName=${encodeURIComponent(proposal.recipient_name)}&contactEmail=${encodeURIComponent(proposal.recipient_email ?? "")}&packageId=${encodeURIComponent(packageId)}`;
 
   return <main className={styles.page}>
     <header className={styles.header}><Link className={styles.brand} href="/workspace">QIRA.</Link><Link href="/workspace">Kembali</Link></header>
