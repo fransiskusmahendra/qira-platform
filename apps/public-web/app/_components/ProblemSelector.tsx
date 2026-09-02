@@ -4,34 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 
 const PROBLEMS = [
-  {
-    icon: "↗",
-    label: "Sulit ditemukan",
-    before: "Pelanggan sulit menemukan atau memahami bisnis Anda.",
-    solution: "Website / landing page",
-    outcome: "Mudah ditemukan & dihubungi",
-  },
-  {
-    icon: "▦",
-    label: "Masih manual",
-    before: "Data, pesanan, atau dokumen tersebar di banyak tempat.",
-    solution: "Form + dashboard + dokumen",
-    outcome: "Satu alur kerja",
-  },
-  {
-    icon: "⚡",
-    label: "Terlalu berulang",
-    before: "Pengingat, follow-up, dan pemindahan data dikerjakan berulang.",
-    solution: "Automation sederhana",
-    outcome: "Lebih konsisten",
-  },
-  {
-    icon: "◎",
-    label: "Bingung mulai",
-    before: "Belum jelas apa yang perlu dibuat lebih dulu.",
-    solution: "Business discovery",
-    outcome: "Prioritas & scope jelas",
-  },
+  { icon: "↗", label: "Sulit ditemukan", before: "Sulit ditemukan", solution: "Website", outcome: "Mudah dihubungi" },
+  { icon: "▦", label: "Masih manual", before: "Data tercecer", solution: "Business tool", outcome: "Satu alur" },
+  { icon: "⚡", label: "Terlalu berulang", before: "Kerja berulang", solution: "Automation", outcome: "Lebih cepat" },
+  { icon: "◎", label: "Bingung mulai", before: "Belum jelas", solution: "Discovery", outcome: "Prioritas jelas" },
 ] as const;
 
 export function ProblemSelector() {
@@ -60,22 +36,13 @@ export function ProblemSelector() {
 
       <div aria-labelledby={`problem-${active}`} className="problemResult" id="problem-result" role="tabpanel">
         <div className="problemMiniFlow" aria-label="Masalah menuju solusi dan hasil">
-          <div>
-            <small>Sebelum</small>
-            <strong>{selected.before}</strong>
-          </div>
+          <div><small>Masalah</small><strong>{selected.before}</strong></div>
           <span aria-hidden="true">→</span>
-          <div className="solution">
-            <small>Dengan QIRA</small>
-            <strong>{selected.solution}</strong>
-          </div>
+          <div className="solution"><small>QIRA</small><strong>{selected.solution}</strong></div>
           <span aria-hidden="true">→</span>
-          <div className="outcome">
-            <small>Hasil</small>
-            <strong>{selected.outcome}</strong>
-          </div>
+          <div className="outcome"><small>Hasil</small><strong>{selected.outcome}</strong></div>
         </div>
-        <Link href="/coba-masalah">Coba dengan masalah Anda →</Link>
+        <Link href="/coba-masalah">Coba masalahmu →</Link>
       </div>
     </div>
   );
