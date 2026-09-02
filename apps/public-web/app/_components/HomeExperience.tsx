@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { trackConversion } from "./ConversionTracker";
-import { BeforeAfterArtwork, HeroArtwork, SolutionArtwork } from "./CrispVisuals";
+import { HeroArtwork, SolutionArtwork } from "./CrispVisuals";
 
 const TRANSFORMATION_STEPS = [
   { label: "Masalah", detail: "Chat, file, dan pekerjaan tercecer" },
@@ -144,15 +145,33 @@ export function BeforeAfter() {
   return (
     <div className="beforeAfter">
       <div className="beforeAfterStage">
-        <BeforeAfterArtwork />
-        <div className="beforeAfterShade beforeShade" style={{ width: `${position}%` }} aria-hidden="true" />
+        <div className="beforeAfterImages" role="img" aria-label="Perbandingan pekerjaan manual yang berantakan dengan alur digital QIRA yang rapi">
+          <Image
+            className="afterImage"
+            src="/illustrations/premium/qira-after-workflow.webp"
+            alt="Alur kerja digital QIRA yang rapi, terhubung, dan mudah dipantau"
+            fill
+            quality={90}
+            sizes="(max-width: 760px) 100vw, 1160px"
+          />
+          <Image
+            aria-hidden="true"
+            className="beforeImage"
+            src="/illustrations/premium/qira-before-workflow.webp"
+            alt=""
+            fill
+            quality={90}
+            sizes="(max-width: 760px) 100vw, 1160px"
+            style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
+          />
+        </div>
         <div className="beforeAfterDivider" style={{ left: `${position}%` }} aria-hidden="true"><span>↔</span></div>
         <span className="stateLabel beforeLabel">Sebelum</span>
         <span className="stateLabel afterLabel">Dengan QIRA</span>
       </div>
       <label className="beforeAfterControl">
         <span>Geser untuk membandingkan</span>
-        <input aria-label="Bandingkan kondisi sebelum dan sesudah QIRA" type="range" min="18" max="82" value={position} onChange={(event) => { setPosition(Number(event.target.value)); void trackConversion("before_after_interact"); }} />
+        <input aria-label="Bandingkan kondisi sebelum dan sesudah QIRA" type="range" min="8" max="92" value={position} onChange={(event) => { setPosition(Number(event.target.value)); void trackConversion("before_after_interact"); }} />
       </label>
       <div className="outcomeStrip">
         <span>Data lebih rapi</span><span>Respons lebih cepat</span><span>Pekerjaan mudah dipantau</span>

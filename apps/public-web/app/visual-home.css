@@ -202,14 +202,15 @@
 
 .beforeAfter { overflow: hidden; border: 1px solid rgba(46,99,185,.13); border-radius: 28px; background: #f6faff; box-shadow: 0 22px 70px rgba(7,26,51,.08); }
 .beforeAfterStage { position: relative; aspect-ratio: 16/9; overflow: hidden; }
-.beforeAfterStage > img { object-fit: cover; }
-.beforeAfterShade { position: absolute; inset: 0 auto 0 0; background: rgba(7,26,51,.08); backdrop-filter: saturate(.8); border-right: 1px solid rgba(255,255,255,.9); }
+.beforeAfterImages { position: absolute; inset: 0; background: #eaf2ff; }
+.beforeAfterImages img { object-fit: cover; object-position: center; }
+.beforeAfterImages .beforeImage { z-index: 1; transition: clip-path .08s linear; }
 .beforeAfterDivider { position: absolute; top: 0; bottom: 0; width: 2px; background: white; box-shadow: 0 0 0 1px rgba(7,26,51,.08),0 0 24px rgba(7,26,51,.15); transform: translateX(-50%); }
 .beforeAfterDivider span { position: absolute; top: 50%; left: 50%; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--blue); color: white; box-shadow: 0 9px 24px rgba(23,105,255,.3); transform: translate(-50%,-50%); }
 .stateLabel { position: absolute; top: 22px; padding: 9px 13px; border-radius: 999px; background: rgba(255,255,255,.9); color: var(--ink); font-size: 11px; font-weight: 800; box-shadow: 0 6px 22px rgba(7,26,51,.08); }
 .beforeLabel { left: 22px; }.afterLabel { right: 22px; }
 .beforeAfterControl { padding: 18px 24px; display: flex; align-items: center; gap: 20px; color: var(--muted); font-size: 12px; font-weight: 700; }
-.beforeAfterControl input { flex: 1; accent-color: var(--blue); cursor: ew-resize; }
+.beforeAfterControl input { flex: 1; height: 24px; accent-color: var(--blue); cursor: ew-resize; touch-action: pan-y; }
 .outcomeStrip { padding: 0 24px 22px; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
 .outcomeStrip span { padding: 9px 12px; border-radius: 999px; background: white; color: #275d43; font-size: 11px; font-weight: 720; }
 .outcomeStrip span::before { content:"✓"; margin-right: 6px; color: #16a56b; }
@@ -354,7 +355,7 @@
   .solutionFlow span { padding: 11px; }
   .beforeAfter { border-radius: 18px; }
   .beforeAfterStage { aspect-ratio: 4/3; }
-  .beforeAfterStage > img { object-fit: cover; width: 134% !important; max-width:none !important; object-position:center; }
+  .beforeAfterImages img { object-fit: cover; width: 134% !important; max-width:none !important; object-position:center; }
   .stateLabel { top: 12px; }.beforeLabel{left:12px}.afterLabel{right:12px}
   .beforeAfterControl { padding: 15px; flex-direction: column; gap: 8px; }
   .beforeAfterControl input { width: 100%; }
