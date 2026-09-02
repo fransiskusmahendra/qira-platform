@@ -31,13 +31,14 @@ export default async function ConversionAnalyticsPage() {
   const sinceIso = since.toISOString();
 
   const [{ data: events }, { data: discoveries }, { data: proposals }, { data: decisions }] = await Promise.all([
-    (supabase as any).from("conversion_events").select("event_name,occurred_at").gte("occurred_at", sinceIso).order("occurred_at", { ascending: false }),
+    (supabase as any).from("conversion_events").select("event_name,path,occurred_at").gte("occurred_at", sinceIso).order("occurred_at", { ascending: false }),
     supabase.from("discoveries").select("id,status,created_at").gte("created_at", sinceIso),
     supabase.from("proposals").select("id,status,created_at").gte("created_at", sinceIso),
     (supabase as any).from("proposal_client_decisions").select("decision,decided_at").gte("decided_at", sinceIso),
   ]);
 
   const eventCount = (name: string) => events?.filter((item: any) => item.event_name === name).length ?? 0;
+  const pathCount = (path: string) => events?.filter((item: any) => item.event_name === "service_view" && item.path === path).length ?? 0;
   const landing = eventCount("landing_view");
   const storyStart = eventCount("story_start");
   const storyComplete = eventCount("story_complete");
@@ -48,6 +49,13 @@ export default async function ConversionAnalyticsPage() {
   const applicationExample = eventCount("application_example_interact");
   const whatsappRequest = eventCount("whatsapp_request_click");
   const serviceView = eventCount("service_view");
+  const servicePageView = events?.filter((item: any) => item.event_name === "service_view" && item.path.startsWith("/solusi/")).length ?? 0;
+  const audienceViews = {
+    jasa: pathCount("/untuk/usaha-jasa"),
+    retail: pathCount("/untuk/retail-umkm"),
+    administrasi: pathCount("/untuk/administrasi-tim"),
+  };
+  const totalAudienceViews = audienceViews.jasa + audienceViews.retail + audienceViews.administrasi;
   const discoveryStart = eventCount("discovery_start");
   const discoverySubmit = eventCount("discovery_submit");
   const problemSelect = eventCount("problem_select");
@@ -80,7 +88,9 @@ export default async function ConversionAnalyticsPage() {
 
     <section className={styles.panel}><p className={styles.kicker}>Interaksi visual</p><h2>Bagian mana yang membantu orang memahami QIRA?</h2><div className={styles.grid}><article><span>Hero explainer</span><strong>{heroInteract}</strong></article><article><span>Sebelum / sesudah</span><strong>{beforeAfter}</strong></article><article><span>Contoh penerapan</span><strong>{applicationExample}</strong></article><article><span>Permintaan WhatsApp</span><strong>{whatsappRequest}</strong><small>{percent(whatsappRequest, landing)} dari beranda</small></article></div></section>
 
-    <details className={styles.panel}><summary>Minat sebelum mengisi form</summary><div className={styles.grid}><article><span>Pilih masalah</span><strong>{problemSelect}</strong><small>{percent(problemSelect, landing)} dari kunjungan beranda</small></article><article><span>Lihat halaman solusi</span><strong>{serviceView}</strong></article><article><span>Lihat pricing</span><strong>{pricingView}</strong></article><article><span>Lihat portfolio</span><strong>{portfolioView}</strong></article><article><span>Alur masalah lama</span><strong>{storyStart} / {storyComplete}</strong><small>Mulai / selesai</small></article><article><span>Lead terkirim</span><strong>{leadSubmit}</strong></article></div></details>
+    <section className={styles.panel}><p className={styles.kicker}>Minat berdasarkan usaha</p><h2>Situasi mana yang paling sering dilihat?</h2><div className={styles.grid}><article><span>Usaha jasa</span><strong>{audienceViews.jasa}</strong><small>{percent(audienceViews.jasa, totalAudienceViews)} dari jalur usaha</small></article><article><span>Retail & UMKM</span><strong>{audienceViews.retail}</strong><small>{percent(audienceViews.retail, totalAudienceViews)} dari jalur usaha</small></article><article><span>Administrasi tim</span><strong>{audienceViews.administrasi}</strong><small>{percent(audienceViews.administrasi, totalAudienceViews)} dari jalur usaha</small></article></div></section>
+
+    <details className={styles.panel}><summary>Minat sebelum mengisi form</summary><div className={styles.grid}><article><span>Pilih masalah</span><strong>{problemSelect}</strong><small>{percent(problemSelect, landing)} dari kunjungan beranda</small></article><article><span>Lihat halaman solusi</span><strong>{servicePageView}</strong><small>{serviceView} total termasuk jalur usaha</small></article><article><span>Lihat pricing</span><strong>{pricingView}</strong></article><article><span>Lihat portfolio</span><strong>{portfolioView}</strong></article><article><span>Alur masalah lama</span><strong>{storyStart} / {storyComplete}</strong><small>Mulai / selesai</small></article><article><span>Lead terkirim</span><strong>{leadSubmit}</strong></article></div></details>
 
     <details className={styles.panel}><summary>Funnel website lengkap</summary><div className={styles.grid}>{EVENT_LABELS.map(([event, label], index) => { const previous = index === 0 ? 0 : counts[EVENT_LABELS[index - 1][0]]; return <article key={event}><span>{label}</span><strong>{counts[event]}</strong><small>{index === 0 ? "Sesi beranda" : `${percent(counts[event], previous)} dari tahap sebelumnya`}</small></article>; })}</div></details>
 
