@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { getBusinessBlueprint, getDiscoveryQuestionnaire, type DiscoveryQuestion, type ServiceId } from "@qira/domain";
+import { getPublicDiscoveryQuestionnaire, type DiscoveryQuestion, type ServiceId } from "@qira/domain";
 import { trackConversion } from "../../_components/ConversionTracker";
 import styles from "../discovery.module.css";
 import { submitPublicDiscovery, type PublicDiscoverySubmissionState } from "../actions";
@@ -13,13 +13,13 @@ interface DiscoveryFormProps { services: readonly ServiceOption[] }
 type Answers = Record<string, string | number | undefined>;
 type Contact = { fullName: string; businessName: string; whatsapp: string; email: string };
 type ProblemAssessment = { businessName?: string; teamSize?: string; priority?: string; description?: string; profile?: { businessTypeId?: string; name?: string; title?: string; problem?: string } };
-type Screen = { kind: "identity" } | { kind: "contact" } | { kind: "question"; question: DiscoveryQuestion } | { kind: "consent" };
+type Screen = { kind: "identity" } | { kind: "question"; question: DiscoveryQuestion } | { kind: "consent" };
 
 const EMPTY_CONTACT: Contact = { fullName: "", businessName: "", whatsapp: "", email: "" };
 const DEFAULT_ASSESSMENT = { impact: 3, readiness: 3, complexity: 3 };
 const PROBLEM_ASSESSMENT_KEY = "qira-problem-assessment";
 const PROBLEM_ASSESSMENT_ORIGIN_KEY = "qira-problem-assessment-origin";
-const AUTO_FILLED_QUESTION_IDS = new Set(["business_profile", "business_goal", "current_process", "pain_point", "current_tools", "user_count"]);
+const AUTO_FILLED_QUESTION_IDS = new Set(["business_profile", "business_goal", "current_process"]);
 
 function readProblemAssessment(): ProblemAssessment | undefined {
   try {
@@ -47,16 +47,8 @@ function clearProblemAssessment() {
     window.sessionStorage.removeItem(PROBLEM_ASSESSMENT_ORIGIN_KEY);
     window.localStorage.removeItem(PROBLEM_ASSESSMENT_KEY);
   } catch {
-    // Storage cleanup is best-effort; submission data has already been persisted server-side.
+    // Best-effort cleanup only.
   }
-}
-
-function estimatedUserCount(teamSize = ""): number {
-  if (teamSize.includes("1–3")) return 3;
-  if (teamSize.includes("4–10")) return 7;
-  if (teamSize.includes("11–25")) return 18;
-  if (teamSize.includes("25")) return 26;
-  return 1;
 }
 
 function problemAssessmentAnswers(source: ProblemAssessment): Answers {
@@ -68,8 +60,6 @@ function problemAssessmentAnswers(source: ProblemAssessment): Answers {
     business_goal: `${source.priority ?? "Merapikan pekerjaan sehari-hari"}. Target awal: ${source.profile?.title ?? "pekerjaan lebih jelas dan mudah dipantau"}`,
     current_process: description,
     pain_point: source.profile?.problem ?? description,
-    current_tools: "Catatan manual, WhatsApp, atau Excel",
-    user_count: estimatedUserCount(source.teamSize),
   };
 }
 
@@ -77,9 +67,6 @@ function normalizeOldAnswers(input: Answers): Answers {
   const answers = { ...input };
   if (answers.integration_needed === "Ya, perlu integrasi") answers.integration_needed = "Ya, ada aplikasi lain";
   if (answers.integration_needed === "Tidak untuk tahap awal") answers.integration_needed = "Tidak, cukup QIRA dulu";
-  if (answers.qira_care_interest === "Ya, saya tertarik") answers.qira_care_interest = "Ya, saya ingin dibantu";
-  if (answers.qira_care_interest === "Mungkin, ingin tahu lebih lanjut") answers.qira_care_interest = "Mungkin, jelaskan dulu";
-  if (answers.qira_care_interest === "Tidak untuk sekarang") answers.qira_care_interest = "Belum perlu";
   return answers;
 }
 
@@ -89,9 +76,8 @@ function isVisible(question: DiscoveryQuestion, answers: Answers) {
 
 function stageLabel(question?: DiscoveryQuestion) {
   if (!question) return "Sedikit lagi";
-  if (question.stage === "profile") return "Tentang usahamu";
-  if (question.stage === "process") return "Cerita sehari-hari";
-  if (question.stage === "sector") return "Sedikit lebih spesifik";
+  if (question.stage === "profile") return "Tentang usaha";
+  if (question.stage === "process") return "Cara kerja sekarang";
   return "Hampir selesai";
 }
 
@@ -135,12 +121,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
     void trackConversion("discovery_start");
   }, []);
 
-  const blueprint = useMemo(() => getBusinessBlueprint(businessTypeId), [businessTypeId]);
-  const questionnaire = useMemo(() => {
-    const base = getDiscoveryQuestionnaire(serviceId);
-    const sector = (blueprint?.sectorQuestions ?? []).map((question) => ({ ...question, stage: "sector" as const }));
-    return { ...base, questions: [...base.questions, ...sector] };
-  }, [blueprint, serviceId]);
+  const questionnaire = useMemo(() => getPublicDiscoveryQuestionnaire(serviceId), [serviceId]);
 
   const visibleQuestions = useMemo(() => questionnaire.questions
     .filter((question) => isVisible(question, answers))
@@ -149,7 +130,6 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
 
   const screens = useMemo<Screen[]>(() => [
     { kind: "identity" },
-    { kind: "contact" },
     ...visibleQuestions.map((question) => ({ kind: "question" as const, question })),
     { kind: "consent" },
   ], [visibleQuestions]);
@@ -165,8 +145,12 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
 
   function currentIsValid() {
     if (!screen) return false;
-    if (screen.kind === "identity") return contact.fullName.trim().length >= 2 && contact.businessName.trim().length >= 2;
-    if (screen.kind === "contact") return /^[0-9+() -]{8,24}$/.test(contact.whatsapp.trim()) && (!contact.email.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email.trim()));
+    if (screen.kind === "identity") {
+      return contact.fullName.trim().length >= 2
+        && contact.businessName.trim().length >= 2
+        && /^[0-9+() -]{8,24}$/.test(contact.whatsapp.trim())
+        && (!contact.email.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email.trim()));
+    }
     if (screen.kind === "consent") return consented;
     const value = answers[screen.question.id];
     return !screen.question.required || !(value === undefined || (typeof value === "string" && value.trim() === ""));
@@ -195,7 +179,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
     event.preventDefault();
     setSubmission({ status: "idle", message: "" });
     if (!currentIsValid()) {
-      setSubmission({ status: "error", message: "Lengkapi jawaban ini dulu sebelum lanjut." });
+      setSubmission({ status: "error", message: "Lengkapi bagian ini dulu." });
       return;
     }
 
@@ -232,45 +216,36 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
   function renderQuestion(question: DiscoveryQuestion) {
     const id = `question-${question.id}`;
     return <label className={styles.field} htmlFor={id}>
-      <span>{question.prompt}{question.required ? "" : " (boleh dilewati)"}</span>
-      {question.answerType === "long_text" ? <textarea id={id} autoFocus rows={5} value={String(answers[question.id] ?? "")} onChange={(event) => updateAnswer(question.id, event.target.value)} />
-        : question.answerType === "single_select" ? <select id={id} autoFocus value={String(answers[question.id] ?? "")} onChange={(event) => updateAnswer(question.id, event.target.value)}><option value="">Pilih yang paling sesuai</option>{question.options?.map((option) => <option key={option}>{option}</option>)}</select>
+      <span>{question.prompt}</span>
+      {question.answerType === "long_text" ? <textarea id={id} autoFocus rows={4} value={String(answers[question.id] ?? "")} onChange={(event) => updateAnswer(question.id, event.target.value)} />
+        : question.answerType === "single_select" ? <select id={id} autoFocus value={String(answers[question.id] ?? "")} onChange={(event) => updateAnswer(question.id, event.target.value)}><option value="">Pilih</option>{question.options?.map((option) => <option key={option}>{option}</option>)}</select>
           : <input id={id} autoFocus type={question.answerType === "number" ? "number" : "text"} min={question.answerType === "number" ? 0 : undefined} value={String(answers[question.id] ?? "")} onChange={(event) => updateAnswer(question.id, event.target.value)} />}
     </label>;
   }
 
   return <form className={styles.workspace} style={{ gridTemplateColumns: "1fr", maxWidth: 820 }} onSubmit={handleSubmit} noValidate>
     <div className={styles.formContent}>
-      <div className={styles.mobileProgress} style={{ display: "flex" }}><span>{safeIndex + 1} dari {screens.length}</span><span>{progress}%</span></div>
+      <div className={styles.mobileProgress} style={{ display: "flex" }}><span>{safeIndex + 1} / {screens.length}</span><span>{progress}%</span></div>
       <div className={styles.progressTrack} aria-label={`Progres ${progress}%`}><span style={{ width: `${progress}%` }} /></div>
 
       <section className={styles.formSection}>
-        <div className={styles.sectionNumber}>{screen?.kind === "question" ? stageLabel(screen.question) : screen?.kind === "identity" ? "Kenalan dulu" : screen?.kind === "contact" ? "Kontak Anda" : "Sebelum dikirim"}</div>
+        <div className={styles.sectionNumber}>{screen?.kind === "question" ? stageLabel(screen.question) : screen?.kind === "identity" ? "Kenalan singkat" : "Selesai"}</div>
 
         {screen?.kind === "identity" ? <>
-          <div className={styles.sectionTitle}><h2>Siapa yang sedang bercerita?</h2><p>Dua hal saja dulu.</p></div>
+          <div className={styles.sectionTitle}><h2>Kenalan dulu.</h2><p>Nama, usaha, WhatsApp.</p></div>
           <div className={styles.contactGrid}>
-            <label className={styles.field}><span>Nama Anda</span><input autoFocus autoComplete="name" value={contact.fullName} onChange={(event) => setContact((value) => ({ ...value, fullName: event.target.value }))} /></label>
-            <label className={styles.field}><span>Nama usaha</span><input autoComplete="organization" value={contact.businessName} onChange={(event) => setContact((value) => ({ ...value, businessName: event.target.value }))} /></label>
-          </div>
-        </> : null}
-
-        {screen?.kind === "contact" ? <>
-          <div className={styles.sectionTitle}><h2>Kalau nanti perlu kami jelaskan, hubungi ke mana?</h2><p>Email boleh dikosongkan.</p></div>
-          <div className={styles.contactGrid}>
-            <label className={styles.field}><span>WhatsApp</span><input autoFocus type="tel" autoComplete="tel" value={contact.whatsapp} onChange={(event) => setContact((value) => ({ ...value, whatsapp: event.target.value }))} /></label>
+            <label className={styles.field}><span>Nama</span><input autoFocus autoComplete="name" value={contact.fullName} onChange={(event) => setContact((value) => ({ ...value, fullName: event.target.value }))} /></label>
+            <label className={styles.field}><span>Usaha</span><input autoComplete="organization" value={contact.businessName} onChange={(event) => setContact((value) => ({ ...value, businessName: event.target.value }))} /></label>
+            <label className={styles.field}><span>WhatsApp</span><input type="tel" autoComplete="tel" value={contact.whatsapp} onChange={(event) => setContact((value) => ({ ...value, whatsapp: event.target.value }))} /></label>
             <label className={styles.field}><span>Email (opsional)</span><input type="email" autoComplete="email" value={contact.email} onChange={(event) => setContact((value) => ({ ...value, email: event.target.value }))} /></label>
           </div>
         </> : null}
 
-        {screen?.kind === "question" ? <>
-          <div className={styles.sectionTitle}><h2>Ceritakan dengan cara Anda sendiri.</h2><p>Tidak harus rapi. Yang penting sesuai keadaan sebenarnya.</p></div>
-          <div className={styles.questionGrid}>{renderQuestion(screen.question)}</div>
-        </> : null}
+        {screen?.kind === "question" ? <div className={styles.questionGrid}>{renderQuestion(screen.question)}</div> : null}
 
         {screen?.kind === "consent" ? <>
-          <div className={styles.sectionTitle}><h2>Selesai. Boleh kami siapkan sarannya?</h2><p>Setelah dikirim, QIRA akan merangkum cerita Anda dan menunjukkan langkah yang paling masuk akal.</p></div>
-          <label className={styles.consent}><input type="checkbox" required checked={consented} onChange={(event) => setConsented(event.target.checked)} /><span>Saya telah membaca <a href="/privasi" target="_blank" rel="noreferrer">Pemberitahuan Privasi QIRA</a> dan setuju QIRA menggunakan jawaban ini untuk menyiapkan saran serta menghubungi saya bila diperlukan.</span></label>
+          <div className={styles.sectionTitle}><h2>Siap.</h2><p>Kirim untuk lihat arah awal.</p></div>
+          <label className={styles.consent}><input type="checkbox" required checked={consented} onChange={(event) => setConsented(event.target.checked)} /><span>Saya setuju QIRA menggunakan jawaban ini untuk menyiapkan saran dan menghubungi saya. <a href="/privasi" target="_blank" rel="noreferrer">Privasi</a>.</span></label>
         </> : null}
 
         <label className={styles.honeypot} aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} /></label>
@@ -279,8 +254,8 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
       {submission.status === "error" ? <div className={styles.errorMessage} aria-live="polite">{submission.message}</div> : null}
 
       <div className={styles.stepActions}>
-        <button type="button" className={styles.backButton} onClick={() => safeIndex > 0 ? setCurrentIndex(safeIndex - 1) : resetFlow()}>{safeIndex > 0 ? "Kembali" : "Mulai ulang"}</button>
-        <button className={styles.submitButton} type="submit" disabled={isSubmitting}>{isSubmitting ? "Mengirim…" : safeIndex === screens.length - 1 ? "Kirim ceritaku" : "Lanjut"}</button>
+        {safeIndex > 0 ? <button type="button" className={styles.backButton} onClick={() => setCurrentIndex(safeIndex - 1)}>Kembali</button> : <span />}
+        <button className={styles.submitButton} type="submit" disabled={isSubmitting}>{isSubmitting ? "Mengirim…" : safeIndex === screens.length - 1 ? "Lihat saran" : "Lanjut"}</button>
       </div>
     </div>
   </form>;

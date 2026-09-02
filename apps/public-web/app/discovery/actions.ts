@@ -5,6 +5,7 @@ import {
   classifyDiscoveryTriage,
   findMissingRequiredAnswers,
   getDiscoveryQuestionnaire,
+  getPublicDiscoveryQuestionnaire,
   getBusinessBlueprint,
   businessBlueprintSnapshot,
   type ServiceId,
@@ -72,9 +73,8 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
     return { status: "error", message: "Mohon periksa nama, nama usaha, WhatsApp, dan email Anda." };
   }
 
-  const baseQuestionnaire = getDiscoveryQuestionnaire(input.serviceId);
+  const questionnaire = getPublicDiscoveryQuestionnaire(input.serviceId);
   const blueprint = getBusinessBlueprint(input.businessTypeId);
-  const questionnaire = { ...baseQuestionnaire, questions: [...baseQuestionnaire.questions, ...(blueprint?.sectorQuestions ?? [])] };
   const missing = findMissingRequiredAnswers(questionnaire, input.answers);
   if (missing.length || !input.consented) {
     return { status: "error", message: missing.length

@@ -51,11 +51,29 @@ const SERVICE_QUESTIONS: Readonly<Record<ServiceId, readonly DiscoveryQuestion[]
   ],
 };
 
+const PUBLIC_QUESTIONS: readonly DiscoveryQuestion[] = [
+  { id: "business_profile", prompt: "Usahamu bergerak di bidang apa?", answerType: "long_text", required: true, stage: "profile" },
+  { id: "business_goal", prompt: "Hasil apa yang paling ingin terasa?", answerType: "long_text", required: true, stage: "profile" },
+  { id: "current_process", prompt: "Sekarang prosesnya berjalan bagaimana?", answerType: "long_text", required: true, stage: "process" },
+  { id: "data_availability", prompt: "Catatan atau datanya sekarang ada di mana?", answerType: "long_text", required: true, stage: "implementation" },
+  { id: "integration_needed", prompt: "Perlu terhubung ke aplikasi lain?", answerType: "single_select", required: true, options: ["Tidak, cukup QIRA dulu", "Ya, ada aplikasi lain"], stage: "implementation" },
+  { id: "integration_details", prompt: "Aplikasi apa?", answerType: "long_text", required: true, stage: "implementation", showWhen: { questionId: "integration_needed", equals: "Ya, ada aplikasi lain" } },
+  { id: "target_timeline", prompt: "Kapan ingin mulai mencoba?", answerType: "short_text", required: true, stage: "implementation" },
+];
+
 export function getDiscoveryQuestionnaire(serviceId: ServiceId): DiscoveryQuestionnaire {
   return {
     version: "2026-08-19.1",
     serviceId,
     questions: [...COMMON_QUESTIONS, ...SERVICE_QUESTIONS[serviceId]],
+  };
+}
+
+export function getPublicDiscoveryQuestionnaire(serviceId: ServiceId): DiscoveryQuestionnaire {
+  return {
+    version: "2026-09-02.public.1",
+    serviceId,
+    questions: PUBLIC_QUESTIONS,
   };
 }
 

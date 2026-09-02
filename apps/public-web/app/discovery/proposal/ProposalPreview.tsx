@@ -8,7 +8,7 @@ import styles from "./StoryProposal.module.css";
 import { submitProposalDecision, type DecisionResult } from "./actions";
 
 const rupiah = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 });
-const TOTAL_CHAPTERS = 5;
+const TOTAL_CHAPTERS = 3;
 
 function recommendPackage(draft: DiscoveryPreviewDraft): ProposalPackageId {
   if (draft.serviceId === "ai-employees") return "connected-growth";
@@ -48,7 +48,7 @@ export function ProposalPreview() {
     const selectedPackage = PROPOSAL_PACKAGES.find((item) => item.id === packageId);
     if (!selectedPackage) return undefined;
 
-    const context = [draft.answers.business_profile, draft.answers.current_process, draft.answers.pain_point].join(" ");
+    const context = [draft.answers.business_profile, draft.answers.business_goal, draft.answers.current_process, draft.answers.pain_point].join(" ");
     const blueprint = getBusinessBlueprint(draft.businessTypeId) ?? findBusinessBlueprint(context);
     const commercial = calculateCommercialTerms({ basePriceIdr: selectedPackage.introductoryPriceIdr, discountPercent: 0, taxPercent: 0, downPaymentPercent: 50 });
 
@@ -57,9 +57,9 @@ export function ProposalPreview() {
       commercial,
       businessName: draft.contact.businessName || blueprint?.name || "Usaha Anda",
       goal: String(draft.answers.business_goal ?? "Pekerjaan sehari-hari menjadi lebih mudah."),
-      problem: String(draft.answers.pain_point ?? "Ada pekerjaan yang masih terasa rumit dan sulit dipantau."),
+      problem: String(draft.answers.pain_point ?? draft.answers.current_process ?? "Ada pekerjaan yang masih terasa rumit dan sulit dipantau."),
       headline: blueprint?.headline ?? "Pekerjaan penting dibuat lebih rapi, jelas, dan mudah dipantau.",
-      modules: blueprint?.modules?.slice(0, 4) ?? ["Pencatatan lebih rapi", "Status pekerjaan mudah dilihat", "Pengingat hal penting", "Ringkasan untuk pemilik"],
+      modules: blueprint?.modules?.slice(0, 4) ?? ["Pencatatan lebih rapi", "Status mudah dilihat", "Pengingat penting", "Ringkasan pemilik"],
       flow: blueprint?.flow?.slice(0, 5) ?? ["Masuk", "Dikerjakan", "Dicek", "Selesai"],
     };
   }, [draft]);
@@ -84,8 +84,8 @@ export function ProposalPreview() {
     });
   }
 
-  if (!loaded) return <main className={styles.empty}>Menyiapkan ringkasan untuk Anda…</main>;
-  if (!draft || !result) return <main className={styles.empty}><h1>Cerita Anda belum tersedia.</h1><p>Isi beberapa pertanyaan singkat agar QIRA bisa menyiapkan saran yang sesuai.</p><Link href="/discovery">Mulai dari sini</Link></main>;
+  if (!loaded) return <main className={styles.empty}>Menyiapkan saran…</main>;
+  if (!draft || !result) return <main className={styles.empty}><h1>Belum ada cerita.</h1><Link href="/discovery">Mulai</Link></main>;
 
   const next = () => setChapter((value) => Math.min(TOTAL_CHAPTERS - 1, value + 1));
   const back = () => setChapter((value) => Math.max(0, value - 1));
@@ -94,62 +94,49 @@ export function ProposalPreview() {
     <article className={styles.proposal}>
       <section className={styles.cover}>
         <div className={styles.logo}>QIRA<span>.</span></div>
-        <p>{reference || "Ringkasan QIRA"}</p>
+        <p>{reference || "Arah awal"}</p>
         <h1>{result.businessName}</h1>
-        <h2>Bagian {chapter + 1} dari {TOTAL_CHAPTERS}</h2>
+        <h2>{chapter + 1} / {TOTAL_CHAPTERS}</h2>
       </section>
 
       {chapter === 0 ? <section className={styles.section}>
         <p className={styles.kicker}>Yang kami pahami</p>
-        <h2>Masalah utamanya bukan soal teknologi.</h2>
-        <p className={styles.lead}>{result.problem}</p>
-        <div className={styles.clientMeta}><span>Yang ingin dicapai</span><strong>{result.goal}</strong><small>Ini dirangkum dari cerita yang baru Anda kirim.</small></div>
-      </section> : null}
-
-      {chapter === 1 ? <section className={styles.section}>
-        <p className={styles.kicker}>Yang bisa dibuat lebih mudah</p>
         <h2>{result.headline}</h2>
-        <p className={styles.lead}>Untuk awal, QIRA menyarankan fokus pada beberapa hal ini saja.</p>
+        <p className={styles.lead}>{result.problem}</p>
+        <div className={styles.clientMeta}><span>Target</span><strong>{result.goal}</strong></div>
         <ul className={styles.cards}>{result.modules.map((item) => <li key={item}>{item}</li>)}</ul>
       </section> : null}
 
-      {chapter === 2 ? <section className={styles.section}>
-        <p className={styles.kicker}>Kira-kira cara kerjanya</p>
-        <h2>Dibuat mengikuti alur kerja yang sudah Anda kenal.</h2>
-        <p className={styles.lead}>Tujuannya bukan membuat pekerjaan terasa baru, tetapi membuat langkah yang ada menjadi lebih jelas.</p>
-        <div className={styles.timeline}>{result.flow.map((item, index) => <div key={item}><strong>{index + 1}</strong><span>{item}</span></div>)}</div>
-      </section> : null}
-
-      {chapter === 3 ? <section className={styles.section}>
-        <p className={styles.kicker}>Waktu dan biaya awal</p>
+      {chapter === 1 ? <section className={styles.section}>
+        <p className={styles.kicker}>Arah awal</p>
         <h2>{rupiah.format(result.commercial.totalIdr)}</h2>
-        <p className={styles.lead}>Perkiraan pengerjaan sekitar {result.selectedPackage.durationWeeks[0]}–{result.selectedPackage.durationWeeks[1]} minggu.</p>
+        <p className={styles.lead}>{result.selectedPackage.name} · {result.selectedPackage.durationWeeks[0]}–{result.selectedPackage.durationWeeks[1]} minggu</p>
+        <div className={styles.timeline}>{result.flow.map((item, index) => <div key={item}><strong>{index + 1}</strong><span>{item}</span></div>)}</div>
         <div className={styles.payments}>
-          <div><span>Pembayaran awal 50%</span><strong>{rupiah.format(result.commercial.downPaymentAmountIdr)}</strong></div>
-          <div><span>Sisa setelah hasil disetujui</span><strong>{rupiah.format(result.commercial.finalPaymentAmountIdr)}</strong></div>
+          <div><span>DP 50%</span><strong>{rupiah.format(result.commercial.downPaymentAmountIdr)}</strong></div>
+          <div><span>Sisa 50%</span><strong>{rupiah.format(result.commercial.finalPaymentAmountIdr)}</strong></div>
         </div>
-        <p className={styles.disclaimer}>Ini masih perkiraan awal. Sebelum mulai, QIRA akan memastikan bersama Anda apa yang benar-benar perlu dibuat dan apa yang belum perlu.</p>
+        <p className={styles.disclaimer}>Perkiraan awal. Scope final dikonfirmasi sebelum mulai.</p>
       </section> : null}
 
-      {chapter === 4 ? <section className={styles.customerDecision}>
+      {chapter === 2 ? <section className={styles.customerDecision}>
         <div>
-          <p className={styles.kicker}>Langkah terakhir</p>
-          <h2>Apakah arah ini sudah terasa masuk akal?</h2>
-          <p>Pilih lanjut jika arahnya sudah cocok, atau minta diubah jika masih ada yang belum pas.</p>
+          <p className={styles.kicker}>Pilih arah</p>
+          <h2>Sudah cocok?</h2>
         </div>
         <form className={styles.decisionForm} onSubmit={submitDecision}>
           <div className={styles.decisionChoices}>
-            <button type="button" disabled={decisionCompleted} aria-pressed={decision === "approved"} onClick={() => setDecision("approved")}>Ya, lanjutkan</button>
-            <button type="button" disabled={decisionCompleted} aria-pressed={decision === "revision_requested"} onClick={() => setDecision("revision_requested")}>Ada yang ingin diubah</button>
+            <button type="button" disabled={decisionCompleted} aria-pressed={decision === "approved"} onClick={() => setDecision("approved")}>Lanjut</button>
+            <button type="button" disabled={decisionCompleted} aria-pressed={decision === "revision_requested"} onClick={() => setDecision("revision_requested")}>Ubah dulu</button>
           </div>
-          <label>Nama Anda<input required minLength={2} disabled={decisionCompleted} value={signer.name} onChange={(event) => setSigner((current) => ({ ...current, name: event.target.value }))} /></label>
+          <label>Nama<input required minLength={2} disabled={decisionCompleted} value={signer.name} onChange={(event) => setSigner((current) => ({ ...current, name: event.target.value }))} /></label>
           <label>WhatsApp<input required inputMode="tel" disabled={decisionCompleted} value={signer.whatsapp} onChange={(event) => setSigner((current) => ({ ...current, whatsapp: event.target.value }))} /></label>
           <label>Email (opsional)<input type="email" disabled={decisionCompleted} value={signer.email} onChange={(event) => setSigner((current) => ({ ...current, email: event.target.value }))} /></label>
-          <label className={styles.decisionConsent}><input type="checkbox" required disabled={decisionCompleted} checked={signer.consented} onChange={(event) => setSigner((current) => ({ ...current, consented: event.target.checked }))} /><span>Saya setuju pilihan ini dicatat oleh QIRA agar bisa ditindaklanjuti.</span></label>
-          <button className={styles.decisionSubmit} type="submit" disabled={isDeciding || decisionCompleted || !signer.consented}>{isDeciding ? "Mengirim…" : decisionCompleted ? "Pilihan sudah tersimpan" : decision === "approved" ? "Lanjut bersama QIRA" : "Kirim permintaan perubahan"}</button>
+          <label className={styles.decisionConsent}><input type="checkbox" required disabled={decisionCompleted} checked={signer.consented} onChange={(event) => setSigner((current) => ({ ...current, consented: event.target.checked }))} /><span>Saya setuju pilihan ini dicatat QIRA.</span></label>
+          <button className={styles.decisionSubmit} type="submit" disabled={isDeciding || decisionCompleted || !signer.consented}>{isDeciding ? "Mengirim…" : decisionCompleted ? "Tersimpan" : decision === "approved" ? "Lanjut bersama QIRA" : "Kirim perubahan"}</button>
           {decisionResult ? <div className={decisionResult.status === "success" ? styles.decisionSuccess : styles.decisionError} aria-live="polite">
             <p>{decisionResult.message}</p>
-            {decisionResult.implementationUrl ? <Link href={decisionResult.implementationUrl}>Lihat langkah berikutnya →</Link> : null}
+            {decisionResult.implementationUrl ? <Link href={decisionResult.implementationUrl}>Langkah berikutnya →</Link> : null}
           </div> : null}
         </form>
       </section> : null}
