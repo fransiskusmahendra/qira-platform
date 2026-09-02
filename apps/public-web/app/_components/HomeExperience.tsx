@@ -88,8 +88,9 @@ export function HeroExplainer() {
         <Image
           src="/illustrations/visual/qira-hero.webp"
           alt="Masalah bisnis yang berantakan dirapikan QIRA menjadi website, dashboard, alur otomatis, dan laporan"
-          width={960}
-          height={540}
+          width={2560}
+          height={1440}
+          quality={90}
           priority
           sizes="(max-width: 960px) 100vw, 58vw"
         />
@@ -143,7 +144,7 @@ export function SolutionExplorer() {
           <Link href="/coba-masalah" data-conversion="homepage_cta_click">Ceritakan masalah usaha →</Link>
         </div>
         <figure className={`solutionVisual crop-${selected.imagePosition}`} key={`${selected.problem}-image`}>
-          <Image src={selected.image} alt="" fill sizes="(max-width: 760px) 100vw, 46vw" />
+          <Image src={selected.image} alt="" fill quality={90} sizes="(max-width: 760px) 100vw, 46vw" />
         </figure>
       </div>
     </div>
@@ -155,7 +156,7 @@ export function BeforeAfter() {
   return (
     <div className="beforeAfter">
       <div className="beforeAfterStage">
-        <Image src="/illustrations/visual/qira-beforeafter.webp" alt="Perbandingan bisnis sebelum dan sesudah menggunakan QIRA" fill sizes="(max-width: 760px) 100vw, 1160px" />
+        <Image src="/illustrations/visual/qira-beforeafter.webp" alt="Perbandingan bisnis sebelum dan sesudah menggunakan QIRA" fill quality={90} sizes="(max-width: 760px) 100vw, 1160px" />
         <div className="beforeAfterShade beforeShade" style={{ width: `${position}%` }} aria-hidden="true" />
         <div className="beforeAfterDivider" style={{ left: `${position}%` }} aria-hidden="true"><span>↔</span></div>
         <span className="stateLabel beforeLabel">Sebelum</span>

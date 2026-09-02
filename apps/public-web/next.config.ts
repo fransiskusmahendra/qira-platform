@@ -9,6 +9,7 @@ const SECURITY_HEADERS = [
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  images: { qualities: [75, 90] },
   poweredByHeader: false,
   reactStrictMode: true,
   experimental: { serverActions: { bodySizeLimit: "2mb" } },

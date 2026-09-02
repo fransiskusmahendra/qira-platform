@@ -13,7 +13,7 @@ const VISUALS = {
 function StoryVisual({ src, alt, eager = false }: { src: string; alt: string; eager?: boolean }) {
   return (
     <figure className="visualStoryCard">
-      <Image src={src} alt={alt} width={640} height={360} priority={eager} sizes="(max-width: 760px) 100vw, 1160px" />
+      <Image src={src} alt={alt} width={2560} height={1440} quality={90} priority={eager} sizes="(max-width: 760px) 100vw, 1160px" />
     </figure>
   );
 }
@@ -92,7 +92,7 @@ export default function HomePage() {
       <section className="visualStory shell">
         <header className="visualStoryHeading"><p className="kicker">Untuk usahamu</p><h2>Lihat QIRA dari <em>situasimu.</em></h2></header>
         <div className="audiencePaths">
-          <Link href="/untuk/usaha-jasa"><Image src="/illustrations/visual/qira-what.webp" alt="Alur digital untuk usaha jasa" width={640} height={360} sizes="(max-width: 680px) 100vw, 33vw" /><span>Usaha jasa</span><strong>Chat masuk sampai pekerjaan selesai</strong><small>Lihat alurnya →</small></Link>
+          <Link href="/untuk/usaha-jasa"><Image src="/illustrations/visual/qira-what.webp" alt="Alur digital untuk usaha jasa" width={2560} height={1440} quality={90} sizes="(max-width: 680px) 100vw, 33vw" /><span>Usaha jasa</span><strong>Chat masuk sampai pekerjaan selesai</strong><small>Lihat alurnya →</small></Link>
           <Link href="/untuk/retail-umkm"><Image src="/illustrations/qira-process.webp" alt="Alur produk dan pesanan untuk retail dan UMKM" width={640} height={360} sizes="(max-width: 680px) 100vw, 33vw" /><span>Retail & UMKM</span><strong>Produk terlihat, pesanan lebih teratur</strong><small>Lihat alurnya →</small></Link>
           <Link href="/untuk/administrasi-tim"><Image src="/illustrations/qira-examples-visual.svg" alt="Alur data dan dokumen untuk administrasi tim" width={640} height={360} unoptimized sizes="(max-width: 680px) 100vw, 33vw" /><span>Administrasi tim</span><strong>Data, dokumen, dan status lebih rapi</strong><small>Lihat alurnya →</small></Link>
         </div>
