@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { ConversionTracker } from "./_components/ConversionTracker";
+import { ConversionClickTracker, ConversionTracker } from "./_components/ConversionTracker";
 import { ApplicationShowcase, BeforeAfter, HeroExplainer, SolutionExplorer } from "./_components/HomeExperience";
 
 const VISUALS = {
@@ -21,6 +21,7 @@ export default function HomePage() {
   return (
     <main className="visualHome">
       <ConversionTracker event="landing_view" />
+      <ConversionClickTracker />
 
       <nav className="companyNav shell" aria-label="Navigasi utama">
         <Link className="brand" href="/">QIRA<span>.</span></Link>
@@ -29,7 +30,7 @@ export default function HomePage() {
           <Link href="/portfolio">Portofolio</Link>
           <Link href="/harga">Harga</Link>
         </div>
-        <Link className="smallButton" href="/coba-masalah">Mulai</Link>
+        <Link className="smallButton" href="/coba-masalah" data-conversion="homepage_cta_click">Mulai</Link>
       </nav>
 
       <section className="visualHero shell">
@@ -38,7 +39,7 @@ export default function HomePage() {
           <h1>Bisnis bekerja lebih rapi.<br /><em>Teknologi tetap sederhana.</em></h1>
           <p className="visualHeroLead">QIRA membuat website, alat kerja, dan otomatisasi yang sesuai dengan masalah bisnismu.</p>
           <div className="companyHeroActions">
-            <Link className="primaryButton" href="/coba-masalah">Ceritakan masalahmu</Link>
+            <Link className="primaryButton" href="/coba-masalah" data-conversion="homepage_cta_click">Ceritakan masalahmu</Link>
             <Link className="textLink" href="#qira-itu-apa">Lihat cara kerjanya ↓</Link>
           </div>
         </div>
@@ -94,7 +95,7 @@ export default function HomePage() {
         </div>
         <div className="visualProofActions">
           <span>QIRA Product</span><span>Client Work</span><span>Solution Demo</span>
-          <Link className="primaryButton" href="/portfolio">Buka portofolio</Link>
+        <Link className="primaryButton" href="/portfolio" data-conversion="homepage_cta_click">Buka portofolio</Link>
         </div>
       </section>
 
@@ -104,12 +105,12 @@ export default function HomePage() {
           <h2>Mulai dari <em>Rp1,5 juta.</em></h2>
           <p>Mulai kecil. Tambah saat perlu.</p>
         </div>
-        <Link className="primaryButton" href="/harga">Lihat 3 pilihan</Link>
+        <Link className="primaryButton" href="/harga" data-conversion="homepage_cta_click">Lihat 3 pilihan</Link>
       </section>
 
       <section className="companyClosing shell visualClosing">
         <div><p className="kicker">Mulai sederhana</p><h2>Mulai dari satu masalah.</h2></div>
-        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Mulai sekarang</Link></div>
+        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah" data-conversion="homepage_cta_click">Mulai sekarang</Link></div>
       </section>
 
       <footer className="companyFooter shell">

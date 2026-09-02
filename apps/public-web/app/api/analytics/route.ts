@@ -12,6 +12,11 @@ const ALLOWED_EVENTS = new Set([
   "pricing_view",
   "portfolio_view",
   "lead_submit",
+  "hero_explainer_interact",
+  "solution_explore",
+  "before_after_interact",
+  "application_example_interact",
+  "homepage_cta_click",
 ]);
 
 function normalizePath(value: unknown) {

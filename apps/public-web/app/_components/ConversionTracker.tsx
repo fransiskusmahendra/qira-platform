@@ -11,7 +11,12 @@ export type ConversionEvent =
   | "problem_select"
   | "pricing_view"
   | "portfolio_view"
-  | "lead_submit";
+  | "lead_submit"
+  | "hero_explainer_interact"
+  | "solution_explore"
+  | "before_after_interact"
+  | "application_example_interact"
+  | "homepage_cta_click";
 
 const STORAGE_PREFIX = "qira.conversion.";
 
@@ -53,6 +58,23 @@ export function ConversionTracker({ event }: { event: ConversionEvent }) {
   useEffect(() => {
     void trackConversion(event);
   }, [event]);
+
+  return null;
+}
+
+export function ConversionClickTracker() {
+  useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const tracked = target.closest<HTMLElement>("[data-conversion]");
+      const conversion = tracked?.dataset.conversion as ConversionEvent | undefined;
+      if (conversion) void trackConversion(conversion);
+    };
+
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
 
   return null;
 }
