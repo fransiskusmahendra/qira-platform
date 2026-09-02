@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ContextualWhatsAppCta } from "../../_components/ContextualWhatsAppCta";
+import { ConversionTracker } from "../../_components/ConversionTracker";
 import styles from "../../SubpageVisual.module.css";
 
 const USE_CASES = {
@@ -60,6 +61,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
   if (!item) notFound();
 
   return <main>
+    <ConversionTracker event="service_view" />
     <nav className="companyNav shell" aria-label="Navigasi utama"><Link className="brand" href="/">QIRA<span>.</span></Link><div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div><Link className="smallButton" href="/coba-masalah">Mulai</Link></nav>
     <section className={`${styles.hero} shell`}><div className={styles.heroCopy}><p className="eyebrow">{item.eyebrow}</p><h1>{item.title}</h1><p>{item.lead}</p><div className={styles.heroActions}><ContextualWhatsAppCta context={item.eyebrow}>Bahas kebutuhanmu</ContextualWhatsAppCta></div></div><figure className={styles.heroVisual}><Image src={item.image} alt={item.alt} width={1536} height={1024} priority sizes="(max-width: 960px) 100vw, 48vw" unoptimized={item.image.endsWith(".svg")} /></figure></section>
     <section className="useCaseJourney shell" aria-label="Perubahan yang dibantu QIRA"><div className="useCaseColumn problem"><p className="kicker">Yang bikin repot</p>{item.pains.map((text) => <span key={text}>{text}</span>)}</div><div className="useCaseArrow" aria-hidden="true">→</div><div className="useCaseColumn qira"><p className="kicker">Yang QIRA rapikan</p>{item.flow.map((text) => <span key={text}>{text}</span>)}</div><div className="useCaseArrow" aria-hidden="true">→</div><div className="useCaseColumn result"><p className="kicker">Yang terasa</p>{item.outcomes.map((text) => <span key={text}>{text}</span>)}</div></section>
