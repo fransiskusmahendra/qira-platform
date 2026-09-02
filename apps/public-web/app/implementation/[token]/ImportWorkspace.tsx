@@ -28,19 +28,18 @@ export function ImportWorkspace({ token, templates, imports }: { token: string; 
 
   return <div className={styles.templateGrid}>{templates.map((template) => {
     const latest = imports.find((item) => item.template_id === template.id);
-    const stateText = latest?.status === "valid" ? "Sudah siap" : latest ? "Perlu dicek lagi" : "Belum dikirim";
+    const stateText = latest?.status === "valid" ? "Siap" : latest ? "Cek lagi" : "Belum";
     return <article className={styles.templateCard} key={template.id}>
       <div className={styles.templateTop}>
-        <div><small>File yang dibutuhkan</small><h3>{template.name}</h3></div>
+        <h3>{template.name}</h3>
         <span className={latest?.status === "valid" ? styles.valid : latest ? styles.invalid : ""}>{stateText}</span>
       </div>
-      <p>{template.description}</p>
-      {latest ? <p className={styles.latest}>Terakhir dikirim: {latest.file_name} · {latest.row_count} baris</p> : null}
+      {latest ? <p className={styles.latest}>{latest.file_name} · {latest.row_count} baris</p> : null}
       <div className={styles.templateActions}>
-        <a href={csvHref(template.columns)} download={`qira-${template.id}.csv`}>Unduh contoh untuk Excel</a>
+        <a href={csvHref(template.columns)} download={`qira-${template.id}.csv`}>Unduh contoh</a>
         <form onSubmit={(event) => submit(event, template.id)}>
-          <input name="file" type="file" accept=".csv,text/csv" required />
-          <button disabled={pending} type="submit">{pending ? "Memeriksa…" : "Kirim file"}</button>
+          <input name="file" type="file" accept=".csv,text/csv" required aria-label={`Upload ${template.name}`} />
+          <button disabled={pending} type="submit">{pending ? "Cek…" : "Upload"}</button>
         </form>
       </div>
       {result[template.id] ? <p className={result[template.id].status === "success" ? styles.success : styles.error}>{result[template.id].message}</p> : null}
