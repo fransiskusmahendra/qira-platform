@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { trackConversion } from "./ConversionTracker";
+
 const PROBLEMS = [
   { icon: "↗", label: "Sulit ditemukan", before: "Sulit ditemukan", solution: "Website", outcome: "Mudah dihubungi" },
   { icon: "▦", label: "Masih manual", before: "Data tercecer", solution: "Business tool", outcome: "Satu alur" },
@@ -24,7 +26,10 @@ export function ProblemSelector() {
             className={active === index ? "active" : ""}
             id={`problem-${index}`}
             key={problem.label}
-            onClick={() => setActive(index)}
+            onClick={() => {
+              setActive(index);
+              void trackConversion("problem_select");
+            }}
             role="tab"
             type="button"
           >

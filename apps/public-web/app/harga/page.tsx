@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { ConversionTracker } from "../_components/ConversionTracker";
 import styles from "../SubpageVisual.module.css";
 
 const rupiah = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 });
@@ -22,6 +23,7 @@ export default function PricingPage() {
 
   return (
     <main>
+      <ConversionTracker event="pricing_view" />
       <nav className="companyNav shell" aria-label="Navigasi utama">
         <Link className="brand" href="/">QIRA<span>.</span></Link>
         <div className="companyNavLinks"><Link href="/about">About</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link></div>

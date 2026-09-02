@@ -43,6 +43,10 @@ export default async function ConversionAnalyticsPage() {
   const storyComplete = eventCount("story_complete");
   const discoveryStart = eventCount("discovery_start");
   const discoverySubmit = eventCount("discovery_submit");
+  const problemSelect = eventCount("problem_select");
+  const pricingView = eventCount("pricing_view");
+  const portfolioView = eventCount("portfolio_view");
+  const leadSubmit = eventCount("lead_submit");
   const proposalCreated = proposals?.length ?? 0;
   const proposalShared = proposals?.filter((item) => item.status === "shared").length ?? 0;
   const accepted = decisions?.filter((item: any) => item.decision === "accepted").length ?? 0;
@@ -66,6 +70,8 @@ export default async function ConversionAnalyticsPage() {
       <article><span>Discovery → proposal</span><strong>{percent(proposalCreated, persistedDiscoveries)}</strong><small>{persistedDiscoveries} → {proposalCreated}</small></article>
       <article><span>Shared → diterima</span><strong>{percent(accepted, proposalShared)}</strong><small>{proposalShared} → {accepted}</small></article>
     </section>
+
+    <details className={styles.panel}><summary>Minat sebelum mengisi form</summary><div className={styles.grid}><article><span>Pilih masalah</span><strong>{problemSelect}</strong><small>{percent(problemSelect, landing)} dari kunjungan beranda</small></article><article><span>Lihat pricing</span><strong>{pricingView}</strong></article><article><span>Lihat portfolio</span><strong>{portfolioView}</strong></article><article><span>Lead terkirim</span><strong>{leadSubmit}</strong></article></div></details>
 
     <details className={styles.panel}><summary>Funnel website lengkap</summary><div className={styles.grid}>{EVENT_LABELS.map(([event, label], index) => { const previous = index === 0 ? 0 : counts[EVENT_LABELS[index - 1][0]]; return <article key={event}><span>{label}</span><strong>{counts[event]}</strong><small>{index === 0 ? "Sesi beranda" : `${percent(counts[event], previous)} dari tahap sebelumnya`}</small></article>; })}</div></details>
 

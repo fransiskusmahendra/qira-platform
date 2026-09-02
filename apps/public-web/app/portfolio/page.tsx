@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { ConversionTracker } from "../_components/ConversionTracker";
 import styles from "../SubpageVisual.module.css";
 
 const PORTFOLIO_DESCRIPTION = "Lihat produk internal, pekerjaan klien, dan solution demo QIRA melalui contoh singkat yang mudah dipahami.";
@@ -31,6 +32,7 @@ function Action({ item }: { item: PortfolioItem }) {
 export default function PortfolioPage() {
   return (
     <main>
+      <ConversionTracker event="portfolio_view" />
       <nav className="companyNav shell" aria-label="Navigasi utama">
         <Link className="brand" href="/">QIRA<span>.</span></Link>
         <div className="companyNavLinks"><Link href="/about">About</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link></div>

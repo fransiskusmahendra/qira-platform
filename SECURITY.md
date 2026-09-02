@@ -6,13 +6,23 @@ Until a dedicated security mailbox is published, repository administrators shoul
 
 Supported code is the latest version of the `main` branch. Security requirements are governed by `docs/foundation/QF-016-Security-Standards.md`.
 
+## Current production controls
+
+As of 2026-09-02, the production build uses Next.js 16.3.0 and the deployment install audit reports 0 known package vulnerabilities.
+
+Current controls include:
+
+- Supabase RLS on exposed application tables and role-based access for QIRA/client workspaces;
+- server-only Supabase secret/service-role credentials;
+- bounded public-form inputs, honeypot fields, consent checks, and database constraints;
+- malware-scan enforcement before private evidence can be downloaded;
+- protected cron endpoints using `CRON_SECRET`;
+- restrictive browser headers for framing, MIME sniffing, referrer policy, and device permissions;
+- Git-first production changes with build, TypeScript, route-generation, and runtime-error verification;
+- periodic Supabase Security and Performance Advisor review.
+
 ## Dependency monitoring
 
-As of 2026-08-03, `npm audit` reports advisories inherited through the latest stable Next.js `16.2.12`: PostCSS source-map file disclosure and Sharp/libvips image-processing vulnerabilities. There is no patched stable Next.js release available through npm yet, and npm does not replace these Next-managed versions through an override.
+Dependency status is checked during production builds. A newly reported advisory must be classified by exploitability in QIRA, patched or mitigated, and documented before promotion when it materially affects customer data, authentication, server execution, or public input handling.
 
-Current mitigations:
-
-- production builds only process repository-controlled CSS;
-- the application does not accept or transform user-uploaded images;
-- Next.js updates remain pinned and must be reviewed as soon as a patched stable release is available;
-- deployment promotion requires CI, build verification, and runtime error review.
+Never commit `.env` values, service-role keys, API tokens, database dumps, customer evidence, or other production secrets/data to this repository.

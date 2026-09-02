@@ -9,15 +9,29 @@ interface NewProposalPageProps {
   searchParams: Promise<{ error?: string; discovery_id?: string }>;
 }
 
+function contactFromResponses(value: unknown) {
+  if (!value || Array.isArray(value) || typeof value !== "object") return { businessName: "", fullName: "", email: "" };
+  const contact = (value as Record<string, unknown>)._contact;
+  if (!contact || Array.isArray(contact) || typeof contact !== "object") return { businessName: "", fullName: "", email: "" };
+  const record = contact as Record<string, unknown>;
+  return {
+    businessName: typeof record.businessName === "string" ? record.businessName : "",
+    fullName: typeof record.fullName === "string" ? record.fullName : "",
+    email: typeof record.email === "string" ? record.email : "",
+  };
+}
+
 export default async function NewProposalPage({ searchParams }: NewProposalPageProps) {
   const { error, discovery_id: selectedDiscoveryId } = await searchParams;
   const supabase = await createClient();
   const { data: discoveries } = await supabase
     .from("discoveries")
-    .select("id, service_ids, version, updated_at")
+    .select("id, service_ids, version, updated_at, responses")
     .eq("status", "approved")
     .order("updated_at", { ascending: false });
 
+  const selectedDiscovery = discoveries?.find((item) => item.id === selectedDiscoveryId);
+  const selectedContact = contactFromResponses(selectedDiscovery?.responses);
   const issueDate = new Date();
   const validUntil = new Date(issueDate);
   validUntil.setDate(validUntil.getDate() + 30);
@@ -30,7 +44,7 @@ export default async function NewProposalPage({ searchParams }: NewProposalPageP
     <form action={createProposal} className={styles.proposalForm}>
       <fieldset><legend>1. Sumber</legend><label>Discovery<select name="discovery_id" defaultValue={selectedDiscoveryId ?? ""} required><option value="" disabled>Pilih Discovery</option>{discoveries?.map((discovery) => <option value={discovery.id} key={discovery.id}>{discovery.service_ids.join(", ")} · v{discovery.version}</option>)}</select></label>{!discoveries?.length && <p>Belum ada Discovery yang disetujui.</p>}</fieldset>
 
-      <fieldset><legend>2. Penerima</legend><label>Usaha<input name="client_name" required /></label><label>Nama<input name="recipient_name" required /></label><label>Email<input type="email" name="recipient_email" autoComplete="email" required /></label></fieldset>
+      <fieldset><legend>2. Penerima</legend><label>Usaha<input name="client_name" defaultValue={selectedContact.businessName} required /></label><label>Nama<input name="recipient_name" defaultValue={selectedContact.fullName} required /></label><label>Email<input type="email" name="recipient_email" autoComplete="email" defaultValue={selectedContact.email} required /></label></fieldset>
 
       <fieldset><legend>3. Penawaran</legend><label>Paket<select name="package_id" defaultValue="digital-foundation">{PROPOSAL_PACKAGES.map((item) => <option value={item.id} key={item.id}>{item.name}</option>)}</select></label><label>Harga dasar<input type="number" name="base_price" min="0" defaultValue="1500000" required /></label><label>DP %<input type="number" name="down_payment_percent" min="0" max="100" defaultValue="50" required /></label></fieldset>
 

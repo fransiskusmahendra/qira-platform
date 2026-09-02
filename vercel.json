@@ -5,6 +5,12 @@
   "buildCommand": "npm run build --workspace=@qira/public-web",
   "outputDirectory": "apps/public-web/.next",
   "ignoreCommand": "git diff HEAD^ HEAD --quiet -- apps/public-web packages package.json package-lock.json vercel.json",
+  "crons": [
+    {
+      "path": "/api/cron/service-reminders",
+      "schedule": "0 1 * * *"
+    }
+  ],
   "git": {
     "deploymentEnabled": {
       "skp-online": false,

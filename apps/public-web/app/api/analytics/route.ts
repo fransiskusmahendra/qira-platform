@@ -8,6 +8,10 @@ const ALLOWED_EVENTS = new Set([
   "story_complete",
   "discovery_start",
   "discovery_submit",
+  "problem_select",
+  "pricing_view",
+  "portfolio_view",
+  "lead_submit",
 ]);
 
 function normalizePath(value: unknown) {

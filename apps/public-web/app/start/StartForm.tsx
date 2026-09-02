@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { trackConversion } from "../_components/ConversionTracker";
 import { submitPublicLead, type LeadFormState } from "./actions";
 import styles from "./start.module.css";
 
@@ -13,6 +14,10 @@ interface StartFormProps {
 
 export function StartForm({ defaultPackage, defaultNeed = "" }: StartFormProps) {
   const [state, action, pending] = useActionState(submitPublicLead, initialState);
+
+  useEffect(() => {
+    if (state.status === "success") void trackConversion("lead_submit");
+  }, [state.status]);
 
   if (state.status === "success") {
     return <div className={styles.success} role="status"><span>✓</span><h2>Sudah diterima.</h2><p>{state.message}</p><a href="/">Kembali ke QIRA</a></div>;

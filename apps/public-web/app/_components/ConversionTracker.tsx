@@ -7,7 +7,11 @@ export type ConversionEvent =
   | "story_start"
   | "story_complete"
   | "discovery_start"
-  | "discovery_submit";
+  | "discovery_submit"
+  | "problem_select"
+  | "pricing_view"
+  | "portfolio_view"
+  | "lead_submit";
 
 const STORAGE_PREFIX = "qira.conversion.";
 
