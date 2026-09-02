@@ -32,7 +32,7 @@ export default async function NewProposalPage({ searchParams }: NewProposalPageP
 
       <fieldset><legend>2. Penerima</legend><label>Usaha<input name="client_name" required /></label><label>Nama<input name="recipient_name" required /></label><label>Email<input type="email" name="recipient_email" autoComplete="email" required /></label></fieldset>
 
-      <fieldset><legend>3. Penawaran</legend><label>Paket<select name="package_id" defaultValue="digital-foundation">{PROPOSAL_PACKAGES.map((item) => <option value={item.id} key={item.id}>{item.name}</option>)}</select></label><label>Harga dasar<input type="number" name="base_price" min="0" defaultValue="4900000" required /></label><label>DP %<input type="number" name="down_payment_percent" min="0" max="100" defaultValue="50" required /></label></fieldset>
+      <fieldset><legend>3. Penawaran</legend><label>Paket<select name="package_id" defaultValue="digital-foundation">{PROPOSAL_PACKAGES.map((item) => <option value={item.id} key={item.id}>{item.name}</option>)}</select></label><label>Harga dasar<input type="number" name="base_price" min="0" defaultValue="1500000" required /></label><label>DP %<input type="number" name="down_payment_percent" min="0" max="100" defaultValue="50" required /></label></fieldset>
 
       <details>
         <summary>Detail tambahan</summary>
