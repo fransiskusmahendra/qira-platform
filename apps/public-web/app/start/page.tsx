@@ -15,19 +15,18 @@ export default async function StartPage({ searchParams }: { searchParams: Promis
   const selected = params.package && validPackages.has(params.package) ? params.package : "digital-foundation";
   const suppliedNeed = typeof params.need === "string" ? params.need.trim().slice(0, 500) : "";
   const defaultNeed = suppliedNeed || (params.business ? businessNeeds[params.business] ?? "" : "");
-  return (
-    <main className={styles.page}>
-      <nav className={styles.nav}><Link href="/">QIRA<span>.</span></Link><small>Konsultasi awal gratis</small></nav>
-      <section className={styles.layout}>
-        <div className={styles.intro}>
-          <p>Konsultasi awal</p>
-          <h1>Ceritakan satu proses yang ingin Anda perbaiki.</h1>
-          <span>QIRA akan membaca kebutuhan Anda terlebih dahulu, lalu menghubungi Anda untuk discovery singkat. Belum ada komitmen biaya pada tahap ini.</span>
-          <div className={styles.steps}><div><b>01</b>Isi kebutuhan singkat</div><div><b>02</b>Discovery bersama QIRA</div><div><b>03</b>Demo dan proposal sesuai scope</div></div>
-        </div>
-        <StartForm defaultPackage={selected} defaultNeed={defaultNeed} />
-      </section>
-      <footer className={styles.footer}><span>QIRA · PT Rays Solusi Informasi</span><span>Jakarta, Indonesia</span></footer>
-    </main>
-  );
+
+  return <main className={styles.page}>
+    <nav className={styles.nav}><Link href="/">QIRA<span>.</span></Link><small>Mulai</small></nav>
+    <section className={styles.layout}>
+      <div className={styles.intro}>
+        <p>Satu langkah</p>
+        <h1>Ceritakan yang ingin diperbaiki.</h1>
+        <span>Belum perlu memilih paket atau budget. QIRA mulai dari masalahnya.</span>
+        <div className={styles.steps}><div><b>01</b>Cerita</div><div><b>02</b>QIRA merangkum</div><div><b>03</b>Kami hubungi</div></div>
+      </div>
+      <StartForm defaultPackage={selected} defaultNeed={defaultNeed} />
+    </section>
+    <footer className={styles.footer}><span>QIRA · PT Rays Solusi Informasi</span></footer>
+  </main>;
 }
