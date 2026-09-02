@@ -5,9 +5,9 @@ import { createClient } from "../../../lib/supabase/server";
 import styles from "../workspace.module.css";
 
 const EVENT_LABELS = [
-  ["landing_view", "Kunjungan beranda"],
+  ["landing_view", "Beranda"],
   ["story_start", "Mulai cerita"],
-  ["story_complete", "Cerita awal selesai"],
+  ["story_complete", "Cerita selesai"],
   ["discovery_start", "Masuk Discovery"],
   ["discovery_submit", "Discovery terkirim"],
 ] as const;
@@ -22,11 +22,7 @@ export default async function ConversionAnalyticsPage() {
   const userId = claimsData?.claims?.sub;
   if (!userId) redirect("/login?next=/workspace/analytics");
 
-  const { data: memberships } = await supabase
-    .from("memberships")
-    .select("organization_id, role")
-    .eq("status", "active");
-
+  const { data: memberships } = await supabase.from("memberships").select("organization_id, role").eq("status", "active");
   const canView = memberships?.some((item) => item.role === "qira_admin" || item.role === "qira_consultant");
   if (!canView) redirect("/client");
 
@@ -61,44 +57,20 @@ export default async function ConversionAnalyticsPage() {
   };
 
   return <main className={styles.page}>
-    <header className={styles.header}>
-      <div><span className={styles.brand}>QIRA.</span><p>Conversion Analytics</p></div>
-      <Link href="/workspace">Kembali</Link>
-    </header>
+    <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA.</Link><p>Analytics</p></div><Link href="/workspace">Kembali</Link></header>
+    <section className={styles.hero}><p className={styles.kicker}>30 hari</p><h1>Apakah alurnya bekerja?</h1><p>Lihat titik yang paling banyak kehilangan calon pelanggan.</p></section>
 
-    <section className={styles.hero}>
-      <p className={styles.kicker}>30 hari terakhir</p>
-      <h1>Dari pengunjung website sampai menjadi peluang bisnis.</h1>
-      <p>Hitungan website dibatasi satu kali per tahap dalam satu sesi browser. Tabel analitik tidak menyimpan nama, email, WhatsApp, IP address, user-agent, atau pengenal pengunjung permanen.</p>
+    <section className={styles.grid}>
+      <article><span>Pengunjung → mulai cerita</span><strong>{percent(storyStart, landing)}</strong><small>{landing} → {storyStart}</small></article>
+      <article><span>Mulai → cerita selesai</span><strong>{percent(storyComplete, storyStart)}</strong><small>{storyStart} → {storyComplete}</small></article>
+      <article><span>Discovery → proposal</span><strong>{percent(proposalCreated, persistedDiscoveries)}</strong><small>{persistedDiscoveries} → {proposalCreated}</small></article>
+      <article><span>Shared → diterima</span><strong>{percent(accepted, proposalShared)}</strong><small>{proposalShared} → {accepted}</small></article>
     </section>
 
-    <section className={styles.panel}>
-      <div className={styles.panelHeading}><div><p className={styles.kicker}>Public website funnel</p><h2>Perjalanan calon pelanggan</h2></div></div>
-      <div className={styles.grid}>
-        {EVENT_LABELS.map(([event, label], index) => {
-          const previous = index === 0 ? 0 : counts[EVENT_LABELS[index - 1][0]];
-          return <article key={event}>
-            <span>{label}</span>
-            <strong>{counts[event]}</strong>
-            <small>{index === 0 ? "Sesi yang membuka beranda." : `${percent(counts[event], previous)} dari tahap sebelumnya.`}</small>
-          </article>;
-        })}
-      </div>
-    </section>
+    <details className={styles.panel}><summary>Funnel website lengkap</summary><div className={styles.grid}>{EVENT_LABELS.map(([event, label], index) => { const previous = index === 0 ? 0 : counts[EVENT_LABELS[index - 1][0]]; return <article key={event}><span>{label}</span><strong>{counts[event]}</strong><small>{index === 0 ? "Sesi beranda" : `${percent(counts[event], previous)} dari tahap sebelumnya`}</small></article>; })}</div></details>
 
-    <section className={styles.panel}>
-      <div className={styles.panelHeading}><div><p className={styles.kicker}>CRM & sales</p><h2>Setelah Discovery dikirim</h2></div></div>
-      <div className={styles.grid}>
-        <article><span>Discovery tersimpan</span><strong>{persistedDiscoveries}</strong><small>Rekaman submitted/approved pada periode yang sama.</small></article>
-        <article><span>Proposal dibuat</span><strong>{proposalCreated}</strong><small>{percent(proposalCreated, persistedDiscoveries)} dari Discovery tersimpan.</small></article>
-        <article><span>Proposal dibagikan</span><strong>{proposalShared}</strong><small>{percent(proposalShared, proposalCreated)} dari proposal dibuat.</small></article>
-        <article><span>Proposal diterima</span><strong>{accepted}</strong><small>{percent(accepted, proposalShared)} dari proposal dibagikan.</small></article>
-      </div>
-    </section>
+    <details className={styles.panel}><summary>CRM & proposal</summary><div className={styles.grid}><article><span>Discovery tersimpan</span><strong>{persistedDiscoveries}</strong></article><article><span>Proposal dibuat</span><strong>{proposalCreated}</strong></article><article><span>Proposal dibagikan</span><strong>{proposalShared}</strong></article><article><span>Proposal diterima</span><strong>{accepted}</strong></article></div></details>
 
-    <section className={styles.panel}>
-      <div className={styles.panelHeading}><div><p className={styles.kicker}>Cara membaca</p><h2>Gunakan tren, bukan satu angka tunggal.</h2></div></div>
-      <p className={styles.empty}>Jika banyak orang membuka beranda tetapi tidak mulai bercerita, perbaiki pesan atau ajakan utama. Jika banyak yang mulai namun tidak menyelesaikan Discovery, sederhanakan pertanyaan. Jika Discovery tinggi tetapi proposal rendah, fokuskan follow-up dan kecepatan respons.</p>
-    </section>
+    <section className={styles.panel}><p className={styles.kicker}>Cara baca</p><p className={styles.empty}>Angka terendah menunjukkan bagian pertama yang perlu diperbaiki. Ubah satu bagian, lalu lihat lagi tren 30 hari berikutnya.</p></section>
   </main>;
 }
