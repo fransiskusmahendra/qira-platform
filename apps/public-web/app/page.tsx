@@ -1,22 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { ConversionClickTracker, ConversionTracker } from "./_components/ConversionTracker";
 import { ContextualWhatsAppCta } from "./_components/ContextualWhatsAppCta";
 import { ApplicationShowcase, BeforeAfter, HeroExplainer, SolutionExplorer } from "./_components/HomeExperience";
-
-const VISUALS = {
-  what: "/illustrations/visual/qira-what.webp",
-  benefits: "/illustrations/visual/qira-benefits.webp",
-} as const;
-
-function StoryVisual({ src, alt, eager = false }: { src: string; alt: string; eager?: boolean }) {
-  return (
-    <figure className="visualStoryCard">
-      <Image src={src} alt={alt} width={2560} height={1440} quality={90} priority={eager} sizes="(max-width: 760px) 100vw, 1160px" />
-    </figure>
-  );
-}
+import { BenefitsArtwork, WhatArtwork } from "./_components/CrispVisuals";
 
 export default function HomePage() {
   return (
@@ -54,7 +41,7 @@ export default function HomePage() {
           <p className="kicker">QIRA itu apa?</p>
           <h2>Mudah ditemukan. Kerja lebih rapi. <em>Tugas berjalan otomatis.</em></h2>
         </header>
-        <StoryVisual src={VISUALS.what} alt="QIRA membantu usaha lebih terlihat, pekerjaan lebih rapi, dan tugas berulang menjadi otomatis" />
+        <figure className="visualStoryCard"><WhatArtwork /></figure>
       </section>
 
       <section className="visualStory visualSolutionSection shell">
@@ -70,7 +57,7 @@ export default function HomePage() {
           <p className="kicker">Yang didapat</p>
           <h2>Bukan fitur yang rumit.<br /><em>Hasil yang terasa.</em></h2>
         </header>
-        <StoryVisual src={VISUALS.benefits} alt="Manfaat QIRA: mudah ditemukan, kerja lebih rapi, hemat waktu, dan langkah lebih jelas" />
+        <figure className="visualStoryCard"><BenefitsArtwork /></figure>
       </section>
 
       <section className="visualStory shell">
@@ -92,9 +79,9 @@ export default function HomePage() {
       <section className="visualStory shell">
         <header className="visualStoryHeading"><p className="kicker">Untuk usahamu</p><h2>Lihat QIRA dari <em>situasimu.</em></h2></header>
         <div className="audiencePaths">
-          <Link href="/untuk/usaha-jasa"><Image src="/illustrations/visual/qira-what.webp" alt="Alur digital untuk usaha jasa" width={2560} height={1440} quality={90} sizes="(max-width: 680px) 100vw, 33vw" /><span>Usaha jasa</span><strong>Chat masuk sampai pekerjaan selesai</strong><small>Lihat alurnya →</small></Link>
-          <Link href="/untuk/retail-umkm"><Image src="/illustrations/qira-process.webp" alt="Alur produk dan pesanan untuk retail dan UMKM" width={640} height={360} sizes="(max-width: 680px) 100vw, 33vw" /><span>Retail & UMKM</span><strong>Produk terlihat, pesanan lebih teratur</strong><small>Lihat alurnya →</small></Link>
-          <Link href="/untuk/administrasi-tim"><Image src="/illustrations/qira-examples-visual.svg" alt="Alur data dan dokumen untuk administrasi tim" width={640} height={360} unoptimized sizes="(max-width: 680px) 100vw, 33vw" /><span>Administrasi tim</span><strong>Data, dokumen, dan status lebih rapi</strong><small>Lihat alurnya →</small></Link>
+          <Link href="/untuk/usaha-jasa"><div className="audienceVisual"><span>01</span><strong>Chat</strong><i>→</i><strong>Form</strong><i>→</i><strong>Selesai</strong></div><span>Usaha jasa</span><strong>Chat masuk sampai pekerjaan selesai</strong><small>Lihat alurnya →</small></Link>
+          <Link href="/untuk/retail-umkm"><div className="audienceVisual"><span>02</span><strong>Produk</strong><i>→</i><strong>Pesanan</strong><i>→</i><strong>Status</strong></div><span>Retail & UMKM</span><strong>Produk terlihat, pesanan lebih teratur</strong><small>Lihat alurnya →</small></Link>
+          <Link href="/untuk/administrasi-tim"><div className="audienceVisual"><span>03</span><strong>Data</strong><i>→</i><strong>Dokumen</strong><i>→</i><strong>Laporan</strong></div><span>Administrasi tim</span><strong>Data, dokumen, dan status lebih rapi</strong><small>Lihat alurnya →</small></Link>
         </div>
       </section>
 

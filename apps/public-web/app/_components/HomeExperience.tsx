@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { trackConversion } from "./ConversionTracker";
+import { BeforeAfterArtwork, HeroArtwork, SolutionArtwork } from "./CrispVisuals";
 
 const TRANSFORMATION_STEPS = [
   { label: "Masalah", detail: "Chat, file, dan pekerjaan tercecer" },
@@ -19,7 +19,6 @@ const SOLUTIONS = [
     question: "Pelanggan sulit menemukan atau memahami usahamu?",
     solution: "Website",
     result: "Lebih mudah ditemukan dan dihubungi",
-    image: "/illustrations/visual/qira-what.webp",
     imagePosition: "left",
   },
   {
@@ -28,7 +27,6 @@ const SOLUTIONS = [
     question: "Data masih tersebar di chat, catatan, dan file?",
     solution: "Form & dashboard",
     result: "Data lebih rapi dan mudah dipantau",
-    image: "/illustrations/visual/qira-problems.webp",
     imagePosition: "right",
   },
   {
@@ -37,7 +35,6 @@ const SOLUTIONS = [
     question: "Sering menginput atau mengingatkan hal yang sama?",
     solution: "Otomatisasi",
     result: "Proses lebih cepat dan hemat waktu",
-    image: "/illustrations/visual/qira-offerings.webp",
     imagePosition: "left",
   },
   {
@@ -46,7 +43,6 @@ const SOLUTIONS = [
     question: "Ingin lebih digital, tetapi belum tahu prioritasnya?",
     solution: "Pemetaan kebutuhan",
     result: "Punya arah dan langkah yang jelas",
-    image: "/illustrations/visual/qira-benefits.webp",
     imagePosition: "right",
   },
 ] as const;
@@ -85,15 +81,7 @@ export function HeroExplainer() {
   return (
     <div className="heroExplainer" aria-label="Alur QIRA dari masalah menjadi hasil">
       <figure className="visualStoryCard heroExplainerImage">
-        <Image
-          src="/illustrations/visual/qira-hero.webp"
-          alt="Masalah bisnis yang berantakan dirapikan QIRA menjadi website, dashboard, alur otomatis, dan laporan"
-          width={2560}
-          height={1440}
-          quality={90}
-          priority
-          sizes="(max-width: 960px) 100vw, 58vw"
-        />
+        <HeroArtwork />
       </figure>
       <ol className="heroSteps">
         {TRANSFORMATION_STEPS.map((step, index) => (
@@ -144,7 +132,7 @@ export function SolutionExplorer() {
           <Link href="/coba-masalah" data-conversion="homepage_cta_click">Ceritakan masalah usaha →</Link>
         </div>
         <figure className={`solutionVisual crop-${selected.imagePosition}`} key={`${selected.problem}-image`}>
-          <Image src={selected.image} alt="" fill quality={90} sizes="(max-width: 760px) 100vw, 46vw" />
+          <SolutionArtwork kind={selected.problem} />
         </figure>
       </div>
     </div>
@@ -156,7 +144,7 @@ export function BeforeAfter() {
   return (
     <div className="beforeAfter">
       <div className="beforeAfterStage">
-        <Image src="/illustrations/visual/qira-beforeafter.webp" alt="Perbandingan bisnis sebelum dan sesudah menggunakan QIRA" fill quality={90} sizes="(max-width: 760px) 100vw, 1160px" />
+        <BeforeAfterArtwork />
         <div className="beforeAfterShade beforeShade" style={{ width: `${position}%` }} aria-hidden="true" />
         <div className="beforeAfterDivider" style={{ left: `${position}%` }} aria-hidden="true"><span>↔</span></div>
         <span className="stateLabel beforeLabel">Sebelum</span>
