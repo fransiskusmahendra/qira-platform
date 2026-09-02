@@ -1,0 +1,250 @@
+/* Conversion V2: visual-first refinements */
+.companyProblems,
+.companyServices,
+.companyBeforeAfter,
+.companyShowcase,
+.companyPortfolio {
+  content-visibility: auto;
+  contain-intrinsic-size: 820px;
+}
+
+.companyHeroVisual,
+.companySectionVisual,
+.companyPricingTeaser figure,
+.problemResult,
+.businessResult {
+  animation: qiraReveal .55s ease both;
+}
+
+@keyframes qiraReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.problemExplorer {
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: 20px;
+}
+
+.problemOptions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.problemOptions button {
+  min-height: 132px;
+  padding: 20px;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  background: rgba(255,255,255,.82);
+}
+
+.problemOptions button strong {
+  font-size: 18px;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+}
+
+.problemOptionIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--sky);
+  color: var(--blue);
+  font-size: 24px !important;
+  font-family: inherit !important;
+}
+
+.problemOptions button.active {
+  transform: translateY(-3px);
+  border-color: #8eaff0;
+  box-shadow: 0 16px 34px rgba(7,26,51,.07);
+}
+
+.problemResult {
+  min-height: 300px;
+  padding: clamp(24px, 4vw, 44px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.problemMiniFlow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.problemMiniFlow > div {
+  min-height: 150px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.problemMiniFlow > div.solution { background: rgba(23,105,255,.18); }
+.problemMiniFlow > div.outcome { background: white; color: var(--ink); }
+.problemMiniFlow > span { align-self: center; color: #8eb9ff; font-size: 22px; }
+.problemMiniFlow small { color: #8eb9ff; font-size: 10px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+.problemMiniFlow .outcome small { color: var(--blue); }
+.problemMiniFlow strong { font-size: clamp(16px, 1.7vw, 21px); line-height: 1.25; letter-spacing: -.02em; }
+.problemResult > a { margin-top: 22px; }
+
+.companyServiceCard {
+  min-height: 150px;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.companyServiceCard:hover {
+  transform: translateY(-4px);
+  border-color: #9bb7e8;
+  box-shadow: 0 16px 34px rgba(7,26,51,.06);
+}
+.companyServiceCard h3 { margin-top: auto; }
+
+.businessChips {
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.businessChips::-webkit-scrollbar { display: none; }
+.businessChips button { white-space: nowrap; }
+.businessResult > div span {
+  position: relative;
+  overflow: hidden;
+  transition: transform .18s ease, background .18s ease;
+}
+.businessResult > div span:hover { transform: translateY(-3px); background: var(--sky); }
+
+.companyProof {
+  padding: 24px 0 92px;
+  border-top: 1px solid var(--line);
+}
+.companyProof > div {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+.companyProof span {
+  min-height: 74px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255,255,255,.76);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.companyPricingTeaser {
+  margin-top: 34px;
+  margin-bottom: 90px;
+  padding: clamp(28px, 5vw, 58px);
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: linear-gradient(145deg, #f7fbff, #edf5ff);
+  display: grid;
+  grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+.companyPricingTeaser h2 {
+  max-width: 560px;
+  margin: 12px 0 28px;
+  font-size: clamp(34px, 4.5vw, 58px);
+  line-height: 1.02;
+  letter-spacing: -.045em;
+}
+.companyPricingTeaser figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 20px 48px rgba(7,26,51,.08);
+}
+.companyPricingTeaser img { display: block; width: 100%; height: auto; }
+
+.primaryButton,
+.smallButton,
+.textLink,
+.closingTextLink {
+  transition: transform .16s ease, opacity .16s ease, background .16s ease, color .16s ease;
+}
+.primaryButton:hover,
+.smallButton:hover { transform: translateY(-2px); }
+.textLink:hover,
+.closingTextLink:hover { opacity: .78; }
+
+@media (max-width: 960px) {
+  .companyNav {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 16px;
+  }
+  .companyNavLinks {
+    display: flex;
+    justify-content: flex-start;
+    overflow-x: auto;
+    gap: 16px;
+    scrollbar-width: none;
+  }
+  .companyNavLinks::-webkit-scrollbar { display: none; }
+  .companyNavLinks a { white-space: nowrap; }
+  .problemExplorer,
+  .companyPricingTeaser { grid-template-columns: 1fr; }
+  .companyProof > div { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 680px) {
+  .companyNav {
+    min-height: 66px;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(7,26,51,.07);
+  }
+  .companyNavLinks { gap: 12px; font-size: 12px; }
+  .companyNavLinks a:nth-child(2) { display: none; }
+  .smallButton { min-width: 58px; }
+  .companyHero { padding-top: 48px; }
+  .problemOptions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .problemOptions button { min-height: 112px; padding: 16px; }
+  .problemOptions button strong { font-size: 15px; }
+  .problemOptionIcon { width: 38px; height: 38px; font-size: 20px !important; }
+  .problemMiniFlow { grid-template-columns: 1fr; }
+  .problemMiniFlow > span { transform: rotate(90deg); justify-self: center; }
+  .problemMiniFlow > div { min-height: 104px; }
+  .companyProof { padding-bottom: 68px; }
+  .companyProof > div { grid-template-columns: repeat(2, 1fr); }
+  .companyProof span { min-height: 62px; font-size: 13px; }
+  .companyPricingTeaser { margin-bottom: 65px; border-radius: 22px; }
+  .companyPricingTeaser figure { border-radius: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .companyHeroVisual,
+  .companySectionVisual,
+  .companyPricingTeaser figure,
+  .problemResult,
+  .businessResult { animation: none; }
+  .companyServiceCard,
+  .problemOptions button,
+  .primaryButton,
+  .smallButton { transition: none; }
+}

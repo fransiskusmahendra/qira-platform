@@ -5,28 +5,32 @@ import { useState } from "react";
 
 const PROBLEMS = [
   {
-    label: "Sulit ditemukan pelanggan",
-    title: "Bangun kehadiran digital yang jelas.",
-    result: "Website atau landing page yang mudah ditemukan, dipahami, dan dihubungi.",
-    visual: "↗",
+    icon: "↗",
+    label: "Sulit ditemukan",
+    before: "Pelanggan sulit menemukan atau memahami bisnis Anda.",
+    solution: "Website / landing page",
+    outcome: "Mudah ditemukan & dihubungi",
   },
   {
-    label: "Pencatatan masih manual",
-    title: "Rapikan pekerjaan dalam satu alur.",
-    result: "Formulir, invoice, data operasional, dan dashboard sederhana dalam satu tempat.",
-    visual: "▦",
+    icon: "▦",
+    label: "Masih manual",
+    before: "Data, pesanan, atau dokumen tersebar di banyak tempat.",
+    solution: "Form + dashboard + dokumen",
+    outcome: "Satu alur kerja",
   },
   {
-    label: "Tugas rutin terlalu banyak",
-    title: "Otomatiskan pekerjaan berulang.",
-    result: "Notifikasi, pemindahan data, dan tindak lanjut berjalan lebih konsisten.",
-    visual: "⚡",
+    icon: "⚡",
+    label: "Terlalu berulang",
+    before: "Pengingat, follow-up, dan pemindahan data dikerjakan berulang.",
+    solution: "Automation sederhana",
+    outcome: "Lebih konsisten",
   },
   {
-    label: "Belum tahu harus mulai dari mana",
-    title: "Temukan solusi yang paling masuk akal.",
-    result: "Pemetaan masalah, prioritas, ruang lingkup, waktu, dan kisaran biaya awal.",
-    visual: "◎",
+    icon: "◎",
+    label: "Bingung mulai",
+    before: "Belum jelas apa yang perlu dibuat lebih dulu.",
+    solution: "Business discovery",
+    outcome: "Prioritas & scope jelas",
   },
 ] as const;
 
@@ -48,18 +52,30 @@ export function ProblemSelector() {
             role="tab"
             type="button"
           >
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            {problem.label}
+            <span className="problemOptionIcon" aria-hidden="true">{problem.icon}</span>
+            <strong>{problem.label}</strong>
           </button>
         ))}
       </div>
 
       <div aria-labelledby={`problem-${active}`} className="problemResult" id="problem-result" role="tabpanel">
-        <span aria-hidden="true" className="problemVisual">{selected.visual}</span>
-        <p className="panelLabel">Yang QIRA bantu</p>
-        <h3>{selected.title}</h3>
-        <p>{selected.result}</p>
-        <Link href="/coba-masalah">Ceritakan masalah Anda →</Link>
+        <div className="problemMiniFlow" aria-label="Masalah menuju solusi dan hasil">
+          <div>
+            <small>Sebelum</small>
+            <strong>{selected.before}</strong>
+          </div>
+          <span aria-hidden="true">→</span>
+          <div className="solution">
+            <small>Dengan QIRA</small>
+            <strong>{selected.solution}</strong>
+          </div>
+          <span aria-hidden="true">→</span>
+          <div className="outcome">
+            <small>Hasil</small>
+            <strong>{selected.outcome}</strong>
+          </div>
+        </div>
+        <Link href="/coba-masalah">Coba dengan masalah Anda →</Link>
       </div>
     </div>
   );
