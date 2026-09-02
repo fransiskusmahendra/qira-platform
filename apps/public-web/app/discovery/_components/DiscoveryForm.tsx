@@ -244,7 +244,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
         {screen?.kind === "question" ? <div className={styles.questionGrid}>{renderQuestion(screen.question)}</div> : null}
 
         {screen?.kind === "consent" ? <>
-          <div className={styles.sectionTitle}><h2>Siap.</h2><p>Kirim untuk melihat arah awal dan meminta tindak lanjut via WhatsApp.</p></div>
+          <div className={styles.sectionTitle}><h2>Siap.</h2><p>Kirim untuk melihat arah awal dan meminta tindak lanjut lewat WhatsApp.</p></div>
           <label className={styles.consent}><input type="checkbox" required checked={consented} onChange={(event) => setConsented(event.target.checked)} /><span>Saya setuju QIRA menggunakan jawaban ini untuk menyiapkan saran dan menghubungi saya. <a href="/privasi" target="_blank" rel="noreferrer">Privasi</a>.</span></label>
         </> : null}
 

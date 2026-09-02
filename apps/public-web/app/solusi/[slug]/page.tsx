@@ -21,9 +21,9 @@ const SOLUTIONS = {
     image: "/illustrations/qira-hero.webp",
   },
   "automation-bisnis": {
-    title: "Automation Bisnis",
-    description: "Kurangi pekerjaan berulang dengan automation yang mengikuti alur bisnis nyata, bukan sekadar menambah teknologi.",
-    eyebrow: "Automation",
+    title: "Otomatisasi Bisnis",
+    description: "Kurangi pekerjaan berulang dengan otomatisasi yang mengikuti alur bisnis nyata, bukan sekadar menambah teknologi.",
+    eyebrow: "Otomatisasi",
     lead: "Kurangi kerja berulang yang tidak perlu dilakukan manual setiap hari.",
     problem: "Follow-up, pemindahan data, pengingat, atau pekerjaan rutin terus diulang secara manual.",
     help: "QIRA menghubungkan langkah yang memang bisa diotomatisasi sambil mempertahankan kontrol pada keputusan penting.",
@@ -35,7 +35,7 @@ const SOLUTIONS = {
   "digitalisasi-administrasi": {
     title: "Digitalisasi Administrasi",
     description: "Rapikan data dan dokumen bisnis agar administrasi tidak bergantung pada pencatatan yang tersebar.",
-    eyebrow: "Administration",
+    eyebrow: "Administrasi",
     lead: "Dari data berulang menjadi dokumen dan pencatatan yang lebih konsisten.",
     problem: "Data yang sama ditulis berkali-kali, dokumen dibuat manual, atau status pekerjaan sulit dilacak.",
     help: "QIRA menyusun input, penyimpanan, dan pembuatan dokumen menjadi satu alur yang lebih sederhana.",
@@ -45,15 +45,15 @@ const SOLUTIONS = {
     image: "/illustrations/qira-examples-visual.svg",
   },
   "business-tools": {
-    title: "Business Tools Sederhana",
+    title: "Alat Kerja Digital Sederhana",
     description: "Aplikasi bisnis ringan untuk kebutuhan spesifik seperti transaksi, workflow, pencatatan, atau dashboard operasional.",
-    eyebrow: "Business tools",
+    eyebrow: "Alat kerja digital",
     lead: "Bangun alat yang dibutuhkan pekerjaan, bukan sistem besar yang tidak terpakai.",
     problem: "Spreadsheet, chat, dan catatan terpisah membuat pekerjaan inti sulit diikuti dari awal sampai selesai.",
-    help: "QIRA membuat tool kecil yang fokus pada satu alur penting dan dapat ditambah saat kebutuhannya benar-benar muncul.",
+    help: "QIRA membuat alat digital yang fokus pada satu alur penting dan dapat ditambah saat kebutuhannya benar-benar muncul.",
     outcome: "Pekerjaan lebih rapi dalam satu alur tanpa membebani pengguna dengan fitur berlebihan.",
     fit: "Tim yang membutuhkan alat khusus untuk satu proses penting, tetapi belum perlu sistem besar.",
-    deliverables: ["Alur pengguna", "Tool responsif", "Database sederhana", "Dashboard operasional"],
+    deliverables: ["Alur pengguna", "Alat responsif", "Database sederhana", "Dashboard operasional"],
     image: "/illustrations/qira-process.webp",
   },
 } as const;
@@ -88,8 +88,8 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
     <ConversionTracker event="service_view" />
     <nav className="companyNav shell" aria-label="Navigasi utama">
       <Link className="brand" href="/">QIRA<span>.</span></Link>
-      <div className="companyNavLinks"><Link href="/about">About</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link></div>
-      <Link className="smallButton" href="/coba-masalah">Mulai</Link>
+      <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
+      <Link className="smallButton" href="/coba-masalah">Ceritakan masalah</Link>
     </nav>
 
     <section className={`${styles.hero} shell`}>
@@ -97,7 +97,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
         <p className="eyebrow">{solution.eyebrow}</p>
         <h1>{solution.title}</h1>
         <p>{solution.lead}</p>
-        <div className={styles.heroActions}><ContextualWhatsAppCta context={solution.title}>Diskusikan via WhatsApp</ContextualWhatsAppCta><Link className="textLink" href="#cara-kerja">Lihat proses ↓</Link></div>
+        <div className={styles.heroActions}><ContextualWhatsAppCta context={solution.title}>Konsultasi lewat WhatsApp</ContextualWhatsAppCta><Link className="textLink" href="#cara-kerja">Lihat proses ↓</Link></div>
       </div>
       <figure className={styles.heroVisual}>
         <Image src={solution.image} alt={`Ilustrasi ${solution.title} oleh QIRA`} width={1536} height={1024} priority sizes="(max-width: 960px) 100vw, 48vw" unoptimized={solution.image.endsWith(".svg")} />
@@ -125,13 +125,13 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
 
     <section className="solutionProcess shell">
       <div><span>01</span><strong>Ceritakan</strong><small>Satu masalah utama.</small></div>
-      <div><span>02</span><strong>Petakan</strong><small>Prioritas dan scope.</small></div>
+      <div><span>02</span><strong>Petakan</strong><small>Prioritas dan ruang lingkup.</small></div>
       <div><span>03</span><strong>Bangun</strong><small>Versi sederhana dulu.</small></div>
       <div><span>04</span><strong>Rapikan</strong><small>Uji, revisi, jalankan.</small></div>
     </section>
 
-    <section className="companyClosing simpleCompactClosing shell"><div><p className="kicker">Mulai sederhana</p><h2>Belum yakin bentuk solusinya?</h2><p>QIRA bantu memetakan dulu. Tidak perlu brief teknis.</p></div><div className="closingActions"><ContextualWhatsAppCta context={solution.title} className="primaryButton light">Minta QIRA menghubungi</ContextualWhatsAppCta></div></section>
+    <section className="companyClosing simpleCompactClosing shell"><div><p className="kicker">Mulai sederhana</p><h2>Belum yakin bentuk solusinya?</h2><p>QIRA bantu memetakan dulu. Tidak perlu penjelasan teknis.</p></div><div className="closingActions"><ContextualWhatsAppCta context={solution.title} className="primaryButton light">Konsultasi lewat WhatsApp</ContextualWhatsAppCta></div></section>
 
-    <footer className="companyFooter shell"><div><Link className="brand" href="/">QIRA<span>.</span></Link></div><div className="footerLinks"><Link href="/">Home</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link><Link href="/privasi">Privacy</Link></div><span>QIRA · PT Rays Solusi Informasi</span></footer>
+    <footer className="companyFooter shell"><div><Link className="brand" href="/">QIRA<span>.</span></Link></div><div className="footerLinks"><Link href="/">Beranda</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div><span>QIRA · Solusi digital sederhana untuk bisnis</span></footer>
   </main>;
 }

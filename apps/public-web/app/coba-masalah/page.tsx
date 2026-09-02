@@ -23,8 +23,8 @@ export default function ProblemExperiencePage() {
       <ConversionTracker event="story_start" />
       <nav className="companyNav shell" aria-label="Navigasi utama">
         <Link className="brand" href="/">QIRA<span>.</span></Link>
-        <div className="companyNavLinks"><Link href="/about">About</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link></div>
-        <Link className="smallButton" href="/contoh-penerapan">Contoh</Link>
+        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
+        <Link className="smallButton" href="/contoh-penerapan">Lihat contoh</Link>
       </nav>
 
       <section className={`${styles.hero} shell`}>
@@ -42,8 +42,8 @@ export default function ProblemExperiencePage() {
 
       <footer className="companyFooter shell">
         <div><Link className="brand" href="/">QIRA<span>.</span></Link></div>
-        <div className="footerLinks"><Link href="/">Home</Link><Link href="/contoh-penerapan">Contoh</Link><Link href="/harga">Pricing</Link><Link href="/privasi">Privacy</Link></div>
-        <span>QIRA · PT Rays Solusi Informasi</span>
+        <div className="footerLinks"><Link href="/">Beranda</Link><Link href="/contoh-penerapan">Contoh</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div>
+        <span>QIRA · Solusi digital sederhana untuk bisnis</span>
       </footer>
     </main>
   );

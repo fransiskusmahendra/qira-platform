@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 const EXAMPLES = [
   ["Penjualan", "Chat → Dashboard"],
   ["Administrasi", "Data → Dokumen"],
-  ["Follow-up", "Lupa → Automation"],
-  ["Perencanaan", "Bingung → Discovery"],
+  ["Tindak lanjut", "Lupa → Otomatis"],
+  ["Perencanaan", "Bingung → Punya arah"],
 ] as const;
 
 export default function ExamplePage() {
@@ -26,15 +26,15 @@ export default function ExamplePage() {
     <main>
       <nav className="companyNav shell" aria-label="Navigasi utama">
         <Link className="brand" href="/">QIRA<span>.</span></Link>
-        <div className="companyNavLinks"><Link href="/about">About</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link></div>
-        <Link className="smallButton" href="/coba-masalah">Mulai</Link>
+        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
+        <Link className="smallButton" href="/coba-masalah">Ceritakan masalah</Link>
       </nav>
 
       <section className={`${styles.hero} shell`}>
         <div className={styles.heroCopy}>
           <p className="eyebrow">Contoh</p>
           <h1>Lihat sebelum → sesudah.</h1>
-          <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Coba masalahmu</Link></div>
+          <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Ceritakan masalah usaha</Link></div>
         </div>
         <figure className={styles.heroVisual}>
           <Image src="/illustrations/qira-examples-visual.svg" alt="Pesanan, dokumen, follow-up, dan perencanaan yang berubah menjadi workflow digital" width={500} height={281} priority unoptimized sizes="(max-width: 960px) 100vw, 48vw" />
@@ -48,14 +48,14 @@ export default function ExamplePage() {
       </section>
 
       <section className="companyClosing simpleCompactClosing shell">
-        <div><p className="kicker">Your turn</p><h2>Pilih satu masalah.</h2></div>
-        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Mulai</Link></div>
+        <div><p className="kicker">Langkah berikutnya</p><h2>Pilih satu masalah yang ingin dirapikan.</h2></div>
+        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Ceritakan masalah usaha</Link></div>
       </section>
 
       <footer className="companyFooter shell">
         <div><Link className="brand" href="/">QIRA<span>.</span></Link></div>
-        <div className="footerLinks"><Link href="/">Home</Link><Link href="/about">About</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link><Link href="/privasi">Privacy</Link></div>
-        <span>QIRA · PT Rays Solusi Informasi</span>
+        <div className="footerLinks"><Link href="/">Beranda</Link><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div>
+        <span>QIRA · Solusi digital sederhana untuk bisnis</span>
       </footer>
     </main>
   );
