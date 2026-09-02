@@ -22,14 +22,15 @@ export type ConversionEvent =
 
 const STORAGE_PREFIX = "qira.conversion.";
 
-function eventKey(event: ConversionEvent) {
-  return `${STORAGE_PREFIX}${event}`;
+function eventKey(event: ConversionEvent, path: string) {
+  return event === "service_view" ? `${STORAGE_PREFIX}${event}.${path}` : `${STORAGE_PREFIX}${event}`;
 }
 
 export async function trackConversion(event: ConversionEvent) {
   if (typeof window === "undefined") return;
 
-  const key = eventKey(event);
+  const path = window.location.pathname;
+  const key = eventKey(event, path);
   try {
     if (window.sessionStorage.getItem(key) === "1") return;
   } catch {
@@ -40,7 +41,7 @@ export async function trackConversion(event: ConversionEvent) {
     const response = await fetch("/api/analytics", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ event, path: window.location.pathname }),
+      body: JSON.stringify({ event, path }),
       keepalive: true,
     });
 
