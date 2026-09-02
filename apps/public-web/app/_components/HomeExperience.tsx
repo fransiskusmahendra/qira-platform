@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { trackConversion } from "./ConversionTracker";
+
 const TRANSFORMATION_STEPS = [
   { label: "Masalah", detail: "Chat, file, dan pekerjaan tercecer" },
   { label: "QIRA", detail: "Solusi digital sesuai kebutuhan" },
@@ -95,7 +97,7 @@ export function HeroExplainer() {
       <ol className="heroSteps">
         {TRANSFORMATION_STEPS.map((step, index) => (
           <li className={active === index ? "active" : ""} key={step.label}>
-            <button type="button" onClick={() => setActive(index)} aria-pressed={active === index}>
+            <button type="button" onClick={() => { setActive(index); void trackConversion("hero_explainer_interact"); }} aria-pressed={active === index}>
               <span>{index + 1}</span>
               <strong>{step.label}</strong>
               <small>{step.detail}</small>
@@ -121,7 +123,7 @@ export function SolutionExplorer() {
             className={active === index ? "active" : ""}
             id={`solution-tab-${index}`}
             key={item.problem}
-            onClick={() => setActive(index)}
+            onClick={() => { setActive(index); void trackConversion("solution_explore"); }}
             role="tab"
             type="button"
           >
@@ -138,7 +140,7 @@ export function SolutionExplorer() {
             <i aria-hidden="true">→</i>
             <span><small>Hasil</small><strong>{selected.result}</strong></span>
           </div>
-          <Link href="/coba-masalah">Bahas masalah ini →</Link>
+          <Link href="/coba-masalah" data-conversion="homepage_cta_click">Bahas masalah ini →</Link>
         </div>
         <figure className={`solutionVisual crop-${selected.imagePosition}`} key={`${selected.problem}-image`}>
           <Image src={selected.image} alt="" fill sizes="(max-width: 760px) 100vw, 46vw" />
@@ -161,7 +163,7 @@ export function BeforeAfter() {
       </div>
       <label className="beforeAfterControl">
         <span>Geser untuk membandingkan</span>
-        <input aria-label="Bandingkan kondisi sebelum dan sesudah QIRA" type="range" min="18" max="82" value={position} onChange={(event) => setPosition(Number(event.target.value))} />
+        <input aria-label="Bandingkan kondisi sebelum dan sesudah QIRA" type="range" min="18" max="82" value={position} onChange={(event) => { setPosition(Number(event.target.value)); void trackConversion("before_after_interact"); }} />
       </label>
       <div className="outcomeStrip">
         <span>Data lebih rapi</span><span>Respons lebih cepat</span><span>Pekerjaan mudah dipantau</span>
@@ -177,7 +179,7 @@ export function ApplicationShowcase() {
     <div className="applicationShowcase">
       <div className="applicationTabs" role="tablist" aria-label="Contoh penerapan QIRA">
         {EXAMPLES.map((item, index) => (
-          <button className={active === index ? "active" : ""} aria-selected={active === index} key={item.label} onClick={() => setActive(index)} role="tab" type="button">{item.label}</button>
+          <button className={active === index ? "active" : ""} aria-selected={active === index} key={item.label} onClick={() => { setActive(index); void trackConversion("application_example_interact"); }} role="tab" type="button">{item.label}</button>
         ))}
       </div>
       <div className="applicationCard" role="tabpanel" key={selected.label}>
@@ -185,7 +187,7 @@ export function ApplicationShowcase() {
           <p className="kicker">{selected.label}</p>
           <h3>{selected.title}</h3>
           <p>{selected.result}</p>
-          <Link href="/contoh-penerapan">Lihat contoh lainnya →</Link>
+          <Link href="/contoh-penerapan" data-conversion="homepage_cta_click">Lihat contoh lainnya →</Link>
         </div>
         <ol>{selected.items.map((item, index) => <li key={item}><span>{index + 1}</span>{item}</li>)}</ol>
       </div>

@@ -1,22 +1,46 @@
 :where(.brand, [class*="_brand__"], [class*="_Brand__"]) {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
+  color: #071a33;
+  font-weight: 850;
+  letter-spacing: -.045em;
+  line-height: 1;
+  isolation: isolate;
 }
 
 :where(.brand, [class*="_brand__"], [class*="_Brand__"])::before {
   content: "";
   flex: 0 0 auto;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
   background: url("/qira-mark.svg") center / contain no-repeat;
+  filter: drop-shadow(0 6px 12px rgba(23, 105, 255, .16));
+  transition: transform .28s ease, filter .28s ease;
 }
+
+:where(.brand, [class*="_brand__"], [class*="_Brand__"]):hover::before {
+  transform: translateY(-2px) rotate(-3deg) scale(1.04);
+  filter: drop-shadow(0 9px 16px rgba(23, 105, 255, .24));
+}
+
+:where(.brand, [class*="_brand__"], [class*="_Brand__"]) span {
+  color: #1769ff;
+  font-size: 1.15em;
+}
+
+.companyNav > .brand { font-size: 20px; }
+.companyFooter .brand { font-size: 19px; }
 
 @media (max-width: 760px) {
   :where(.brand, [class*="_brand__"], [class*="_Brand__"])::before {
-    width: 26px;
-    height: 26px;
-    border-radius: 7px;
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.brand, [class*="_brand__"], [class*="_Brand__"])::before { transition: none; }
 }
