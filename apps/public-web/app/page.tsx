@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { ConversionClickTracker, ConversionTracker } from "./_components/ConversionTracker";
@@ -79,9 +80,9 @@ export default function HomePage() {
       <section className="visualStory shell">
         <header className="visualStoryHeading"><p className="kicker">Untuk usahamu</p><h2>Lihat QIRA dari <em>situasimu.</em></h2></header>
         <div className="audiencePaths">
-          <Link href="/untuk/usaha-jasa"><div className="audienceVisual"><span>01</span><strong>Chat</strong><i>→</i><strong>Form</strong><i>→</i><strong>Selesai</strong></div><span>Usaha jasa</span><strong>Chat masuk sampai pekerjaan selesai</strong><small>Lihat alurnya →</small></Link>
-          <Link href="/untuk/retail-umkm"><div className="audienceVisual"><span>02</span><strong>Produk</strong><i>→</i><strong>Pesanan</strong><i>→</i><strong>Status</strong></div><span>Retail & UMKM</span><strong>Produk terlihat, pesanan lebih teratur</strong><small>Lihat alurnya →</small></Link>
-          <Link href="/untuk/administrasi-tim"><div className="audienceVisual"><span>03</span><strong>Data</strong><i>→</i><strong>Dokumen</strong><i>→</i><strong>Laporan</strong></div><span>Administrasi tim</span><strong>Data, dokumen, dan status lebih rapi</strong><small>Lihat alurnya →</small></Link>
+          <Link href="/untuk/usaha-jasa"><Image src="/illustrations/premium/qira-service-business.webp" alt="Alur digital usaha jasa dari pesan pelanggan hingga pekerjaan selesai" width={1672} height={941} quality={90} sizes="(max-width: 680px) 100vw, 33vw" /><span>Usaha jasa</span><strong>Chat masuk sampai pekerjaan selesai</strong><small>Lihat alurnya →</small></Link>
+          <Link href="/untuk/retail-umkm"><Image src="/illustrations/premium/qira-retail-business.webp" alt="Alur digital retail dari produk menuju pesanan dan pencatatan" width={1672} height={941} quality={90} sizes="(max-width: 680px) 100vw, 33vw" /><span>Retail & UMKM</span><strong>Produk terlihat, pesanan lebih teratur</strong><small>Lihat alurnya →</small></Link>
+          <Link href="/untuk/administrasi-tim"><Image src="/illustrations/premium/qira-admin-business.webp" alt="Alur administrasi digital dari data menuju dokumen dan laporan" width={1672} height={941} quality={90} sizes="(max-width: 680px) 100vw, 33vw" /><span>Administrasi tim</span><strong>Data, dokumen, dan status lebih rapi</strong><small>Lihat alurnya →</small></Link>
         </div>
       </section>
 

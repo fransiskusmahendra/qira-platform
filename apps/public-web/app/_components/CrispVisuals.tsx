@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type IconName = "chat" | "web" | "chart" | "bolt" | "search" | "check" | "file" | "bell";
 
 function LineIcon({ name }: { name: IconName }) {
@@ -16,43 +18,22 @@ function LineIcon({ name }: { name: IconName }) {
 
 export function HeroArtwork() {
   return (
-    <div className="crispVisual heroArtwork" role="img" aria-label="QIRA merapikan informasi, proses, dan laporan bisnis dalam satu alur digital">
-      <div className="visualNoise noiseLeft"><LineIcon name="chat" /><span>Pesan masuk</span></div>
-      <div className="visualNoise noiseTop"><LineIcon name="file" /><span>Data tersebar</span></div>
-      <div className="flowLine lineOne" />
-      <div className="flowLine lineTwo" />
-      <div className="qiraCore"><span>Q</span><strong>QIRA</strong><small>Merapikan alur</small></div>
-      <div className="flowLine lineThree" />
-      <div className="resultWindow">
-        <div className="windowBar"><i /><i /><i /><span>Dashboard usaha</span></div>
-        <div className="metricRow"><div><small>Pelanggan</small><strong>128</strong></div><div><small>Selesai</small><strong>92%</strong></div></div>
-        <div className="miniChart"><i /><i /><i /><i /><i /></div>
-      </div>
-      <div className="resultBadge"><LineIcon name="check" /><span>Lebih rapi</span></div>
+    <div className="premiumArtwork heroPremiumArtwork">
+      <Image src="/illustrations/premium/qira-hero-premium.webp" alt="Pemilik usaha mengubah pekerjaan yang tersebar menjadi sistem digital yang terhubung dan rapi" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 58vw" />
     </div>
   );
 }
 
 export function WhatArtwork({ compact = false }: { compact?: boolean }) {
   return (
-    <div className={`crispVisual whatArtwork${compact ? " compactVisual" : ""}`} role="img" aria-label="Tiga hasil QIRA: usaha terlihat, pekerjaan rapi, dan tugas otomatis">
-      <div className="visualColumn"><span className="stepDot">1</span><strong>Terlihat</strong><div className="browserMock"><LineIcon name="web" /><i /><i /><i /></div><small>Pelanggan mudah memahami usahamu</small></div>
-      <span className="visualArrow">→</span>
-      <div className="visualColumn"><span className="stepDot">2</span><strong>Rapi</strong><div className="dashboardMock"><LineIcon name="chart" /><b /><b /><b /></div><small>Data dan pekerjaan mudah dipantau</small></div>
-      <span className="visualArrow">→</span>
-      <div className="visualColumn"><span className="stepDot">3</span><strong>Otomatis</strong><div className="automationMock"><LineIcon name="bolt" /><i /><i /></div><small>Tugas berulang berjalan sendiri</small></div>
+    <div className={`premiumArtwork${compact ? " compactVisual" : ""}`}>
+      <Image src="/illustrations/premium/qira-outcomes-premium.webp" alt="Alur digital dari website usaha menuju dashboard yang rapi dan otomatisasi" width={1672} height={941} quality={90} sizes="(max-width: 760px) 100vw, 1160px" />
     </div>
   );
 }
 
 export function BenefitsArtwork() {
-  const items: Array<[IconName, string, string]> = [
-    ["search", "Mudah ditemukan", "Informasi usaha tampil jelas"],
-    ["file", "Kerja lebih rapi", "Data berada di tempatnya"],
-    ["bolt", "Hemat waktu", "Proses berulang diotomatisasi"],
-    ["chart", "Langkah lebih jelas", "Prioritas mudah dipantau"],
-  ];
-  return <div className="crispVisual benefitsArtwork" role="img" aria-label="Manfaat QIRA untuk bisnis">{items.map(([icon,title,copy])=><div className="benefitCard" key={title}><LineIcon name={icon}/><span><strong>{title}</strong><small>{copy}</small></span><b>✓</b></div>)}</div>;
+  return <div className="premiumArtwork"><Image src="/illustrations/premium/qira-benefits-premium.webp" alt="Empat manfaat bisnis digital: mudah ditemukan, data rapi, hemat waktu, dan arah yang jelas" width={1672} height={941} quality={90} sizes="(max-width: 760px) 100vw, 1160px" /></div>;
 }
 
 export function SolutionArtwork({ kind }: { kind: string }) {
