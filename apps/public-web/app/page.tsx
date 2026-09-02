@@ -2,20 +2,27 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ConversionTracker } from "./_components/ConversionTracker";
-import { ProblemSelector } from "./_components/ProblemSelector";
 
-const SERVICES = [
-  ["↗", "Website"],
-  ["▦", "Business tools"],
-  ["⚡", "Automation"],
-  ["◎", "Discovery"],
-] as const;
+const VISUALS = {
+  hero: "/illustrations/visual/qira-hero.webp",
+  what: "/illustrations/visual/qira-what.webp",
+  problems: "/illustrations/visual/qira-problems.webp",
+  offerings: "/illustrations/visual/qira-offerings.webp",
+  benefits: "/illustrations/visual/qira-benefits.webp",
+  beforeAfter: "/illustrations/visual/qira-beforeafter.webp",
+} as const;
 
-const PROOF = ["Discovery", "Workflow", "Document", "Automation", "Prototype"] as const;
+function StoryVisual({ src, alt, eager = false }: { src: string; alt: string; eager?: boolean }) {
+  return (
+    <figure className="visualStoryCard">
+      <Image src={src} alt={alt} width={640} height={360} priority={eager} sizes="(max-width: 760px) 100vw, 1160px" />
+    </figure>
+  );
+}
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="visualHome">
       <ConversionTracker event="landing_view" />
 
       <nav className="companyNav shell" aria-label="Navigasi utama">
@@ -28,78 +35,86 @@ export default function HomePage() {
         <Link className="smallButton" href="/coba-masalah">Mulai</Link>
       </nav>
 
-      <section className="companyHero shell">
-        <div className="companyHeroCopy">
+      <section className="visualHero shell">
+        <div className="visualHeroCopy">
           <p className="eyebrow">QIRA · Simple Digital Solutions</p>
-          <h1>Bisnis lebih rapi. <em>Teknologi lebih sederhana.</em></h1>
-          <p className="companyLead">Masalah bisnis → solusi yang dipakai.</p>
+          <h1>Bisnis lebih rapi.<br /><em>Teknologi lebih sederhana.</em></h1>
+          <p className="visualHeroLead">Website · tools · automation · discovery.</p>
           <div className="companyHeroActions">
             <Link className="primaryButton" href="/coba-masalah">Ceritakan masalahmu</Link>
-            <Link className="textLink" href="/contoh-penerapan">Lihat contoh →</Link>
+            <Link className="textLink" href="#qira-itu-apa">Lihat cara kerjanya ↓</Link>
           </div>
         </div>
-        <figure className="companyHeroVisual">
-          <Image src="/illustrations/qira-hero.webp" alt="Pekerjaan bisnis yang terhubung dalam satu alur digital" width={1536} height={1024} priority sizes="(max-width: 960px) 100vw, 56vw" />
-        </figure>
-      </section>
-
-      <section className="companyProblems shell">
-        <div className="companySectionHeading compact">
-          <div><p className="kicker">Pilih masalah</p><h2>Apa yang paling bikin repot?</h2></div>
-        </div>
-        <ProblemSelector />
-      </section>
-
-      <section className="companyServices shell" id="services">
-        <div className="companySectionHeading compact">
-          <div><p className="kicker">QIRA bantu</p><h2>Pilih seperlunya.</h2></div>
-        </div>
-        <figure className="companySectionVisual serviceVisual">
-          <Image src="/illustrations/qira-services.webp" alt="Website, aplikasi bisnis, automation, dan discovery QIRA" width={1536} height={1024} sizes="(max-width: 680px) 100vw, 1160px" />
-        </figure>
-        <div className="companyServiceStrip" aria-label="Layanan QIRA">
-          {SERVICES.map(([icon, title]) => <span key={title}><b aria-hidden="true">{icon}</b>{title}</span>)}
+        <div className="visualHeroArt">
+          <StoryVisual src={VISUALS.hero} alt="Masalah bisnis yang berantakan dirapikan QIRA menjadi website, dashboard, workflow otomatis, dan laporan" eager />
         </div>
       </section>
 
-      <section className="companyBeforeAfter shell">
-        <div className="companySectionHeading compact">
-          <div><p className="kicker">Before → After</p><h2>Lihat perubahannya.</h2></div>
-        </div>
-        <figure className="companySectionVisual processVisual">
-          <Image src="/illustrations/qira-examples-visual.svg" alt="Empat contoh masalah bisnis yang berubah menjadi workflow digital yang lebih rapi" width={500} height={281} unoptimized sizes="(max-width: 680px) 100vw, 1160px" />
-        </figure>
-        <Link className="textLink sectionAction" href="/contoh-penerapan">Lihat contoh lengkap →</Link>
+      <section className="visualStory shell" id="qira-itu-apa">
+        <header className="visualStoryHeading">
+          <p className="kicker">QIRA itu apa?</p>
+          <h2>Biar usaha <em>terlihat, rapi, otomatis.</em></h2>
+        </header>
+        <StoryVisual src={VISUALS.what} alt="QIRA membantu usaha lebih terlihat, pekerjaan lebih rapi, dan tugas berulang menjadi otomatis" />
       </section>
 
-      <section className="companyPortfolioCompact shell" id="portfolio">
-        <figure className="portfolioCompactVisual">
-          <Image src="/illustrations/qira-portfolio-visual.svg" alt="Produk internal, pekerjaan klien, demo, dan workflow discovery QIRA" width={500} height={375} unoptimized sizes="(max-width: 960px) 100vw, 54vw" />
-        </figure>
-        <div className="portfolioCompactCopy">
+      <section className="visualStory shell">
+        <header className="visualStoryHeading">
+          <p className="kicker">Mulai dari masalah</p>
+          <h2>Pilih yang paling <em>terasa.</em></h2>
+        </header>
+        <StoryVisual src={VISUALS.problems} alt="Empat masalah bisnis: sulit ditemukan, pekerjaan tercecer, tugas berulang, dan bingung mulai" />
+        <Link className="visualInlineAction" href="/coba-masalah">Pilih masalahmu →</Link>
+      </section>
+
+      <section className="visualStory shell">
+        <header className="visualStoryHeading">
+          <p className="kicker">Yang QIRA buat</p>
+          <h2>Solusi seperlunya.<br /><em>Bukan sistem yang ribet.</em></h2>
+        </header>
+        <StoryVisual src={VISUALS.offerings} alt="Empat layanan QIRA: website, business tools, automation, dan discovery" />
+      </section>
+
+      <section className="visualStory shell">
+        <header className="visualStoryHeading">
+          <p className="kicker">Yang kamu dapat</p>
+          <h2>Hasil yang langsung <em>terasa.</em></h2>
+        </header>
+        <StoryVisual src={VISUALS.benefits} alt="Manfaat QIRA: mudah ditemukan, kerja lebih rapi, hemat waktu, dan langkah lebih jelas" />
+      </section>
+
+      <section className="visualStory shell">
+        <header className="visualStoryHeading">
+          <p className="kicker">Sebelum → Sesudah</p>
+          <h2>Dari berantakan jadi <em>jelas.</em></h2>
+        </header>
+        <StoryVisual src={VISUALS.beforeAfter} alt="Perbandingan kondisi bisnis sebelum dan sesudah menggunakan solusi QIRA" />
+        <Link className="visualInlineAction" href="/contoh-penerapan">Lihat contoh penerapan →</Link>
+      </section>
+
+      <section className="visualProof shell">
+        <div>
           <p className="kicker">Products & Work</p>
-          <h2>Yang sudah dibangun.</h2>
-          <div className="portfolioProof">{PROOF.map((item) => <span key={item}>✓ {item}</span>)}</div>
-          <Link className="textLink" href="/portfolio">Buka portfolio →</Link>
+          <h2>Lihat yang sudah dibangun.</h2>
+        </div>
+        <div className="visualProofActions">
+          <span>QIRA Product</span><span>Client Work</span><span>Solution Demo</span>
+          <Link className="primaryButton" href="/portfolio">Buka portfolio</Link>
         </div>
       </section>
 
-      <section className="companyPricingTeaser shell">
+      <section className="visualPricing shell">
         <div>
           <p className="kicker">Pricing</p>
-          <h2>Mulai kecil. Tambah saat perlu.</h2>
-          <Link className="primaryButton" href="/harga">Lihat 3 pilihan</Link>
+          <h2>Mulai dari <em>Rp1,5 juta.</em></h2>
+          <p>Mulai kecil. Tambah saat perlu.</p>
         </div>
-        <figure>
-          <Image src="/illustrations/qira-pricing-visual.svg" alt="Tiga tingkat bantuan QIRA dari sederhana hingga lebih lengkap" width={500} height={375} unoptimized sizes="(max-width: 960px) 100vw, 48vw" />
-        </figure>
+        <Link className="primaryButton" href="/harga">Lihat 3 pilihan</Link>
       </section>
 
-      <section className="companyClosing shell">
+      <section className="companyClosing shell visualClosing">
         <div><p className="kicker">Start simple</p><h2>Mulai dari satu masalah.</h2></div>
-        <div className="closingActions">
-          <Link className="primaryButton light" href="/coba-masalah">Mulai sekarang</Link>
-        </div>
+        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Mulai sekarang</Link></div>
       </section>
 
       <footer className="companyFooter shell">
