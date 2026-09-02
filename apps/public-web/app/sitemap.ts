@@ -11,6 +11,9 @@ const routes = [
   "/solusi/automation-bisnis",
   "/solusi/digitalisasi-administrasi",
   "/solusi/business-tools",
+  "/untuk/usaha-jasa",
+  "/untuk/retail-umkm",
+  "/untuk/administrasi-tim",
   "/privasi",
 ] as const;
 
