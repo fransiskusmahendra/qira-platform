@@ -42,7 +42,7 @@ const SOLUTIONS = {
     outcome: "Administrasi lebih cepat, lebih konsisten, dan lebih mudah diperiksa kembali.",
     fit: "Usaha dengan data, dokumen, atau status pekerjaan yang tersebar di banyak tempat.",
     deliverables: ["Form input terarah", "Penyimpanan terstruktur", "Dokumen otomatis dasar", "Tampilan status"],
-    image: "/illustrations/qira-examples-visual.svg",
+    image: "/illustrations/premium/qira-examples-premium.webp",
   },
   "business-tools": {
     title: "Alat Kerja Digital Sederhana",

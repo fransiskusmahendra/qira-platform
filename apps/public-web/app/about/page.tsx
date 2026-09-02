@@ -31,7 +31,7 @@ export default function AboutPage() {
           <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Ceritakan masalah usaha</Link></div>
         </div>
         <figure className={styles.heroVisual}>
-          <Image src="/illustrations/qira-about-visual.svg" alt="Masalah bisnis yang berubah menjadi solusi digital yang lebih rapi" width={500} height={375} priority unoptimized sizes="(max-width: 960px) 100vw, 48vw" />
+          <Image src="/illustrations/premium/qira-about-premium.webp" alt="Pemilik usaha dan konsultan menyusun solusi digital yang lebih rapi" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
         </figure>
       </section>
 

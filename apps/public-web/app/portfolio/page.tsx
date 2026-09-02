@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 type PortfolioItem = { number: string; tag: string; title: string; outcome: string; visual: string; image: string; href?: string; cta?: string; external?: boolean; note?: string };
 
 const ITEMS: readonly PortfolioItem[] = [
-  { number: "01", tag: "Produk QIRA", title: "Pemetaan Kebutuhan", outcome: "Kebutuhan menjadi ruang lingkup yang jelas", visual: "Masalah → Prioritas → Ruang lingkup", image: "/illustrations/qira-problem-visual.svg", href: "/discovery", cta: "Coba alurnya" },
-  { number: "02", tag: "Produk QIRA", title: "Pembuat Dokumen", outcome: "Data menjadi dokumen siap digunakan", visual: "Data → Dokumen → Unduh", image: "/illustrations/qira-examples-visual.svg", note: "Digunakan untuk operasional internal QIRA." },
+  { number: "01", tag: "Produk QIRA", title: "Pemetaan Kebutuhan", outcome: "Kebutuhan menjadi ruang lingkup yang jelas", visual: "Masalah → Prioritas → Ruang lingkup", image: "/illustrations/premium/qira-problem-premium.webp", href: "/discovery", cta: "Coba alurnya" },
+  { number: "02", tag: "Produk QIRA", title: "Pembuat Dokumen", outcome: "Data menjadi dokumen siap digunakan", visual: "Data → Dokumen → Unduh", image: "/illustrations/premium/qira-examples-premium.webp", note: "Digunakan untuk operasional internal QIRA." },
   { number: "03", tag: "Pekerjaan klien", title: "Alat Transaksi & Nota", outcome: "Input transaksi sampai nota dalam satu alur", visual: "Input → Nota → Cetak", image: "/illustrations/qira-process.webp", note: "Identitas klien, data, dan akses aplikasi tidak dipublikasikan." },
   { number: "04", tag: "Demo solusi", title: "Demo Solusi Bisnis", outcome: "Calon klien dapat melihat gambaran solusi sebelum memulai", visual: "Lihat → Coba → Diskusikan", image: "/illustrations/qira-services.webp", href: "https://demo.qirasolution.com", cta: "Buka demo", external: true, note: "Demo konsep QIRA, bukan klaim sebagai proyek klien." },
 ] as const;
@@ -47,7 +47,7 @@ export default function PortfolioPage() {
           <p>Produk QIRA, pekerjaan klien, dan demo solusi.</p>
         </div>
         <figure className={styles.heroVisual}>
-          <Image src="/illustrations/qira-portfolio-visual.svg" alt="Produk QIRA, client solution, prototype, dan discovery workflow dalam satu visual" width={500} height={375} priority unoptimized sizes="(max-width: 960px) 100vw, 48vw" />
+          <Image src="/illustrations/premium/qira-portfolio-premium.webp" alt="Kumpulan website, dashboard, otomatisasi, dokumen, dan pemetaan kebutuhan QIRA" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
         </figure>
       </section>
 
@@ -55,7 +55,7 @@ export default function PortfolioPage() {
         <div className="portfolioCaseGrid">
           {ITEMS.map((item) => (
             <article className="portfolioCase" key={item.title}>
-              <figure><Image src={item.image} alt="" width={640} height={420} unoptimized={item.image.endsWith(".svg")} sizes="(max-width: 680px) 100vw, 50vw" /></figure>
+              <figure><Image src={item.image} alt="" width={1672} height={941} quality={90} sizes="(max-width: 680px) 100vw, 50vw" /></figure>
               <div className="portfolioCaseBody">
                 <div className="portfolioCaseMeta"><span>{item.number}</span><small>{item.tag}</small></div>
                 <h2>{item.title}</h2>

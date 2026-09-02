@@ -37,7 +37,7 @@ export default function ExamplePage() {
           <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Ceritakan masalah usaha</Link></div>
         </div>
         <figure className={styles.heroVisual}>
-          <Image src="/illustrations/qira-examples-visual.svg" alt="Pesanan, dokumen, follow-up, dan perencanaan yang berubah menjadi workflow digital" width={500} height={281} priority unoptimized sizes="(max-width: 960px) 100vw, 48vw" />
+          <Image src="/illustrations/premium/qira-examples-premium.webp" alt="Input bisnis yang menjadi dokumen, tindak lanjut, dan laporan teratur" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
         </figure>
       </section>
 

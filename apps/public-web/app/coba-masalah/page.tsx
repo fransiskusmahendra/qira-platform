@@ -34,7 +34,7 @@ export default function ProblemExperiencePage() {
           <p>±2 menit.</p>
         </div>
         <figure className={styles.heroVisual}>
-          <Image src="/illustrations/qira-problem-visual.svg" alt="Masalah bisnis yang menjadi lebih jelas melalui pertanyaan sederhana" width={500} height={375} priority unoptimized sizes="(max-width: 960px) 100vw, 48vw" />
+          <Image src="/illustrations/premium/qira-problem-premium.webp" alt="Masalah bisnis yang disusun menjadi prioritas dan arah solusi" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
         </figure>
       </section>
 

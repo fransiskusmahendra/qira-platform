@@ -38,7 +38,7 @@ export default function PricingPage() {
           <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Bantu pilih paket</Link></div>
         </div>
         <figure className={styles.heroVisual}>
-          <Image src="/illustrations/qira-pricing-visual.svg" alt="Tiga tingkat solusi QIRA dari sederhana hingga terhubung" width={500} height={375} priority unoptimized sizes="(max-width: 960px) 100vw, 48vw" />
+          <Image src="/illustrations/premium/qira-pricing-premium.webp" alt="Tiga tingkat solusi QIRA dari sederhana hingga terhubung" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
         </figure>
       </section>
 
