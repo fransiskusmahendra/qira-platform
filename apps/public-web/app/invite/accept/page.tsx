@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { createClient } from "../../../lib/supabase/server";
+import styles from "../../login/login.module.css";
 
 export default async function AcceptInvitationPage({
   searchParams,
@@ -24,10 +25,14 @@ export default async function AcceptInvitationPage({
 
   if (error) {
     return (
-      <main style={{ margin: "64px auto", maxWidth: 640, padding: 24 }}>
-        <h1>Undangan tidak dapat diterima</h1>
-        <p>Token sudah dipakai, kedaluwarsa, atau alamat email akun ini tidak cocok.</p>
-        <Link href="/login">Masuk dengan akun lain</Link>
+      <main className={styles.page}>
+        <section className={styles.card}>
+          <Link className={styles.brand} href="/">QIRA<span>.</span></Link>
+          <p className={styles.kicker}>Undangan</p>
+          <h1>Tautan tidak berlaku.</h1>
+          <p className={styles.copy}>Bisa jadi sudah dipakai, kedaluwarsa, atau emailnya berbeda.</p>
+          <Link className={styles.secondary} href="/login">Masuk dengan akun lain →</Link>
+        </section>
       </main>
     );
   }
