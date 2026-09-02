@@ -100,7 +100,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
         <div className={styles.heroActions}><ContextualWhatsAppCta context={solution.title}>Konsultasi lewat WhatsApp</ContextualWhatsAppCta><Link className="textLink" href="#cara-kerja">Lihat proses ↓</Link></div>
       </div>
       <figure className={styles.heroVisual}>
-        <Image src={solution.image} alt={`Ilustrasi ${solution.title} oleh QIRA`} width={1536} height={1024} priority sizes="(max-width: 960px) 100vw, 48vw" unoptimized={solution.image.endsWith(".svg")} />
+        <Image src={solution.image} alt={`Ilustrasi ${solution.title} oleh QIRA`} width={1536} height={1024} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
       </figure>
     </section>
 
