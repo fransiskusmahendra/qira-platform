@@ -16,7 +16,9 @@ export type ConversionEvent =
   | "solution_explore"
   | "before_after_interact"
   | "application_example_interact"
-  | "homepage_cta_click";
+  | "homepage_cta_click"
+  | "whatsapp_request_click"
+  | "service_view";
 
 const STORAGE_PREFIX = "qira.conversion.";
 

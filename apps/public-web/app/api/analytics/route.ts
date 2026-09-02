@@ -17,6 +17,8 @@ const ALLOWED_EVENTS = new Set([
   "before_after_interact",
   "application_example_interact",
   "homepage_cta_click",
+  "whatsapp_request_click",
+  "service_view",
 ]);
 
 function normalizePath(value: unknown) {

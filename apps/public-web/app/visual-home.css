@@ -94,6 +94,16 @@
   padding: 92px 0 112px;
   border-top: 1px solid var(--line);
 }
+
+@supports (content-visibility: auto) {
+  .visualStory,
+  .visualProof,
+  .visualPricing,
+  .visualClosing {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 720px;
+  }
+}
 .visualStoryHeading {
   margin: 0 auto 38px;
   text-align: center;
