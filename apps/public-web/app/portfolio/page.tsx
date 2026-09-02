@@ -43,8 +43,8 @@ export default function PortfolioPage() {
       <section className={`${styles.hero} shell`}>
         <div className={styles.heroCopy}>
           <p className="eyebrow">Produk & karya</p>
-          <h1>Lihat yang sudah dibuat.</h1>
-          <p>Produk QIRA, pekerjaan klien, dan demo solusi.</p>
+          <h1>Lihat solusi yang sudah dibangun.</h1>
+          <p>Produk internal QIRA, pekerjaan klien, dan demo yang dapat dicoba.</p>
         </div>
         <figure className={styles.heroVisual}>
           <Image src="/illustrations/premium/qira-portfolio-premium.webp" alt="Kumpulan website, dashboard, otomatisasi, dokumen, dan pemetaan kebutuhan QIRA" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />

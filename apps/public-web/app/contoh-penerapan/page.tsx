@@ -33,7 +33,7 @@ export default function ExamplePage() {
       <section className={`${styles.hero} shell`}>
         <div className={styles.heroCopy}>
           <p className="eyebrow">Contoh</p>
-          <h1>Lihat sebelum → sesudah.</h1>
+          <h1>Lihat masalah berubah menjadi alur yang rapi.</h1>
           <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Ceritakan masalah usaha</Link></div>
         </div>
         <figure className={styles.heroVisual}>

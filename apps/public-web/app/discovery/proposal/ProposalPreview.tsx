@@ -97,7 +97,7 @@ export function ProposalPreview() {
           <div><span>Mulai dari</span><strong>{rupiah.format(result.commercial.totalIdr)}</strong></div>
           <div><span>Estimasi</span><strong>{result.selectedPackage.durationWeeks[0]}–{result.selectedPackage.durationWeeks[1]} minggu</strong></div>
         </div>
-        <p className={styles.disclaimer}>{result.selectedPackage.name} · 50% awal · 50% sebelum serah terima · scope final dikonfirmasi sebelum mulai.</p>
+        <p className={styles.disclaimer}>{result.selectedPackage.name} · 50% awal · 50% sebelum serah terima · ruang lingkup final dikonfirmasi sebelum mulai.</p>
       </section> : null}
 
       {chapter === 1 ? <section className={styles.customerDecision}>

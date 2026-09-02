@@ -26,8 +26,8 @@ export default function AboutPage() {
       <section className={`${styles.hero} shell`}>
         <div className={styles.heroCopy}>
           <p className="eyebrow">Tentang QIRA</p>
-          <h1>Masalah nyata. Solusi seperlunya.</h1>
-          <p>Pahami → prioritaskan → bangun.</p>
+          <h1>Teknologi yang dimulai dari kebutuhan nyata.</h1>
+          <p>QIRA memahami proses usaha, menentukan prioritas, lalu membangun solusi digital yang benar-benar diperlukan.</p>
           <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Ceritakan masalah usaha</Link></div>
         </div>
         <figure className={styles.heroVisual}>

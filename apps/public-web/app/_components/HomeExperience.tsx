@@ -52,7 +52,7 @@ const EXAMPLES = [
   {
     label: "Bisnis jasa",
     title: "Dari informasi tersebar menjadi satu pintu.",
-    items: ["Website yang jelas", "Form kebutuhan", "Follow-up terarah"],
+    items: ["Website yang jelas", "Form kebutuhan", "Tindak lanjut terarah"],
     result: "Pelanggan lebih cepat paham dan menghubungi.",
   },
   {

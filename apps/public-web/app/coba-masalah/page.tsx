@@ -7,7 +7,7 @@ import { ConversionTracker } from "../_components/ConversionTracker";
 import styles from "../SubpageVisual.module.css";
 
 const title = "Ceritakan Masalah Usahamu";
-const description = "Ceritakan satu masalah yang paling merepotkan. QIRA membantu memetakan kebutuhan tanpa istilah teknis atau brief yang rumit.";
+const description = "Ceritakan satu masalah yang paling merepotkan. QIRA membantu memetakan kebutuhan tanpa istilah teknis atau penjelasan yang rumit.";
 
 export const metadata: Metadata = {
   title,
@@ -30,8 +30,8 @@ export default function ProblemExperiencePage() {
       <section className={`${styles.hero} shell`}>
         <div className={styles.heroCopy}>
           <p className="eyebrow">Mulai</p>
-          <h1>Ceritakan satu masalah.</h1>
-          <p>±2 menit.</p>
+          <h1>Ceritakan masalah yang paling merepotkan.</h1>
+          <p>Jawab empat pertanyaan sederhana dalam sekitar 2 menit.</p>
         </div>
         <figure className={styles.heroVisual}>
           <Image src="/illustrations/premium/qira-problem-premium.webp" alt="Masalah bisnis yang disusun menjadi prioritas dan arah solusi" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />

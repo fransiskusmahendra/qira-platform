@@ -14,7 +14,7 @@ const USE_CASES = {
     lead: "Biar calon pelanggan paham jasamu dan setiap permintaan lebih mudah diikuti.",
     image: "/illustrations/premium/qira-service-business.webp",
     alt: "Alur digital usaha jasa dari pesan pelanggan hingga pekerjaan selesai",
-    pains: ["Info jasa tersebar", "Follow-up terlupa", "Status sulit dipantau"],
+    pains: ["Info jasa tersebar", "Tindak lanjut terlupa", "Status sulit dipantau"],
     flow: ["Website yang jelas", "Form permintaan", "Status pekerjaan"],
     outcomes: ["Mudah dihubungi", "Permintaan lebih rapi", "Tim tahu langkah berikutnya"],
     solutionHref: "/solusi/website-umkm",

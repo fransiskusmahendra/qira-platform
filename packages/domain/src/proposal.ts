@@ -116,7 +116,7 @@ export const PROPOSAL_PACKAGES: readonly ProposalPackage[] = Object.freeze([
       "Penyimpanan prospek dan dashboard sederhana",
       "Katalog terbatas dan notifikasi email dasar",
     ],
-    exclusions: ["WhatsApp API resmi atau chatbot berbayar", "Payment gateway", "Integrasi API pihak ketiga"],
+    exclusions: ["Integrasi WhatsApp resmi atau chatbot berbayar", "Sistem pembayaran online", "Koneksi ke sistem pihak ketiga"],
   },
   {
     id: "connected-growth",
@@ -133,7 +133,7 @@ export const PROPOSAL_PACKAGES: readonly ProposalPackage[] = Object.freeze([
       "Status permintaan atau pesanan",
       "Dokumen atau notifikasi dasar dari data",
     ],
-    exclusions: ["Integrasi enterprise atau sistem legacy", "Migrasi data historis", "Fitur tambahan di luar scope discovery"],
+    exclusions: ["Integrasi dengan sistem perusahaan besar atau sistem lama", "Pemindahan data lama", "Fitur di luar kebutuhan yang telah disepakati"],
   },
 ]);
 
