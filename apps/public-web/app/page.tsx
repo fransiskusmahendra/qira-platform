@@ -31,17 +31,17 @@ export default function HomePage() {
           <Link href="/portfolio">Portofolio</Link>
           <Link href="/harga">Harga</Link>
         </div>
-        <Link className="smallButton" href="/coba-masalah" data-conversion="homepage_cta_click">Mulai</Link>
+        <Link className="smallButton" href="/coba-masalah" data-conversion="homepage_cta_click">Ceritakan masalah</Link>
       </nav>
 
       <section className="visualHero shell">
         <div className="visualHeroCopy">
-          <p className="eyebrow">QIRA · Simple Digital Solutions</p>
+          <p className="eyebrow">QIRA · Solusi digital sederhana</p>
           <h1>Bisnis bekerja lebih rapi.<br /><em>Teknologi tetap sederhana.</em></h1>
-          <p className="visualHeroLead">QIRA membuat website, alat kerja, dan otomatisasi yang sesuai dengan masalah bisnismu.</p>
+          <p className="visualHeroLead">QIRA membuat website, form, dashboard, dan otomatisasi agar usaha lebih mudah ditemukan dan dijalankan.</p>
           <div className="companyHeroActions">
-            <Link className="primaryButton" href="/coba-masalah" data-conversion="homepage_cta_click">Ceritakan masalahmu</Link>
-            <Link className="textLink" href="#qira-itu-apa">Lihat cara kerjanya ↓</Link>
+            <Link className="primaryButton" href="/coba-masalah" data-conversion="homepage_cta_click">Ceritakan masalah usaha</Link>
+            <Link className="textLink" href="#contoh-solusi">Lihat contoh solusi ↓</Link>
           </div>
         </div>
         <div className="visualHeroArt">
@@ -52,7 +52,7 @@ export default function HomePage() {
       <section className="visualStory shell" id="qira-itu-apa">
         <header className="visualStoryHeading">
           <p className="kicker">QIRA itu apa?</p>
-          <h2>Terlihat. Rapi. <em>Berjalan otomatis.</em></h2>
+          <h2>Mudah ditemukan. Kerja lebih rapi. <em>Tugas berjalan otomatis.</em></h2>
         </header>
         <StoryVisual src={VISUALS.what} alt="QIRA membantu usaha lebih terlihat, pekerjaan lebih rapi, dan tugas berulang menjadi otomatis" />
       </section>
@@ -65,7 +65,7 @@ export default function HomePage() {
         <SolutionExplorer />
       </section>
 
-      <section className="visualStory shell">
+      <section className="visualStory shell" id="contoh-solusi">
         <header className="visualStoryHeading">
           <p className="kicker">Yang didapat</p>
           <h2>Bukan fitur yang rumit.<br /><em>Hasil yang terasa.</em></h2>
@@ -84,7 +84,7 @@ export default function HomePage() {
       <section className="visualStory shell">
         <header className="visualStoryHeading">
           <p className="kicker">Contoh penerapan</p>
-          <h2>Bentuknya berbeda.<br /><em>Tujuannya tetap sederhana.</em></h2>
+          <h2>Solusi berbeda untuk<br /><em>masalah yang berbeda.</em></h2>
         </header>
         <ApplicationShowcase />
       </section>
@@ -104,7 +104,7 @@ export default function HomePage() {
           <h2>Lihat yang sudah dibangun.</h2>
         </div>
         <div className="visualProofActions">
-          <span>QIRA Product</span><span>Client Work</span><span>Solution Demo</span>
+          <span>Produk QIRA</span><span>Pekerjaan klien</span><span>Demo solusi</span>
         <Link className="primaryButton" href="/portfolio" data-conversion="homepage_cta_click">Buka portofolio</Link>
         </div>
       </section>
@@ -120,13 +120,13 @@ export default function HomePage() {
 
       <section className="companyClosing shell visualClosing">
         <div><p className="kicker">Mulai sederhana</p><h2>Mulai dari satu masalah.</h2></div>
-        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah" data-conversion="homepage_cta_click">Mulai sekarang</Link><ContextualWhatsAppCta context="kebutuhan digital bisnis" className="textLink lightText">Minta dihubungi via WhatsApp</ContextualWhatsAppCta></div>
+        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah" data-conversion="homepage_cta_click">Ceritakan masalah usaha</Link><ContextualWhatsAppCta context="kebutuhan digital bisnis" className="textLink lightText">Konsultasi lewat WhatsApp</ContextualWhatsAppCta></div>
       </section>
 
       <footer className="companyFooter shell">
         <div><Link className="brand" href="/">QIRA<span>.</span></Link></div>
         <div className="footerLinks"><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div>
-        <span>QIRA · PT Rays Solusi Informasi</span>
+        <span>QIRA · Solusi digital sederhana untuk bisnis</span>
       </footer>
     </main>
   );

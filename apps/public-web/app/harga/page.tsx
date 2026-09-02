@@ -26,16 +26,16 @@ export default function PricingPage() {
       <ConversionTracker event="pricing_view" />
       <nav className="companyNav shell" aria-label="Navigasi utama">
         <Link className="brand" href="/">QIRA<span>.</span></Link>
-        <div className="companyNavLinks"><Link href="/about">About</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link></div>
-        <Link className="smallButton" href="/coba-masalah">Mulai</Link>
+        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
+        <Link className="smallButton" href="/coba-masalah">Ceritakan masalah</Link>
       </nav>
 
       <section className={`${styles.hero} shell`}>
         <div className={styles.heroCopy}>
-          <p className="eyebrow">Pricing</p>
-          <h1>Pilih levelnya.</h1>
-          <p>Mulai {rupiah.format(lowestPrice)}.</p>
-          <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Bantu pilih</Link></div>
+          <p className="eyebrow">Harga & paket</p>
+          <h1>Mulai sesuai kebutuhan.</h1>
+          <p>Paket mulai {rupiah.format(lowestPrice)}. Tidak perlu langsung membuat sistem besar.</p>
+          <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Bantu pilih paket</Link></div>
         </div>
         <figure className={styles.heroVisual}>
           <Image src="/illustrations/qira-pricing-visual.svg" alt="Tiga tingkat solusi QIRA dari sederhana hingga terhubung" width={500} height={375} priority unoptimized sizes="(max-width: 960px) 100vw, 48vw" />
@@ -52,10 +52,10 @@ export default function PricingPage() {
                 <h3>{item.name}</h3>
                 <strong className="price">{rupiah.format(item.introductoryPriceIdr)}</strong>
                 <span className="duration">{item.durationWeeks[0]}–{item.durationWeeks[1]} minggu</span>
+                <p className="planOutcome">{item.tagline}</p>
                 <details className="simplePriceDetails">
-                  <summary>Detail</summary>
-                  <p>{item.tagline}</p>
-                  <p>{item.revisions}x revisi · {item.supportDays} hari support</p>
+                  <summary>Lihat rincian</summary>
+                  <p>{item.revisions}x revisi · {item.supportDays} hari pendampingan</p>
                   <ul>{item.deliverables.map((deliverable) => <li key={deliverable}>{deliverable}</li>)}</ul>
                   <p>Belum termasuk: {item.exclusions.join("; ")}.</p>
                 </details>
@@ -64,20 +64,20 @@ export default function PricingPage() {
           })}
         </div>
         <details className="simpleCareDetails">
-          <summary>Maintenance opsional</summary>
+          <summary>Pemeliharaan opsional</summary>
           <div>{CARE_PLANS.map((plan) => <span key={plan.name}>{plan.name} · {plan.priceRange}</span>)}</div>
         </details>
       </section>
 
       <section className="companyClosing simpleCompactClosing shell">
-        <div><p className="kicker">Belum yakin?</p><h2>Mulai dari masalahnya.</h2></div>
-        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Mulai</Link></div>
+        <div><p className="kicker">Belum yakin?</p><h2>Ceritakan satu masalah usaha.</h2></div>
+        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Bantu pilih paket</Link></div>
       </section>
 
       <footer className="companyFooter shell">
         <div><Link className="brand" href="/">QIRA<span>.</span></Link></div>
-        <div className="footerLinks"><Link href="/">Home</Link><Link href="/about">About</Link><Link href="/portfolio">Portfolio</Link><Link href="/privasi">Privacy</Link></div>
-        <span>QIRA · PT Rays Solusi Informasi</span>
+        <div className="footerLinks"><Link href="/">Beranda</Link><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/privasi">Privasi</Link></div>
+        <span>QIRA · Solusi digital sederhana untuk bisnis</span>
       </footer>
     </main>
   );

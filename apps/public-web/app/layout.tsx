@@ -12,9 +12,9 @@ import "./visual-home.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
-const siteTitle = "QIRA — Simple Digital Solutions";
-const siteDescription = "QIRA membantu bisnis dan UMKM membangun website, aplikasi sederhana, automation, integrasi, dan workflow digital yang praktis serta mudah digunakan.";
-const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — Simple Digital Solutions" };
+const siteTitle = "QIRA — Solusi Digital Sederhana";
+const siteDescription = "QIRA membuat website, form, dashboard, dan otomatisasi agar usaha lebih mudah ditemukan dan dijalankan.";
+const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — Solusi Digital Sederhana" };
 const siteUrl = "https://www.qirasolution.com";
 
 const structuredData = {
@@ -24,7 +24,6 @@ const structuredData = {
       "@type": "Organization",
       "@id": `${siteUrl}/#organization`,
       name: "QIRA",
-      legalName: "PT Rays Solusi Informasi",
       url: siteUrl,
       logo: `${siteUrl}/qira-mark.svg`,
       description: siteDescription,
@@ -43,9 +42,9 @@ const structuredData = {
       name: "Layanan QIRA",
       itemListElement: [
         { "@type": "Service", name: "Website", provider: { "@id": `${siteUrl}/#organization` } },
-        { "@type": "Service", name: "Business tools", provider: { "@id": `${siteUrl}/#organization` } },
-        { "@type": "Service", name: "Automation", provider: { "@id": `${siteUrl}/#organization` } },
-        { "@type": "Service", name: "Business Discovery", provider: { "@id": `${siteUrl}/#organization` } },
+        { "@type": "Service", name: "Alat kerja digital", provider: { "@id": `${siteUrl}/#organization` } },
+        { "@type": "Service", name: "Otomatisasi", provider: { "@id": `${siteUrl}/#organization` } },
+        { "@type": "Service", name: "Pemetaan kebutuhan bisnis", provider: { "@id": `${siteUrl}/#organization` } },
       ],
     },
   ],

@@ -27,6 +27,6 @@ export default async function StartPage({ searchParams }: { searchParams: Promis
       </div>
       <StartForm defaultPackage={selected} defaultNeed={defaultNeed} />
     </section>
-    <footer className={styles.footer}><span>QIRA · PT Rays Solusi Informasi</span></footer>
+    <footer className={styles.footer}><span>QIRA · Solusi digital sederhana untuk bisnis</span></footer>
   </main>;
 }

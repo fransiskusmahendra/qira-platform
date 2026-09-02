@@ -91,6 +91,8 @@
 .simplePriceCard .price { display: block; font-size: clamp(28px, 3vw, 38px); letter-spacing: -.04em; }
 .simplePriceCard .duration { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; }
 .simplePriceCard.featured .duration { color: #b9c8da; }
+.simplePriceCard .planOutcome { min-height: 3.1em; margin: 16px 0 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.simplePriceCard.featured .planOutcome { color: #c7d4e3; }
 .simplePriceDetails { margin-top: 22px; padding-top: 16px; border-top: 1px solid rgba(7,26,51,.1); }
 .simplePriceCard.featured .simplePriceDetails { border-top-color: rgba(255,255,255,.15); }
 .simplePriceDetails p,

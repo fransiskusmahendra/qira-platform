@@ -33,7 +33,7 @@ export default function OpenGraphImage() {
             color: "rgba(255,255,255,.86)",
           }}
         >
-          PT Rays Solusi Informasi
+          Solusi digital sederhana untuk bisnis
         </div>
       </div>
 
@@ -47,7 +47,7 @@ export default function OpenGraphImage() {
       </div>
 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 24, color: "rgba(255,255,255,.78)" }}>
-        <div style={{ display: "flex" }}>Website · Web App · Automation · Discovery</div>
+        <div style={{ display: "flex" }}>Website · Form · Dashboard · Otomatisasi</div>
         <div style={{ display: "flex", fontWeight: 700, color: "white" }}>qirasolution.com</div>
       </div>
     </div>,

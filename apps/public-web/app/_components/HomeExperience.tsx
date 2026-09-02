@@ -26,7 +26,7 @@ const SOLUTIONS = [
     number: "02",
     problem: "Pekerjaan tercecer",
     question: "Data masih tersebar di chat, catatan, dan file?",
-    solution: "Business tool",
+    solution: "Form & dashboard",
     result: "Data lebih rapi dan mudah dipantau",
     image: "/illustrations/visual/qira-problems.webp",
     imagePosition: "right",
@@ -35,7 +35,7 @@ const SOLUTIONS = [
     number: "03",
     problem: "Tugas berulang",
     question: "Sering menginput atau mengingatkan hal yang sama?",
-    solution: "Automation",
+    solution: "Otomatisasi",
     result: "Proses lebih cepat dan hemat waktu",
     image: "/illustrations/visual/qira-offerings.webp",
     imagePosition: "left",
@@ -44,7 +44,7 @@ const SOLUTIONS = [
     number: "04",
     problem: "Bingung mulai",
     question: "Ingin lebih digital, tetapi belum tahu prioritasnya?",
-    solution: "Discovery",
+    solution: "Pemetaan kebutuhan",
     result: "Punya arah dan langkah yang jelas",
     image: "/illustrations/visual/qira-benefits.webp",
     imagePosition: "right",
@@ -140,7 +140,7 @@ export function SolutionExplorer() {
             <i aria-hidden="true">→</i>
             <span><small>Hasil</small><strong>{selected.result}</strong></span>
           </div>
-          <Link href="/coba-masalah" data-conversion="homepage_cta_click">Bahas masalah ini →</Link>
+          <Link href="/coba-masalah" data-conversion="homepage_cta_click">Ceritakan masalah usaha →</Link>
         </div>
         <figure className={`solutionVisual crop-${selected.imagePosition}`} key={`${selected.problem}-image`}>
           <Image src={selected.image} alt="" fill sizes="(max-width: 760px) 100vw, 46vw" />

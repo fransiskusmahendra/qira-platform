@@ -7,9 +7,9 @@ import { trackConversion } from "./ConversionTracker";
 
 const PROBLEMS = [
   { icon: "↗", label: "Sulit ditemukan", before: "Sulit ditemukan", solution: "Website", outcome: "Mudah dihubungi" },
-  { icon: "▦", label: "Masih manual", before: "Data tercecer", solution: "Business tool", outcome: "Satu alur" },
-  { icon: "⚡", label: "Terlalu berulang", before: "Kerja berulang", solution: "Automation", outcome: "Lebih cepat" },
-  { icon: "◎", label: "Bingung mulai", before: "Belum jelas", solution: "Discovery", outcome: "Prioritas jelas" },
+  { icon: "▦", label: "Masih manual", before: "Data tercecer", solution: "Form & dashboard", outcome: "Satu alur" },
+  { icon: "⚡", label: "Terlalu berulang", before: "Kerja berulang", solution: "Otomatisasi", outcome: "Lebih cepat" },
+  { icon: "◎", label: "Bingung mulai", before: "Belum jelas", solution: "Pemetaan", outcome: "Prioritas jelas" },
 ] as const;
 
 export function ProblemSelector() {
@@ -47,7 +47,7 @@ export function ProblemSelector() {
           <span aria-hidden="true">→</span>
           <div className="outcome"><small>Hasil</small><strong>{selected.outcome}</strong></div>
         </div>
-        <Link href="/coba-masalah">Coba masalahmu →</Link>
+        <Link href="/coba-masalah">Ceritakan masalah usaha →</Link>
       </div>
     </div>
   );

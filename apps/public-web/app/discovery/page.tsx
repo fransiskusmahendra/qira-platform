@@ -29,7 +29,7 @@ export default async function DiscoveryPage({ searchParams }: { searchParams: Pr
 
       <DiscoveryForm services={SERVICE_CATALOG.map(({ id, name, outcome }) => ({ id, name, outcome }))} />
 
-      <footer className={styles.footer}><span>QIRA · PT Rays Solusi Informasi</span></footer>
+      <footer className={styles.footer}><span>QIRA · Solusi digital sederhana untuk bisnis</span></footer>
     </main>
   );
 }

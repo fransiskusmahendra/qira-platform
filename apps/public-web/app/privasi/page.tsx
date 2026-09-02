@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     description,
     url: "/privasi",
     type: "website",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — Simple Digital Solutions" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — Solusi Digital Sederhana" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -47,7 +47,7 @@ export default function PrivacyPage() {
         <summary>Data & penggunaannya</summary>
         <div className={styles.detailBody}>
           <h2>Siapa yang mengelola data?</h2>
-          <p>QIRA adalah layanan PT Rays Solusi Informasi. Untuk layanan QIRA, kami menentukan tujuan penggunaan data yang Anda berikan melalui website, komunikasi, proposal, dan proses layanan.</p>
+          <p>QIRA mengelola data yang Anda berikan melalui website, komunikasi, proposal, dan proses layanan hanya untuk tujuan yang dijelaskan dalam pemberitahuan ini.</p>
           <h2>Data apa yang dapat digunakan?</h2>
           <p>Tergantung interaksi Anda, data dapat mencakup nama, nama usaha, nomor WhatsApp, email bila diberikan, jawaban mengenai kebutuhan atau proses usaha, pilihan layanan, serta catatan proposal dan keputusan layanan bila proses berlanjut.</p>
           <p>Sistem juga dapat menghasilkan catatan teknis yang diperlukan untuk keamanan, pengiriman email, autentikasi, dan keandalan layanan.</p>
@@ -92,6 +92,6 @@ export default function PrivacyPage() {
       </details>
     </section>
 
-    <footer className="footer shell"><span>QIRA · PT Rays Solusi Informasi</span><Link href="/">Beranda</Link></footer>
+    <footer className="footer shell"><span>QIRA · Solusi digital sederhana untuk bisnis</span><Link href="/">Beranda</Link></footer>
   </main>;
 }
