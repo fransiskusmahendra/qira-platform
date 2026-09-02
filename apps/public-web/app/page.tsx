@@ -2,14 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ConversionTracker } from "./_components/ConversionTracker";
+import { ApplicationShowcase, BeforeAfter, HeroExplainer, SolutionExplorer } from "./_components/HomeExperience";
 
 const VISUALS = {
-  hero: "/illustrations/visual/qira-hero.webp",
   what: "/illustrations/visual/qira-what.webp",
-  problems: "/illustrations/visual/qira-problems.webp",
-  offerings: "/illustrations/visual/qira-offerings.webp",
   benefits: "/illustrations/visual/qira-benefits.webp",
-  beforeAfter: "/illustrations/visual/qira-beforeafter.webp",
 } as const;
 
 function StoryVisual({ src, alt, eager = false }: { src: string; alt: string; eager?: boolean }) {
@@ -28,9 +25,9 @@ export default function HomePage() {
       <nav className="companyNav shell" aria-label="Navigasi utama">
         <Link className="brand" href="/">QIRA<span>.</span></Link>
         <div className="companyNavLinks">
-          <Link href="/about">About</Link>
-          <Link href="/portfolio">Portfolio</Link>
-          <Link href="/harga">Pricing</Link>
+          <Link href="/about">Tentang</Link>
+          <Link href="/portfolio">Portofolio</Link>
+          <Link href="/harga">Harga</Link>
         </div>
         <Link className="smallButton" href="/coba-masalah">Mulai</Link>
       </nav>
@@ -38,47 +35,38 @@ export default function HomePage() {
       <section className="visualHero shell">
         <div className="visualHeroCopy">
           <p className="eyebrow">QIRA · Simple Digital Solutions</p>
-          <h1>Bisnis lebih rapi.<br /><em>Teknologi lebih sederhana.</em></h1>
-          <p className="visualHeroLead">Website · tools · automation · discovery.</p>
+          <h1>Bisnis bekerja lebih rapi.<br /><em>Teknologi tetap sederhana.</em></h1>
+          <p className="visualHeroLead">QIRA membuat website, alat kerja, dan otomatisasi yang sesuai dengan masalah bisnismu.</p>
           <div className="companyHeroActions">
             <Link className="primaryButton" href="/coba-masalah">Ceritakan masalahmu</Link>
             <Link className="textLink" href="#qira-itu-apa">Lihat cara kerjanya ↓</Link>
           </div>
         </div>
         <div className="visualHeroArt">
-          <StoryVisual src={VISUALS.hero} alt="Masalah bisnis yang berantakan dirapikan QIRA menjadi website, dashboard, workflow otomatis, dan laporan" eager />
+          <HeroExplainer />
         </div>
       </section>
 
       <section className="visualStory shell" id="qira-itu-apa">
         <header className="visualStoryHeading">
           <p className="kicker">QIRA itu apa?</p>
-          <h2>Biar usaha <em>terlihat, rapi, otomatis.</em></h2>
+          <h2>Terlihat. Rapi. <em>Berjalan otomatis.</em></h2>
         </header>
         <StoryVisual src={VISUALS.what} alt="QIRA membantu usaha lebih terlihat, pekerjaan lebih rapi, dan tugas berulang menjadi otomatis" />
       </section>
 
-      <section className="visualStory shell">
+      <section className="visualStory visualSolutionSection shell">
         <header className="visualStoryHeading">
-          <p className="kicker">Mulai dari masalah</p>
-          <h2>Pilih yang paling <em>terasa.</em></h2>
+          <p className="kicker">Masalah → solusi → hasil</p>
+          <h2>Apa yang paling <em>merepotkan?</em></h2>
         </header>
-        <StoryVisual src={VISUALS.problems} alt="Empat masalah bisnis: sulit ditemukan, pekerjaan tercecer, tugas berulang, dan bingung mulai" />
-        <Link className="visualInlineAction" href="/coba-masalah">Pilih masalahmu →</Link>
+        <SolutionExplorer />
       </section>
 
       <section className="visualStory shell">
         <header className="visualStoryHeading">
-          <p className="kicker">Yang QIRA buat</p>
-          <h2>Solusi seperlunya.<br /><em>Bukan sistem yang ribet.</em></h2>
-        </header>
-        <StoryVisual src={VISUALS.offerings} alt="Empat layanan QIRA: website, business tools, automation, dan discovery" />
-      </section>
-
-      <section className="visualStory shell">
-        <header className="visualStoryHeading">
-          <p className="kicker">Yang kamu dapat</p>
-          <h2>Hasil yang langsung <em>terasa.</em></h2>
+          <p className="kicker">Yang didapat</p>
+          <h2>Bukan fitur yang rumit.<br /><em>Hasil yang terasa.</em></h2>
         </header>
         <StoryVisual src={VISUALS.benefits} alt="Manfaat QIRA: mudah ditemukan, kerja lebih rapi, hemat waktu, dan langkah lebih jelas" />
       </section>
@@ -88,24 +76,31 @@ export default function HomePage() {
           <p className="kicker">Sebelum → Sesudah</p>
           <h2>Dari berantakan jadi <em>jelas.</em></h2>
         </header>
-        <StoryVisual src={VISUALS.beforeAfter} alt="Perbandingan kondisi bisnis sebelum dan sesudah menggunakan solusi QIRA" />
-        <Link className="visualInlineAction" href="/contoh-penerapan">Lihat contoh penerapan →</Link>
+        <BeforeAfter />
+      </section>
+
+      <section className="visualStory shell">
+        <header className="visualStoryHeading">
+          <p className="kicker">Contoh penerapan</p>
+          <h2>Bentuknya berbeda.<br /><em>Tujuannya tetap sederhana.</em></h2>
+        </header>
+        <ApplicationShowcase />
       </section>
 
       <section className="visualProof shell">
         <div>
-          <p className="kicker">Products & Work</p>
+          <p className="kicker">Produk & karya</p>
           <h2>Lihat yang sudah dibangun.</h2>
         </div>
         <div className="visualProofActions">
           <span>QIRA Product</span><span>Client Work</span><span>Solution Demo</span>
-          <Link className="primaryButton" href="/portfolio">Buka portfolio</Link>
+          <Link className="primaryButton" href="/portfolio">Buka portofolio</Link>
         </div>
       </section>
 
       <section className="visualPricing shell">
         <div>
-          <p className="kicker">Pricing</p>
+          <p className="kicker">Harga</p>
           <h2>Mulai dari <em>Rp1,5 juta.</em></h2>
           <p>Mulai kecil. Tambah saat perlu.</p>
         </div>
@@ -113,13 +108,13 @@ export default function HomePage() {
       </section>
 
       <section className="companyClosing shell visualClosing">
-        <div><p className="kicker">Start simple</p><h2>Mulai dari satu masalah.</h2></div>
+        <div><p className="kicker">Mulai sederhana</p><h2>Mulai dari satu masalah.</h2></div>
         <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Mulai sekarang</Link></div>
       </section>
 
       <footer className="companyFooter shell">
         <div><Link className="brand" href="/">QIRA<span>.</span></Link></div>
-        <div className="footerLinks"><Link href="/about">About</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link><Link href="/privasi">Privacy</Link></div>
+        <div className="footerLinks"><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div>
         <span>QIRA · PT Rays Solusi Informasi</span>
       </footer>
     </main>
