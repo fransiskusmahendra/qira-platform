@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ConversionClickTracker, ConversionTracker } from "./_components/ConversionTracker";
+import { ContextualWhatsAppCta } from "./_components/ContextualWhatsAppCta";
 import { ApplicationShowcase, BeforeAfter, HeroExplainer, SolutionExplorer } from "./_components/HomeExperience";
 
 const VISUALS = {
@@ -110,7 +111,7 @@ export default function HomePage() {
 
       <section className="companyClosing shell visualClosing">
         <div><p className="kicker">Mulai sederhana</p><h2>Mulai dari satu masalah.</h2></div>
-        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah" data-conversion="homepage_cta_click">Mulai sekarang</Link></div>
+        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah" data-conversion="homepage_cta_click">Mulai sekarang</Link><ContextualWhatsAppCta context="kebutuhan digital bisnis" className="textLink lightText">Minta dihubungi via WhatsApp</ContextualWhatsAppCta></div>
       </section>
 
       <footer className="companyFooter shell">

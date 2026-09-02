@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ContextualWhatsAppCta } from "../../_components/ContextualWhatsAppCta";
+import { ConversionTracker } from "../../_components/ConversionTracker";
 import styles from "../../SubpageVisual.module.css";
 
 const SOLUTIONS = {
@@ -14,6 +16,8 @@ const SOLUTIONS = {
     problem: "Informasi usaha tersebar di chat atau media sosial dan pelanggan sulit menemukan satu sumber yang jelas.",
     help: "QIRA merapikan profil usaha, penawaran utama, kontak, dan alur tindakan dalam website yang ringan.",
     outcome: "Pelanggan lebih cepat memahami usaha dan tahu harus menghubungi ke mana.",
+    fit: "Usaha yang masih mengandalkan media sosial atau chat sebagai satu-satunya tempat informasi.",
+    deliverables: ["Struktur pesan usaha", "Landing page responsif", "Kontak & ajakan bertindak", "Bantuan publikasi awal"],
     image: "/illustrations/qira-hero.webp",
   },
   "automation-bisnis": {
@@ -24,6 +28,8 @@ const SOLUTIONS = {
     problem: "Follow-up, pemindahan data, pengingat, atau pekerjaan rutin terus diulang secara manual.",
     help: "QIRA menghubungkan langkah yang memang bisa diotomatisasi sambil mempertahankan kontrol pada keputusan penting.",
     outcome: "Tim menghabiskan lebih sedikit waktu pada pekerjaan repetitif dan lebih mudah memantau proses.",
+    fit: "Tim yang rutin menyalin data, mengirim pengingat, atau melakukan tindak lanjut yang sama.",
+    deliverables: ["Peta alur kerja", "Otomatisasi prioritas", "Status & pengecualian", "Panduan penggunaan"],
     image: "/illustrations/qira-services.webp",
   },
   "digitalisasi-administrasi": {
@@ -34,6 +40,8 @@ const SOLUTIONS = {
     problem: "Data yang sama ditulis berkali-kali, dokumen dibuat manual, atau status pekerjaan sulit dilacak.",
     help: "QIRA menyusun input, penyimpanan, dan pembuatan dokumen menjadi satu alur yang lebih sederhana.",
     outcome: "Administrasi lebih cepat, lebih konsisten, dan lebih mudah diperiksa kembali.",
+    fit: "Usaha dengan data, dokumen, atau status pekerjaan yang tersebar di banyak tempat.",
+    deliverables: ["Form input terarah", "Penyimpanan terstruktur", "Dokumen otomatis dasar", "Tampilan status"],
     image: "/illustrations/qira-examples-visual.svg",
   },
   "business-tools": {
@@ -44,6 +52,8 @@ const SOLUTIONS = {
     problem: "Spreadsheet, chat, dan catatan terpisah membuat pekerjaan inti sulit diikuti dari awal sampai selesai.",
     help: "QIRA membuat tool kecil yang fokus pada satu alur penting dan dapat ditambah saat kebutuhannya benar-benar muncul.",
     outcome: "Pekerjaan lebih rapi dalam satu alur tanpa membebani pengguna dengan fitur berlebihan.",
+    fit: "Tim yang membutuhkan alat khusus untuk satu proses penting, tetapi belum perlu sistem besar.",
+    deliverables: ["Alur pengguna", "Tool responsif", "Database sederhana", "Dashboard operasional"],
     image: "/illustrations/qira-process.webp",
   },
 } as const;
@@ -75,6 +85,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
   if (!solution) notFound();
 
   return <main>
+    <ConversionTracker event="service_view" />
     <nav className="companyNav shell" aria-label="Navigasi utama">
       <Link className="brand" href="/">QIRA<span>.</span></Link>
       <div className="companyNavLinks"><Link href="/about">About</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link></div>
@@ -86,14 +97,14 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
         <p className="eyebrow">{solution.eyebrow}</p>
         <h1>{solution.title}</h1>
         <p>{solution.lead}</p>
-        <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Ceritakan kebutuhan</Link></div>
+        <div className={styles.heroActions}><ContextualWhatsAppCta context={solution.title}>Diskusikan via WhatsApp</ContextualWhatsAppCta><Link className="textLink" href="#cara-kerja">Lihat proses ↓</Link></div>
       </div>
       <figure className={styles.heroVisual}>
         <Image src={solution.image} alt={`Ilustrasi ${solution.title} oleh QIRA`} width={1536} height={1024} priority sizes="(max-width: 960px) 100vw, 48vw" unoptimized={solution.image.endsWith(".svg")} />
       </figure>
     </section>
 
-    <section className={`${styles.section} shell`}>
+    <section className={`${styles.section} shell`} id="cara-kerja">
       <div className="simplePrinciples">
         <article><span>Masalah</span><h3>Apa yang dirapikan</h3><p>{solution.problem}</p></article>
         <article><span>QIRA</span><h3>Apa yang dibuat</h3><p>{solution.help}</p></article>
@@ -101,7 +112,25 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
       </div>
     </section>
 
-    <section className="companyClosing simpleCompactClosing shell"><div><p className="kicker">Start simple</p><h2>Mulai dari satu masalah.</h2></div><div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Mulai</Link></div></section>
+    <section className="solutionDetails shell">
+      <article className="solutionFit">
+        <p className="kicker">Cocok jika</p>
+        <h2>{solution.fit}</h2>
+      </article>
+      <article className="solutionDeliverables">
+        <p className="kicker">Yang disiapkan</p>
+        <ul>{solution.deliverables.map((item) => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
+      </article>
+    </section>
+
+    <section className="solutionProcess shell">
+      <div><span>01</span><strong>Ceritakan</strong><small>Satu masalah utama.</small></div>
+      <div><span>02</span><strong>Petakan</strong><small>Prioritas dan scope.</small></div>
+      <div><span>03</span><strong>Bangun</strong><small>Versi sederhana dulu.</small></div>
+      <div><span>04</span><strong>Rapikan</strong><small>Uji, revisi, jalankan.</small></div>
+    </section>
+
+    <section className="companyClosing simpleCompactClosing shell"><div><p className="kicker">Mulai sederhana</p><h2>Belum yakin bentuk solusinya?</h2><p>QIRA bantu memetakan dulu. Tidak perlu brief teknis.</p></div><div className="closingActions"><ContextualWhatsAppCta context={solution.title} className="primaryButton light">Minta QIRA menghubungi</ContextualWhatsAppCta></div></section>
 
     <footer className="companyFooter shell"><div><Link className="brand" href="/">QIRA<span>.</span></Link></div><div className="footerLinks"><Link href="/">Home</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link><Link href="/privasi">Privacy</Link></div><span>QIRA · PT Rays Solusi Informasi</span></footer>
   </main>;

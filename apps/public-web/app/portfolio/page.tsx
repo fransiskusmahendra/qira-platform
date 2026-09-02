@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ConversionTracker } from "../_components/ConversionTracker";
+import { ContextualWhatsAppCta } from "../_components/ContextualWhatsAppCta";
 import styles from "../SubpageVisual.module.css";
 
 const PORTFOLIO_DESCRIPTION = "Lihat produk internal, pekerjaan klien, dan solution demo QIRA melalui contoh singkat yang mudah dipahami.";
@@ -15,13 +16,13 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: "QIRA Products & Work", description: PORTFOLIO_DESCRIPTION },
 };
 
-type PortfolioItem = { number: string; tag: string; title: string; outcome: string; visual: string; href?: string; cta?: string; external?: boolean; note?: string };
+type PortfolioItem = { number: string; tag: string; title: string; outcome: string; visual: string; image: string; href?: string; cta?: string; external?: boolean; note?: string };
 
 const ITEMS: readonly PortfolioItem[] = [
-  { number: "01", tag: "QIRA Product", title: "Business Discovery", outcome: "Scope lebih jelas", visual: "Masalah → Prioritas → Scope", href: "/discovery", cta: "Coba" },
-  { number: "02", tag: "QIRA Product", title: "Document Generator", outcome: "Administrasi lebih ringkas", visual: "Data → Dokumen", note: "Digunakan untuk operasional internal QIRA." },
-  { number: "03", tag: "Client Work", title: "Transaction & Receipt Tool", outcome: "Transaksi lebih cepat", visual: "Input → Nota → Cetak", note: "Identitas klien, data, dan akses aplikasi tidak dipublikasikan." },
-  { number: "04", tag: "Solution Demo", title: "Business Solution Demo", outcome: "Solusi mudah dibayangkan", visual: "Lihat → Coba → Diskusikan", href: "https://demo.qirasolution.com", cta: "Demo", external: true, note: "Demo konsep QIRA, bukan klaim sebagai project klien." },
+  { number: "01", tag: "Produk QIRA", title: "Business Discovery", outcome: "Kebutuhan menjadi scope yang jelas", visual: "Masalah → Prioritas → Scope", image: "/illustrations/qira-problem-visual.svg", href: "/discovery", cta: "Coba alurnya" },
+  { number: "02", tag: "Produk QIRA", title: "Document Generator", outcome: "Data menjadi dokumen lebih ringkas", visual: "Data → Dokumen → Unduh", image: "/illustrations/qira-examples-visual.svg", note: "Digunakan untuk operasional internal QIRA." },
+  { number: "03", tag: "Pekerjaan klien", title: "Transaction & Receipt Tool", outcome: "Input transaksi sampai nota dalam satu alur", visual: "Input → Nota → Cetak", image: "/illustrations/qira-process.webp", note: "Identitas klien, data, dan akses aplikasi tidak dipublikasikan." },
+  { number: "04", tag: "Demo solusi", title: "Business Solution Demo", outcome: "Calon klien bisa membayangkan hasil awal", visual: "Lihat → Coba → Diskusikan", image: "/illustrations/qira-services.webp", href: "https://demo.qirasolution.com", cta: "Buka demo", external: true, note: "Demo konsep QIRA, bukan klaim sebagai proyek klien." },
 ] as const;
 
 function Action({ item }: { item: PortfolioItem }) {
@@ -42,8 +43,8 @@ export default function PortfolioPage() {
       <section className={`${styles.hero} shell`}>
         <div className={styles.heroCopy}>
           <p className="eyebrow">Products & Work</p>
-          <h1>Lihat yang sudah dibangun.</h1>
-          <p>Produk · Client work · Demo.</p>
+          <h1>Bukan janji. Lihat bentuknya.</h1>
+          <p>Produk QIRA · pekerjaan klien · demo solusi.</p>
         </div>
         <figure className={styles.heroVisual}>
           <Image src="/illustrations/qira-portfolio-visual.svg" alt="Produk QIRA, client solution, prototype, dan discovery workflow dalam satu visual" width={500} height={375} priority unoptimized sizes="(max-width: 960px) 100vw, 48vw" />
@@ -51,14 +52,18 @@ export default function PortfolioPage() {
       </section>
 
       <section className={`${styles.section} shell`}>
-        <div className="simplePortfolioList">
+        <div className="portfolioCaseGrid">
           {ITEMS.map((item) => (
-            <article className="simplePortfolioRow" key={item.title}>
-              <span>{item.number}</span>
-              <div className="simplePortfolioMain"><small>{item.tag}</small><strong>{item.title}</strong><span>{item.outcome}</span></div>
-              <span className="simplePortfolioFlow">{item.visual}</span>
-              <Action item={item} />
-              {item.note ? <details className="simplePortfolioNote"><summary>Konteks</summary><p>{item.note}</p></details> : null}
+            <article className="portfolioCase" key={item.title}>
+              <figure><Image src={item.image} alt="" width={640} height={420} unoptimized={item.image.endsWith(".svg")} sizes="(max-width: 680px) 100vw, 50vw" /></figure>
+              <div className="portfolioCaseBody">
+                <div className="portfolioCaseMeta"><span>{item.number}</span><small>{item.tag}</small></div>
+                <h2>{item.title}</h2>
+                <p>{item.outcome}</p>
+                <div className="portfolioCaseFlow">{item.visual.split(" → ").map((step) => <span key={step}>{step}</span>)}</div>
+                <Action item={item} />
+                {item.note ? <p className="portfolioDisclosure">{item.note}</p> : null}
+              </div>
             </article>
           ))}
         </div>
@@ -66,7 +71,7 @@ export default function PortfolioPage() {
 
       <section className="companyClosing simpleCompactClosing shell">
         <div><p className="kicker">Your project</p><h2>Punya kebutuhan serupa?</h2></div>
-        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Ceritakan</Link></div>
+        <div className="closingActions"><ContextualWhatsAppCta context="proyek serupa" className="primaryButton light">Bahas via WhatsApp</ContextualWhatsAppCta></div>
       </section>
 
       <footer className="companyFooter shell">

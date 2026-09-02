@@ -53,12 +53,9 @@ const SERVICE_QUESTIONS: Readonly<Record<ServiceId, readonly DiscoveryQuestion[]
 
 const PUBLIC_QUESTIONS: readonly DiscoveryQuestion[] = [
   { id: "business_profile", prompt: "Usahamu bergerak di bidang apa?", answerType: "long_text", required: true, stage: "profile" },
+  { id: "current_process", prompt: "Bagian apa yang paling merepotkan sekarang?", answerType: "long_text", required: true, stage: "process" },
   { id: "business_goal", prompt: "Hasil apa yang paling ingin terasa?", answerType: "long_text", required: true, stage: "profile" },
-  { id: "current_process", prompt: "Sekarang prosesnya berjalan bagaimana?", answerType: "long_text", required: true, stage: "process" },
-  { id: "data_availability", prompt: "Catatan atau datanya sekarang ada di mana?", answerType: "long_text", required: true, stage: "implementation" },
-  { id: "integration_needed", prompt: "Perlu terhubung ke aplikasi lain?", answerType: "single_select", required: true, options: ["Tidak, cukup QIRA dulu", "Ya, ada aplikasi lain"], stage: "implementation" },
-  { id: "integration_details", prompt: "Aplikasi apa?", answerType: "long_text", required: true, stage: "implementation", showWhen: { questionId: "integration_needed", equals: "Ya, ada aplikasi lain" } },
-  { id: "target_timeline", prompt: "Kapan ingin mulai mencoba?", answerType: "short_text", required: true, stage: "implementation" },
+  { id: "target_timeline", prompt: "Kapan ingin mulai?", answerType: "single_select", required: true, options: ["Secepatnya", "1–2 bulan", "Masih mencari arah"], stage: "implementation" },
 ];
 
 export function getDiscoveryQuestionnaire(serviceId: ServiceId): DiscoveryQuestionnaire {
@@ -71,7 +68,7 @@ export function getDiscoveryQuestionnaire(serviceId: ServiceId): DiscoveryQuesti
 
 export function getPublicDiscoveryQuestionnaire(serviceId: ServiceId): DiscoveryQuestionnaire {
   return {
-    version: "2026-09-02.public.1",
+    version: "2026-09-02.public.2",
     serviceId,
     questions: PUBLIC_QUESTIONS,
   };

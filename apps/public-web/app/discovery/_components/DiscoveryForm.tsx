@@ -232,7 +232,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
         <div className={styles.sectionNumber}>{screen?.kind === "question" ? stageLabel(screen.question) : screen?.kind === "identity" ? "Kenalan singkat" : "Selesai"}</div>
 
         {screen?.kind === "identity" ? <>
-          <div className={styles.sectionTitle}><h2>Kenalan dulu.</h2><p>Nama, usaha, WhatsApp.</p></div>
+          <div className={styles.sectionTitle}><h2>Kenalan dulu.</h2><p>WhatsApp dipakai QIRA untuk menindaklanjuti, bukan dikirim ke pihak lain.</p></div>
           <div className={styles.contactGrid}>
             <label className={styles.field}><span>Nama</span><input autoFocus autoComplete="name" value={contact.fullName} onChange={(event) => setContact((value) => ({ ...value, fullName: event.target.value }))} /></label>
             <label className={styles.field}><span>Usaha</span><input autoComplete="organization" value={contact.businessName} onChange={(event) => setContact((value) => ({ ...value, businessName: event.target.value }))} /></label>
@@ -244,7 +244,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
         {screen?.kind === "question" ? <div className={styles.questionGrid}>{renderQuestion(screen.question)}</div> : null}
 
         {screen?.kind === "consent" ? <>
-          <div className={styles.sectionTitle}><h2>Siap.</h2><p>Kirim untuk lihat arah awal.</p></div>
+          <div className={styles.sectionTitle}><h2>Siap.</h2><p>Kirim untuk melihat arah awal dan meminta tindak lanjut via WhatsApp.</p></div>
           <label className={styles.consent}><input type="checkbox" required checked={consented} onChange={(event) => setConsented(event.target.checked)} /><span>Saya setuju QIRA menggunakan jawaban ini untuk menyiapkan saran dan menghubungi saya. <a href="/privasi" target="_blank" rel="noreferrer">Privasi</a>.</span></label>
         </> : null}
 

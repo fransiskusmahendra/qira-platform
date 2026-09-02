@@ -11,18 +11,20 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function DiscoveryPage() {
+export default async function DiscoveryPage({ searchParams }: { searchParams: Promise<{ context?: string }> }) {
+  const { context } = await searchParams;
+  const safeContext = typeof context === "string" ? context.slice(0, 80) : "";
   return (
     <main className={styles.page}>
       <header className={styles.header}>
         <Link className={styles.brand} href="/" aria-label="Kembali ke beranda QIRA">QIRA<span>.</span></Link>
-        <div className={styles.previewBadge}>Satu per satu</div>
+        <div className={styles.previewBadge}>±2 menit</div>
       </header>
 
       <section className={styles.intro}>
         <p className={styles.eyebrow}>Sedikit lagi</p>
         <h1>Biar solusinya lebih pas.</h1>
-        <p>Jawab satu per satu.</p>
+        <p>{safeContext ? `Kebutuhan: ${safeContext}. ` : ""}Empat pertanyaan singkat, lalu QIRA menghubungimu lewat WhatsApp.</p>
       </section>
 
       <DiscoveryForm services={SERVICE_CATALOG.map(({ id, name, outcome }) => ({ id, name, outcome }))} />
