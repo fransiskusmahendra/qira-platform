@@ -26,16 +26,15 @@ export default function ExamplePage() {
     <main>
       <nav className="companyNav shell" aria-label="Navigasi utama">
         <Link className="brand" href="/">QIRA<span>.</span></Link>
-        <div className="companyNavLinks"><Link href="/about">About Us</Link><Link href="/#services">Services</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link></div>
+        <div className="companyNavLinks"><Link href="/about">About</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link></div>
         <Link className="smallButton" href="/coba-masalah">Mulai</Link>
       </nav>
 
       <section className={`${styles.hero} shell`}>
         <div className={styles.heroCopy}>
-          <p className="eyebrow">Contoh Penerapan</p>
-          <h1>Lihat masalah berubah menjadi solusi.</h1>
-          <p>Contoh sederhana. Solusi sebenarnya mengikuti cara kerja bisnis Anda.</p>
-          <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Coba masalahmu</Link><Link className="textLink" href="/portfolio">Portfolio →</Link></div>
+          <p className="eyebrow">Contoh</p>
+          <h1>Lihat sebelum → sesudah.</h1>
+          <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Coba masalahmu</Link></div>
         </div>
         <figure className={styles.heroVisual}>
           <Image src="/illustrations/qira-examples-visual.svg" alt="Pesanan, dokumen, follow-up, dan perencanaan yang berubah menjadi workflow digital" width={500} height={281} priority unoptimized sizes="(max-width: 960px) 100vw, 48vw" />
@@ -43,20 +42,18 @@ export default function ExamplePage() {
       </section>
 
       <section className={`${styles.section} shell`}>
-        <div className={styles.sectionHeader}><div><p className="kicker">Problem → Solution</p><h2>Empat pola umum.</h2></div></div>
-        <div className={styles.exampleSteps}>
-          {EXAMPLES.map(([label, flow], index) => <div className={styles.exampleStep} key={label}><span>0{index + 1} · {label}</span><strong>{flow}</strong></div>)}
+        <div className="simpleExamples">
+          {EXAMPLES.map(([label, flow]) => <span key={label}><small>{label}</small><strong>{flow}</strong></span>)}
         </div>
-        <div className={styles.focusPills}><span>Cerita</span><span>Prioritas</span><span>Solusi</span><span>Gunakan</span></div>
       </section>
 
-      <section className="companyClosing shell">
-        <div><p className="kicker">Your example</p><h2>Masalahmu bisa berbeda. Mulainya tetap sederhana.</h2></div>
-        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Ceritakan</Link><Link className="closingTextLink" href="/harga">Harga →</Link></div>
+      <section className="companyClosing simpleCompactClosing shell">
+        <div><p className="kicker">Your turn</p><h2>Pilih satu masalah.</h2></div>
+        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Mulai</Link></div>
       </section>
 
       <footer className="companyFooter shell">
-        <div><Link className="brand" href="/">QIRA<span>.</span></Link><p>Simple digital solutions.</p></div>
+        <div><Link className="brand" href="/">QIRA<span>.</span></Link></div>
         <div className="footerLinks"><Link href="/">Home</Link><Link href="/about">About</Link><Link href="/portfolio">Portfolio</Link><Link href="/harga">Pricing</Link><Link href="/privasi">Privacy</Link></div>
         <span>QIRA · PT Rays Solusi Informasi</span>
       </footer>

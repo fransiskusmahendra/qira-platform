@@ -16,21 +16,18 @@ export default function DiscoveryPage() {
     <main className={styles.page}>
       <header className={styles.header}>
         <Link className={styles.brand} href="/" aria-label="Kembali ke beranda QIRA">QIRA<span>.</span></Link>
-        <div className={styles.previewBadge}>Satu pertanyaan setiap kali</div>
+        <div className={styles.previewBadge}>Satu per satu</div>
       </header>
 
       <section className={styles.intro}>
-        <p className={styles.eyebrow}>Ceritakan lebih lengkap</p>
-        <h1>Sekarang kami ingin memahami sedikit lebih dalam.</h1>
-        <p>Jawab dengan bahasa sehari-hari. Tidak perlu tahu nama fitur, jenis aplikasi, atau istilah teknologi.</p>
+        <p className={styles.eyebrow}>Sedikit lagi</p>
+        <h1>Biar solusinya lebih pas.</h1>
+        <p>Jawab satu per satu.</p>
       </section>
 
       <DiscoveryForm services={SERVICE_CATALOG.map(({ id, name, outcome }) => ({ id, name, outcome }))} />
 
-      <footer className={styles.footer}>
-        <span>QIRA · PT Rays Solusi Informasi</span>
-        <span>Jawaban baru dikirim saat Anda menekan tombol kirim.</span>
-      </footer>
+      <footer className={styles.footer}><span>QIRA · PT Rays Solusi Informasi</span></footer>
     </main>
   );
 }

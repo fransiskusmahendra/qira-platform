@@ -1,0 +1,118 @@
+/* Simplified public pages */
+.simplePrinciples,
+.simpleExamples,
+.simplePortfolioList,
+.simplePricingGrid {
+  margin-top: 34px;
+}
+
+.simplePrinciples,
+.simpleExamples {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.simpleExamples { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.simplePrinciples span,
+.simpleExamples span {
+  min-height: 86px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 680;
+}
+
+.simpleExamples span {
+  flex-direction: column;
+  gap: 8px;
+}
+.simpleExamples small { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+.simpleExamples strong { font-size: 17px; }
+
+.simplePortfolioList {
+  border-top: 1px solid var(--line);
+}
+.simplePortfolioRow {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 56px 1.35fr 1fr auto;
+  gap: 18px;
+  align-items: center;
+}
+.simplePortfolioRow > span:first-child { color: var(--blue); font-family: var(--font-geist-mono), monospace; font-size: 12px; }
+.simplePortfolioMain { display: flex; flex-direction: column; gap: 6px; }
+.simplePortfolioMain small { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+.simplePortfolioMain strong { font-size: 21px; letter-spacing: -.025em; }
+.simplePortfolioFlow { color: var(--muted); font-weight: 620; }
+.simplePortfolioAction { font-weight: 680; color: var(--blue); white-space: nowrap; }
+.simplePortfolioNote { grid-column: 2 / -1; }
+.simplePortfolioNote summary,
+.simplePriceDetails summary,
+.simpleCareDetails summary { cursor: pointer; font-weight: 680; }
+.simplePortfolioNote p { margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+.simplePricingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.simplePriceCard {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: white;
+}
+.simplePriceCard.featured { background: var(--ink); color: white; }
+.simplePriceCard .planLabel { color: var(--blue); font-size: 11px; font-weight: 750; text-transform: uppercase; letter-spacing: .08em; }
+.simplePriceCard.featured .planLabel { color: #8eb9ff; }
+.simplePriceCard h3 { margin: 16px 0 14px; font-size: 25px; letter-spacing: -.03em; }
+.simplePriceCard .price { display: block; font-size: clamp(28px, 3vw, 38px); letter-spacing: -.04em; }
+.simplePriceCard .duration { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; }
+.simplePriceCard.featured .duration { color: #b9c8da; }
+.simplePriceDetails { margin-top: 22px; padding-top: 16px; border-top: 1px solid rgba(7,26,51,.1); }
+.simplePriceCard.featured .simplePriceDetails { border-top-color: rgba(255,255,255,.15); }
+.simplePriceDetails p,
+.simplePriceDetails li { color: var(--muted); line-height: 1.55; }
+.simplePriceCard.featured .simplePriceDetails p,
+.simplePriceCard.featured .simplePriceDetails li { color: #c7d4e3; }
+.simplePriceDetails ul { padding-left: 18px; }
+.simpleCareDetails {
+  margin-top: 18px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255,255,255,.72);
+}
+.simpleCareDetails > div { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; }
+.simpleCareDetails span { padding: 10px 14px; border-radius: 999px; background: var(--paper); font-weight: 650; }
+
+.simpleSoloAction { margin-top: 28px; }
+.simpleCompactClosing { min-height: 280px; }
+
+@media (max-width: 960px) {
+  .simplePricingGrid { grid-template-columns: 1fr; }
+  .simplePortfolioRow { grid-template-columns: 42px 1fr auto; }
+  .simplePortfolioFlow { grid-column: 2 / -1; }
+  .simplePortfolioNote { grid-column: 2 / -1; }
+}
+
+@media (max-width: 680px) {
+  .simplePrinciples,
+  .simpleExamples { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .simplePrinciples span,
+  .simpleExamples span { min-height: 72px; padding: 14px; }
+  .simplePortfolioRow { grid-template-columns: 34px 1fr; gap: 12px; }
+  .simplePortfolioAction,
+  .simplePortfolioFlow,
+  .simplePortfolioNote { grid-column: 2; }
+  .simplePriceCard { padding: 20px; }
+  .simpleCompactClosing { min-height: 230px; }
+}
