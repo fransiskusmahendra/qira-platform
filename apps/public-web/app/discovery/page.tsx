@@ -24,7 +24,7 @@ export default async function DiscoveryPage({ searchParams }: { searchParams: Pr
       <section className={styles.intro}>
         <p className={styles.eyebrow}>Sedikit lagi</p>
         <h1>Biar solusinya lebih pas.</h1>
-        <p>{safeContext ? `Kebutuhan: ${safeContext}. ` : ""}Empat pertanyaan singkat, lalu QIRA menghubungimu lewat WhatsApp.</p>
+        <p>{safeContext ? `Kebutuhan: ${safeContext}. ` : ""}Lengkapi kontak dan beberapa jawaban singkat. Setelah itu QIRA menindaklanjuti lewat WhatsApp.</p>
       </section>
 
       <DiscoveryForm services={SERVICE_CATALOG.map(({ id, name, outcome }) => ({ id, name, outcome }))} />

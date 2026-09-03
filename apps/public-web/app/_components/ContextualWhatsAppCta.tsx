@@ -17,7 +17,7 @@ export function ContextualWhatsAppCta({
     <Link
       className={className}
       href={`/discovery?context=${encodeURIComponent(context)}`}
-      onClick={() => void trackConversion("whatsapp_request_click")}
+      onClick={() => void trackConversion("consultation_request_click")}
     >
       {children}
     </Link>

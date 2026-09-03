@@ -226,7 +226,7 @@ export function DiscoveryForm({ services }: DiscoveryFormProps) {
   return <form className={styles.workspace} style={{ gridTemplateColumns: "1fr", maxWidth: 820 }} onSubmit={handleSubmit} noValidate>
     <div className={styles.formContent}>
       <div className={styles.mobileProgress} style={{ display: "flex" }}><span>{safeIndex + 1} / {screens.length}</span><span>{progress}%</span></div>
-      <div className={styles.progressTrack} aria-label={`Progres ${progress}%`}><span style={{ width: `${progress}%` }} /></div>
+      <div className={styles.progressTrack} role="progressbar" aria-valuemin={1} aria-valuemax={screens.length} aria-valuenow={safeIndex + 1} aria-valuetext={`${progress}% selesai`} aria-label={`Langkah ${safeIndex + 1} dari ${screens.length}`}><span style={{ width: `${progress}%` }} /></div>
 
       <section className={styles.formSection}>
         <div className={styles.sectionNumber}>{screen?.kind === "question" ? stageLabel(screen.question) : screen?.kind === "identity" ? "Kenalan singkat" : "Selesai"}</div>
