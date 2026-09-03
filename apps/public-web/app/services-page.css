@@ -1,0 +1,29 @@
+.servicesPageGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.servicesPageGrid .companyServiceCard {
+  min-height: 280px;
+}
+
+.servicesPageGrid .companyServiceCard strong {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.companyNavLinks a[aria-current="page"] {
+  color: var(--blue);
+}
+
+@media (max-width: 680px) {
+  .servicesPageGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .servicesPageGrid .companyServiceCard {
+    min-height: 230px;
+  }
+}

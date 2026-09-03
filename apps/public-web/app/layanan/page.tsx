@@ -5,13 +5,14 @@ import Link from "next/link";
 import styles from "../SubpageVisual.module.css";
 
 const description = "Layanan QIRA untuk website UMKM, otomatisasi bisnis, administrasi digital, dan alat kerja digital yang dibuat sesuai kebutuhan nyata usaha.";
+const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "Layanan QIRA — website, otomatisasi, administrasi, dan alat kerja digital" };
 
 export const metadata: Metadata = {
   title: "Layanan",
   description,
   alternates: { canonical: "/layanan" },
-  openGraph: { title: "Layanan QIRA", description, url: "/layanan", type: "website" },
-  twitter: { card: "summary_large_image", title: "Layanan QIRA", description },
+  openGraph: { title: "Layanan QIRA", description, url: "/layanan", type: "website", images: [socialImage] },
+  twitter: { card: "summary_large_image", title: "Layanan QIRA", description, images: ["/opengraph-image"] },
 };
 
 const services = [
@@ -26,7 +27,7 @@ export default function ServicesPage() {
     <main>
       <nav className="companyNav shell" aria-label="Navigasi utama">
         <Link className="brand" href="/">QIRA<span>.</span></Link>
-        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/layanan">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
+        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/layanan" aria-current="page">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
         <Link className="smallButton" href="/coba-masalah">Ceritakan masalah</Link>
       </nav>
 
@@ -43,13 +44,13 @@ export default function ServicesPage() {
       </section>
 
       <section className={`${styles.section} shell`}>
-        <div className="companyServiceGrid">
+        <div className="servicesPageGrid">
           {services.map((service) => (
             <Link className="companyServiceCard" href={service.href} key={service.title}>
               <span>{service.number}</span>
               <h3>{service.title}</h3>
               <p>{service.description}</p>
-              <strong style={{ marginTop: "auto", paddingTop: 24 }}>{service.result} →</strong>
+              <strong>{service.result} →</strong>
             </Link>
           ))}
         </div>

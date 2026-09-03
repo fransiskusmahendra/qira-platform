@@ -7,13 +7,14 @@ import { ContextualWhatsAppCta } from "../_components/ContextualWhatsAppCta";
 import styles from "../SubpageVisual.module.css";
 
 const PORTFOLIO_DESCRIPTION = "Lihat produk internal, penerapan nyata, dan demo solusi QIRA melalui contoh aplikasi yang aman ditampilkan.";
+const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "Portofolio QIRA — produk, penerapan, dan demo solusi digital" };
 
 export const metadata: Metadata = {
   title: "Portofolio",
   description: PORTFOLIO_DESCRIPTION,
   alternates: { canonical: "/portfolio" },
-  openGraph: { title: "Portofolio QIRA", description: PORTFOLIO_DESCRIPTION, url: "/portfolio", type: "website" },
-  twitter: { card: "summary_large_image", title: "Portofolio QIRA", description: PORTFOLIO_DESCRIPTION },
+  openGraph: { title: "Portofolio QIRA", description: PORTFOLIO_DESCRIPTION, url: "/portfolio", type: "website", images: [socialImage] },
+  twitter: { card: "summary_large_image", title: "Portofolio QIRA", description: PORTFOLIO_DESCRIPTION, images: ["/opengraph-image"] },
 };
 
 type PortfolioItem = { number: string; tag: string; title: string; outcome: string; visual: string; image: string; imageAlt: string; href?: string; cta?: string; external?: boolean; note?: string };
@@ -36,7 +37,7 @@ export default function PortfolioPage() {
       <ConversionTracker event="portfolio_view" />
       <nav className="companyNav shell" aria-label="Navigasi utama">
         <Link className="brand" href="/">QIRA<span>.</span></Link>
-        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/layanan">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
+        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/layanan">Layanan</Link><Link href="/portfolio" aria-current="page">Portofolio</Link><Link href="/harga">Harga</Link></div>
         <Link className="smallButton" href="/coba-masalah">Ceritakan masalah</Link>
       </nav>
 

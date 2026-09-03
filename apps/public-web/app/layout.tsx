@@ -9,12 +9,13 @@ import "./portfolio.css";
 import "./conversion-v2.css";
 import "./simplify-all.css";
 import "./visual-home.css";
+import "./services-page.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 const siteTitle = "QIRA — Solusi Digital Sederhana";
 const siteDescription = "QIRA membuat website, form, dashboard, dan otomatisasi agar usaha lebih mudah ditemukan dan dijalankan.";
-const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — Simple Digital Solutions" };
+const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — solusi digital sederhana untuk bisnis" };
 const siteUrl = "https://www.qirasolution.com";
 
 const structuredData = {
@@ -25,7 +26,13 @@ const structuredData = {
       "@id": `${siteUrl}/#organization`,
       name: "QIRA",
       url: siteUrl,
-      logo: `${siteUrl}/qira-mark.svg`,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/favicon-512.png`,
+        width: 512,
+        height: 512,
+      },
+      image: `${siteUrl}/opengraph-image`,
       description: siteDescription,
     },
     {
@@ -53,9 +60,22 @@ const structuredData = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: "QIRA",
+  category: "business",
+  manifest: "/manifest.webmanifest",
   title: { default: siteTitle, template: "%s | QIRA" },
   description: siteDescription,
   alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", type: "image/x-icon", sizes: "256x256" },

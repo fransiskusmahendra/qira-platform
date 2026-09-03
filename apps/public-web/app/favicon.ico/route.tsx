@@ -2,8 +2,6 @@ import { ImageResponse } from "next/og";
 
 import { QiraFaviconCanvas } from "../_components/QiraFaviconCanvas";
 
-export const runtime = "edge";
-
 export async function GET() {
   const pngResponse = new ImageResponse(<QiraFaviconCanvas size={256} markSize={224} />, {
     width: 256,
