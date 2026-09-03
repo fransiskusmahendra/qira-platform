@@ -87,19 +87,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="visualProof shell">
-        <div>
-          <p className="kicker">Kepercayaan</p>
-          <h2>Solusi yang sudah dibangun, dengan privasi tetap dijaga.</h2>
-          <p>QIRA menampilkan produk internal, demo publik, dan contoh penerapan tanpa membuka identitas, data, atau akses klien tanpa izin.</p>
+      <section className="visualStory shell">
+        <header className="visualStoryHeading">
+          <p className="kicker">Bukti nyata</p>
+          <h2>Lihat aplikasi yang <em>sudah dibangun.</em></h2>
+        </header>
+        <div className="audiencePaths">
+          <Link href="/portfolio"><Image src="/screenshots/qira-discovery.webp" alt="Tampilan QIRA Discovery dengan form kebutuhan usaha" width={800} height={450} quality={90} sizes="(max-width: 680px) 100vw, 33vw" /><span>QIRA Discovery</span><strong>Kebutuhan menjadi arah solusi yang jelas</strong><small>Data contoh · Lihat portofolio →</small></Link>
+          <Link href="/portfolio"><Image src="/screenshots/qira-invoice-maker.webp" alt="Tampilan QIRA Invoice Maker dan pratinjau invoice" width={800} height={450} quality={90} sizes="(max-width: 680px) 100vw, 33vw" /><span>Invoice Maker</span><strong>Input data sampai invoice siap digunakan</strong><small>Data contoh · Lihat portofolio →</small></Link>
+          <Link href="/portfolio"><Image src="/screenshots/jasindo-travel-demo.webp" alt="Tampilan aplikasi transaksi dan pratinjau nota thermal" width={800} height={450} quality={90} sizes="(max-width: 680px) 100vw, 33vw" /><span>Transaksi & nota</span><strong>Input transaksi sampai nota thermal</strong><small>Identitas disamarkan · Lihat portofolio →</small></Link>
         </div>
-        <div className="visualProofActions">
-          <span>Produk internal yang dapat dicoba</span>
-          <span>Demo solusi publik</span>
-          <span>Penerapan alat transaksi & nota</span>
-          <span>Privasi data klien dijaga</span>
-          <Link className="primaryButton" href="/portfolio" data-conversion="homepage_cta_click">Lihat bukti & portofolio</Link>
-        </div>
+        <p style={{ marginTop: 18, color: "var(--muted)", fontSize: 13 }}>Semua tampilan menggunakan data contoh atau data yang telah dianonimkan. Identitas klien dan informasi sensitif tidak dipublikasikan tanpa izin.</p>
       </section>
 
       <section className="visualPricing shell">

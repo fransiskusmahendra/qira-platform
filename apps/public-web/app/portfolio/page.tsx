@@ -6,7 +6,7 @@ import { ConversionTracker } from "../_components/ConversionTracker";
 import { ContextualWhatsAppCta } from "../_components/ContextualWhatsAppCta";
 import styles from "../SubpageVisual.module.css";
 
-const PORTFOLIO_DESCRIPTION = "Lihat produk internal, pekerjaan klien, dan demo solusi QIRA melalui contoh singkat yang mudah dipahami.";
+const PORTFOLIO_DESCRIPTION = "Lihat produk internal, penerapan nyata, dan demo solusi QIRA melalui contoh aplikasi yang aman ditampilkan.";
 
 export const metadata: Metadata = {
   title: "Portofolio",
@@ -16,13 +16,13 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: "Portofolio QIRA", description: PORTFOLIO_DESCRIPTION },
 };
 
-type PortfolioItem = { number: string; tag: string; title: string; outcome: string; visual: string; image: string; href?: string; cta?: string; external?: boolean; note?: string };
+type PortfolioItem = { number: string; tag: string; title: string; outcome: string; visual: string; image: string; imageAlt: string; href?: string; cta?: string; external?: boolean; note?: string };
 
 const ITEMS: readonly PortfolioItem[] = [
-  { number: "01", tag: "Produk QIRA", title: "Pemetaan Kebutuhan", outcome: "Kebutuhan menjadi ruang lingkup yang jelas", visual: "Masalah → Prioritas → Ruang lingkup", image: "/illustrations/premium/qira-problem-premium.webp", href: "/discovery", cta: "Coba alurnya" },
-  { number: "02", tag: "Produk QIRA", title: "Pembuat Dokumen", outcome: "Data menjadi dokumen siap digunakan", visual: "Data → Dokumen → Unduh", image: "/illustrations/premium/qira-examples-premium.webp", note: "Digunakan untuk operasional internal QIRA." },
-  { number: "03", tag: "Penerapan klien", title: "Alat Transaksi & Nota", outcome: "Input transaksi sampai nota dalam satu alur kerja", visual: "Input → Nota → Cetak", image: "/illustrations/qira-process.webp", note: "Contoh penerapan nyata. Identitas klien, data transaksi, dan akses aplikasi tidak dipublikasikan." },
-  { number: "04", tag: "Demo publik", title: "Demo Solusi Bisnis", outcome: "Calon klien dapat melihat gambaran solusi sebelum memulai", visual: "Lihat → Coba → Diskusikan", image: "/illustrations/qira-services.webp", href: "https://demo.qirasolution.com", cta: "Buka demo", external: true, note: "Demo konsep QIRA, bukan klaim sebagai proyek klien." },
+  { number: "01", tag: "Produk QIRA", title: "Pemetaan Kebutuhan", outcome: "Kebutuhan menjadi ruang lingkup yang jelas", visual: "Masalah → Prioritas → Ruang lingkup", image: "/screenshots/qira-discovery.webp", imageAlt: "Tampilan QIRA Discovery dengan progres dan form kebutuhan usaha", href: "/discovery", cta: "Coba alurnya", note: "Tampilan aplikasi menggunakan data contoh." },
+  { number: "02", tag: "Produk QIRA", title: "Invoice & Dokumen", outcome: "Data transaksi menjadi invoice siap diperiksa, dicetak, atau disimpan", visual: "Input → Pratinjau → PDF", image: "/screenshots/qira-invoice-maker.webp", imageAlt: "Tampilan QIRA Invoice Maker dengan editor dan pratinjau invoice", note: "Produk internal QIRA. Screenshot memakai data contoh; identitas legal dan informasi pembayaran sensitif disamarkan." },
+  { number: "03", tag: "Penerapan klien", title: "Alat Transaksi & Nota", outcome: "Input transaksi sampai nota dalam satu alur kerja", visual: "Input → Nota → Cetak", image: "/screenshots/jasindo-travel-demo.webp", imageAlt: "Tampilan aplikasi transaksi perjalanan dan pratinjau nota thermal", note: "Tampilan penerapan nyata dengan nama klien, petugas, identitas, dan data transaksi diganti atau disamarkan untuk portofolio." },
+  { number: "04", tag: "Demo publik", title: "Demo Solusi Bisnis", outcome: "Calon klien dapat melihat gambaran solusi sebelum memulai", visual: "Lihat → Coba → Diskusikan", image: "/illustrations/qira-services.webp", imageAlt: "Ilustrasi demo solusi bisnis QIRA", href: "https://demo.qirasolution.com", cta: "Buka demo", external: true, note: "Demo konsep QIRA, bukan klaim sebagai proyek klien." },
 ] as const;
 
 function Action({ item }: { item: PortfolioItem }) {
@@ -61,7 +61,7 @@ export default function PortfolioPage() {
         <div className="portfolioCaseGrid">
           {ITEMS.map((item) => (
             <article className="portfolioCase" key={item.title}>
-              <figure><Image src={item.image} alt="" width={1672} height={941} quality={90} sizes="(max-width: 680px) 100vw, 50vw" /></figure>
+              <figure><Image src={item.image} alt={item.imageAlt} width={800} height={450} quality={90} sizes="(max-width: 680px) 100vw, 50vw" /></figure>
               <div className="portfolioCaseBody">
                 <div className="portfolioCaseMeta"><span>{item.number}</span><small>{item.tag}</small></div>
                 <h2>{item.title}</h2>
