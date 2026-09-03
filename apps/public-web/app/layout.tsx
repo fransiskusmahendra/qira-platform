@@ -14,7 +14,7 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 const siteTitle = "QIRA — Solusi Digital Sederhana";
 const siteDescription = "QIRA membuat website, form, dashboard, dan otomatisasi agar usaha lebih mudah ditemukan dan dijalankan.";
-const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — Solusi Digital Sederhana" };
+const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — Simple Digital Solutions" };
 const siteUrl = "https://www.qirasolution.com";
 
 const structuredData = {
@@ -56,7 +56,14 @@ export const metadata: Metadata = {
   title: { default: siteTitle, template: "%s | QIRA" },
   description: siteDescription,
   alternates: { canonical: "/" },
-  icons: { icon: "/qira-mark.svg" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon", sizes: "256x256" },
+      { url: "/favicon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
+  },
   openGraph: { title: siteTitle, description: siteDescription, url: "/", siteName: "QIRA", locale: "id_ID", type: "website", images: [socialImage] },
   twitter: { card: "summary_large_image", title: siteTitle, description: siteDescription, images: ["/opengraph-image"] },
 };
