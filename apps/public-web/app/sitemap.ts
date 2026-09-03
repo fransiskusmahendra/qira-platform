@@ -3,6 +3,7 @@ import type { MetadataRoute } from "next";
 const routes = [
   "/",
   "/about",
+  "/layanan",
   "/portfolio",
   "/contoh-penerapan",
   "/coba-masalah",
@@ -22,6 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
     url: `${baseUrl}${route === "/" ? "" : route}`,
     changeFrequency: route === "/" ? "weekly" : "monthly",
-    priority: route === "/" ? 1 : route === "/coba-masalah" ? 0.9 : route.startsWith("/solusi/") ? 0.8 : 0.7,
+    priority: route === "/" ? 1 : route === "/coba-masalah" ? 0.9 : route === "/layanan" || route.startsWith("/solusi/") ? 0.8 : 0.7,
   }));
 }

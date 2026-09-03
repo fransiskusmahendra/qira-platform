@@ -26,7 +26,7 @@ export default function PricingPage() {
       <ConversionTracker event="pricing_view" />
       <nav className="companyNav shell" aria-label="Navigasi utama">
         <Link className="brand" href="/">QIRA<span>.</span></Link>
-        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
+        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/layanan">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
         <Link className="smallButton" href="/coba-masalah">Ceritakan masalah</Link>
       </nav>
 
@@ -76,7 +76,7 @@ export default function PricingPage() {
 
       <footer className="companyFooter shell">
         <div><Link className="brand" href="/">QIRA<span>.</span></Link></div>
-        <div className="footerLinks"><Link href="/">Beranda</Link><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/privasi">Privasi</Link></div>
+        <div className="footerLinks"><Link href="/">Beranda</Link><Link href="/about">Tentang</Link><Link href="/layanan">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/privasi">Privasi</Link></div>
         <span>QIRA · Solusi digital sederhana untuk bisnis</span>
       </footer>
     </main>

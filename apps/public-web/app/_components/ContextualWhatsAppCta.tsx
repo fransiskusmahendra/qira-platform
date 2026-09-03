@@ -7,7 +7,7 @@ import { trackConversion } from "./ConversionTracker";
 export function ContextualWhatsAppCta({
   context,
   className = "primaryButton",
-  children = "Konsultasi lewat WhatsApp",
+  children = "Mulai konsultasi",
 }: {
   context: string;
   className?: string;

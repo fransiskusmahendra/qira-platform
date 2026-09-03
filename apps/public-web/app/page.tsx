@@ -16,6 +16,7 @@ export default function HomePage() {
         <Link className="brand" href="/">QIRA<span>.</span></Link>
         <div className="companyNavLinks">
           <Link href="/about">Tentang</Link>
+          <Link href="/layanan">Layanan</Link>
           <Link href="/portfolio">Portofolio</Link>
           <Link href="/harga">Harga</Link>
         </div>
@@ -25,7 +26,7 @@ export default function HomePage() {
       <section className="visualHero shell">
         <div className="visualHeroCopy">
           <p className="eyebrow">QIRA · Solusi digital sederhana</p>
-          <h1>Bisnis bekerja lebih rapi.<br /><em>Teknologi tetap sederhana.</em></h1>
+          <h1 style={{ fontSize: "clamp(46px, 6.5vw, 82px)" }}>Bisnis bekerja lebih rapi.<br /><em>Teknologi tetap sederhana.</em></h1>
           <p className="visualHeroLead">QIRA membuat website, form, dashboard, dan otomatisasi agar usaha lebih mudah ditemukan dan dijalankan.</p>
           <div className="companyHeroActions">
             <Link className="primaryButton" href="/coba-masalah" data-conversion="homepage_cta_click">Ceritakan masalah usaha</Link>
@@ -88,12 +89,16 @@ export default function HomePage() {
 
       <section className="visualProof shell">
         <div>
-          <p className="kicker">Produk & karya</p>
-          <h2>Lihat yang sudah dibangun.</h2>
+          <p className="kicker">Kepercayaan</p>
+          <h2>Solusi yang sudah dibangun, dengan privasi tetap dijaga.</h2>
+          <p>QIRA menampilkan produk internal, demo publik, dan contoh penerapan tanpa membuka identitas, data, atau akses klien tanpa izin.</p>
         </div>
         <div className="visualProofActions">
-          <span>Produk QIRA</span><span>Pekerjaan klien</span><span>Demo solusi</span>
-        <Link className="primaryButton" href="/portfolio" data-conversion="homepage_cta_click">Buka portofolio</Link>
+          <span>Produk internal yang dapat dicoba</span>
+          <span>Demo solusi publik</span>
+          <span>Penerapan alat transaksi & nota</span>
+          <span>Privasi data klien dijaga</span>
+          <Link className="primaryButton" href="/portfolio" data-conversion="homepage_cta_click">Lihat bukti & portofolio</Link>
         </div>
       </section>
 
@@ -108,12 +113,12 @@ export default function HomePage() {
 
       <section className="companyClosing shell visualClosing">
         <div><p className="kicker">Mulai sederhana</p><h2>Mulai dari satu masalah.</h2></div>
-        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah" data-conversion="homepage_cta_click">Ceritakan masalah usaha</Link><ContextualWhatsAppCta context="kebutuhan digital bisnis" className="textLink lightText">Konsultasi lewat WhatsApp</ContextualWhatsAppCta></div>
+        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah" data-conversion="homepage_cta_click">Ceritakan masalah usaha</Link><ContextualWhatsAppCta context="kebutuhan digital bisnis" className="textLink lightText">Mulai konsultasi</ContextualWhatsAppCta></div>
       </section>
 
       <footer className="companyFooter shell">
         <div><Link className="brand" href="/">QIRA<span>.</span></Link></div>
-        <div className="footerLinks"><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div>
+        <div className="footerLinks"><Link href="/about">Tentang</Link><Link href="/layanan">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div>
         <span>QIRA · Solusi digital sederhana untuk bisnis</span>
       </footer>
     </main>
