@@ -1,0 +1,120 @@
+.floatingContainer {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 95;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.floatingContainer > * {
+  pointer-events: auto;
+}
+
+.floatingButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: #25d366;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14.5px;
+  text-decoration: none;
+  box-shadow: 0 8px 26px rgba(37, 211, 102, 0.38), 0 2px 8px rgba(7, 26, 51, 0.12);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background-color 0.15s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.floatingButton:hover {
+  background: #20ba5a;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(37, 211, 102, 0.48), 0 4px 12px rgba(7, 26, 51, 0.16);
+  color: #ffffff;
+}
+
+.floatingButton:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.floatingIcon {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.onlineBadge {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  position: relative;
+}
+
+.onlineBadge::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  animation: pulseDot 2s infinite ease-out;
+}
+
+.buttonText {
+  white-space: nowrap;
+}
+
+@keyframes pulseDot {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 680px) {
+  .floatingContainer {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .floatingButton {
+    padding: 12px 16px;
+    font-size: 13.5px;
+    gap: 8px;
+  }
+
+  .buttonText {
+    display: inline;
+  }
+}
+
+@media (max-width: 420px) {
+  .buttonText {
+    display: none;
+  }
+
+  .floatingButton {
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .onlineBadge {
+    display: none;
+  }
+}

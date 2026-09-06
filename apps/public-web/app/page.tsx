@@ -6,6 +6,7 @@ import { BenefitsArtwork, WhatArtwork } from "./_components/CrispVisuals";
 import { Navbar } from "./_components/Navbar";
 import { Footer } from "./_components/Footer";
 import { ClosingCtaSection } from "./_components/ClosingCtaSection";
+import { FaqSection } from "./_components/FaqSection";
 
 export default function HomePage() {
   return (
@@ -18,13 +19,13 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="visualHero shell">
           <div className="visualHeroCopy">
-            <p className="eyebrow">QIRA · Solusi digital sederhana</p>
+            <p className="eyebrow">QIRA · Partner Solusi Digital Bisnis & UMKM</p>
             <h1 style={{ fontSize: "clamp(46px, 6.5vw, 82px)" }}>
               Bisnis bekerja lebih rapi.<br />
               <em>Teknologi tetap sederhana.</em>
             </h1>
             <p className="visualHeroLead">
-              QIRA membuat website, form, dashboard, dan otomatisasi agar usaha lebih mudah ditemukan dan dijalankan.
+              Kami bantu buatkan website profesional, form pemesanan digital, dashboard rekap, dan otomatisasi kerja khusus untuk bisnis Anda — siap pakai tanpa repot belajar sistem rumit.
             </p>
             <div className="companyHeroActions">
               <Link className="primaryButton" href="/coba-masalah" data-conversion="homepage_cta_click">
@@ -256,6 +257,9 @@ export default function HomePage() {
             Lihat 3 pilihan
           </Link>
         </section>
+
+        {/* Interactive FAQ Section */}
+        <FaqSection />
 
         {/* Closing CTA */}
         <ClosingCtaSection />
