@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 import { findBusinessBlueprint } from "@qira/domain";
 import { trackConversion } from "./_components/ConversionTracker";
+import { ContextualWhatsAppCta } from "./_components/ContextualWhatsAppCta";
 import styles from "./PersonalizedDemo.module.css";
 
 type Profile = {
@@ -143,6 +144,44 @@ export function PersonalizedDemo() {
     }
   };
 
+  const suggestedPackage = useMemo(() => {
+    const text = description.toLowerCase();
+    const isHeavyOps =
+      teamSize === "11–25 orang" ||
+      teamSize === "Lebih dari 25 orang" ||
+      /integrasi|multi-user|cabang|gudang|sistem besar|karyawan banyak/.test(text);
+
+    if (isHeavyOps) {
+      return {
+        name: "Connected Growth",
+        price: "Rp4,9 jt",
+        timeline: "2–3 minggu",
+        reason: "Cocok untuk alur kerja multi-tim, database operasional terpadu, dan laporan otomatis.",
+      };
+    }
+
+    const isSimpleBrand =
+      priority === "Mulai dikenal & dipercaya pelanggan" &&
+      teamSize === "1–3 orang" &&
+      !/pesanan|transaksi|dashboard|rekap|stok/.test(text);
+
+    if (isSimpleBrand) {
+      return {
+        name: "Digital Foundation",
+        price: "Rp1,5 jt",
+        timeline: "1–2 minggu",
+        reason: "Fokus pada profil usaha profesional, formulir kontak, dan tombol WhatsApp.",
+      };
+    }
+
+    return {
+      name: "Growth Engine",
+      price: "Rp2,9 jt",
+      timeline: "1–2 minggu",
+      reason: "Paling populer untuk merapikan alur pemesanan, pencatatan otomatis, dan dashboard ringkas.",
+    };
+  }, [description, priority, teamSize]);
+
   if (profile) {
     return (
       <section className={styles.section} id="live-experience">
@@ -171,11 +210,36 @@ export function PersonalizedDemo() {
                 <span>{teamSize}</span>
               </div>
             </div>
+
+            <div className={styles.packageEstimateBox}>
+              <div className={styles.packageEstimateHeader}>
+                <span className={styles.packageBadge}>Paket & Waktu yang Disarankan</span>
+                <span className={styles.packageTimeline}>⏱️ Estimasi: {suggestedPackage.timeline}</span>
+              </div>
+              <div className={styles.packageEstimateMain}>
+                <div>
+                  <h4 className={styles.packageName}>{suggestedPackage.name}</h4>
+                  <p className={styles.packageReason}>{suggestedPackage.reason}</p>
+                </div>
+                <div className={styles.packagePrice}>
+                  <small>Mulai dari</small>
+                  <strong>{suggestedPackage.price}</strong>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <Link className={styles.nextButton} href="/discovery">
-            Lanjut ke Pemetaan Kebutuhan (±2 Menit) <b aria-hidden="true">→</b>
-          </Link>
+          <div className={styles.resultActions}>
+            <Link className={styles.nextButton} href="/discovery">
+              Lanjut ke Pemetaan Kebutuhan (±2 Menit) <b aria-hidden="true">→</b>
+            </Link>
+            <ContextualWhatsAppCta
+              context={`rekomendasi paket ${suggestedPackage.name} untuk usaha ${businessName.trim()}`}
+              className={styles.secondaryWaButton}
+            >
+              Diskusikan langsung via WhatsApp →
+            </ContextualWhatsAppCta>
+          </div>
 
           <p className={styles.reassurance}>
             ✓ Gratis · Tanpa komitmen beli · Data Anda dijaga kerahasiaannya sesuai kebijakan privasi.

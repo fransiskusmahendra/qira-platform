@@ -387,6 +387,111 @@
   color: var(--ink);
 }
 
+.packageEstimateBox {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1.5px solid #d0e1fd;
+}
+
+.packageEstimateHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.packageBadge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--blue);
+}
+
+.packageTimeline {
+  font-size: 12px;
+  font-weight: 700;
+  color: #08789d;
+  background: #eaf8fd;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.packageEstimateMain {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.packageName {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 750;
+  color: var(--ink);
+}
+
+.packageReason {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.packagePrice {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.packagePrice small {
+  display: block;
+  font-size: 10.5px;
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.packagePrice strong {
+  display: block;
+  font-size: 18px;
+  color: var(--blue);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.resultActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.secondaryWaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 14px;
+  border: 1.5px solid #dce4ef;
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.secondaryWaButton:hover {
+  border-color: var(--blue);
+  background: #f4f8ff;
+  color: var(--blue);
+}
+
 .reassurance {
   margin: 18px 0 0;
   color: var(--muted);
@@ -420,11 +525,24 @@
   }
 
   .actions button,
-  .nextButton {
+  .nextButton,
+  .secondaryWaButton {
     width: 100%;
   }
 
   .resultSummaryGrid {
     grid-template-columns: 1fr;
+  }
+
+  .packageEstimateMain {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .packagePrice {
+    text-align: left;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
   }
 }

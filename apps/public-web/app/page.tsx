@@ -7,6 +7,7 @@ import { Navbar } from "./_components/Navbar";
 import { Footer } from "./_components/Footer";
 import { ClosingCtaSection } from "./_components/ClosingCtaSection";
 import { FaqSection } from "./_components/FaqSection";
+import { ContextualWhatsAppCta } from "./_components/ContextualWhatsAppCta";
 
 export default function HomePage() {
   return (
@@ -31,6 +32,12 @@ export default function HomePage() {
               <Link className="primaryButton" href="/coba-masalah" data-conversion="homepage_cta_click">
                 Ceritakan masalah usaha
               </Link>
+              <ContextualWhatsAppCta
+                context="solusi digital bisnis dari beranda"
+                className="secondaryHeroButton"
+              >
+                Konsultasi WhatsApp →
+              </ContextualWhatsAppCta>
               <Link className="textLink" href="#contoh-solusi">
                 Lihat contoh solusi ↓
               </Link>
@@ -146,7 +153,7 @@ export default function HomePage() {
             <h2>Lihat aplikasi yang <em>sudah dibangun.</em></h2>
           </header>
           <div className="audiencePaths">
-            <Link href="/portfolio">
+            <Link href="/discovery">
               <Image
                 src="/screenshots/qira-discovery.svg"
                 alt="Tampilan QIRA Discovery dengan form kebutuhan usaha"
@@ -155,9 +162,9 @@ export default function HomePage() {
                 unoptimized
                 sizes="(max-width: 680px) 100vw, 33vw"
               />
-              <span>QIRA Discovery</span>
+              <span>Demo Interaktif</span>
               <strong>Kebutuhan menjadi arah solusi yang jelas</strong>
-              <small>Data contoh · Lihat portofolio →</small>
+              <small style={{ color: "var(--blue)", fontWeight: 700 }}>Coba Demo Interaktif (±2 Menit) →</small>
             </Link>
             <Link href="/portfolio">
               <Image
@@ -217,6 +224,60 @@ export default function HomePage() {
               <span>04</span>
               <h3>Review sebelum jalan</h3>
               <p>Solusi diperiksa bersama sebelum menjadi bagian dari pekerjaan sehari-hari.</p>
+            </article>
+          </div>
+        </section>
+
+        {/* Guarantees Section */}
+        <section className="visualStory shell" id="jaminan-layanan">
+          <header className="visualStoryHeading">
+            <p className="kicker">Jaminan Layanan</p>
+            <h2>3 Komitmen pasti untuk <em>ketenangan usaha Anda.</em></h2>
+          </header>
+          <div className="guaranteeGrid">
+            <article className="guaranteeCard">
+              <div className="guaranteeIconWrapper">
+                <span className="guaranteeBadge">01</span>
+                <span className="guaranteeIcon" aria-hidden="true">🛡️</span>
+              </div>
+              <h3>100% Hak Milik Kode & Data</h3>
+              <p>
+                Aplikasi, database, dan domain sepenuhnya menjadi aset milik usaha Anda. Tanpa <em>vendor lock-in</em> ataupun biaya lisensi tersembunyi.
+              </p>
+              <ul className="guaranteePoints">
+                <li>Source code diserahkan penuh</li>
+                <li>Data pelanggan milik Anda pribadi</li>
+              </ul>
+            </article>
+
+            <article className="guaranteeCard">
+              <div className="guaranteeIconWrapper">
+                <span className="guaranteeBadge">02</span>
+                <span className="guaranteeIcon" aria-hidden="true">⏱️</span>
+              </div>
+              <h3>Jadwal Pasti 1–3 Minggu</h3>
+              <p>
+                Ruang lingkup dan tanggal serah terima disepakati transparan di awal. Anda tahu persis kapan sistem selesai diuji dan siap dipakai tim operasional.
+              </p>
+              <ul className="guaranteePoints">
+                <li>Timeline transparan per tahap</li>
+                <li>Langsung siap digunakan tanpa molor</li>
+              </ul>
+            </article>
+
+            <article className="guaranteeCard">
+              <div className="guaranteeIconWrapper">
+                <span className="guaranteeBadge">03</span>
+                <span className="guaranteeIcon" aria-hidden="true">🤝</span>
+              </div>
+              <h3>Garansi Revisi & Pendampingan</h3>
+              <p>
+                Setelah sistem jalan, kami tidak meninggalkan Anda. Termasuk garansi revisi perbaikan dan panduan operasional sampai tim Anda benar-benar mahir.
+              </p>
+              <ul className="guaranteePoints">
+                <li>Garansi perbaikan pasca-peluncuran</li>
+                <li>Sesi pelatihan hingga tim mandiri</li>
+              </ul>
             </article>
           </div>
         </section>
