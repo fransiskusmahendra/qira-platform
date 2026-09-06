@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ConversionTracker } from "../_components/ConversionTracker";
-import { ContextualWhatsAppCta } from "../_components/ContextualWhatsAppCta";
 import styles from "../SubpageVisual.module.css";
+import { Navbar } from "../_components/Navbar";
+import { Footer } from "../_components/Footer";
+import { ClosingCtaSection } from "../_components/ClosingCtaSection";
 
 const PORTFOLIO_DESCRIPTION = "Lihat produk internal, penerapan nyata, dan demo solusi QIRA melalui contoh aplikasi yang aman ditampilkan.";
 const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "Portofolio QIRA — produk, penerapan, dan demo solusi digital" };
@@ -33,59 +35,55 @@ function Action({ item }: { item: PortfolioItem }) {
 
 export default function PortfolioPage() {
   return (
-    <main>
-      <ConversionTracker event="portfolio_view" />
-      <nav className="companyNav shell" aria-label="Navigasi utama">
-        <Link className="brand" href="/">QIRA<span>.</span></Link>
-        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/layanan">Layanan</Link><Link href="/portfolio" aria-current="page">Portofolio</Link><Link href="/harga">Harga</Link></div>
-        <Link className="smallButton" href="/coba-masalah">Ceritakan masalah</Link>
-      </nav>
+    <>
+      <Navbar />
+      <main>
+        <ConversionTracker event="portfolio_view" />
 
-      <section className={`${styles.hero} shell`}>
-        <div className={styles.heroCopy}>
-          <p className="eyebrow">Produk & karya</p>
-          <h1>Lihat solusi yang sudah dibangun.</h1>
-          <p>Produk internal QIRA, penerapan nyata yang aman ditampilkan, dan demo publik yang dapat dicoba.</p>
-        </div>
-        <figure className={styles.heroVisual}>
-          <Image src="/illustrations/premium/qira-portfolio-premium.webp" alt="Kumpulan website, dashboard, otomatisasi, dokumen, dan pemetaan kebutuhan QIRA" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
-        </figure>
-      </section>
+        <section className={`${styles.hero} shell`}>
+          <div className={styles.heroCopy}>
+            <p className="eyebrow">Produk & karya</p>
+            <h1>Lihat solusi yang sudah dibangun.</h1>
+            <p>Produk internal QIRA, penerapan nyata yang aman ditampilkan, dan demo publik yang dapat dicoba.</p>
+          </div>
+          <figure className={styles.heroVisual}>
+            <Image src="/illustrations/premium/qira-portfolio-premium.webp" alt="Kumpulan website, dashboard, otomatisasi, dokumen, dan pemetaan kebutuhan QIRA" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
+          </figure>
+        </section>
 
-      <section className={`${styles.section} shell`}>
-        <div className="simplePrinciples" aria-label="Bukti dan komitmen QIRA">
-          <span>Produk internal dapat dicoba</span><span>Demo publik tersedia</span><span>Data klien tidak dipublikasikan tanpa izin</span>
-        </div>
-      </section>
+        <section className={`${styles.section} shell`}>
+          <div className="simplePrinciples" aria-label="Bukti dan komitmen QIRA">
+            <span>Produk internal dapat dicoba</span><span>Demo publik tersedia</span><span>Data klien tidak dipublikasikan tanpa izin</span>
+          </div>
+        </section>
 
-      <section className={`${styles.section} shell`}>
-        <div className="portfolioCaseGrid">
-          {ITEMS.map((item) => (
-            <article className="portfolioCase" key={item.title}>
-              <figure><Image src={item.image} alt={item.imageAlt} width={item.image.endsWith(".svg") ? 1600 : 800} height={item.image.endsWith(".svg") ? 900 : 450} quality={90} unoptimized={item.image.endsWith(".svg")} sizes="(max-width: 680px) 100vw, 50vw" /></figure>
-              <div className="portfolioCaseBody">
-                <div className="portfolioCaseMeta"><span>{item.number}</span><small>{item.tag}</small></div>
-                <h2>{item.title}</h2>
-                <p>{item.outcome}</p>
-                <div className="portfolioCaseFlow">{item.visual.split(" → ").map((step) => <span key={step}>{step}</span>)}</div>
-                <Action item={item} />
-                {item.note ? <p className="portfolioDisclosure">{item.note}</p> : null}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+        <section className={`${styles.section} shell`}>
+          <div className="portfolioCaseGrid">
+            {ITEMS.map((item) => (
+              <article className="portfolioCase" key={item.title}>
+                <figure><Image src={item.image} alt={item.imageAlt} width={item.image.endsWith(".svg") ? 1600 : 800} height={item.image.endsWith(".svg") ? 900 : 450} quality={90} unoptimized={item.image.endsWith(".svg")} sizes="(max-width: 680px) 100vw, 50vw" /></figure>
+                <div className="portfolioCaseBody">
+                  <div className="portfolioCaseMeta"><span>{item.number}</span><small>{item.tag}</small></div>
+                  <h2>{item.title}</h2>
+                  <p>{item.outcome}</p>
+                  <div className="portfolioCaseFlow">{item.visual.split(" → ").map((step) => <span key={step}>{step}</span>)}</div>
+                  <Action item={item} />
+                  {item.note ? <p className="portfolioDisclosure">{item.note}</p> : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      <section className="companyClosing simpleCompactClosing shell">
-        <div><p className="kicker">Untuk usahamu</p><h2>Punya kebutuhan serupa?</h2></div>
-        <div className="closingActions"><ContextualWhatsAppCta context="proyek serupa" className="primaryButton light">Mulai konsultasi</ContextualWhatsAppCta></div>
-      </section>
-
-      <footer className="companyFooter shell">
-        <div><Link className="brand" href="/">QIRA<span>.</span></Link></div>
-        <div className="footerLinks"><Link href="/">Beranda</Link><Link href="/about">Tentang</Link><Link href="/layanan">Layanan</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div>
-        <span>QIRA · Solusi digital sederhana untuk bisnis</span>
-      </footer>
-    </main>
+        <ClosingCtaSection
+          kicker="Untuk usahamu"
+          heading="Punya kebutuhan serupa?"
+          subtext="Diskusikan proses kerja yang ingin dibuatkan aplikasi atau sistem otomatisasinya."
+          primaryText="Mulai konsultasi proyek"
+          waContext="proyek aplikasi atau otomatisasi serupa"
+        />
+      </main>
+      <Footer />
+    </>
   );
 }

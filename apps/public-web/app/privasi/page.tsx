@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-
+import { Navbar } from "../_components/Navbar";
+import { Footer } from "../_components/Footer";
 import styles from "./privacy.module.css";
 
 const title = "Privasi & Penggunaan Data";
@@ -26,10 +27,11 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPage() {
-  return <main>
-    <nav className="nav shell" aria-label="Navigasi privasi"><Link className="brand" href="/">QIRA<span>.</span></Link><Link className="navCta" href="/">Beranda</Link></nav>
-
-    <header className="subpageIntro shell">
+  return (
+    <>
+      <Navbar />
+      <main>
+        <header className="subpageIntro shell">
       <p className="kicker">Privasi</p>
       <h1>Data seperlunya.</h1>
       <p>Untuk memahami kebutuhan, menjalankan layanan, dan menjaga keamanan. Diperbarui 2 September 2026.</p>
@@ -92,6 +94,8 @@ export default function PrivacyPage() {
       </details>
     </section>
 
-    <footer className="footer shell"><span>QIRA · Solusi digital sederhana untuk bisnis</span><Link href="/">Beranda</Link></footer>
-  </main>;
+      </main>
+      <Footer />
+    </>
+  );
 }

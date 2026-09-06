@@ -5,6 +5,9 @@ import { notFound } from "next/navigation";
 
 import { ContextualWhatsAppCta } from "../../_components/ContextualWhatsAppCta";
 import { ConversionTracker } from "../../_components/ConversionTracker";
+import { Navbar } from "../../_components/Navbar";
+import { Footer } from "../../_components/Footer";
+import { ClosingCtaSection } from "../../_components/ClosingCtaSection";
 import styles from "../../SubpageVisual.module.css";
 
 const SOLUTIONS = {
@@ -84,54 +87,61 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
   const solution = SOLUTIONS[slug as SolutionSlug];
   if (!solution) notFound();
 
-  return <main>
-    <ConversionTracker event="service_view" />
-    <nav className="companyNav shell" aria-label="Navigasi utama">
-      <Link className="brand" href="/">QIRA<span>.</span></Link>
-      <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/layanan" aria-current="page">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
-      <Link className="smallButton" href="/coba-masalah">Ceritakan masalah</Link>
-    </nav>
+    <>
+      <Navbar />
+      <main>
+        <ConversionTracker event="service_view" />
 
-    <section className={`${styles.hero} shell`}>
-      <div className={styles.heroCopy}>
-        <p className="eyebrow">{solution.eyebrow}</p>
-        <h1>{solution.title}</h1>
-        <p>{solution.lead}</p>
-        <div className={styles.heroActions}><ContextualWhatsAppCta context={solution.title}>Mulai konsultasi</ContextualWhatsAppCta><Link className="textLink" href="#cara-kerja">Lihat proses ↓</Link></div>
-      </div>
-      <figure className={styles.heroVisual}>
-        <Image src={solution.image} alt={`Ilustrasi ${solution.title} oleh QIRA`} width={1536} height={1024} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
-      </figure>
-    </section>
+        <section className={`${styles.hero} shell`}>
+          <div className={styles.heroCopy}>
+            <p className="eyebrow">{solution.eyebrow}</p>
+            <h1>{solution.title}</h1>
+            <p>{solution.lead}</p>
+            <div className={styles.heroActions}>
+              <ContextualWhatsAppCta context={solution.title}>Mulai konsultasi</ContextualWhatsAppCta>
+              <Link className="textLink" href="#cara-kerja">Lihat proses ↓</Link>
+            </div>
+          </div>
+          <figure className={styles.heroVisual}>
+            <Image src={solution.image} alt={`Ilustrasi ${solution.title} oleh QIRA`} width={1536} height={1024} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
+          </figure>
+        </section>
 
-    <section className={`${styles.section} shell`} id="cara-kerja">
-      <div className="simplePrinciples">
-        <article><span>Masalah</span><h3>Apa yang dirapikan</h3><p>{solution.problem}</p></article>
-        <article><span>QIRA</span><h3>Apa yang dibuat</h3><p>{solution.help}</p></article>
-        <article><span>Hasil</span><h3>Apa yang terasa</h3><p>{solution.outcome}</p></article>
-      </div>
-    </section>
+        <section className={`${styles.section} shell`} id="cara-kerja">
+          <div className="simplePrinciples">
+            <article><span>Masalah</span><h3>Apa yang dirapikan</h3><p>{solution.problem}</p></article>
+            <article><span>QIRA</span><h3>Apa yang dibuat</h3><p>{solution.help}</p></article>
+            <article><span>Hasil</span><h3>Apa yang terasa</h3><p>{solution.outcome}</p></article>
+          </div>
+        </section>
 
-    <section className="solutionDetails shell">
-      <article className="solutionFit">
-        <p className="kicker">Cocok jika</p>
-        <h2>{solution.fit}</h2>
-      </article>
-      <article className="solutionDeliverables">
-        <p className="kicker">Yang disiapkan</p>
-        <ul>{solution.deliverables.map((item) => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
-      </article>
-    </section>
+        <section className="solutionDetails shell">
+          <article className="solutionFit">
+            <p className="kicker">Cocok jika</p>
+            <h2>{solution.fit}</h2>
+          </article>
+          <article className="solutionDeliverables">
+            <p className="kicker">Yang disiapkan</p>
+            <ul>{solution.deliverables.map((item) => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
+          </article>
+        </section>
 
-    <section className="solutionProcess shell">
-      <div><span>01</span><strong>Ceritakan</strong><small>Satu masalah utama.</small></div>
-      <div><span>02</span><strong>Petakan</strong><small>Prioritas dan ruang lingkup.</small></div>
-      <div><span>03</span><strong>Bangun</strong><small>Versi sederhana dulu.</small></div>
-      <div><span>04</span><strong>Rapikan</strong><small>Uji, revisi, jalankan.</small></div>
-    </section>
+        <section className="solutionProcess shell">
+          <div><span>01</span><strong>Ceritakan</strong><small>Satu masalah utama.</small></div>
+          <div><span>02</span><strong>Petakan</strong><small>Prioritas dan ruang lingkup.</small></div>
+          <div><span>03</span><strong>Bangun</strong><small>Versi sederhana dulu.</small></div>
+          <div><span>04</span><strong>Rapikan</strong><small>Uji, revisi, jalankan.</small></div>
+        </section>
 
-    <section className="companyClosing simpleCompactClosing shell"><div><p className="kicker">Mulai sederhana</p><h2>Belum yakin bentuk solusinya?</h2><p>QIRA bantu memetakan dulu. Tidak perlu penjelasan teknis.</p></div><div className="closingActions"><ContextualWhatsAppCta context={solution.title} className="primaryButton light">Mulai konsultasi</ContextualWhatsAppCta></div></section>
-
-    <footer className="companyFooter shell"><div><Link className="brand" href="/">QIRA<span>.</span></Link></div><div className="footerLinks"><Link href="/">Beranda</Link><Link href="/layanan">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div><span>QIRA · Solusi digital sederhana untuk bisnis</span></footer>
-  </main>;
+        <ClosingCtaSection
+          kicker="Mulai sederhana"
+          heading="Belum yakin bentuk solusinya?"
+          subtext="QIRA bantu memetakan kebutuhan usaha Anda terlebih dahulu tanpa istilah teknis."
+          primaryText="Ceritakan masalah usaha"
+          waContext={solution.title}
+        />
+      </main>
+      <Footer />
+    </>
+  );
 }

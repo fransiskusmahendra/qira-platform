@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 
 import { PersonalizedDemo } from "../PersonalizedDemo";
 import { ConversionTracker } from "../_components/ConversionTracker";
 import styles from "../SubpageVisual.module.css";
+import { Navbar } from "../_components/Navbar";
+import { Footer } from "../_components/Footer";
 
 const title = "Ceritakan Masalah Usahamu";
 const description = "Ceritakan satu masalah yang paling merepotkan. QIRA membantu memetakan kebutuhan tanpa istilah teknis atau penjelasan yang rumit.";
@@ -19,32 +20,33 @@ export const metadata: Metadata = {
 
 export default function ProblemExperiencePage() {
   return (
-    <main>
-      <ConversionTracker event="story_start" />
-      <nav className="companyNav shell" aria-label="Navigasi utama">
-        <Link className="brand" href="/">QIRA<span>.</span></Link>
-        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/layanan">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
-        <Link className="smallButton" href="/contoh-penerapan">Lihat contoh</Link>
-      </nav>
+    <>
+      <Navbar />
+      <main>
+        <ConversionTracker event="story_start" />
 
-      <section className={`${styles.hero} shell`}>
-        <div className={styles.heroCopy}>
-          <p className="eyebrow">Mulai</p>
-          <h1>Ceritakan masalah yang paling merepotkan.</h1>
-          <p>Jawab empat pertanyaan sederhana dalam sekitar 2 menit.</p>
-        </div>
-        <figure className={styles.heroVisual}>
-          <Image src="/illustrations/premium/qira-problem-premium.webp" alt="Masalah bisnis yang disusun menjadi prioritas dan arah solusi" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
-        </figure>
-      </section>
+        <section className={`${styles.hero} shell`}>
+          <div className={styles.heroCopy}>
+            <p className="eyebrow">Mulai dari Masalah</p>
+            <h1>Ceritakan hal yang paling merepotkan.</h1>
+            <p>Jawab empat pertanyaan sederhana dalam sekitar 2 menit. Kami bantu petakan arah solusi digital yang paling masuk akal.</p>
+          </div>
+          <figure className={styles.heroVisual}>
+            <Image
+              src="/illustrations/premium/qira-problem-premium.webp"
+              alt="Masalah bisnis yang disusun menjadi prioritas dan arah solusi"
+              width={1672}
+              height={941}
+              quality={90}
+              priority
+              sizes="(max-width: 960px) 100vw, 48vw"
+            />
+          </figure>
+        </section>
 
-      <PersonalizedDemo />
-
-      <footer className="companyFooter shell">
-        <div><Link className="brand" href="/">QIRA<span>.</span></Link></div>
-        <div className="footerLinks"><Link href="/">Beranda</Link><Link href="/about">Tentang</Link><Link href="/layanan">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div>
-        <span>QIRA · Solusi digital sederhana untuk bisnis</span>
-      </footer>
-    </main>
+        <PersonalizedDemo />
+      </main>
+      <Footer />
+    </>
   );
 }

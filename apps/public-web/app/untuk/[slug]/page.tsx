@@ -5,6 +5,9 @@ import { notFound } from "next/navigation";
 
 import { ContextualWhatsAppCta } from "../../_components/ContextualWhatsAppCta";
 import { ConversionTracker } from "../../_components/ConversionTracker";
+import { Navbar } from "../../_components/Navbar";
+import { Footer } from "../../_components/Footer";
+import { ClosingCtaSection } from "../../_components/ClosingCtaSection";
 import styles from "../../SubpageVisual.module.css";
 
 const USE_CASES = {
@@ -67,12 +70,52 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
   const item = USE_CASES[slug as UseCaseSlug];
   if (!item) notFound();
 
-  return <main>
-    <ConversionTracker event="service_view" />
-    <nav className="companyNav shell" aria-label="Navigasi utama"><Link className="brand" href="/">QIRA<span>.</span></Link><div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/layanan" aria-current="page">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div><Link className="smallButton" href="/coba-masalah">Ceritakan masalah</Link></nav>
-    <section className={`${styles.hero} shell`}><div className={styles.heroCopy}><p className="eyebrow">{item.eyebrow}</p><h1>{item.title}</h1><p>{item.lead}</p><div className={styles.heroActions}><ContextualWhatsAppCta context={item.eyebrow}>Mulai konsultasi</ContextualWhatsAppCta></div></div><figure className={styles.heroVisual}><Image src={item.image} alt={item.alt} width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" /></figure></section>
-    <section className="useCaseJourney shell" aria-label="Perubahan yang dibantu QIRA"><div className="useCaseColumn problem"><p className="kicker">Yang bikin repot</p>{item.pains.map((text) => <span key={text}>{text}</span>)}</div><div className="useCaseArrow" aria-hidden="true">→</div><div className="useCaseColumn qira"><p className="kicker">Yang QIRA rapikan</p>{item.flow.map((text) => <span key={text}>{text}</span>)}</div><div className="useCaseArrow" aria-hidden="true">→</div><div className="useCaseColumn result"><p className="kicker">Yang terasa</p>{item.outcomes.map((text) => <span key={text}>{text}</span>)}</div></section>
-    <section className="companyClosing simpleCompactClosing shell"><div><p className="kicker">Lihat bentuk solusinya</p><h2>Mulai dari alur yang paling penting.</h2></div><div className="closingActions"><Link className="primaryButton light" href={item.solutionHref}>Lihat contoh solusi</Link><ContextualWhatsAppCta context={item.eyebrow} className="textLink lightText">Mulai konsultasi</ContextualWhatsAppCta></div></section>
-    <footer className="companyFooter shell"><div><Link className="brand" href="/">QIRA<span>.</span></Link></div><div className="footerLinks"><Link href="/">Beranda</Link><Link href="/layanan">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div><span>QIRA · Solusi digital sederhana untuk bisnis</span></footer>
-  </main>;
+    <>
+      <Navbar />
+      <main>
+        <ConversionTracker event="service_view" />
+
+        <section className={`${styles.hero} shell`}>
+          <div className={styles.heroCopy}>
+            <p className="eyebrow">{item.eyebrow}</p>
+            <h1>{item.title}</h1>
+            <p>{item.lead}</p>
+            <div className={styles.heroActions}>
+              <ContextualWhatsAppCta context={item.eyebrow}>Mulai konsultasi</ContextualWhatsAppCta>
+            </div>
+          </div>
+          <figure className={styles.heroVisual}>
+            <Image src={item.image} alt={item.alt} width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
+          </figure>
+        </section>
+
+        <section className="useCaseJourney shell" aria-label="Perubahan yang dibantu QIRA">
+          <div className="useCaseColumn problem">
+            <p className="kicker">Yang bikin repot</p>
+            {item.pains.map((text) => <span key={text}>{text}</span>)}
+          </div>
+          <div className="useCaseArrow" aria-hidden="true">→</div>
+          <div className="useCaseColumn qira">
+            <p className="kicker">Yang QIRA rapikan</p>
+            {item.flow.map((text) => <span key={text}>{text}</span>)}
+          </div>
+          <div className="useCaseArrow" aria-hidden="true">→</div>
+          <div className="useCaseColumn result">
+            <p className="kicker">Yang terasa</p>
+            {item.outcomes.map((text) => <span key={text}>{text}</span>)}
+          </div>
+        </section>
+
+        <ClosingCtaSection
+          kicker="Lihat bentuk solusinya"
+          heading="Mulai dari alur yang paling penting."
+          subtext="Setiap bisnis bisa memulai secara bertahap tanpa harus langsung membuat sistem besar."
+          primaryText="Lihat contoh solusi"
+          primaryHref={item.solutionHref}
+          waContext={item.eyebrow}
+        />
+      </main>
+      <Footer />
+    </>
+  );
 }

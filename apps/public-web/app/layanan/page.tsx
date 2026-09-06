@@ -3,6 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 import styles from "../SubpageVisual.module.css";
+import { Navbar } from "../_components/Navbar";
+import { Footer } from "../_components/Footer";
+import { ClosingCtaSection } from "../_components/ClosingCtaSection";
 
 const description = "Layanan QIRA untuk website UMKM, otomatisasi bisnis, administrasi digital, dan alat kerja digital yang dibuat sesuai kebutuhan nyata usaha.";
 const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "Layanan QIRA — website, otomatisasi, administrasi, dan alat kerja digital" };
@@ -24,48 +27,52 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <main>
-      <nav className="companyNav shell" aria-label="Navigasi utama">
-        <Link className="brand" href="/">QIRA<span>.</span></Link>
-        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/layanan" aria-current="page">Layanan</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
-        <Link className="smallButton" href="/coba-masalah">Ceritakan masalah</Link>
-      </nav>
+    <>
+      <Navbar />
+      <main>
+        <section className={`${styles.hero} shell`}>
+          <div className={styles.heroCopy}>
+            <p className="eyebrow">Layanan QIRA</p>
+            <h1>Pilih solusi dari masalah yang ingin dirapikan.</h1>
+            <p>Tidak perlu memulai dari sistem besar. QIRA membantu memilih solusi yang paling berguna untuk kondisi usaha saat ini.</p>
+            <div className={styles.heroActions}>
+              <Link className="primaryButton" href="/coba-masalah">Ceritakan kebutuhan</Link>
+            </div>
+          </div>
+          <figure className={styles.heroVisual}>
+            <Image
+              src="/illustrations/qira-services.webp"
+              alt="Rangkaian layanan digital QIRA untuk website, otomatisasi, administrasi, dan alat kerja digital"
+              width={1672}
+              height={941}
+              quality={90}
+              priority
+              sizes="(max-width: 960px) 100vw, 48vw"
+            />
+          </figure>
+        </section>
 
-      <section className={`${styles.hero} shell`}>
-        <div className={styles.heroCopy}>
-          <p className="eyebrow">Layanan QIRA</p>
-          <h1>Pilih solusi dari masalah yang ingin dirapikan.</h1>
-          <p>Tidak perlu memulai dari sistem besar. QIRA membantu memilih solusi yang paling berguna untuk kondisi usaha saat ini.</p>
-          <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Ceritakan kebutuhan</Link></div>
-        </div>
-        <figure className={styles.heroVisual}>
-          <Image src="/illustrations/qira-services.webp" alt="Rangkaian layanan digital QIRA untuk website, otomatisasi, administrasi, dan alat kerja digital" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
-        </figure>
-      </section>
+        <section className={`${styles.section} shell`}>
+          <div className="servicesPageGrid">
+            {services.map((service) => (
+              <Link className="companyServiceCard" href={service.href} key={service.title}>
+                <span>{service.number}</span>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <strong>{service.result} →</strong>
+              </Link>
+            ))}
+          </div>
+        </section>
 
-      <section className={`${styles.section} shell`}>
-        <div className="servicesPageGrid">
-          {services.map((service) => (
-            <Link className="companyServiceCard" href={service.href} key={service.title}>
-              <span>{service.number}</span>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-              <strong>{service.result} →</strong>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="companyClosing simpleCompactClosing shell">
-        <div><p className="kicker">Belum tahu pilih yang mana?</p><h2>Mulai dari satu masalah usaha.</h2></div>
-        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Bantu tentukan solusi</Link></div>
-      </section>
-
-      <footer className="companyFooter shell">
-        <div><Link className="brand" href="/">QIRA<span>.</span></Link></div>
-        <div className="footerLinks"><Link href="/">Beranda</Link><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div>
-        <span>QIRA · Solusi digital sederhana untuk bisnis</span>
-      </footer>
-    </main>
+        <ClosingCtaSection
+          kicker="Belum tahu pilih yang mana?"
+          heading="Mulai dari satu masalah usaha."
+          subtext="Ceritakan kondisi pekerjaan Anda saat ini, kami bantu rekomendasikan solusi yang paling efisien."
+          primaryText="Bantu tentukan solusi"
+        />
+      </main>
+      <Footer />
+    </>
   );
 }

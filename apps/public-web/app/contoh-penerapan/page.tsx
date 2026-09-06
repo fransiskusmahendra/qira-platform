@@ -3,6 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 import styles from "../SubpageVisual.module.css";
+import { Navbar } from "../_components/Navbar";
+import { Footer } from "../_components/Footer";
+import { ClosingCtaSection } from "../_components/ClosingCtaSection";
 
 const description = "Lihat contoh sederhana bagaimana QIRA mengubah masalah bisnis sehari-hari menjadi solusi digital yang lebih rapi dan mudah digunakan.";
 
@@ -23,40 +26,50 @@ const EXAMPLES = [
 
 export default function ExamplePage() {
   return (
-    <main>
-      <nav className="companyNav shell" aria-label="Navigasi utama">
-        <Link className="brand" href="/">QIRA<span>.</span></Link>
-        <div className="companyNavLinks"><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link></div>
-        <Link className="smallButton" href="/coba-masalah">Ceritakan masalah</Link>
-      </nav>
+    <>
+      <Navbar />
+      <main>
+        <section className={`${styles.hero} shell`}>
+          <div className={styles.heroCopy}>
+            <p className="eyebrow">Contoh Penerapan</p>
+            <h1>Lihat masalah berubah menjadi alur yang rapi.</h1>
+            <p>Dari catatan manual, chat berserakan, hingga tugas berulang yang memakan waktu setiap hari.</p>
+            <div className={styles.heroActions}>
+              <Link className="primaryButton" href="/coba-masalah">Ceritakan masalah usaha</Link>
+            </div>
+          </div>
+          <figure className={styles.heroVisual}>
+            <Image
+              src="/illustrations/premium/qira-examples-premium.webp"
+              alt="Input bisnis yang menjadi dokumen, tindak lanjut, dan laporan teratur"
+              width={1672}
+              height={941}
+              quality={90}
+              priority
+              sizes="(max-width: 960px) 100vw, 48vw"
+            />
+          </figure>
+        </section>
 
-      <section className={`${styles.hero} shell`}>
-        <div className={styles.heroCopy}>
-          <p className="eyebrow">Contoh</p>
-          <h1>Lihat masalah berubah menjadi alur yang rapi.</h1>
-          <div className={styles.heroActions}><Link className="primaryButton" href="/coba-masalah">Ceritakan masalah usaha</Link></div>
-        </div>
-        <figure className={styles.heroVisual}>
-          <Image src="/illustrations/premium/qira-examples-premium.webp" alt="Input bisnis yang menjadi dokumen, tindak lanjut, dan laporan teratur" width={1672} height={941} quality={90} priority sizes="(max-width: 960px) 100vw, 48vw" />
-        </figure>
-      </section>
+        <section className={`${styles.section} shell`}>
+          <div className="simpleExamples">
+            {EXAMPLES.map(([label, flow]) => (
+              <span key={label}>
+                <small>{label}</small>
+                <strong>{flow}</strong>
+              </span>
+            ))}
+          </div>
+        </section>
 
-      <section className={`${styles.section} shell`}>
-        <div className="simpleExamples">
-          {EXAMPLES.map(([label, flow]) => <span key={label}><small>{label}</small><strong>{flow}</strong></span>)}
-        </div>
-      </section>
-
-      <section className="companyClosing simpleCompactClosing shell">
-        <div><p className="kicker">Langkah berikutnya</p><h2>Pilih satu masalah yang ingin dirapikan.</h2></div>
-        <div className="closingActions"><Link className="primaryButton light" href="/coba-masalah">Ceritakan masalah usaha</Link></div>
-      </section>
-
-      <footer className="companyFooter shell">
-        <div><Link className="brand" href="/">QIRA<span>.</span></Link></div>
-        <div className="footerLinks"><Link href="/">Beranda</Link><Link href="/about">Tentang</Link><Link href="/portfolio">Portofolio</Link><Link href="/harga">Harga</Link><Link href="/privasi">Privasi</Link></div>
-        <span>QIRA · Solusi digital sederhana untuk bisnis</span>
-      </footer>
-    </main>
+        <ClosingCtaSection
+          kicker="Langkah berikutnya"
+          heading="Pilih satu masalah yang ingin dirapikan."
+          subtext="Mulai dari proses yang paling sering memakan waktu tim Anda sehari-hari."
+          primaryText="Ceritakan masalah usaha"
+        />
+      </main>
+      <Footer />
+    </>
   );
 }
