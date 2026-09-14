@@ -23,11 +23,34 @@ const SERVICES_EN = [
   { number: "04", title: "Custom Work Tools", description: "Build lightweight dashboards, invoice generators, or order tools tailored to your daily operations.", result: "Faster, consistent work", href: "/solusi/business-tools" },
 ] as const;
 
+const TECH_STACK_ID = [
+  { name: "Next.js & React", category: "Web & Aplikasi", icon: "âš¡" },
+  { name: "TypeScript", category: "Kualitas Kode", icon: "ðŸ›¡ï¸" },
+  { name: "PostgreSQL & Supabase", category: "Database Mandiri", icon: "ðŸ—„ï¸" },
+  { name: "WhatsApp Cloud API", category: "Chat & Notifikasi", icon: "ðŸ’¬" },
+  { name: "Python & Node.js", category: "Otomasi & Scripting", icon: "âš™ï¸" },
+  { name: "Resend & Webhooks", category: "Alur Email & Event", icon: "ðŸ“¬" },
+  { name: "Thermal POS Protocols", category: "Cetak Nota Kasir", icon: "ðŸ§¾" },
+  { name: "REST & External APIs", category: "Integrasi Sistem", icon: "ðŸ”—" },
+];
+
+const TECH_STACK_EN = [
+  { name: "Next.js & React", category: "Web & Apps", icon: "âš¡" },
+  { name: "TypeScript", category: "Code Quality", icon: "ðŸ›¡ï¸" },
+  { name: "PostgreSQL & Supabase", category: "Standalone Database", icon: "ðŸ—„ï¸" },
+  { name: "WhatsApp Cloud API", category: "Chat & Notifications", icon: "ðŸ’¬" },
+  { name: "Python & Node.js", category: "Automation & Backend", icon: "âš™ï¸" },
+  { name: "Resend & Webhooks", category: "Transactional & Events", icon: "ðŸ“¬" },
+  { name: "Thermal POS Protocols", category: "Receipt Printing", icon: "ðŸ§¾" },
+  { name: "REST & External APIs", category: "System Integrations", icon: "ðŸ”—" },
+];
+
 export function ServicesPageClient() {
   const { locale } = useLanguage();
   const isEn = locale === "en";
 
   const services = isEn ? SERVICES_EN : SERVICES_ID;
+  const techStack = isEn ? TECH_STACK_EN : TECH_STACK_ID;
 
   const eyebrow = isEn ? "QIRA Services" : "Layanan QIRA";
   const heading = isEn ? "Pick a solution based on the problem you want solved." : "Pilih solusi dari masalah yang ingin dirapikan.";
@@ -79,6 +102,66 @@ export function ServicesPageClient() {
                 <strong>{service.result} â†’</strong>
               </Link>
             ))}
+          </div>
+        </section>
+
+        {/* Tech Ecosystem & Standards for Tech-Savvy Clients */}
+        <section className={`${styles.section} shell`}>
+          <div style={{
+            padding: "36px 28px",
+            background: "rgba(255, 255, 255, 0.7)",
+            backdropFilter: "blur(10px)",
+            borderRadius: "20px",
+            border: "1px solid var(--line)",
+            textAlign: "center"
+          }}>
+            <p style={{
+              fontSize: "12px",
+              fontWeight: "750",
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              color: "var(--blue)",
+              marginBottom: "8px"
+            }}>
+              {isEn ? "Tech Ecosystem & Standards" : "Ekosistem Teknologi & Standar"}
+            </p>
+            <h2 style={{ fontSize: "22px", fontWeight: "750", marginBottom: "10px", color: "var(--ink)" }}>
+              {isEn ? "Built with modern, battle-tested technologies." : "Dibangun dengan teknologi modern dan teruji."}
+            </h2>
+            <p style={{ maxWidth: "620px", margin: "0 auto 24px", fontSize: "14px", color: "var(--muted)", lineHeight: "1.6" }}>
+              {isEn
+                ? "We engineer standalone architectures without vendor lock-in. Your code, database, and domain remain 100% your own business property."
+                : "Kami merancang arsitektur mandiri tanpa vendor lock-in. Seluruh kode, database, dan domain 100% menjadi aset milik usaha Anda."}
+            </p>
+
+            <div style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: "10px",
+              maxWidth: "760px",
+              margin: "0 auto"
+            }}>
+              {techStack.map((tech) => (
+                <span key={tech.name} style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "7px",
+                  padding: "8px 14px",
+                  background: "white",
+                  borderRadius: "100px",
+                  border: "1px solid var(--line)",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                  color: "var(--ink)",
+                  boxShadow: "0 1px 2px rgba(0,0,0,0.03)"
+                }}>
+                  <span>{tech.icon}</span>
+                  <span>{tech.name}</span>
+                  <span style={{ fontSize: "11px", color: "var(--muted)", fontWeight: "500" }}>({tech.category})</span>
+                </span>
+              ))}
+            </div>
           </div>
         </section>
 

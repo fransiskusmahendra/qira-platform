@@ -14,7 +14,7 @@ import { redirect } from "next/navigation";
 
 import { createAdminClient } from "../../lib/supabase/admin";
 import { createClient } from "../../lib/supabase/server";
-import { sendDiscoveryReviewEmail } from "../../lib/email/discovery-review";
+import { sendDiscoveryReviewEmail, sendClientDiscoveryConfirmationEmail } from "../../lib/email/discovery-review";
 
 const CONTACT_PHONE_PATTERN = /^[0-9+() -]{8,24}$/;
 const CONTACT_EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -122,6 +122,17 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
       contact,
       answers: input.answers,
     });
+        if (contact.email) {
+      await sendClientDiscoveryConfirmationEmail({
+        discoveryId: reference,
+        reference,
+        clientEmail: contact.email,
+        triage,
+        serviceId: input.serviceId,
+        contact,
+        answers: input.answers,
+      });
+    }
     if (emailResult.ok) {
       console.warn("public_discovery_delivered_by_email", { reason, reference });
       return {
@@ -189,7 +200,22 @@ export async function submitPublicDiscovery(input: PublicDiscoverySubmissionInpu
       contact,
       answers: input.answers,
     });
-    if (!emailResult.ok) console.error("discovery_review_email_failed", { reason: emailResult.error });
+        if (!emailResult.ok) console.error("discovery_review_email_failed", { reason: emailResult.error });
+
+    if (contact.email) {
+      const clientEmailResult = await sendClientDiscoveryConfirmationEmail({
+        discoveryId: data[0].discovery_id,
+        reference: data[0].reference,
+        clientEmail: contact.email,
+        triage,
+        serviceId: input.serviceId,
+        contact,
+        answers: input.answers,
+      });
+      if (!clientEmailResult.ok) {
+        console.warn("client_confirmation_email_failed", { reason: clientEmailResult.error });
+      }
+    }
   } catch (notificationError) {
     console.error("discovery_review_notification_failed", {
       message: notificationError instanceof Error ? notificationError.message : "unknown",

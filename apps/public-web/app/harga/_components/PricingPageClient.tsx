@@ -52,6 +52,18 @@ const PLAN_TAGLINES_EN: Record<string, string> = {
   "connected-growth": "A connected digital workspace tailored for your entire team.",
 };
 
+const PRICING_FAQS_ID = [
+  { q: "Apakah ada biaya langganan bulanan tersembunyi?", a: "Tidak ada. Solusi yang dibangun QIRA bersifat mandiri. Anda tidak dibebani biaya lisensi bulanan yang seringkali mubazir." },
+  { q: "Bagaimana sistem pembayarannya?", a: "Pembayaran dilakukan bertahap transparan: uang muka (DP) di awal kesepakatan ruang lingkup, dan pelunasan setelah sistem selesai diuji dan siap digunakan." },
+  { q: "Apakah hak milik kode dan data diserahkan penuh?", a: "Ya, 100%. Source code, database, dan domain sepenuhnya menjadi aset milik usaha Anda tanpa ikatan vendor lock-in." }
+];
+
+const PRICING_FAQS_EN = [
+  { q: "Are there hidden monthly subscription fees?", a: "None. Solutions built by QIRA are standalone and self-hosted. You are never burdened by bloated recurring software licenses." },
+  { q: "What is the payment schedule?", a: "Transparent milestones: an initial down payment upon scope agreement, and final payment only after the system is fully tested and ready for production." },
+  { q: "Do we get full ownership of code and data?", a: "Yes, 100%. Source code, databases, and domains are entirely your business property with zero vendor lock-in." }
+];
+
 export function PricingPageClient() {
   const { locale } = useLanguage();
   const isEn = locale === "en";
@@ -66,6 +78,7 @@ export function PricingPageClient() {
   const heroCta = isEn ? "Help me choose a plan" : "Bantu pilih paket";
 
   const audienceFit = isEn ? AUDIENCE_FIT_EN : AUDIENCE_FIT_ID;
+  const pricingFaqs = isEn ? PRICING_FAQS_EN : PRICING_FAQS_ID;
 
   return (
     <>
@@ -181,6 +194,34 @@ export function PricingPageClient() {
               ))}
             </div>
           </details>
+        </section>
+
+        {/* Pricing Quick FAQs */}
+        <section className={`${styles.section} shell`} style={{ marginTop: "24px" }}>
+          <div style={{
+            maxWidth: "760px",
+            margin: "0 auto",
+            padding: "24px",
+            background: "rgba(255, 255, 255, 0.6)",
+            borderRadius: "16px",
+            border: "1px solid var(--line)"
+          }}>
+            <h3 style={{ fontSize: "18px", fontWeight: "750", marginBottom: "16px", color: "var(--ink)", textAlign: "center" }}>
+              {isEn ? "Frequently Asked Questions about Pricing" : "Pertanyaan yang Sering Diajukan Seputar Biaya"}
+            </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              {pricingFaqs.map((faq, idx) => (
+                <details key={idx} style={{ padding: "12px 14px", background: "white", borderRadius: "10px", border: "1px solid var(--line)" }}>
+                  <summary style={{ fontWeight: "650", fontSize: "14px", cursor: "pointer", color: "var(--ink)" }}>
+                    {faq.q}
+                  </summary>
+                  <p style={{ marginTop: "8px", marginBottom: "0", fontSize: "13.5px", color: "var(--muted)", lineHeight: "1.5" }}>
+                    {faq.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </div>
         </section>
 
         <ClosingCtaSection
