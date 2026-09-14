@@ -15,7 +15,6 @@ export default function robots(): MetadataRoute.Robots {
         "/implementation/",
         "/invite/",
         "/login",
-        "/discovery",
       ],
     },
     sitemap: `${baseUrl}/sitemap.xml`,

@@ -61,13 +61,6 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   title: { default: siteTitle, template: "%s | QIRA" },
   description: siteDescription,
-  alternates: {
-    canonical: "/",
-    languages: {
-      "id-ID": "/",
-      "en-US": "/",
-    },
-  },
   robots: {
     index: true,
     follow: true,
@@ -84,7 +77,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteTitle,
     description: siteDescription,
-    url: "/",
+    url: siteUrl,
     siteName: "QIRA",
     locale: "id_ID",
     alternateLocale: ["en_US"],
