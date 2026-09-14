@@ -87,6 +87,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
   const solution = SOLUTIONS[slug as SolutionSlug];
   if (!solution) notFound();
 
+  return (
     <>
       <Navbar />
       <main>
@@ -99,7 +100,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
             <p>{solution.lead}</p>
             <div className={styles.heroActions}>
               <ContextualWhatsAppCta context={solution.title}>Mulai konsultasi</ContextualWhatsAppCta>
-              <Link className="textLink" href="#cara-kerja">Lihat proses ↓</Link>
+              <Link className="textLink" href="#cara-kerja">Lihat proses â†’</Link>
             </div>
           </div>
           <figure className={styles.heroVisual}>
@@ -122,7 +123,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
           </article>
           <article className="solutionDeliverables">
             <p className="kicker">Yang disiapkan</p>
-            <ul>{solution.deliverables.map((item) => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
+            <ul>{solution.deliverables.map((item) => <li key={item}><span aria-hidden="true">âœ“</span>{item}</li>)}</ul>
           </article>
         </section>
 

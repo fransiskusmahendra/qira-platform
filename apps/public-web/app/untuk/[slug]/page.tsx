@@ -70,6 +70,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
   const item = USE_CASES[slug as UseCaseSlug];
   if (!item) notFound();
 
+  return (
     <>
       <Navbar />
       <main>
@@ -94,12 +95,12 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
             <p className="kicker">Yang bikin repot</p>
             {item.pains.map((text) => <span key={text}>{text}</span>)}
           </div>
-          <div className="useCaseArrow" aria-hidden="true">→</div>
+          <div className="useCaseArrow" aria-hidden="true">â†’</div>
           <div className="useCaseColumn qira">
             <p className="kicker">Yang QIRA rapikan</p>
             {item.flow.map((text) => <span key={text}>{text}</span>)}
           </div>
-          <div className="useCaseArrow" aria-hidden="true">→</div>
+          <div className="useCaseArrow" aria-hidden="true">â†’</div>
           <div className="useCaseColumn result">
             <p className="kicker">Yang terasa</p>
             {item.outcomes.map((text) => <span key={text}>{text}</span>)}
