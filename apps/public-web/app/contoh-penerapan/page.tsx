@@ -18,10 +18,10 @@ export const metadata: Metadata = {
 };
 
 const EXAMPLES = [
-  ["Penjualan", "Chat → Dashboard"],
-  ["Administrasi", "Data → Dokumen"],
-  ["Tindak lanjut", "Lupa → Otomatis"],
-  ["Perencanaan", "Bingung → Punya arah"],
+  ["Penjualan", "Chat -> Dashboard"],
+  ["Administrasi", "Data -> Dokumen"],
+  ["Tindak lanjut", "Lupa -> Otomatis"],
+  ["Perencanaan", "Bingung -> Punya arah"],
 ] as const;
 
 export default function ExamplePage() {
@@ -59,6 +59,37 @@ export default function ExamplePage() {
                 <strong>{flow}</strong>
               </span>
             ))}
+          </div>
+        </section>
+
+        <section className={`${styles.section} shell`}>
+          <div style={{
+            background: "#ffffff",
+            border: "1px solid #cbd5e1",
+            borderRadius: "16px",
+            padding: "28px 32px",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "24px",
+            alignItems: "center",
+            boxShadow: "0 4px 18px rgba(7, 26, 51, 0.04)"
+          }}>
+            <div>
+              <span style={{ fontSize: "11px", fontWeight: "800", textTransform: "uppercase", letterSpacing: "1.2px", color: "#1769ff", display: "block", marginBottom: "6px" }}>
+                Blueprint Khusus Industri - Training & Sertifikasi
+              </span>
+              <h2 style={{ fontSize: "22px", fontWeight: "800", color: "#071a33", margin: "0 0 8px", letterSpacing: "-0.02em" }}>
+                Sistem Notifikasi Masa Kadaluarsa Sertifikat Logistik (UTS)
+              </h2>
+              <p style={{ margin: "0", color: "#475569", fontSize: "14px", lineHeight: "1.5" }}>
+                Simulasi interaktif notifikasi WhatsApp Cloud API & Email otomatis (H-60, H-30, H-7), modul verifikasi publik keabsahan sertifikat, dan kalkulator recurring revenue renewal.
+              </p>
+            </div>
+            <div style={{ justifySelf: "start" }}>
+              <Link className="primaryButton" href="/contoh-penerapan/sertifikasi-logistik">
+                Buka Simulasi Interaktif
+              </Link>
+            </div>
           </div>
         </section>
 

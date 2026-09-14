@@ -13,6 +13,7 @@ const routes = [
   "/panduan/digitalisasi-administrasi-usaha",
   "/panduan/aplikasi-custom-operasional",
   "/contoh-penerapan",
+  "/contoh-penerapan/sertifikasi-logistik",
   "/coba-masalah",
   "/harga",
   "/solusi/website-umkm",
@@ -36,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ? 1.0
         : route === "/coba-masalah"
         ? 0.9
-        : route === "/layanan" || route.startsWith("/solusi/") || route.startsWith("/panduan/")
+        : route === "/layanan" || route.startsWith("/solusi/") || route.startsWith("/panduan/") || route.startsWith("/contoh-penerapan/")
         ? 0.8
         : 0.7,
   }));
