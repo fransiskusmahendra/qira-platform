@@ -323,7 +323,7 @@ export const enDictionary: TranslationDictionary = {
       { href: "/privasi", label: "Privacy Policy" },
     ],
     waText: "Inquire via WhatsApp",
-    bottomText: "Â© 2026 QIRA â€¢ Simple digital solutions for business.",
+    bottomText: "© 2026 QIRA â€¢ Simple digital solutions for business.",
     privacy: "Privacy",
     about: "About",
     start: "Get Started",

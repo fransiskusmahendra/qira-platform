@@ -323,7 +323,7 @@ export const idDictionary: TranslationDictionary = {
       { href: "/privasi", label: "Kebijakan Privasi" },
     ],
     waText: "Tanya via WhatsApp",
-    bottomText: "Â© 2026 QIRA â€¢ Solusi digital sederhana untuk bisnis.",
+    bottomText: "© 2026 QIRA â€¢ Solusi digital sederhana untuk bisnis.",
     privacy: "Privasi",
     about: "Tentang",
     start: "Mulai",
