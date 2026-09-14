@@ -208,7 +208,7 @@ export const idDictionary: TranslationDictionary = {
     cards: [
       {
         badge: "01",
-        icon: "ðŸ›¡ï¸",
+        icon: "🛡️",
         title: "100% Hak Milik Kode & Data",
         desc: "Aplikasi, database, dan domain sepenuhnya menjadi aset milik usaha Anda. Tanpa vendor lock-in ataupun biaya lisensi tersembunyi.",
         points: ["Source code diserahkan penuh", "Data pelanggan milik Anda pribadi"],

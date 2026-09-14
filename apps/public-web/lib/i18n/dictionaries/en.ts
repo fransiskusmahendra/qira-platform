@@ -208,7 +208,7 @@ export const enDictionary: TranslationDictionary = {
     cards: [
       {
         badge: "01",
-        icon: "ðŸ›¡ï¸",
+        icon: "🛡️",
         title: "100% Code & Data Ownership",
         desc: "Your app, database, and domain belong entirely to your business. No proprietary vendor lock-in or hidden licensing fees.",
         points: ["Complete source code handed over", "Customer data strictly your own"],
