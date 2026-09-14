@@ -18,10 +18,10 @@ export const idDictionary: TranslationDictionary = {
     mobileNavAria: "Navigasi seluler",
   },
   hero: {
-    eyebrow: "QIRA – Partner Solusi Digital Bisnis & UMKM",
+    eyebrow: "QIRA – Solusi digital simpel untuk usaha nyata",
     titleLine1: "Bisnis bekerja lebih rapi.",
     titleLine2: "Teknologi tetap sederhana.",
-    lead: "Kami bantu buatkan website profesional, form pemesanan digital, dashboard rekap, dan otomatisasi kerja khusus untuk bisnis Anda - siap pakai tanpa repot belajar sistem rumit.",
+    lead: "Kami buatkan website, form, dan dashboard untuk usaha Anda — siap pakai, tanpa repot belajar sistem rumit.",
     ctaPrimary: "Ceritakan masalah usaha",
     ctaSecondary: "Konsultasi WhatsApp",
     ctaTextLink: "Lihat contoh solusi",
@@ -34,11 +34,11 @@ export const idDictionary: TranslationDictionary = {
   },
   whatIsQira: {
     kicker: "QIRA itu apa?",
-    headingPart1: "Mudah ditemukan. Kerja lebih rapi.",
-    headingHighlight: "Tugas berjalan otomatis.",
+    headingPart1: "Mudah ditemukan.",
+    headingHighlight: "Kerja lebih rapi.",
   },
   solutions: {
-    kicker: "Masalah → solusi → hasil",
+    kicker: "Apa yang paling merepotkan?",
     heading: "Apa yang paling",
     headingHighlight: "merepotkan?",
     problemLabel: "Masalah",
@@ -49,7 +49,7 @@ export const idDictionary: TranslationDictionary = {
       {
         number: "01",
         problem: "Sulit ditemukan",
-        question: "Pelanggan sulit menemukan atau memahami usahamu?",
+        question: "Pelanggan sulit menemukan usahamu?",
         solution: "Website",
         result: "Lebih mudah ditemukan dan dihubungi",
         imagePosition: "left",
@@ -57,7 +57,7 @@ export const idDictionary: TranslationDictionary = {
       {
         number: "02",
         problem: "Pekerjaan tercecer",
-        question: "Data masih tersebar di chat, catatan, dan file?",
+        question: "Data masih tersebar di chat dan catatan?",
         solution: "Form & dashboard",
         result: "Data lebih rapi dan mudah dipantau",
         imagePosition: "right",
@@ -65,7 +65,7 @@ export const idDictionary: TranslationDictionary = {
       {
         number: "03",
         problem: "Tugas berulang",
-        question: "Sering menginput atau mengingatkan hal yang sama?",
+        question: "Sering menginput hal yang sama berulang kali?",
         solution: "Otomatisasi",
         result: "Proses lebih cepat dan hemat waktu",
         imagePosition: "left",
@@ -73,7 +73,7 @@ export const idDictionary: TranslationDictionary = {
       {
         number: "04",
         problem: "Bingung mulai",
-        question: "Ingin lebih digital, tetapi belum tahu prioritasnya?",
+        question: "Ingin lebih digital, tapi belum tahu mulai dari mana?",
         solution: "Pemetaan kebutuhan",
         result: "Punya arah dan langkah yang jelas",
         imagePosition: "right",
@@ -149,8 +149,8 @@ export const idDictionary: TranslationDictionary = {
   },
   proof: {
     kicker: "Bukti nyata",
-    heading: "Lihat aplikasi yang",
-    headingHighlight: "sudah dibangun.",
+    heading: "Lihat yang sudah",
+    headingHighlight: "kami bangun.",
     items: [
       {
         href: "/discovery",
@@ -182,22 +182,22 @@ export const idDictionary: TranslationDictionary = {
       {
         step: "01",
         title: "Ruang lingkup dulu",
-        desc: "Kebutuhan, prioritas, dan batas pekerjaan dijelaskan sebelum pembangunan dimulai.",
+        desc: "Kebutuhan dan batas pekerjaan disepakati sebelum mulai membangun.",
       },
       {
         step: "02",
         title: "Mulai sederhana",
-        desc: "Versi awal fokus pada pekerjaan yang paling penting, lalu berkembang jika memang diperlukan.",
+        desc: "Versi pertama menyelesaikan masalah utama — berkembang sesuai kebutuhan.",
       },
       {
         step: "03",
         title: "Data tetap dijaga",
-        desc: "Identitas dan informasi sensitif tidak digunakan sebagai materi publik tanpa izin.",
+        desc: "Informasi sensitif tidak digunakan sebagai materi publik tanpa izin.",
       },
       {
         step: "04",
         title: "Review sebelum jalan",
-        desc: "Solusi diperiksa bersama sebelum menjadi bagian dari pekerjaan sehari-hari.",
+        desc: "Solusi diperiksa bersama sebelum dipakai dalam pekerjaan sehari-hari.",
       },
     ],
   },
@@ -210,28 +210,28 @@ export const idDictionary: TranslationDictionary = {
         badge: "01",
         icon: "🛡️",
         title: "100% Hak Milik Kode & Data",
-        desc: "Aplikasi, database, dan domain sepenuhnya menjadi aset milik usaha Anda. Tanpa vendor lock-in ataupun biaya lisensi tersembunyi.",
+        desc: "Aplikasi, database, dan domain sepenuhnya milik usaha Anda — tanpa biaya lisensi tersembunyi.",
         points: ["Source code diserahkan penuh", "Data pelanggan milik Anda pribadi"],
       },
       {
         badge: "02",
         icon: "⏱️",
         title: "Jadwal Pasti 1-3 Minggu",
-        desc: "Ruang lingkup dan tanggal serah terima disepakati transparan di awal. Anda tahu persis kapan sistem selesai diuji dan siap dipakai tim operasional.",
+        desc: "Ruang lingkup dan tanggal selesai disepakati di awal — Anda tahu persis kapan sistem siap pakai.",
         points: ["Timeline transparan per tahap", "Langsung siap digunakan tanpa molor"],
       },
       {
         badge: "03",
         icon: "🤝",
         title: "Garansi Revisi & Pendampingan",
-        desc: "Setelah sistem jalan, kami tidak meninggalkan Anda. Termasuk garansi revisi perbaikan dan panduan operasional sampai tim Anda benar-benar mahir.",
+        desc: "Setelah selesai, kami tetap ada — termasuk garansi perbaikan dan pelatihan sampai tim Anda mandiri.",
         points: ["Garansi perbaikan pasca-peluncuran", "Sesi pelatihan hingga tim mandiri"],
       },
     ],
   },
   learning: {
     kicker: "Pelajari dulu",
-    heading: "Nilai QIRA sebelum",
+    heading: "Kenali QIRA sebelum",
     headingHighlight: "memulai.",
     cards: [
       {
@@ -264,39 +264,39 @@ export const idDictionary: TranslationDictionary = {
   faq: {
     kicker: "Pertanyaan Umum",
     heading: "Hal yang sering ditanyakan sebelum memulai.",
-    lead: "Kami mengutamakan transparansi agar Anda yakin bahwa langkah digital yang diambil benar-benar masuk akal untuk bisnis Anda.",
+    lead: "Kami utamakan transparansi agar Anda yakin setiap langkah digital yang diambil benar-benar masuk akal untuk bisnis Anda.",
     items: [
       {
         q: "Berapa lama proses pembuatan website atau sistem di QIRA?",
-        a: "Rata-rata pengerjaan berkisar antara 1 hingga 3 minggu tergantung skala kebutuhan bisnis Anda. Untuk website UMKM dan profil usaha (Paket Sederhana), waktu penyelesaian sekitar 1-2 minggu. Jadwal dan ruang lingkup disepakati secara transparan sebelum pekerjaan dimulai.",
+        a: "Rata-rata 1–3 minggu tergantung skala kebutuhan. Untuk website profil usaha, biasanya selesai dalam 1–2 minggu. Jadwal dan ruang lingkup disepakati transparan sebelum mulai.",
       },
       {
         q: "Apakah ada biaya langganan bulanan yang mahal?",
-        a: "Tidak ada biaya wajib bulanan yang membengkak. QIRA membangun solusi dengan arsitektur yang efisien dan mandiri, sehingga Anda tidak dibebani biaya lisensi software mahal yang sering tidak terpakai.",
+        a: "Tidak ada biaya wajib bulanan yang membengkak. QIRA membangun solusi yang efisien dan mandiri — Anda tidak dibebani biaya lisensi software yang sering tidak terpakai.",
       },
       {
         q: "Bagaimana jika saya atau tim saya tidak paham teknis (gaptek)?",
-        a: "QIRA dirancang khusus untuk pemilik usaha nyata. Semua antarmuka form, website, atau dashboard dibuat sangat mudah dipahami, semudah Anda mengetik pesan di WhatsApp. Kami juga menyertakan panduan pemakaian yang jelas tanpa istilah rumit.",
+        a: "QIRA dirancang untuk pemilik usaha, bukan programmer. Semua form, website, dan dashboard dibuat semudah mengetik pesan WhatsApp — lengkap dengan panduan tanpa istilah rumit.",
       },
       {
         q: "Apakah data pelanggan dan transaksi usaha saya aman?",
-        a: "Sangat aman. Kami menerapkan enkripsi data dan standar pelindungan privasi sesuai peraturan perundang-undangan (UU PDP). Informasi sensitif klien tidak akan pernah kami jadikan materi publik atau promosi tanpa izin tertulis dari Anda.",
+        a: "Sangat aman. Kami menerapkan enkripsi data dan standar privasi sesuai UU PDP. Informasi sensitif klien tidak akan pernah kami jadikan materi publik tanpa izin tertulis.",
       },
       {
         q: "Bagaimana jika setelah sistem jadi ada kendala atau ingin ada perubahan?",
-        a: "Setiap paket yang kami sediakan sudah termasuk garansi revisi dan masa pendampingan langsung (hingga 30 hari). Jika di kemudian hari bisnis Anda berkembang dan ingin menambah fitur baru, sistem dapat di-upgrade secara bertahap.",
+        a: "Setiap paket sudah termasuk garansi revisi dan pendampingan langsung hingga 30 hari. Sistem juga bisa di-upgrade bertahap seiring bisnis Anda berkembang.",
       },
     ],
   },
   closingCta: {
     kicker: "Mulai sederhana",
     heading: "Mulai dari satu masalah usaha.",
-    subtext: "Tanpa istilah teknis yang rumit. Ceritakan apa yang paling merepotkan saat ini, QIRA membantu memetakan solusi yang paling tepat.",
+    subtext: "Ceritakan apa yang paling merepotkan — kami bantu temukan solusi yang tepat.",
     primaryText: "Ceritakan masalah usaha",
     waText: "Mulai konsultasi WhatsApp →",
   },
   footer: {
-    brandTagline: "Solusi digital sederhana untuk bisnis. Membantu usaha lebih mudah ditemukan, kerja lebih rapi, dan tugas berjalan otomatis.",
+    brandTagline: "Solusi digital sederhana untuk bisnis yang ingin tumbuh.",
     trustBadge: "Tanpa istilah rumit • Mulai dari masalah nyata",
     colSolutions: "Solusi & Produk",
     colLearn: "Pelajari Dulu",
