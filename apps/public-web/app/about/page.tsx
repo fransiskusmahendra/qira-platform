@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,35 +7,50 @@ import styles from "../SubpageVisual.module.css";
 import { Navbar } from "../_components/Navbar";
 import { Footer } from "../_components/Footer";
 import { ClosingCtaSection } from "../_components/ClosingCtaSection";
-
-const ABOUT_DESCRIPTION = "Kenali cara QIRA membantu bisnis membuat teknologi lebih sederhana, praktis, dan sesuai kebutuhan nyata.";
-
-export const metadata: Metadata = {
-  title: "Tentang QIRA",
-  description: ABOUT_DESCRIPTION,
-  alternates: { canonical: "/about" },
-  openGraph: { title: "Tentang QIRA", description: ABOUT_DESCRIPTION, url: "/about", type: "website", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Tentang QIRA" }] },
-  twitter: { card: "summary_large_image", title: "Tentang QIRA", description: ABOUT_DESCRIPTION, images: ["/opengraph-image"] },
-};
+import { useLanguage } from "../../lib/i18n";
 
 export default function AboutPage() {
+  const { t, locale } = useLanguage();
+
+  const isEn = locale === "en";
+  const title = isEn ? "About QIRA" : "Tentang QIRA";
+  const heading = isEn ? "Technology rooted in real business needs." : "Teknologi yang dimulai dari kebutuhan nyata.";
+  const lead = isEn
+    ? "QIRA analyzes your daily operations, identifies priorities, and builds digital solutions that actually make a difference."
+    : "QIRA memahami proses usaha, menentukan prioritas, lalu membangun solusi digital yang benar-benar diperlukan.";
+  const ctaText = isEn ? "Tell us your challenge" : "Ceritakan masalah usaha";
+  const altText = isEn
+    ? "Business owner and consultant structuring simple digital workflows"
+    : "Pemilik usaha dan konsultan menyusun solusi digital yang lebih rapi";
+  const principles = isEn
+    ? ["Start simple", "Prioritize business needs", "Build what is truly necessary"]
+    : ["Mulai sederhana", "Utamakan kebutuhan usaha", "Buat yang benar-benar diperlukan"];
+
+  const closingKicker = isEn ? "Start simple" : "Mulai sederhana";
+  const closingHeading = isEn ? "Have a workflow to streamline?" : "Ada pekerjaan yang ingin dirapikan?";
+  const closingSubtext = isEn
+    ? "Share the single biggest bottleneck you face today. We will help map out the first step."
+    : "Ceritakan satu masalah yang paling merepotkan saat ini. Kami bantu petakan langkah awalnya.";
+
   return (
     <>
       <Navbar />
       <main>
         <section className={`${styles.hero} shell`}>
           <div className={styles.heroCopy}>
-            <p className="eyebrow">Tentang QIRA</p>
-            <h1>Teknologi yang dimulai dari kebutuhan nyata.</h1>
-            <p>QIRA memahami proses usaha, menentukan prioritas, lalu membangun solusi digital yang benar-benar diperlukan.</p>
+            <p className="eyebrow">{title}</p>
+            <h1>{heading}</h1>
+            <p>{lead}</p>
             <div className={styles.heroActions}>
-              <Link className="primaryButton" href="/coba-masalah">Ceritakan masalah usaha</Link>
+              <Link className="primaryButton" href="/coba-masalah">
+                {ctaText}
+              </Link>
             </div>
           </div>
           <figure className={styles.heroVisual}>
             <Image
               src="/illustrations/premium/qira-about-premium.webp"
-              alt="Pemilik usaha dan konsultan menyusun solusi digital yang lebih rapi"
+              alt={altText}
               width={1672}
               height={941}
               quality={90}
@@ -45,17 +61,18 @@ export default function AboutPage() {
         </section>
 
         <section className={`${styles.section} shell`}>
-          <div className="simplePrinciples" aria-label="Prinsip QIRA">
-            <span>Mulai sederhana</span>
-            <span>Utamakan kebutuhan usaha</span>
-            <span>Buat yang benar-benar diperlukan</span>
+          <div className="simplePrinciples" aria-label={title}>
+            {principles.map((p) => (
+              <span key={p}>{p}</span>
+            ))}
           </div>
         </section>
 
         <ClosingCtaSection
-          kicker="Mulai sederhana"
-          heading="Ada pekerjaan yang ingin dirapikan?"
-          subtext="Ceritakan satu masalah yang paling merepotkan saat ini. Kami bantu petakan langkah awalnya."
+          kicker={closingKicker}
+          heading={closingHeading}
+          subtext={closingSubtext}
+          primaryText={ctaText}
         />
       </main>
       <Footer />

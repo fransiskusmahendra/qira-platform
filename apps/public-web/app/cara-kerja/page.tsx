@@ -1,22 +1,14 @@
-import type { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
 import { ConversionTracker } from "../_components/ConversionTracker";
 import styles from "../SubpageVisual.module.css";
 import { Navbar } from "../_components/Navbar";
 import { Footer } from "../_components/Footer";
 import { ClosingCtaSection } from "../_components/ClosingCtaSection";
+import { useLanguage } from "../../lib/i18n";
 
-const description = "Pahami proses kerja QIRA dari pemetaan kebutuhan, estimasi, pembangunan, review, implementasi, hingga dukungan setelah solusi digunakan.";
-
-export const metadata: Metadata = {
-  title: "Cara Kerja QIRA",
-  description,
-  alternates: { canonical: "/cara-kerja" },
-  openGraph: { title: "Cara Kerja QIRA", description, url: "/cara-kerja", type: "website", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Cara kerja QIRA" }] },
-  twitter: { card: "summary_large_image", title: "Cara Kerja QIRA", description, images: ["/opengraph-image"] },
-};
-
-const steps = [
+const STEPS_ID = [
   ["01", "Ceritakan", "Mulai dari satu masalah atau pekerjaan yang paling ingin dirapikan."],
   ["02", "Petakan", "QIRA menyusun kebutuhan, pengguna, prioritas, risiko, dan batas ruang lingkup."],
   ["03", "Estimasi", "Bentuk solusi, biaya, tahapan, dan asumsi kerja dijelaskan sebelum pembangunan."],
@@ -26,7 +18,28 @@ const steps = [
   ["07", "Support", "Perbaikan atau pengembangan berikutnya dapat disepakati berdasarkan kebutuhan nyata."],
 ];
 
+const STEPS_EN = [
+  ["01", "Share", "Begin with the single bottleneck or workflow you most want to streamline."],
+  ["02", "Map", "QIRA outlines user flows, requirements, priorities, risks, and project scope."],
+  ["03", "Estimate", "Solution architecture, investment, timeline, and milestones are transparent upfront."],
+  ["04", "Build", "The first version focuses on core functional flows rather than bloated features."],
+  ["05", "Review", "Solutions are rigorously tested across real-world devices and user scenarios."],
+  ["06", "Deploy", "Approved systems are rolled out smoothly with clear operational onboarding."],
+  ["07", "Support", "Future upgrades and maintenance are planned based on actual business feedback."],
+];
+
 export default function ProcessPage() {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
+
+  const eyebrow = isEn ? "How QIRA Works" : "Cara kerja QIRA";
+  const heading = isEn ? "Crystal clear before anything is built." : "Jelas sebelum dibangun.";
+  const lead = isEn
+    ? "Technology should eliminate confusionâ€”starting with the way it is crafted."
+    : "Teknologi seharusnya mengurangi kebingungan, termasuk saat proses pembuatannya.";
+  const ctaText = isEn ? "Start with your challenge" : "Mulai dari masalah";
+  const steps = isEn ? STEPS_EN : STEPS_ID;
+
   return (
     <>
       <Navbar />
@@ -35,11 +48,13 @@ export default function ProcessPage() {
 
         <section className={`${styles.hero} shell`}>
           <div className={styles.heroCopy}>
-            <p className="eyebrow">Cara kerja QIRA</p>
-            <h1>Jelas sebelum dibangun.</h1>
-            <p>Teknologi seharusnya mengurangi kebingungan, termasuk saat proses pembuatannya.</p>
+            <p className="eyebrow">{eyebrow}</p>
+            <h1>{heading}</h1>
+            <p>{lead}</p>
             <div className={styles.heroActions}>
-              <Link className="primaryButton" href="/coba-masalah">Mulai dari masalah</Link>
+              <Link className="primaryButton" href="/coba-masalah">
+                {ctaText}
+              </Link>
             </div>
           </div>
         </section>
@@ -56,32 +71,7 @@ export default function ProcessPage() {
           </div>
         </section>
 
-        <section className={`${styles.section} shell`}>
-          <div className="simplePrinciples">
-            <article>
-              <span>Sebelum mulai</span>
-              <h3>Tahu apa yang sedang dibangun</h3>
-              <p>Tujuan dan ruang lingkup dibahas agar ekspektasi lebih jelas.</p>
-            </article>
-            <article>
-              <span>Saat dibangun</span>
-              <h3>Perubahan tidak dibiarkan liar</h3>
-              <p>Kebutuhan tambahan dipisahkan dari ruang lingkup awal bila memengaruhi biaya atau waktu.</p>
-            </article>
-            <article>
-              <span>Setelah digunakan</span>
-              <h3>Perbaikan berdasarkan penggunaan</h3>
-              <p>Pengembangan berikutnya mengikuti kebutuhan yang benar-benar muncul.</p>
-            </article>
-          </div>
-        </section>
-
-        <ClosingCtaSection
-          kicker="Langkah pertama"
-          heading="Tidak perlu menyiapkan dokumen teknis."
-          subtext="Ceritakan saja pekerjaan yang paling merepotkan saat ini. Kami yang memetakan teknologinya."
-          primaryText="Mulai pemetaan awal"
-        />
+        <ClosingCtaSection />
       </main>
       <Footer />
     </>
