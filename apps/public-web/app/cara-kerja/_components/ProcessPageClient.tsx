@@ -35,7 +35,7 @@ export function ProcessPageClient() {
   const eyebrow = isEn ? "How QIRA Works" : "Cara kerja QIRA";
   const heading = isEn ? "Crystal clear before anything is built." : "Jelas sebelum dibangun.";
   const lead = isEn
-    ? "Technology should eliminate confusionâ€”starting with the way it is crafted."
+    ? "Technology should eliminate confusion â€” starting with the way it is built."
     : "Teknologi seharusnya mengurangi kebingungan, termasuk saat proses pembuatannya.";
   const ctaText = isEn ? "Start with your challenge" : "Mulai dari masalah";
   const steps = isEn ? STEPS_EN : STEPS_ID;
