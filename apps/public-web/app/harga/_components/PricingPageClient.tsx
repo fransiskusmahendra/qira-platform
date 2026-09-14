@@ -116,16 +116,16 @@ export function PricingPageClient() {
               const deliverables = (isEn && DELIVERABLES_EN[item.id]) ? DELIVERABLES_EN[item.id] : item.deliverables;
               const tagline = (isEn && PLAN_TAGLINES_EN[item.id]) ? PLAN_TAGLINES_EN[item.id] : item.tagline;
               const planLabel = featured
-                ? (isEn ? "â­ Most Popular" : "â­ Paling Populer")
+                ? (isEn ? "⭐ Most Popular" : "⭐ Paling Populer")
                 : (isEn ? "Starter Choice" : "Pilihan Awal");
               const durationText = isEn
-                ? `Delivery timeline: Â±${item.durationWeeks[0]}â€“${item.durationWeeks[1]} weeks`
-                : `Waktu pengerjaan: Â±${item.durationWeeks[0]}â€“${item.durationWeeks[1]} minggu`;
+                ? `Delivery timeline: ±${item.durationWeeks[0]}–${item.durationWeeks[1]} weeks`
+                : `Waktu pengerjaan: ±${item.durationWeeks[0]}–${item.durationWeeks[1]} minggu`;
               const deliverablesTitle = isEn ? "What You Get:" : "Yang Anda Dapatkan:";
               const warrantyText = isEn
-                ? `Warranty: ${item.revisions}x revisions Â· ${item.supportDays} days direct support.`
-                : `Garansi: ${item.revisions}x revisi Â· ${item.supportDays} hari pendampingan langsung.`;
-              const chooseButtonText = isEn ? "Choose This Plan â†’" : "Pilih Paket Ini â†’";
+                ? `Warranty: ${item.revisions}x revisions · ${item.supportDays} days direct support.`
+                : `Garansi: ${item.revisions}x revisi · ${item.supportDays} hari pendampingan langsung.`;
+              const chooseButtonText = isEn ? "Choose This Plan →" : "Pilih Paket Ini →";
 
               return (
                 <article className={`simplePriceCard ${featured ? "featured" : ""}`} key={item.id}>
@@ -147,7 +147,7 @@ export function PricingPageClient() {
                       color: featured ? "#dceaff" : "var(--blue)",
                       fontWeight: "600"
                     }}>
-                      ðŸ’¡ {fitText}
+                      💡 {fitText}
                     </div>
                   )}
 
@@ -159,7 +159,7 @@ export function PricingPageClient() {
                     <ul style={{ padding: 0, margin: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "9px", fontSize: "13.5px" }}>
                       {deliverables.map((deliverable) => (
                         <li key={deliverable} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}>
-                          <span style={{ color: featured ? "#60a5fa" : "var(--blue)", fontWeight: "800" }}>âœ“</span>
+                          <span style={{ color: featured ? "#60a5fa" : "var(--blue)", fontWeight: "800" }}>✓</span>
                           <span>{deliverable}</span>
                         </li>
                       ))}
@@ -178,6 +178,32 @@ export function PricingPageClient() {
                     >
                       {chooseButtonText}
                     </Link>
+                    <a
+                      href={`https://wa.me/6285183042571?text=${encodeURIComponent(
+                        isEn
+                          ? `Hello QIRA team, I am interested in the ${item.name} plan (~${rupiah.format(item.introductoryPriceIdr)}) for my business. Could we discuss the details?`
+                          : `Halo tim QIRA, saya tertarik dengan ${item.name} (${rupiah.format(item.introductoryPriceIdr)}) untuk usaha saya. Boleh tanya detailnya?`
+                      )}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "6px",
+                        marginTop: "10px",
+                        padding: "9px 14px",
+                        borderRadius: "8px",
+                        fontSize: "13px",
+                        fontWeight: "600",
+                        textDecoration: "none",
+                        color: featured ? "#ffffff" : "var(--ink)",
+                        background: featured ? "rgba(255, 255, 255, 0.15)" : "#f8fafc",
+                        border: featured ? "1px solid rgba(255, 255, 255, 0.25)" : "1px solid var(--line)"
+                      }}
+                    >
+                      💬 {isEn ? "Inquire on WhatsApp" : "Tanya via WhatsApp"}
+                    </a>
                   </div>
                 </article>
               );
@@ -189,7 +215,7 @@ export function PricingPageClient() {
             <div style={{ marginTop: "12px" }}>
               {CARE_PLANS.map((plan) => (
                 <span key={plan.name} style={{ display: "inline-block", marginRight: "16px", marginBottom: "8px" }}>
-                  <strong>{plan.name}</strong> Â· {plan.priceRange}
+                  <strong>{plan.name}</strong> · {plan.priceRange}
                 </span>
               ))}
             </div>
@@ -227,7 +253,7 @@ export function PricingPageClient() {
         <ClosingCtaSection
           kicker={isEn ? "Not sure which plan fits?" : "Belum yakin paket mana yang pas?"}
           heading={isEn ? "Start with one problem." : "Ceritakan satu masalah usaha Anda."}
-          subtext={isEn ? "Tell us what you need â€” we will recommend the leanest solution without wasting your budget." : "Kami bantu analisis dan rekomendasikan paket yang paling efisien tanpa membuang anggaran."}
+          subtext={isEn ? "Tell us what you need — we will recommend the leanest solution without wasting your budget." : "Kami bantu analisis dan rekomendasikan paket yang paling efisien tanpa membuang anggaran."}
           primaryText={isEn ? "Help me choose" : "Bantu tentukan paket"}
         />
       </main>

@@ -6,6 +6,7 @@ import { calculateCommercialTerms, findBusinessBlueprint, getBusinessBlueprint, 
 import { readDiscoveryDraft, readSubmittedDiscoveryPreview, type DiscoveryPreviewDraft } from "../_lib/draft";
 import styles from "./StoryProposal.module.css";
 import { submitProposalDecision, type DecisionResult } from "./actions";
+import { useLanguage } from "../../../lib/i18n";
 
 const rupiah = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 });
 const TOTAL_CHAPTERS = 2;
@@ -18,6 +19,8 @@ function recommendPackage(draft: DiscoveryPreviewDraft): ProposalPackageId {
 }
 
 export function ProposalPreview() {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
   const [draft, setDraft] = useState<DiscoveryPreviewDraft>();
   const [reference, setReference] = useState("");
   const [loaded, setLoaded] = useState(false);
@@ -120,9 +123,31 @@ export function ProposalPreview() {
         </form>
       </section> : null}
 
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, marginTop: 20 }}>
-        {chapter > 0 ? <button type="button" className={styles.decisionSubmit} onClick={() => setChapter(0)}>Kembali</button> : <span />}
-        {chapter === 0 ? <button type="button" className={styles.decisionSubmit} onClick={() => setChapter(1)}>Pilih arah</button> : <span />}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, marginTop: 20, flexWrap: "wrap" }}>
+        <button
+          type="button"
+          onClick={() => window.print()}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "6px",
+            background: "#ffffff",
+            color: "var(--ink)",
+            border: "1px solid #cbd5e1",
+            padding: "9px 16px",
+            borderRadius: "8px",
+            fontWeight: "600",
+            fontSize: "13px",
+            cursor: "pointer",
+            boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
+          }}
+        >
+          ðŸ“„ {isEn ? "Print / Save PDF" : "Cetak / Simpan PDF"}
+        </button>
+        <div style={{ display: "flex", gap: "10px" }}>
+          {chapter > 0 ? <button type="button" className={styles.decisionSubmit} onClick={() => setChapter(0)}>{isEn ? "Back" : "Kembali"}</button> : null}
+          {chapter === 0 ? <button type="button" className={styles.decisionSubmit} onClick={() => setChapter(1)}>{isEn ? "Next: Review" : "Pilih arah"}</button> : null}
+        </div>
       </div>
     </article>
   </main>;

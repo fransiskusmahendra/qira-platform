@@ -93,6 +93,9 @@ export function HomePageClient() {
           <BeforeAfter />
         </section>
 
+        {/* Interactive ROI / Time Savings Estimator */}
+        <TimeSavingsCalculator />
+
         {/* Application Showcase */}
         <section className="visualStory shell">
           <header className="visualStoryHeading">

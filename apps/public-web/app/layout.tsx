@@ -25,13 +25,37 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "ProfessionalService"],
       "@id": `${siteUrl}/#organization`,
       name: "QIRA",
+      legalName: "QIRA Digital Solutions",
       url: siteUrl,
       logo: { "@type": "ImageObject", url: `${siteUrl}/favicon-512.png`, width: 512, height: 512 },
       image: `${siteUrl}/opengraph-image`,
       description: siteDescription,
+      telephone: "+6285183042571",
+      email: "hello@qirasolution.com",
+      priceRange: "Rp1.500.000 - Rp7.500.000",
+      areaServed: [
+        { "@type": "Country", name: "Indonesia" },
+        { "@type": "AdministrativeArea", name: "Worldwide" }
+      ],
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+6285183042571",
+        contactType: "customer service",
+        availableLanguage: ["Indonesian", "English"]
+      },
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Layanan Solusi Digital QIRA",
+        itemListElement: [
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website Usaha & UMKM" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Otomatisasi Bisnis" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Digitalisasi Administrasi & Form" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Alat Kerja Digital & Dashboard" } }
+        ]
+      }
     },
     {
       "@type": "WebSite",
