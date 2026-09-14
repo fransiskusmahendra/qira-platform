@@ -19,7 +19,7 @@ export function FaqSection() {
           <details className={styles.faqItem} key={index} open={index === 0}>
             <summary className={styles.faqSummary}>
               <span>{faq.q}</span>
-              <span className={styles.chevronIcon} aria-hidden="true">â†“</span>
+              <span className={styles.chevronIcon} aria-hidden="true">↓</span>
             </summary>
             <p className={styles.faqAnswer}>{faq.a}</p>
           </details>

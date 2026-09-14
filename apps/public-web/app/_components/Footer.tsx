@@ -22,7 +22,7 @@ export function Footer() {
               {t.footer.brandTagline}
             </p>
             <div className={styles.trustBadge}>
-              <span>âœ“</span> {t.footer.trustBadge}
+              <span>✓</span> {t.footer.trustBadge}
             </div>
           </div>
 

@@ -137,7 +137,7 @@ export function Navbar() {
             onClick={() => setIsOpen(false)}
           >
             <span>{t.nav.home}</span>
-            <span aria-hidden="true">â†’</span>
+            <span aria-hidden="true">→</span>
           </Link>
           {allMobileLinks.map((link) => {
             const isActive = pathname === link.href || pathname.startsWith(link.href);
@@ -150,7 +150,7 @@ export function Navbar() {
                 onClick={() => setIsOpen(false)}
               >
                 <span>{link.label}</span>
-                <span aria-hidden="true">â†’</span>
+                <span aria-hidden="true">→</span>
               </Link>
             );
           })}

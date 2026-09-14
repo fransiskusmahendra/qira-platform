@@ -41,10 +41,10 @@ export function HomePageClient() {
                 context="solusi digital bisnis dari beranda"
                 className="secondaryHeroButton"
               >
-                {t.hero.ctaSecondary} â†’
+                {t.hero.ctaSecondary} →
               </ContextualWhatsAppCta>
               <Link className="textLink" href="#contoh-solusi">
-                {t.hero.ctaTextLink} â†’
+                {t.hero.ctaTextLink} →
               </Link>
             </div>
           </div>
