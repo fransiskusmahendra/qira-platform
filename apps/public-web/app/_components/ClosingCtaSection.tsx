@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import styles from "./ClosingCtaSection.module.css";
 import { ContextualWhatsAppCta } from "./ContextualWhatsAppCta";
+import { useLanguage } from "../../lib/i18n";
 
 interface ClosingCtaProps {
   kicker?: string;
@@ -13,21 +16,28 @@ interface ClosingCtaProps {
 }
 
 export function ClosingCtaSection({
-  kicker = "Mulai sederhana",
-  heading = "Mulai dari satu masalah usaha.",
-  subtext = "Tanpa istilah teknis yang rumit. Ceritakan apa yang paling merepotkan saat ini, QIRA membantu memetakan solusi yang paling tepat.",
-  primaryText = "Ceritakan masalah usaha",
+  kicker,
+  heading,
+  subtext,
+  primaryText,
   primaryHref = "/coba-masalah",
   waContext = "kebutuhan solusi digital bisnis",
   className = "",
 }: ClosingCtaProps) {
+  const { t } = useLanguage();
+
+  const finalKicker = kicker || t.closingCta.kicker;
+  const finalHeading = heading || t.closingCta.heading;
+  const finalSubtext = subtext || t.closingCta.subtext;
+  const finalPrimaryText = primaryText || t.closingCta.primaryText;
+
   return (
     <section className={`shell ${className}`}>
       <div className={styles.section}>
         <div className={styles.copy}>
-          <p className={styles.kicker}>{kicker}</p>
-          <h2 className={styles.heading}>{heading}</h2>
-          <p className={styles.subtext}>{subtext}</p>
+          <p className={styles.kicker}>{finalKicker}</p>
+          <h2 className={styles.heading}>{finalHeading}</h2>
+          <p className={styles.subtext}>{finalSubtext}</p>
         </div>
         <div className={styles.actions}>
           <Link
@@ -35,13 +45,13 @@ export function ClosingCtaSection({
             href={primaryHref}
             data-conversion="homepage_cta_click"
           >
-            {primaryText}
+            {finalPrimaryText}
           </Link>
           <ContextualWhatsAppCta
             context={waContext}
             className={styles.textLinkLight}
           >
-            Mulai konsultasi WhatsApp →
+            {t.closingCta.waText}
           </ContextualWhatsAppCta>
         </div>
       </div>

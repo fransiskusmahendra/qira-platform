@@ -12,7 +12,7 @@ function LineIcon({ name }: { name: IconName }) {
     check: <><circle cx="12" cy="12" r="9" /><path d="m8 12 3 3 5-6" /></>,
     file: <><path d="M7 3h7l4 4v14H7V3Z" /><path d="M14 3v5h5M10 13h5M10 17h5" /></>,
     bell: <><path d="M6 17h12l-2-3V9a4 4 0 0 0-8 0v5l-2 3Z" /><path d="M10 20h4" /></>,
-  }
+  };
   return <svg className="lineIcon" viewBox="0 0 24 24" aria-hidden="true"><g>{paths[name]}</g></svg>;
 }
 
@@ -38,19 +38,86 @@ export function BenefitsArtwork() {
 
 export function SolutionArtwork({ kind }: { kind: string }) {
   const map: Record<string, { icon: IconName; title: string; rows: string[] }> = {
+    // Indonesian
     "Sulit ditemukan": { icon: "web", title: "Website usaha", rows: ["Layanan yang jelas", "Mudah dihubungi", "Tampil profesional"] },
     "Pekerjaan tercecer": { icon: "file", title: "Satu dashboard", rows: ["Data terkumpul", "Status terpantau", "File mudah dicari"] },
     "Tugas berulang": { icon: "bell", title: "Alur otomatis", rows: ["Form diterima", "Notifikasi dikirim", "Laporan dibuat"] },
     "Bingung mulai": { icon: "search", title: "Peta prioritas", rows: ["Masalah dipetakan", "Solusi dipilih", "Langkah disusun"] },
+    // English
+    "Hard to find": { icon: "web", title: "Business Website", rows: ["Clear services", "Easy to contact", "Professional presence"] },
+    "Scattered work": { icon: "file", title: "Unified Dashboard", rows: ["Centralized data", "Tracked status", "Searchable files"] },
+    "Repetitive tasks": { icon: "bell", title: "Automated Workflow", rows: ["Forms received", "Notifications sent", "Reports generated"] },
+    "Unsure where to start": { icon: "search", title: "Priority Roadmap", rows: ["Bottlenecks mapped", "Solutions prioritized", "Action steps set"] },
   };
   const item = map[kind] ?? map["Sulit ditemukan"];
-  return <div className="solutionArtwork" role="img" aria-label={item.title}><div className="solutionWindow"><div className="windowBar"><i/><i/><i/><span>{item.title}</span></div><div className="solutionWindowBody"><div className="solutionIcon"><LineIcon name={item.icon}/></div>{item.rows.map((row,index)=><div className="solutionRow" key={row}><span>{index+1}</span><strong>{row}</strong><b>✓</b></div>)}</div></div></div>;
+  return (
+    <div className="solutionArtwork" role="img" aria-label={item.title}>
+      <div className="solutionWindow">
+        <div className="windowBar">
+          <i />
+          <i />
+          <i />
+          <span>{item.title}</span>
+        </div>
+        <div className="solutionWindowBody">
+          <div className="solutionIcon">
+            <LineIcon name={item.icon} />
+          </div>
+          {item.rows.map((row, index) => (
+            <div className="solutionRow" key={row}>
+              <span>{index + 1}</span>
+              <strong>{row}</strong>
+              <b>âœ“</b>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export function BeforeAfterArtwork() {
-  return <div className="beforeAfterArtwork" role="img" aria-label="Perbandingan pekerjaan yang tersebar dengan alur QIRA yang teratur"><div className="messySide"><span className="floatNote n1">Chat</span><span className="floatNote n2">File</span><span className="floatNote n3">Catatan</span><span className="floatNote n4">Status?</span></div><div className="organizedSide"><div className="organizedHeader"><LineIcon name="check"/><strong>Alur kerja QIRA</strong></div><div className="organizedRows"><span><i/>Permintaan masuk<b>✓</b></span><span><i/>Pekerjaan diproses<b>✓</b></span><span><i/>Status diperbarui<b>✓</b></span><span><i/>Laporan siap<b>✓</b></span></div></div></div>;
+  return (
+    <div className="beforeAfterArtwork" role="img" aria-label="Perbandingan pekerjaan yang tersebar dengan alur QIRA yang teratur">
+      <div className="messySide">
+        <span className="floatNote n1">Chat</span>
+        <span className="floatNote n2">File</span>
+        <span className="floatNote n3">Catatan</span>
+        <span className="floatNote n4">Status?</span>
+      </div>
+      <div className="organizedSide">
+        <div className="organizedHeader">
+          <LineIcon name="check" />
+          <strong>Alur kerja QIRA</strong>
+        </div>
+        <div className="organizedRows">
+          <span><i />Permintaan masuk<b>âœ“</b></span>
+          <span><i />Pekerjaan diproses<b>âœ“</b></span>
+          <span><i />Status diperbarui<b>âœ“</b></span>
+          <span><i />Laporan siap<b>âœ“</b></span>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export function JourneyArtwork({ steps }: { steps: readonly string[] }) {
-  return <div className="journeyArtwork" role="img" aria-label={`Alur ${steps.join(", lalu ")}`}><div className="journeyTop"><span>Q</span><strong>Alur digital yang rapi</strong></div><div className="journeySteps">{steps.map((step,index)=><div className="journeyStep" key={step}><b>{index+1}</b><span>{step}</span><i>✓</i></div>)}</div><div className="journeyProgress"><i/><i/><i/></div></div>;
+  return (
+    <div className="journeyArtwork" role="img" aria-label={`Alur ${steps.join(", lalu ")}`}>
+      <div className="journeyTop">
+        <span>Q</span>
+        <strong>Alur digital yang rapi</strong>
+      </div>
+      <div className="journeySteps">
+        {steps.map((step, index) => (
+          <div className="journeyStep" key={step}>
+            <b>{index + 1}</b>
+            <span>{step}</span>
+            <i>â†’</i>
+          </div>
+        ))}
+      </div>
+      <div className="journeyProgress"><i /><i /><i /></div>
+    </div>
+  );
 }

@@ -6,88 +6,36 @@ import { useEffect, useState } from "react";
 
 import { trackConversion } from "./ConversionTracker";
 import { HeroArtwork, SolutionArtwork } from "./CrispVisuals";
-
-const TRANSFORMATION_STEPS = [
-  { label: "Masalah", detail: "Chat, file, dan pekerjaan tercecer" },
-  { label: "QIRA", detail: "Solusi digital sesuai kebutuhan" },
-  { label: "Hasil", detail: "Kerja lebih rapi dan mudah dijalankan" },
-] as const;
-
-const SOLUTIONS = [
-  {
-    number: "01",
-    problem: "Sulit ditemukan",
-    question: "Pelanggan sulit menemukan atau memahami usahamu?",
-    solution: "Website",
-    result: "Lebih mudah ditemukan dan dihubungi",
-    imagePosition: "left",
-  },
-  {
-    number: "02",
-    problem: "Pekerjaan tercecer",
-    question: "Data masih tersebar di chat, catatan, dan file?",
-    solution: "Form & dashboard",
-    result: "Data lebih rapi dan mudah dipantau",
-    imagePosition: "right",
-  },
-  {
-    number: "03",
-    problem: "Tugas berulang",
-    question: "Sering menginput atau mengingatkan hal yang sama?",
-    solution: "Otomatisasi",
-    result: "Proses lebih cepat dan hemat waktu",
-    imagePosition: "left",
-  },
-  {
-    number: "04",
-    problem: "Bingung mulai",
-    question: "Ingin lebih digital, tetapi belum tahu prioritasnya?",
-    solution: "Pemetaan kebutuhan",
-    result: "Punya arah dan langkah yang jelas",
-    imagePosition: "right",
-  },
-] as const;
-
-const EXAMPLES = [
-  {
-    label: "Bisnis jasa",
-    title: "Dari informasi tersebar menjadi satu pintu.",
-    items: ["Website yang jelas", "Form kebutuhan", "Tindak lanjut terarah"],
-    result: "Pelanggan lebih cepat paham dan menghubungi.",
-  },
-  {
-    label: "Administrasi",
-    title: "Dari catatan manual menjadi alur yang rapi.",
-    items: ["Form digital", "Dokumen otomatis", "Dashboard sederhana"],
-    result: "Data mudah dicari dan pekerjaan mudah dipantau.",
-  },
-  {
-    label: "Operasional",
-    title: "Dari pengingat manual menjadi proses otomatis.",
-    items: ["Status pekerjaan", "Pengingat otomatis", "Laporan ringkas"],
-    result: "Lebih sedikit tugas berulang dan terlupa.",
-  },
-] as const;
+import { useLanguage } from "../../lib/i18n";
 
 export function HeroExplainer() {
+  const { t } = useLanguage();
+  const steps = t.hero.flowSteps;
   const [active, setActive] = useState(0);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (media.matches) return;
-    const timer = window.setInterval(() => setActive((current) => (current + 1) % TRANSFORMATION_STEPS.length), 2200);
+    const timer = window.setInterval(() => setActive((current) => (current + 1) % steps.length), 2200);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [steps.length]);
 
   return (
-    <div className="heroExplainer" aria-label="Alur QIRA dari masalah menjadi hasil">
+    <div className="heroExplainer" aria-label={t.hero.flowAria}>
       <figure className="visualStoryCard heroExplainerImage">
         <HeroArtwork />
       </figure>
       <ol className="heroSteps">
-        {TRANSFORMATION_STEPS.map((step, index) => (
+        {steps.map((step, index) => (
           <li className={active === index ? "active" : ""} key={step.label}>
-            <button type="button" onClick={() => { setActive(index); void trackConversion("hero_explainer_interact"); }} aria-pressed={active === index}>
+            <button
+              type="button"
+              onClick={() => {
+                setActive(index);
+                void trackConversion("hero_explainer_interact");
+              }}
+              aria-pressed={active === index}
+            >
               <span>{index + 1}</span>
               <strong>{step.label}</strong>
               <small>{step.detail}</small>
@@ -100,37 +48,54 @@ export function HeroExplainer() {
 }
 
 export function SolutionExplorer() {
+  const { t } = useLanguage();
+  const items = t.solutions.items;
   const [active, setActive] = useState(0);
-  const selected = SOLUTIONS[active];
+  const selected = items[active] || items[0];
 
   return (
     <div className="solutionExplorer">
-      <div className="solutionTabs" role="tablist" aria-label="Masalah bisnis yang dapat dibantu QIRA">
-        {SOLUTIONS.map((item, index) => (
+      <div className="solutionTabs" role="tablist" aria-label={t.solutions.heading}>
+        {items.map((item, index) => (
           <button
             aria-controls="solution-panel"
             aria-selected={active === index}
             className={active === index ? "active" : ""}
             id={`solution-tab-${index}`}
-            key={item.problem}
-            onClick={() => { setActive(index); void trackConversion("solution_explore"); }}
+            key={item.number}
+            onClick={() => {
+              setActive(index);
+              void trackConversion("solution_explore");
+            }}
             role="tab"
             type="button"
           >
-            <span>{item.number}</span>{item.problem}
+            <span>{item.number}</span>
+            {item.problem}
           </button>
         ))}
       </div>
       <div className="solutionPanel" id="solution-panel" role="tabpanel" aria-labelledby={`solution-tab-${active}`}>
         <div className="solutionCopy" key={selected.problem}>
-          <p className="solutionProblem">Masalah</p>
+          <p className="solutionProblem">{t.solutions.problemLabel}</p>
           <h3>{selected.question}</h3>
-          <div className="solutionFlow" aria-label={`${selected.problem}, ditangani dengan ${selected.solution}, menghasilkan ${selected.result}`}>
-            <span><small>QIRA membuat</small><strong>{selected.solution}</strong></span>
-            <i aria-hidden="true">→</i>
-            <span><small>Hasil</small><strong>{selected.result}</strong></span>
+          <div
+            className="solutionFlow"
+            aria-label={`${selected.problem}, ditangani dengan ${selected.solution}, menghasilkan ${selected.result}`}
+          >
+            <span>
+              <small>{t.solutions.qiraMakes}</small>
+              <strong>{selected.solution}</strong>
+            </span>
+            <i aria-hidden="true">â†’</i>
+            <span>
+              <small>{t.solutions.resultLabel}</small>
+              <strong>{selected.result}</strong>
+            </span>
           </div>
-          <Link href="/coba-masalah" data-conversion="homepage_cta_click">Ceritakan masalah usaha →</Link>
+          <Link href="/coba-masalah" data-conversion="homepage_cta_click">
+            {t.solutions.cta} â†’
+          </Link>
         </div>
         <figure className={`solutionVisual crop-${selected.imagePosition}`} key={`${selected.problem}-image`}>
           <SolutionArtwork kind={selected.problem} />
@@ -141,11 +106,13 @@ export function SolutionExplorer() {
 }
 
 export function BeforeAfter() {
+  const { t } = useLanguage();
   const [position, setPosition] = useState(50);
+
   return (
     <div className="beforeAfter">
       <div className="beforeAfterStage">
-        <div className="beforeAfterImages" role="img" aria-label="Perbandingan pekerjaan manual yang berantakan dengan alur digital QIRA yang rapi">
+        <div className="beforeAfterImages" role="img" aria-label={t.beforeAfter.imageAria}>
           <Image
             className="afterImage"
             src="/illustrations/premium/qira-after-workflow.webp"
@@ -165,29 +132,58 @@ export function BeforeAfter() {
             style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
           />
         </div>
-        <div className="beforeAfterDivider" style={{ left: `${position}%` }} aria-hidden="true"><span>↔</span></div>
-        <span className="stateLabel beforeLabel">Sebelum</span>
-        <span className="stateLabel afterLabel">Dengan QIRA</span>
+        <div className="beforeAfterDivider" style={{ left: `${position}%` }} aria-hidden="true">
+          <span>â†”</span>
+        </div>
+        <span className="stateLabel beforeLabel">{t.beforeAfter.beforeLabel}</span>
+        <span className="stateLabel afterLabel">{t.beforeAfter.afterLabel}</span>
       </div>
       <label className="beforeAfterControl">
-        <span>Geser untuk membandingkan</span>
-        <input aria-label="Bandingkan kondisi sebelum dan sesudah QIRA" type="range" min="8" max="92" value={position} onChange={(event) => { setPosition(Number(event.target.value)); void trackConversion("before_after_interact"); }} />
+        <span>{t.beforeAfter.sliderLabel}</span>
+        <input
+          aria-label={t.beforeAfter.sliderAria}
+          type="range"
+          min="8"
+          max="92"
+          value={position}
+          onChange={(event) => {
+            setPosition(Number(event.target.value));
+            void trackConversion("before_after_interact");
+          }}
+        />
       </label>
       <div className="outcomeStrip">
-        <span>Data lebih rapi</span><span>Respons lebih cepat</span><span>Pekerjaan mudah dipantau</span>
+        {t.beforeAfter.outcomes.map((outcome) => (
+          <span key={outcome}>{outcome}</span>
+        ))}
       </div>
     </div>
   );
 }
 
 export function ApplicationShowcase() {
+  const { t } = useLanguage();
+  const examples = t.applications.examples;
   const [active, setActive] = useState(0);
-  const selected = EXAMPLES[active];
+  const selected = examples[active] || examples[0];
+
   return (
     <div className="applicationShowcase">
-      <div className="applicationTabs" role="tablist" aria-label="Contoh penerapan QIRA">
-        {EXAMPLES.map((item, index) => (
-          <button className={active === index ? "active" : ""} aria-selected={active === index} key={item.label} onClick={() => { setActive(index); void trackConversion("application_example_interact"); }} role="tab" type="button">{item.label}</button>
+      <div className="applicationTabs" role="tablist" aria-label={t.applications.heading}>
+        {examples.map((item, index) => (
+          <button
+            className={active === index ? "active" : ""}
+            aria-selected={active === index}
+            key={item.label}
+            onClick={() => {
+              setActive(index);
+              void trackConversion("application_example_interact");
+            }}
+            role="tab"
+            type="button"
+          >
+            {item.label}
+          </button>
         ))}
       </div>
       <div className="applicationCard" role="tabpanel" key={selected.label}>
@@ -195,9 +191,18 @@ export function ApplicationShowcase() {
           <p className="kicker">{selected.label}</p>
           <h3>{selected.title}</h3>
           <p>{selected.result}</p>
-          <Link href="/contoh-penerapan" data-conversion="homepage_cta_click">Lihat contoh lainnya →</Link>
+          <Link href="/contoh-penerapan" data-conversion="homepage_cta_click">
+            {t.applications.viewMore} â†’
+          </Link>
         </div>
-        <ol>{selected.items.map((item, index) => <li key={item}><span>{index + 1}</span>{item}</li>)}</ol>
+        <ol>
+          {selected.items.map((item, index) => (
+            <li key={item}>
+              <span>{index + 1}</span>
+              {item}
+            </li>
+          ))}
+        </ol>
       </div>
     </div>
   );

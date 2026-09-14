@@ -4,30 +4,33 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
-
-const PRIMARY_LINKS = [
-  { href: "/about", label: "Tentang" },
-  { href: "/layanan", label: "Layanan" },
-  { href: "/portfolio", label: "Portofolio" },
-  { href: "/harga", label: "Harga" },
-  { href: "/studi-kasus", label: "Studi Kasus" },
-  { href: "/panduan", label: "Panduan" },
-] as const;
-
-const ALL_MOBILE_LINKS = [
-  { href: "/about", label: "Tentang" },
-  { href: "/layanan", label: "Layanan & Solusi" },
-  { href: "/portfolio", label: "Portofolio Karya" },
-  { href: "/harga", label: "Harga & Paket" },
-  { href: "/cara-kerja", label: "Cara Kerja" },
-  { href: "/studi-kasus", label: "Studi Kasus" },
-  { href: "/panduan", label: "Panduan Bisnis" },
-] as const;
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useLanguage } from "../../lib/i18n";
 
 export function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useLanguage();
+
+  const primaryLinks = [
+    { href: "/about", label: t.nav.about },
+    { href: "/layanan", label: t.nav.services },
+    { href: "/portfolio", label: t.nav.portfolio },
+    { href: "/harga", label: t.nav.pricing },
+    { href: "/studi-kasus", label: t.nav.caseStudies },
+    { href: "/panduan", label: t.nav.guides },
+  ];
+
+  const allMobileLinks = [
+    { href: "/about", label: t.nav.about },
+    { href: "/layanan", label: t.nav.services },
+    { href: "/portfolio", label: t.nav.portfolio },
+    { href: "/harga", label: t.nav.pricing },
+    { href: "/cara-kerja", label: t.nav.howItWorks },
+    { href: "/studi-kasus", label: t.nav.caseStudies },
+    { href: "/panduan", label: t.nav.guides },
+  ];
 
   // Close drawer on route change
   useEffect(() => {
@@ -63,13 +66,13 @@ export function Navbar() {
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
       <div className={`shell ${styles.navContainer}`}>
-        <Link className={styles.brand} href="/" aria-label="QIRA — Beranda">
+        <Link className={styles.brand} href="/" aria-label="QIRA - Beranda">
           QIRA<span>.</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className={styles.desktopNav} aria-label="Navigasi utama">
-          {PRIMARY_LINKS.map((link) => {
+        <nav className={styles.desktopNav} aria-label={t.nav.navAria}>
+          {primaryLinks.map((link) => {
             const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
             return (
               <Link
@@ -86,12 +89,13 @@ export function Navbar() {
 
         {/* Actions & Mobile Toggle */}
         <div className={styles.navActions}>
+          <LanguageSwitcher />
           <Link
             className={styles.ctaButton}
             href="/coba-masalah"
             data-conversion="homepage_cta_click"
           >
-            Ceritakan masalah
+            {t.nav.ctaButton}
           </Link>
 
           <button
@@ -100,7 +104,7 @@ export function Navbar() {
             onClick={() => setIsOpen((prev) => !prev)}
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
-            aria-label={isOpen ? "Tutup menu" : "Buka menu navigasi"}
+            aria-label={isOpen ? t.nav.closeMenu : t.nav.openMenu}
           >
             <span className={styles.hamburgerIcon} aria-hidden="true">
               <span />
@@ -122,7 +126,7 @@ export function Navbar() {
       <nav
         id="mobile-menu"
         className={`${styles.mobileDrawer} ${isOpen ? styles.mobileDrawerVisible : ""}`}
-        aria-label="Navigasi seluler"
+        aria-label={t.nav.mobileNavAria}
         aria-hidden={!isOpen}
       >
         <div className={styles.mobileLinks}>
@@ -132,10 +136,10 @@ export function Navbar() {
             aria-current={pathname === "/" ? "page" : undefined}
             onClick={() => setIsOpen(false)}
           >
-            <span>Beranda</span>
-            <span aria-hidden="true">→</span>
+            <span>{t.nav.home}</span>
+            <span aria-hidden="true">â†’</span>
           </Link>
-          {ALL_MOBILE_LINKS.map((link) => {
+          {allMobileLinks.map((link) => {
             const isActive = pathname === link.href || pathname.startsWith(link.href);
             return (
               <Link
@@ -146,20 +150,23 @@ export function Navbar() {
                 onClick={() => setIsOpen(false)}
               >
                 <span>{link.label}</span>
-                <span aria-hidden="true">→</span>
+                <span aria-hidden="true">â†’</span>
               </Link>
             );
           })}
         </div>
 
         <div className={styles.mobileDrawerActions}>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
+            <LanguageSwitcher />
+          </div>
           <Link
             className={styles.mobileCtaButton}
             href="/coba-masalah"
             data-conversion="homepage_cta_click"
             onClick={() => setIsOpen(false)}
           >
-            Ceritakan Masalah Usaha
+            {t.nav.mobileCta}
           </Link>
         </div>
       </nav>

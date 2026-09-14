@@ -1,0 +1,41 @@
+.switcher {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(7, 26, 51, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 2px 4px;
+  gap: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  padding: 4px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  color: var(--ink);
+}
+
+.active {
+  background: var(--blue);
+  color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(23, 105, 255, 0.25);
+}
+
+.divider {
+  color: var(--line);
+  font-size: 10px;
+  user-select: none;
+}
