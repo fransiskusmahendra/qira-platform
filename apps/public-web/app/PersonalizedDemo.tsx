@@ -97,8 +97,8 @@ export function PersonalizedDemo() {
   const [step, setStep] = useState(0);
   const [businessName, setBusinessName] = useState("");
   const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState(PRIORITY_OPTIONS[0].title);
-  const [teamSize, setTeamSize] = useState(TEAM_SIZE_OPTIONS[0].title);
+  const [priority, setPriority] = useState<string>(PRIORITY_OPTIONS[0].title);
+  const [teamSize, setTeamSize] = useState<string>(TEAM_SIZE_OPTIONS[0].title);
   const [profile, setProfile] = useState<Profile | null>(null);
 
   const canContinue = useMemo(() => {

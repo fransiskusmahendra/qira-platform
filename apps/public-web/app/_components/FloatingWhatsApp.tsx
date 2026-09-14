@@ -19,7 +19,7 @@ export function FloatingWhatsApp() {
       <Link
         href={href}
         className={styles.floatingButton}
-        onClick={() => void trackConversion("floating_wa_click")}
+        onClick={() => void trackConversion("whatsapp_request_click")}
         aria-label={t.whatsapp.floatingTooltip}
         target={waNumber ? "_blank" : undefined}
         rel={waNumber ? "noreferrer noopener" : undefined}
