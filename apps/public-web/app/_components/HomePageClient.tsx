@@ -14,7 +14,8 @@ import { useLanguage } from "../../lib/i18n";
 import { TimeSavingsCalculator } from "./TimeSavingsCalculator";
 
 export function HomePageClient() {
-  const { t } = useLanguage();
+  const { locale, t } = useLanguage();
+  const isEn = locale === "en";
 
   return (
     <>

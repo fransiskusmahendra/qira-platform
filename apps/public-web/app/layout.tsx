@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 import { WebVitalsReporter } from "./_components/WebVitalsReporter";
 import { FloatingWhatsApp } from "./_components/FloatingWhatsApp";
+import { StickyMobileDock } from "./_components/StickyMobileDock";
 import { LanguageProvider } from "../lib/i18n";
 import "./styles.css";
 import "./brand-logo.css";
@@ -132,6 +133,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
             {children}
           </div>
           <FloatingWhatsApp />
+          <StickyMobileDock />
         </LanguageProvider>
       </body>
     </html>
