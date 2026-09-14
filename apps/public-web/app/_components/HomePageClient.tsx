@@ -11,6 +11,7 @@ import { ClosingCtaSection } from "./ClosingCtaSection";
 import { FaqSection } from "./FaqSection";
 import { ContextualWhatsAppCta } from "./ContextualWhatsAppCta";
 import { useLanguage } from "../../lib/i18n";
+import { TimeSavingsCalculator } from "./TimeSavingsCalculator";
 
 export function HomePageClient() {
   const { t } = useLanguage();
