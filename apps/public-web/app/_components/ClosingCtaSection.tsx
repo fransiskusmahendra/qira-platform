@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import styles from "./ClosingCtaSection.module.css";
@@ -67,11 +67,11 @@ export function ClosingCtaSection({
           color: "rgba(255, 255, 255, 0.8)",
           fontWeight: "500"
         }}>
-          <span>âœ“ {isEn ? "30-Day warranty" : "Garansi 30 hari"}</span>
-          <span>â€¢</span>
-          <span>âœ“ {isEn ? "100% Code & data ownership" : "100% Hak milik kode & data"}</span>
-          <span>â€¢</span>
-          <span>âœ“ {isEn ? "Clear 1â€“3 week delivery" : "Jadwal pasti 1â€“3 minggu"}</span>
+          <span>✓ {isEn ? "30-Day warranty" : "Garansi 30 hari"}</span>
+          <span>•</span>
+          <span>✓ {isEn ? "100% Code & data ownership" : "100% Hak milik kode & data"}</span>
+          <span>•</span>
+          <span>✓ {isEn ? "Clear 1–3 week delivery" : "Jadwal pasti 1–3 minggu"}</span>
         </div>
       </div>
     </section>

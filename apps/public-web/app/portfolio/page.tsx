@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { PortfolioPageClient } from "./_components/PortfolioPageClient";
 
 const PORTFOLIO_DESCRIPTION = "Lihat produk internal, penerapan nyata, dan demo solusi QIRA melalui contoh aplikasi yang aman ditampilkan.";
-const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "Portofolio QIRA â€” produk, penerapan, dan demo solusi digital" };
+const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "Portofolio QIRA — produk, penerapan, dan demo solusi digital" };
 
 export const metadata: Metadata = {
   title: "Portofolio",

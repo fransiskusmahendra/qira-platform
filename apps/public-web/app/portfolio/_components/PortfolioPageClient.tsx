@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -13,22 +13,22 @@ import { useLanguage } from "../../../lib/i18n";
 type PortfolioItem = { number: string; tag: string; title: string; outcome: string; visual: string; image: string; imageAlt: string; href?: string; cta?: string; external?: boolean; note?: string };
 
 const ITEMS_ID: readonly PortfolioItem[] = [
-  { number: "01", tag: "Produk QIRA", title: "Pemetaan Kebutuhan", outcome: "Kebutuhan menjadi ruang lingkup yang jelas", visual: "Masalah â†’ Prioritas â†’ Ruang lingkup", image: "/screenshots/qira-discovery.svg", imageAlt: "Tampilan QIRA Discovery dengan progres dan form kebutuhan usaha", href: "/discovery", cta: "Coba alurnya", note: "Tampilan aplikasi menggunakan data contoh." },
-  { number: "02", tag: "Produk QIRA", title: "Invoice & Dokumen", outcome: "Data transaksi menjadi invoice siap diperiksa, dicetak, atau disimpan", visual: "Input â†’ Pratinjau â†’ PDF", image: "/screenshots/qira-invoice-maker.svg", imageAlt: "Tampilan QIRA Invoice Maker dengan editor dan pratinjau invoice", note: "Produk internal QIRA. Screenshot memakai data contoh; identitas legal dan informasi pembayaran sensitif disamarkan." },
-  { number: "03", tag: "Penerapan klien", title: "Alat Transaksi & Nota", outcome: "Input transaksi sampai nota dalam satu alur kerja", visual: "Input â†’ Nota â†’ Cetak", image: "/screenshots/travel-transaction-demo.svg", imageAlt: "Tampilan aplikasi transaksi perjalanan dan pratinjau nota thermal", note: "Tampilan penerapan nyata dengan nama klien, petugas, identitas, dan data transaksi diganti atau disamarkan untuk portofolio." },
-  { number: "04", tag: "Demo publik", title: "Demo Solusi Bisnis", outcome: "Calon klien dapat melihat gambaran solusi sebelum memulai", visual: "Lihat â†’ Coba â†’ Diskusikan", image: "/illustrations/qira-services.webp", imageAlt: "Ilustrasi demo solusi bisnis QIRA", href: "https://demo.qirasolution.com", cta: "Buka demo", external: true, note: "Demo konsep QIRA, bukan klaim sebagai proyek klien." },
+  { number: "01", tag: "Produk QIRA", title: "Pemetaan Kebutuhan", outcome: "Kebutuhan menjadi ruang lingkup yang jelas", visual: "Masalah → Prioritas → Ruang lingkup", image: "/screenshots/qira-discovery.svg", imageAlt: "Tampilan QIRA Discovery dengan progres dan form kebutuhan usaha", href: "/discovery", cta: "Coba alurnya", note: "Tampilan aplikasi menggunakan data contoh." },
+  { number: "02", tag: "Produk QIRA", title: "Invoice & Dokumen", outcome: "Data transaksi menjadi invoice siap diperiksa, dicetak, atau disimpan", visual: "Input → Pratinjau → PDF", image: "/screenshots/qira-invoice-maker.svg", imageAlt: "Tampilan QIRA Invoice Maker dengan editor dan pratinjau invoice", note: "Produk internal QIRA. Screenshot memakai data contoh; identitas legal dan informasi pembayaran sensitif disamarkan." },
+  { number: "03", tag: "Penerapan klien", title: "Alat Transaksi & Nota", outcome: "Input transaksi sampai nota dalam satu alur kerja", visual: "Input → Nota → Cetak", image: "/screenshots/travel-transaction-demo.svg", imageAlt: "Tampilan aplikasi transaksi perjalanan dan pratinjau nota thermal", note: "Tampilan penerapan nyata dengan nama klien, petugas, identitas, dan data transaksi diganti atau disamarkan untuk portofolio." },
+  { number: "04", tag: "Demo publik", title: "Demo Solusi Bisnis", outcome: "Calon klien dapat melihat gambaran solusi sebelum memulai", visual: "Lihat → Coba → Diskusikan", image: "/illustrations/qira-services.webp", imageAlt: "Ilustrasi demo solusi bisnis QIRA", href: "https://demo.qirasolution.com", cta: "Buka demo", external: true, note: "Demo konsep QIRA, bukan klaim sebagai proyek klien." },
 ] as const;
 
 const ITEMS_EN: readonly PortfolioItem[] = [
-  { number: "01", tag: "QIRA Product", title: "Needs Mapping", outcome: "Turns business bottlenecks into a clear project scope", visual: "Problem â†’ Priorities â†’ Scope", image: "/screenshots/qira-discovery.svg", imageAlt: "QIRA Discovery interface showing workflow progress and business needs intake", href: "/discovery", cta: "Try interactive flow", note: "App preview uses sample data." },
-  { number: "02", tag: "QIRA Product", title: "Invoice & Documents", outcome: "Transaction data into ready-to-send PDF invoices", visual: "Input â†’ Preview â†’ PDF", image: "/screenshots/qira-invoice-maker.svg", imageAlt: "QIRA Invoice Maker interface with editor and live preview", note: "Internal QIRA product. Preview uses sample data with client details anonymized." },
-  { number: "03", tag: "Client Deployment", title: "Transactions & Receipts", outcome: "Order entry to thermal receipt in a single workflow", visual: "Input â†’ Receipt â†’ Print", image: "/screenshots/travel-transaction-demo.svg", imageAlt: "Travel transaction app interface with thermal receipt preview", note: "Real client deployment with names, staff, and transactional details anonymized." },
-  { number: "04", tag: "Public Demo", title: "Business Solution Demo", outcome: "Explore interactive samples before committing", visual: "Explore â†’ Test â†’ Discuss", image: "/illustrations/qira-services.webp", imageAlt: "QIRA business solution interactive demo illustration", href: "https://demo.qirasolution.com", cta: "Open demo", external: true, note: "Concept demonstration by QIRA." },
+  { number: "01", tag: "QIRA Product", title: "Needs Mapping", outcome: "Turns business bottlenecks into a clear project scope", visual: "Problem → Priorities → Scope", image: "/screenshots/qira-discovery.svg", imageAlt: "QIRA Discovery interface showing workflow progress and business needs intake", href: "/discovery", cta: "Try interactive flow", note: "App preview uses sample data." },
+  { number: "02", tag: "QIRA Product", title: "Invoice & Documents", outcome: "Transaction data into ready-to-send PDF invoices", visual: "Input → Preview → PDF", image: "/screenshots/qira-invoice-maker.svg", imageAlt: "QIRA Invoice Maker interface with editor and live preview", note: "Internal QIRA product. Preview uses sample data with client details anonymized." },
+  { number: "03", tag: "Client Deployment", title: "Transactions & Receipts", outcome: "Order entry to thermal receipt in a single workflow", visual: "Input → Receipt → Print", image: "/screenshots/travel-transaction-demo.svg", imageAlt: "Travel transaction app interface with thermal receipt preview", note: "Real client deployment with names, staff, and transactional details anonymized." },
+  { number: "04", tag: "Public Demo", title: "Business Solution Demo", outcome: "Explore interactive samples before committing", visual: "Explore → Test → Discuss", image: "/illustrations/qira-services.webp", imageAlt: "QIRA business solution interactive demo illustration", href: "https://demo.qirasolution.com", cta: "Open demo", external: true, note: "Concept demonstration by QIRA." },
 ] as const;
 
 function Action({ item }: { item: PortfolioItem }) {
   if (!item.href || !item.cta) return <span />;
-  return item.external ? <a className="simplePortfolioAction" href={item.href} target="_blank" rel="noreferrer">{item.cta} â†’</a> : <Link className="simplePortfolioAction" href={item.href}>{item.cta} â†’</Link>;
+  return item.external ? <a className="simplePortfolioAction" href={item.href} target="_blank" rel="noreferrer">{item.cta} →</a> : <Link className="simplePortfolioAction" href={item.href}>{item.cta} →</Link>;
 }
 
 export function PortfolioPageClient() {

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -87,14 +87,14 @@ export function SolutionExplorer() {
               <small>{t.solutions.qiraMakes}</small>
               <strong>{selected.solution}</strong>
             </span>
-            <i aria-hidden="true">â†’</i>
+            <i aria-hidden="true">→</i>
             <span>
               <small>{t.solutions.resultLabel}</small>
               <strong>{selected.result}</strong>
             </span>
           </div>
           <Link href="/coba-masalah" data-conversion="homepage_cta_click">
-            {t.solutions.cta} â†’
+            {t.solutions.cta} →
           </Link>
         </div>
         <figure className={`solutionVisual crop-${selected.imagePosition}`} key={`${selected.problem}-image`}>
@@ -107,12 +107,23 @@ export function SolutionExplorer() {
 
 export function BeforeAfter() {
   const { t } = useLanguage();
-  const [position, setPosition] = useState(50);
+  const [position, setPosition] = useState(25);
 
   return (
     <div className="beforeAfter">
       <div className="beforeAfterStage">
         <div className="beforeAfterImages" role="img" aria-label={t.beforeAfter.imageAria}>
+          {/* Base Layer: Chaos (Initial state before QIRA) */}
+          <Image
+            aria-hidden="true"
+            className="beforeImage"
+            src="/illustrations/premium/qira-before-workflow.webp"
+            alt="Alur kerja manual yang berantakan dan rawan salah"
+            fill
+            quality={90}
+            sizes="(max-width: 760px) 100vw, 1160px"
+          />
+          {/* Revealed Layer: Clarity (Clean QIRA workflow expanding as user slides right) */}
           <Image
             className="afterImage"
             src="/illustrations/premium/qira-after-workflow.webp"
@@ -120,23 +131,18 @@ export function BeforeAfter() {
             fill
             quality={90}
             sizes="(max-width: 760px) 100vw, 1160px"
-          />
-          <Image
-            aria-hidden="true"
-            className="beforeImage"
-            src="/illustrations/premium/qira-before-workflow.webp"
-            alt=""
-            fill
-            quality={90}
-            sizes="(max-width: 760px) 100vw, 1160px"
             style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
           />
         </div>
         <div className="beforeAfterDivider" style={{ left: `${position}%` }} aria-hidden="true">
-          <span>â†”</span>
+          <span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="m18 8 4 4-4 4M6 8l-4 4 4 4M2 12h20" />
+            </svg>
+          </span>
         </div>
-        <span className="stateLabel beforeLabel">{t.beforeAfter.beforeLabel}</span>
         <span className="stateLabel afterLabel">{t.beforeAfter.afterLabel}</span>
+        <span className="stateLabel beforeLabel">{t.beforeAfter.beforeLabel}</span>
       </div>
       <label className="beforeAfterControl">
         <span>{t.beforeAfter.sliderLabel}</span>
@@ -192,7 +198,7 @@ export function ApplicationShowcase() {
           <h3>{selected.title}</h3>
           <p>{selected.result}</p>
           <Link href="/contoh-penerapan" data-conversion="homepage_cta_click">
-            {t.applications.viewMore} â†’
+            {t.applications.viewMore} →
           </Link>
         </div>
         <ol>

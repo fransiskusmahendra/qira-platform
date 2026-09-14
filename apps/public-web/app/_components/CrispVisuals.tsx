@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 
 type IconName = "chat" | "web" | "chart" | "bolt" | "search" | "check" | "file" | "bell";
 
@@ -67,7 +67,7 @@ export function SolutionArtwork({ kind }: { kind: string }) {
             <div className="solutionRow" key={row}>
               <span>{index + 1}</span>
               <strong>{row}</strong>
-              <b>âœ“</b>
+              <b>✓</b>
             </div>
           ))}
         </div>
@@ -91,10 +91,10 @@ export function BeforeAfterArtwork() {
           <strong>Alur kerja QIRA</strong>
         </div>
         <div className="organizedRows">
-          <span><i />Permintaan masuk<b>âœ“</b></span>
-          <span><i />Pekerjaan diproses<b>âœ“</b></span>
-          <span><i />Status diperbarui<b>âœ“</b></span>
-          <span><i />Laporan siap<b>âœ“</b></span>
+          <span><i />Permintaan masuk<b>✓</b></span>
+          <span><i />Pekerjaan diproses<b>✓</b></span>
+          <span><i />Status diperbarui<b>✓</b></span>
+          <span><i />Laporan siap<b>✓</b></span>
         </div>
       </div>
     </div>
@@ -113,7 +113,7 @@ export function JourneyArtwork({ steps }: { steps: readonly string[] }) {
           <div className="journeyStep" key={step}>
             <b>{index + 1}</b>
             <span>{step}</span>
-            <i>â†’</i>
+            <i>→</i>
           </div>
         ))}
       </div>

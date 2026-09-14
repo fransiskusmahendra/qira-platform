@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { trackConversion } from "./ConversionTracker";
@@ -14,13 +14,13 @@ export function FloatingWhatsApp() {
   const cleanNumber = waNumber.replace(/\D/g, "");
 
   const options = isEn ? [
-    { label: "ðŸŒ Business Website", text: "Hello QIRA team, I'd like to consult about building a website for my business." },
-    { label: "âš™ï¸ Forms & Automation", text: "Hello QIRA team, I want to streamline manual repetitive tasks (invoices, forms, notifications) for my business." },
-    { label: "ðŸ’¬ General Consultation", text: "Hello QIRA team, I have an operational bottleneck and would like to consult on the best solution." },
+    { label: "Business Website", text: "Hello QIRA team, I'd like to consult about building a website for my business." },
+    { label: "Forms & Automation", text: "Hello QIRA team, I want to streamline manual repetitive tasks (invoices, forms, notifications) for my business." },
+    { label: "General Consultation", text: "Hello QIRA team, I have an operational bottleneck and would like to consult on the best solution." },
   ] : [
-    { label: "ðŸŒ Website Profil Usaha", text: "Halo tim QIRA, saya ingin konsultasi pembuatan website untuk usaha saya." },
-    { label: "âš™ï¸ Otomatisasi Form / Nota", text: "Halo tim QIRA, saya ingin merapikan alur kerja manual (nota, form order, rekap) untuk bisnis saya." },
-    { label: "ðŸ’¬ Konsultasi Kebutuhan Usaha", text: "Halo tim QIRA, ada pekerjaan usaha yang ingin saya rapikan. Boleh konsultasi solusinya?" },
+    { label: "Website Profil Usaha", text: "Halo tim QIRA, saya ingin konsultasi pembuatan website untuk usaha saya." },
+    { label: "Otomatisasi Form / Nota", text: "Halo tim QIRA, saya ingin merapikan alur kerja manual (nota, form order, rekap) untuk bisnis saya." },
+    { label: "Konsultasi Kebutuhan Usaha", text: "Halo tim QIRA, ada pekerjaan usaha yang ingin saya rapikan. Boleh konsultasi solusinya?" },
   ];
 
   function openWhatsApp(message: string) {
@@ -50,8 +50,9 @@ export function FloatingWhatsApp() {
               <p style={{ margin: 0, fontWeight: "750", fontSize: "13.5px", color: "var(--ink)" }}>
                 {isEn ? "QIRA Quick Consultation" : "Konsultasi Tim QIRA"}
               </p>
-              <p style={{ margin: "2px 0 0", fontSize: "11.5px", color: "#16a34a", fontWeight: "600" }}>
-                ðŸŸ¢ {isEn ? "Online â€¢ < 15 mins reply" : "Online â€¢ Balas < 15 menit"}
+              <p style={{ margin: "2px 0 0", fontSize: "11.5px", color: "#16a34a", fontWeight: "600", display: "flex", alignItems: "center", gap: "5px" }}>
+                <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#16a34a", display: "inline-block" }} />
+                {isEn ? "Online • < 15 mins reply" : "Online • Balas < 15 menit"}
               </p>
             </div>
             <button
@@ -65,9 +66,8 @@ export function FloatingWhatsApp() {
                 color: "var(--muted)",
                 padding: "2px 6px"
               }}
-              aria-label="Close"
-            >
-              âœ•
+              aria-label="Close">
+              ×
             </button>
           </div>
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useEffect, useMemo, useState, useTransition } from "react";
@@ -142,7 +142,8 @@ export function ProposalPreview() {
             boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
           }}
         >
-          ðŸ“„ {isEn ? "Print / Save PDF" : "Cetak / Simpan PDF"}
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: "6px", verticalAlign: "-2px" }} aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          {isEn ? "Print / Save PDF" : "Cetak / Simpan PDF"}
         </button>
         <div style={{ display: "flex", gap: "10px" }}>
           {chapter > 0 ? <button type="button" className={styles.decisionSubmit} onClick={() => setChapter(0)}>{isEn ? "Back" : "Kembali"}</button> : null}

@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { ServicesPageClient } from "./_components/ServicesPageClient";
 
 const description = "Layanan QIRA untuk website UMKM, otomatisasi bisnis, administrasi digital, dan alat kerja digital yang dibuat sesuai kebutuhan nyata usaha.";
-const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "Layanan QIRA â€” website, otomatisasi, administrasi, dan alat kerja digital" };
+const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "Layanan QIRA — website, otomatisasi, administrasi, dan alat kerja digital" };
 
 export const metadata: Metadata = {
   title: "Layanan",

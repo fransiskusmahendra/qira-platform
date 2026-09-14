@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -24,25 +24,25 @@ const SERVICES_EN = [
 ] as const;
 
 const TECH_STACK_ID = [
-  { name: "Next.js & React", category: "Web & Aplikasi", icon: "âš¡" },
-  { name: "TypeScript", category: "Kualitas Kode", icon: "ðŸ›¡ï¸" },
-  { name: "PostgreSQL & Supabase", category: "Database Mandiri", icon: "ðŸ—„ï¸" },
-  { name: "WhatsApp Cloud API", category: "Chat & Notifikasi", icon: "ðŸ’¬" },
-  { name: "Python & Node.js", category: "Otomasi & Scripting", icon: "âš™ï¸" },
-  { name: "Resend & Webhooks", category: "Alur Email & Event", icon: "ðŸ“¬" },
-  { name: "Thermal POS Protocols", category: "Cetak Nota Kasir", icon: "ðŸ§¾" },
-  { name: "REST & External APIs", category: "Integrasi Sistem", icon: "ðŸ”—" },
+  { name: "Next.js & React", category: "Web & Aplikasi" },
+  { name: "TypeScript", category: "Kualitas Kode" },
+  { name: "PostgreSQL & Supabase", category: "Database Mandiri" },
+  { name: "WhatsApp Cloud API", category: "Chat & Notifikasi" },
+  { name: "Python & Node.js", category: "Otomasi & Scripting" },
+  { name: "Resend & Webhooks", category: "Alur Email & Event" },
+  { name: "Thermal POS Protocols", category: "Cetak Nota Kasir" },
+  { name: "REST & External APIs", category: "Integrasi Sistem" },
 ];
 
 const TECH_STACK_EN = [
-  { name: "Next.js & React", category: "Web & Apps", icon: "âš¡" },
-  { name: "TypeScript", category: "Code Quality", icon: "ðŸ›¡ï¸" },
-  { name: "PostgreSQL & Supabase", category: "Standalone Database", icon: "ðŸ—„ï¸" },
-  { name: "WhatsApp Cloud API", category: "Chat & Notifications", icon: "ðŸ’¬" },
-  { name: "Python & Node.js", category: "Automation & Backend", icon: "âš™ï¸" },
-  { name: "Resend & Webhooks", category: "Transactional & Events", icon: "ðŸ“¬" },
-  { name: "Thermal POS Protocols", category: "Receipt Printing", icon: "ðŸ§¾" },
-  { name: "REST & External APIs", category: "System Integrations", icon: "ðŸ”—" },
+  { name: "Next.js & React", category: "Web & Apps" },
+  { name: "TypeScript", category: "Code Quality" },
+  { name: "PostgreSQL & Supabase", category: "Standalone Database" },
+  { name: "WhatsApp Cloud API", category: "Chat & Notifications" },
+  { name: "Python & Node.js", category: "Automation & Backend" },
+  { name: "Resend & Webhooks", category: "Transactional & Events" },
+  { name: "Thermal POS Protocols", category: "Receipt Printing" },
+  { name: "REST & External APIs", category: "System Integrations" },
 ];
 
 export function ServicesPageClient() {
@@ -62,7 +62,7 @@ export function ServicesPageClient() {
   const closingKicker = isEn ? "Unsure where to start?" : "Belum tahu pilih yang mana?";
   const closingHeading = isEn ? "Start with one problem." : "Mulai dari satu masalah usaha.";
   const closingSubtext = isEn
-    ? "Tell us what consumes the most time right now â€” we will recommend the simplest fix."
+    ? "Tell us what consumes the most time right now — we will recommend the simplest fix."
     : "Ceritakan kondisi pekerjaan Anda saat ini, kami bantu rekomendasikan solusi yang paling efisien.";
   const closingPrimary = isEn ? "Help me choose" : "Bantu tentukan solusi";
 
@@ -99,7 +99,7 @@ export function ServicesPageClient() {
                 <span>{service.number}</span>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
-                <strong>{service.result} â†’</strong>
+                <strong>{service.result} →</strong>
               </Link>
             ))}
           </div>
@@ -156,7 +156,6 @@ export function ServicesPageClient() {
                   color: "var(--ink)",
                   boxShadow: "0 1px 2px rgba(0,0,0,0.03)"
                 }}>
-                  <span>{tech.icon}</span>
                   <span>{tech.name}</span>
                   <span style={{ fontSize: "11px", color: "var(--muted)", fontWeight: "500" }}>({tech.category})</span>
                 </span>

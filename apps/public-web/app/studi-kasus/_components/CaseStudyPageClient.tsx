@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { ConversionTracker } from "../../_components/ConversionTracker";
@@ -73,7 +73,7 @@ export function CaseStudyPageClient() {
   const lead = isEn
     ? "No inflated claims. Just real operational bottlenecks, our solution, and verified outcomes."
     : "Tanpa angka yang dibuat-buat. Hanya masalah, solusi, dan hasil alur yang bisa diperiksa dari produk yang sudah dibangun.";
-  const cta = isEn ? "See app portfolio â†’" : "Lihat tampilan aplikasinya â†’";
+  const cta = isEn ? "See app portfolio →" : "Lihat tampilan aplikasinya →";
 
   const problemLabel = isEn ? "Bottleneck:" : "Masalah:";
   const solutionLabel = isEn ? "Solution:" : "Solusi:";
