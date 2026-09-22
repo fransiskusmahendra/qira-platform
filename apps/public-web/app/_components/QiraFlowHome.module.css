@@ -79,13 +79,14 @@
 }
 
 .heroTitleCentered {
-  font-size: clamp(30px, 4.2vw, 48px);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  color: #ffffff;
-  margin-bottom: 20px;
-  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
+  font-size: clamp(34px, 4.8vw, 54px);
+  font-weight: 550;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.78) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 18px;
 }
 
 .heroTitleCentered span {
@@ -94,11 +95,11 @@
 
 .heroSubCentered {
   font-size: 15px;
-  color: #94a3b8;
-  line-height: 1.65;
+  color: #8A8F98;
+  line-height: 1.6;
   max-width: 540px;
-  margin: 0 auto 32px;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+  margin: 0 auto 30px;
+  letter-spacing: -0.011em;
 }
 
 .heroActionsCentered {
@@ -113,15 +114,15 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 13px 32px;
+  gap: 8px;
+  padding: 12px 28px;
   border-radius: 9999px;
   background: rgba(20, 35, 68, 0.75);
   border: 1px solid rgba(0, 210, 255, 0.55);
   color: #ffffff;
   font-size: 13.5px;
-  font-weight: 700;
-  letter-spacing: 0.6px;
+  font-weight: 550;
+  letter-spacing: 0.3px;
   text-decoration: none;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -140,13 +141,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  padding: 0 24px;
+  min-height: 44px;
+  padding: 0 22px;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
+  color: #F7F8F8;
   font-size: 13.5px;
-  font-weight: 650;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   border: 1px solid rgba(255, 255, 255, 0.14);
   text-decoration: none;
   backdrop-filter: blur(8px);
@@ -513,23 +515,24 @@
 
 .sectionHeader {
   max-width: 720px;
-  margin-bottom: 48px;
+  margin-bottom: 44px;
 }
 
 .sectionHeading {
-  font-size: clamp(24px, 3.2vw, 36px);
-  font-weight: 750;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  color: #ffffff;
-  margin: 8px 0 14px;
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 550;
+  line-height: 1.2;
+  letter-spacing: -0.028em;
+  color: #F7F8F8;
+  margin: 8px 0 12px;
 }
 
 .sectionLead {
-  font-size: 15px;
-  color: #94a3b8;
+  font-size: 14.5px;
+  color: #8A8F98;
   line-height: 1.6;
   max-width: 580px;
+  letter-spacing: -0.01em;
 }
 
 /* =========================================================================
@@ -546,10 +549,10 @@
   top: 24px;
   right: max(20px, calc((100vw - 1160px) / 2));
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 1.5px;
   color: rgba(255, 255, 255, 0.2);
-  font-family: monospace;
+  font-family: var(--font-geist-mono), monospace;
   pointer-events: none;
 }
 
@@ -579,26 +582,28 @@
 }
 
 .cardNum {
-  font-size: 11.5px;
-  font-weight: 800;
+  font-size: 11px;
+  font-weight: 600;
   color: #38bdf8;
-  letter-spacing: 1px;
+  letter-spacing: 0.08em;
+  font-family: var(--font-geist-mono), monospace;
   margin-bottom: 14px;
 }
 
 .helpCard h3 {
-  font-size: 19px;
-  font-weight: 750;
-  color: #ffffff;
+  font-size: 17px;
+  font-weight: 550;
+  color: #F7F8F8;
   margin-bottom: 10px;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.018em;
 }
 
 .helpCard p {
   font-size: 13.5px;
-  color: #94a3b8;
-  line-height: 1.6;
+  color: #8A8F98;
+  line-height: 1.55;
   margin-bottom: 24px;
+  letter-spacing: -0.01em;
 }
 
 .featureList {
@@ -612,12 +617,13 @@
 }
 
 .featureList li {
-  font-size: 13px;
-  font-weight: 550;
-  color: #e2e8f0;
+  font-size: 13.5px;
+  font-weight: 400;
+  color: #8A8F98;
   display: flex;
   align-items: center;
   gap: 8px;
+  letter-spacing: -0.01em;
 }
 
 .featureList li::before {
@@ -678,26 +684,28 @@
 .productBadge {
   display: inline-block;
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1.2px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-family: var(--font-geist-mono), monospace;
   text-transform: uppercase;
   color: #38bdf8;
   margin-bottom: 12px;
 }
 
 .productInfo h3 {
-  font-size: 21px;
-  font-weight: 750;
-  letter-spacing: -0.025em;
-  color: #ffffff;
+  font-size: 20px;
+  font-weight: 550;
+  letter-spacing: -0.022em;
+  color: #F7F8F8;
   margin-bottom: 10px;
 }
 
 .productInfo p {
   font-size: 14px;
-  color: #94a3b8;
+  color: #8A8F98;
   line-height: 1.6;
   margin-bottom: 22px;
+  letter-spacing: -0.01em;
 }
 
 .flowPills {
@@ -904,16 +912,17 @@
 }
 
 .flowStep strong {
-  font-size: 16px;
-  font-weight: 800;
-  color: #ffffff;
+  font-size: 15.5px;
+  font-weight: 550;
+  letter-spacing: -0.015em;
+  color: #F7F8F8;
   margin-bottom: 6px;
 }
 
 .flowStep small {
   font-size: 13px;
-  color: #94a3b8;
-  line-height: 1.45;
+  color: #8A8F98;
+  line-height: 1.5;
   max-width: 180px;
 }
 
@@ -940,7 +949,7 @@
   position: absolute;
   top: 14px;
   right: 18px;
-  font-family: monospace;
+  font-family: var(--font-geist-mono), monospace;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.2);
   font-weight: 600;
@@ -957,18 +966,19 @@
 }
 
 .caseTag {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-family: var(--font-geist-mono), monospace;
   color: #38bdf8;
   text-transform: uppercase;
 }
 
 .caseTitle {
-  font-size: 20px;
-  font-weight: 750;
-  letter-spacing: -0.025em;
-  color: #ffffff;
+  font-size: 18px;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+  color: #F7F8F8;
   margin-top: 6px;
 }
 
@@ -979,9 +989,18 @@
 
 .caseMetrics small {
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
-  color: #94a3b8;
+  letter-spacing: 0.04em;
+  color: #8A8F98;
+  display: block;
+}
+
+.caseMetrics strong {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #F7F8F8;
   display: block;
 }
 
@@ -1240,15 +1259,16 @@
 }
 
 .editorialCard h3 {
-  font-size: 18px;
-  font-weight: 850;
-  color: #ffffff;
+  font-size: 16px;
+  font-weight: 550;
+  color: #F7F8F8;
+  letter-spacing: -0.015em;
   margin-bottom: 8px;
 }
 
 .editorialCard p {
   font-size: 13px;
-  color: #94a3b8;
+  color: #8A8F98;
   line-height: 1.55;
   margin: 0;
 }
@@ -1285,7 +1305,7 @@
   border-radius: 50%;
   background: rgba(239, 68, 68, 0.16);
   color: #ef4444;
-  font-weight: 900;
+  font-weight: 800;
   font-size: 12px;
   display: grid;
   place-items: center;
@@ -1294,16 +1314,18 @@
 }
 
 .problemItem strong {
-  font-size: 16px;
-  color: #ffffff;
+  font-size: 15px;
+  font-weight: 550;
+  letter-spacing: -0.015em;
+  color: #F7F8F8;
   display: block;
   margin-bottom: 4px;
 }
 
 .problemItem p {
   font-size: 13px;
-  color: #94a3b8;
-  line-height: 1.5;
+  color: #8A8F98;
+  line-height: 1.55;
   margin: 0;
 }
 
@@ -1329,17 +1351,17 @@
 }
 
 .aboutQuote {
-  font-size: clamp(24px, 2.8vw, 36px);
-  font-weight: 850;
-  line-height: 1.2;
-  color: #ffffff;
-  letter-spacing: -0.03em;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 550;
+  line-height: 1.25;
+  color: #F7F8F8;
+  letter-spacing: -0.025em;
   margin: 8px 0 16px;
 }
 
 .aboutBody {
-  font-size: 16px;
-  color: #94a3b8;
+  font-size: 14.5px;
+  color: #8A8F98;
   line-height: 1.65;
   margin-bottom: 24px;
 }
@@ -1360,7 +1382,7 @@
 
 .legalNotice p {
   font-size: 12px;
-  color: #94a3b8;
+  color: #8A8F98;
   line-height: 1.5;
   margin: 0;
 }
@@ -1374,7 +1396,8 @@
 
 .aboutMeta strong {
   display: block;
-  font-size: 16px;
+  font-size: 15px;
+  font-weight: 550;
   color: #ffffff;
   margin-bottom: 4px;
 }
@@ -1382,7 +1405,7 @@
 .aboutMeta span {
   display: block;
   font-size: 13px;
-  color: #94a3b8;
+  color: #8A8F98;
 }
 
 /* =========================================================================
@@ -1419,37 +1442,40 @@
 
 .pricingTier {
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: #94a3b8;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-family: var(--font-geist-mono), monospace;
+  color: #8A8F98;
 }
 
 .pricingTierFeatured {
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-family: var(--font-geist-mono), monospace;
   color: #38bdf8;
 }
 
 .pricingAmount {
-  font-size: 32px;
-  font-weight: 900;
-  color: #ffffff;
+  font-size: 26px;
+  font-weight: 600;
+  color: #F7F8F8;
   margin: 8px 0 12px;
   letter-spacing: -0.03em;
 }
 
 .pricingCard h4 {
-  font-size: 18px;
-  font-weight: 800;
-  color: #ffffff;
+  font-size: 16.5px;
+  font-weight: 550;
+  color: #F7F8F8;
+  letter-spacing: -0.015em;
   margin: 0 0 8px;
 }
 
 .pricingCard p {
   font-size: 13px;
-  color: #94a3b8;
-  line-height: 1.5;
+  color: #8A8F98;
+  line-height: 1.55;
   margin-bottom: 20px;
 }
 
@@ -1462,7 +1488,7 @@
   flex-direction: column;
   gap: 8px;
   font-size: 13px;
-  color: #e2e8f0;
+  color: #8A8F98;
 }
 
 /* =========================================================================
@@ -1507,21 +1533,22 @@
 }
 
 .finalCtaCard h2 {
-  font-size: clamp(30px, 4.5vw, 48px);
-  font-weight: 850;
-  letter-spacing: -0.04em;
-  color: #ffffff;
+  font-size: clamp(24px, 3.2vw, 36px);
+  font-weight: 550;
+  letter-spacing: -0.028em;
+  color: #F7F8F8;
   margin-bottom: 12px;
   position: relative;
   z-index: 1;
 }
 
 .finalCtaCard p {
-  font-size: 18px;
-  color: #94a3b8;
-  margin-bottom: 34px;
+  font-size: 14.5px;
+  color: #8A8F98;
+  margin-bottom: 30px;
   position: relative;
   z-index: 1;
+  line-height: 1.6;
 }
 
 .finalCtaCard div {

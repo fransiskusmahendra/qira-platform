@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 import { WebVitalsReporter } from "./_components/WebVitalsReporter";
 import { FloatingWhatsApp } from "./_components/FloatingWhatsApp";
@@ -15,8 +15,9 @@ import "./visual-home.css";
 import "./services-page.css";
 import "./quality.css";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 const siteTitle = "QIRA - Solusi Digital Sederhana | Simple Digital Solutions";
 const siteDescription = "QIRA membuat website, form, dashboard, dan otomatisasi agar usaha lebih mudah ditemukan dan dijalankan. Simple digital solutions for business.";
 const socialImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA - Solusi digital sederhana untuk bisnis" };
@@ -121,7 +122,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="id" className={`${geist.variable} ${geistMono.variable}`}>
+    <html lang="id" className={`${inter.variable} ${geist.variable} ${geistMono.variable}`}>
       <body>
         <LanguageProvider>
           <a className="skipLink" href="#main-content">

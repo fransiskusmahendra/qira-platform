@@ -270,7 +270,7 @@ export function HomePageClient() {
           <div className="shell">
             <div className={styles.sectionHeader} style={{ textAlign: "center", margin: "0 auto 50px" }}>
               <p className="kicker">{isEn ? "SIGNATURE PROCESS" : "PROSES SIGNATURE"}</p>
-              <h2 className={styles.sectionHeading}>{isEn ? "FROM BUSINESS NEED TO DIGITAL SOLUTION." : "DARI KEBUTUHAN BISNIS MENJADI SOLUSI DIGITAL."}</h2>
+              <h2 className={styles.sectionHeading}>{isEn ? "From business need to digital solution." : "Dari kebutuhan bisnis menjadi solusi digital."}</h2>
               <p className={styles.sectionLead} style={{ margin: "0 auto" }}>
                 {isEn
                   ? "A disciplined, transparent progression that turns operational bottlenecks into structured digital systems."
@@ -313,7 +313,7 @@ export function HomePageClient() {
           <div className="shell">
             <div className={styles.sectionHeader}>
               <p className="kicker">{isEn ? "CASE STUDIES" : "STUDI KASUS"}</p>
-              <h2 className={styles.sectionHeading}>{isEn ? "FROM COMPLEXITY TO SIMPLICITY" : "DARI KERUMITAN MENJADI KEMUDAHAN"}</h2>
+              <h2 className={styles.sectionHeading}>{isEn ? "From complexity to simplicity." : "Dari kerumitan menjadi kemudahan."}</h2>
               <p className={styles.sectionLead}>
                 {isEn
                   ? "Real case studies demonstrating practical digital transformation for operational teams."
@@ -496,7 +496,7 @@ export function HomePageClient() {
               <div>
                 <p className="kicker">{isEn ? "ABOUT QIRA" : "TENTANG QIRA"}</p>
                 <div className={styles.aboutQuote}>
-                  {isEn ? "DIGITAL SHOULD MAKE BUSINESS SIMPLER." : "DIGITAL HARUS MEMBUAT BISNIS LEBIH SEDERHANA."}
+                  {isEn ? "Digital should make business simpler." : "Digital harus membuat bisnis lebih sederhana."}
                 </div>
                 <p className={styles.aboutBody}>
                   {isEn
@@ -587,7 +587,7 @@ export function HomePageClient() {
         <section className={`${styles.finalCta} ${styles.finalCtaSection}`} id="contact">
           <div className="shell">
             <div className={styles.finalCtaCard}>
-              <h2>{isEn ? "HAVE A BUSINESS PROBLEM TO SOLVE?" : "MEMILIKI TANTANGAN BISNIS?"}</h2>
+              <h2>{isEn ? "Have a business problem to solve?" : "Punya tantangan bisnis yang ingin diselesaikan?"}</h2>
               <p>{isEn ? "Let's turn it into a practical digital solution." : "Mari kita ubah menjadi solusi digital yang praktis."}</p>
               <a
                 href="https://wa.me/628211076517?text=Halo%20QIRA,%20saya%20ingin%20berdiskusi%20tentang%20solusi%20digital."
