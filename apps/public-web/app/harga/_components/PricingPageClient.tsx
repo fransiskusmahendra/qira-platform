@@ -221,21 +221,23 @@ export function PricingPageClient() {
           <div style={{
             maxWidth: "760px",
             margin: "0 auto",
-            padding: "24px",
-            background: "rgba(255, 255, 255, 0.6)",
-            borderRadius: "16px",
-            border: "1px solid var(--line)"
+            padding: "28px",
+            background: "rgba(14, 20, 36, 0.75)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            borderRadius: "20px",
+            border: "1px solid rgba(255, 255, 255, 0.08)"
           }}>
-            <h3 style={{ fontSize: "18px", fontWeight: "750", marginBottom: "16px", color: "var(--ink)", textAlign: "center" }}>
+            <h3 style={{ fontSize: "18px", fontWeight: "750", marginBottom: "16px", color: "#ffffff", textAlign: "center" }}>
               {isEn ? "Frequently Asked Questions about Pricing" : "Pertanyaan yang Sering Diajukan Seputar Biaya"}
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {pricingFaqs.map((faq, idx) => (
-                <details key={idx} style={{ padding: "12px 14px", background: "white", borderRadius: "10px", border: "1px solid var(--line)" }}>
-                  <summary style={{ fontWeight: "650", fontSize: "14px", cursor: "pointer", color: "var(--ink)" }}>
+                <details key={idx} style={{ padding: "14px 18px", background: "rgba(255, 255, 255, 0.04)", borderRadius: "12px", border: "1px solid rgba(255, 255, 255, 0.08)" }}>
+                  <summary style={{ fontWeight: "650", fontSize: "14px", cursor: "pointer", color: "#ffffff" }}>
                     {faq.q}
                   </summary>
-                  <p style={{ marginTop: "8px", marginBottom: "0", fontSize: "13.5px", color: "var(--muted)", lineHeight: "1.5" }}>
+                  <p style={{ marginTop: "8px", marginBottom: "0", fontSize: "13.5px", color: "#94a3b8", lineHeight: "1.55" }}>
                     {faq.a}
                   </p>
                 </details>

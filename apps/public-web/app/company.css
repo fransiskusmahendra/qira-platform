@@ -29,7 +29,7 @@
   font-size: 13px;
   font-weight: 680;
 }
-.smallButton:hover { background: var(--ink); color: white; }
+.smallButton:hover { background: var(--blue); color: white; }
 
 .companyHero {
   position: relative;
@@ -270,7 +270,8 @@
   min-height: 292px;
   padding: clamp(30px, 5vw, 52px);
   border-radius: 24px;
-  background: var(--ink);
+  background: #0D1527;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   position: relative;
   overflow: hidden;
@@ -405,7 +406,8 @@
   margin-bottom: 50px;
   padding: clamp(38px, 6vw, 68px);
   border-radius: 30px;
-  background: var(--ink);
+  background: #0D1527;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   display: flex;
   justify-content: space-between;

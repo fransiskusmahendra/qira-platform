@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import styles from "./ClosingCtaSection.module.css";
@@ -35,42 +35,35 @@ export function ClosingCtaSection({
   return (
     <section className={`shell ${className}`}>
       <div className={styles.section}>
-        <div className={styles.copy}>
-          <p className={styles.kicker}>{finalKicker}</p>
-          <h2 className={styles.heading}>{finalHeading}</h2>
-          <p className={styles.subtext}>{finalSubtext}</p>
-        </div>
-        <div className={styles.actions}>
-          <Link
-            className={styles.primaryButtonLight}
-            href={primaryHref}
-            data-conversion="homepage_cta_click"
-          >
-            {finalPrimaryText}
-          </Link>
-          <ContextualWhatsAppCta
-            context={waContext}
-            className={styles.textLinkLight}
-          >
-            {t.closingCta.waText}
-          </ContextualWhatsAppCta>
+        <div className={styles.mainRow}>
+          <div className={styles.copy}>
+            <p className={styles.kicker}>{finalKicker}</p>
+            <h2 className={styles.heading}>{finalHeading}</h2>
+            <p className={styles.subtext}>{finalSubtext}</p>
+          </div>
+          <div className={styles.actions}>
+            <Link
+              className={styles.primaryButtonLight}
+              href={primaryHref}
+              data-conversion="homepage_cta_click"
+            >
+              {finalPrimaryText}
+            </Link>
+            <ContextualWhatsAppCta
+              context={waContext}
+              className={styles.textLinkLight}
+            >
+              {t.closingCta.waText}
+            </ContextualWhatsAppCta>
+          </div>
         </div>
 
         {/* Clean Risk-Reversal Strip */}
-        <div style={{
-          marginTop: "18px",
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "14px",
-          fontSize: "12px",
-          color: "rgba(255, 255, 255, 0.8)",
-          fontWeight: "500"
-        }}>
+        <div className={styles.guaranteeStrip}>
           <span>✓ {isEn ? "30-Day warranty" : "Garansi 30 hari"}</span>
-          <span>•</span>
+          <span className={styles.guaranteeDot}>•</span>
           <span>✓ {isEn ? "100% Code & data ownership" : "100% Hak milik kode & data"}</span>
-          <span>•</span>
+          <span className={styles.guaranteeDot}>•</span>
           <span>✓ {isEn ? "Clear 1–3 week delivery" : "Jadwal pasti 1–3 minggu"}</span>
         </div>
       </div>
