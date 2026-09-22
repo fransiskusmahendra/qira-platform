@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { useLanguage } from "../../lib/i18n";
+import { DigitalSphereCanvas } from "./DigitalSphereCanvas";
 import styles from "./QiraFlowHome.module.css";
 
 export function HomePageClient() {
@@ -27,81 +28,71 @@ export function HomePageClient() {
 
       <main className={styles.pageWrap}>
         {/* =========================================================================
-            SECTION 01: HERO
+            SECTION 01: HERO (LUMINOUS 3D SPHERE CORE + ULTRA-CLEAN EDITORIAL)
             ========================================================================= */}
         <section className={styles.heroSection}>
           {/* Layer 2: Subtle Architectural Grid */}
           <div className={styles.heroGridBackdrop} aria-hidden="true" />
 
-          {/* Layer 3: Soft Ambient Light Gradients */}
-          <div className={styles.heroAmbientGlow} aria-hidden="true" />
+          {/* Layer 3: Central Volumetric Radial Backglow */}
+          <div className={styles.ambientGlowCentral} aria-hidden="true" />
 
-          {/* Layer 4: Digital Flow Architectural Path */}
-          <div className={styles.heroFlowWrapper} aria-hidden="true">
-            <svg className={styles.heroFlowSvg} viewBox="0 0 1440 560" fill="none" preserveAspectRatio="none">
-              <path
-                d="M -60 220 C 320 220, 380 340, 720 280 C 1020 220, 1160 380, 1500 320"
-                stroke="url(#heroFlowGrad)"
-                strokeWidth="1.5"
-                strokeDasharray="8 8"
-                className={styles.heroFlowPathAnim}
-              />
-              <defs>
-                <linearGradient id="heroFlowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#1769ff" stopOpacity="0.03" />
-                  <stop offset="30%" stopColor="#1769ff" stopOpacity="0.22" />
-                  <stop offset="65%" stopColor="#0284c7" stopOpacity="0.25" />
-                  <stop offset="100%" stopColor="#10b981" stopOpacity="0.04" />
-                </linearGradient>
-              </defs>
-            </svg>
+          {/* Layer 4: Interactive Rotating 3D Digital Wireframe Sphere */}
+          <div className={styles.sphereContainer} aria-hidden="true">
+            <DigitalSphereCanvas />
           </div>
 
-          <div className={`shell ${styles.heroShellRel}`}>
-            <div className={styles.heroGrid}>
-              <div className={styles.heroCopy}>
-                <h1 className={styles.heroTitle}>
-                  {isEn ? "TURN BUSINESS NEEDS INTO DIGITAL SOLUTIONS." : "UBAH KEBUTUHAN BISNIS MENJADI SOLUSI DIGITAL."}
-                </h1>
+          <div className={`shell ${styles.heroCenteredContent}`}>
+            {/* Frosted Pill Badge with glowing dot */}
+            <div className={styles.heroPillBadge}>
+              <span className={styles.liveDot} />
+              <span>
+                {isEn ? "DIGITAL SOLUTIONS FOR MODERN BUSINESS" : "SOLUSI DIGITAL UNTUK BISNIS MODERN"}
+              </span>
+            </div>
 
-                <p className={styles.heroSub}>
-                  {isEn
-                    ? "QIRA designs, builds and connects practical digital solutions for modern businesses."
-                    : "QIRA merancang, membangun, dan menghubungkan solusi digital praktis untuk bisnis modern."}
-                </p>
+            <h1 className={styles.heroTitleCentered}>
+              <span>{isEn ? "Turn Business Needs." : "Ubah Kebutuhan Bisnis."}</span>
+              <span>{isEn ? "Into Digital Solutions." : "Menjadi Solusi Digital."}</span>
+            </h1>
 
-                <div className={styles.heroActions}>
-                  <a
-                    href="https://wa.me/628211076517?text=Halo%20QIRA,%20saya%20ingin%20konsultasi%20solusi%20digital%20bisnis."
-                    target="_blank"
-                    rel="noreferrer"
-                    className="primaryButton"
-                  >
-                    {isEn ? "Start a Project →" : "Mulai Proyek →"}
-                  </a>
-                  <Link href="#solutions" className={styles.secondaryButton}>
-                    {isEn ? "Explore Solutions" : "Jelajahi Solusi"}
-                  </Link>
-                </div>
+            <p className={styles.heroSubCentered}>
+              {isEn
+                ? "QIRA designs, builds, and connects practical digital systems — so your team can focus on scaling, not manual firefighting."
+                : "QIRA merancang, membangun, dan menghubungkan solusi digital praktis — agar tim Anda fokus bertumbuh, bukan terjebak kendala manual."}
+            </p>
+
+            <div className={styles.heroActionsCentered}>
+              <a
+                href="https://wa.me/628211076517?text=Halo%20QIRA,%20saya%20ingin%20konsultasi%20solusi%20digital%20bisnis."
+                target="_blank"
+                rel="noreferrer"
+                className={styles.pillCtaPrimary}
+              >
+                <span>{isEn ? "FREE CONSULTATION" : "KONSULTASI GRATIS"}</span>
+                <span>→</span>
+              </a>
+              <Link href="#solutions" className={styles.secondaryButtonPill}>
+                {isEn ? "Explore Solutions" : "Jelajahi Solusi"}
+              </Link>
+            </div>
+
+            {/* Floating Metric Indicator Strip */}
+            <div className={styles.metricPillBar}>
+              <div className={styles.metricPillItem}>
+                <span>⚡</span>
+                <span>{isEn ? "Workflow Efficiency:" : "Efisiensi Alur:"}</span>
+                <strong>+84.2%</strong>
               </div>
-
-              {/* Product-led hero visual: simplified single focal point */}
-              <div className={styles.heroMockup}>
-                <div className={styles.mockupHeader}>
-                  <div className={styles.mockupTitle}>
-                    <span className={styles.liveDot} />
-                    <span>{isEn ? "QIRA Operations Platform" : "Platform Operasional QIRA"}</span>
-                  </div>
-                  <span style={{ color: "#10b981", fontSize: 12, fontWeight: 700 }}>● {isEn ? "Live" : "Aktif"}</span>
-                </div>
-
-                <div className={styles.statBoxSingle}>
-                  <small>{isEn ? "Process Efficiency" : "Efisiensi Proses"}</small>
-                  <strong>+84.2%</strong>
-                  <span style={{ color: "#38bdf8", fontSize: 13, fontWeight: 600 }}>
-                    {isEn ? "Manual bottlenecks eliminated" : "Hambatan manual dipangkas"}
-                  </span>
-                </div>
+              <div className={styles.metricPillItem}>
+                <span>🛡️</span>
+                <span>{isEn ? "Stock Accuracy:" : "Akurasi Stok:"}</span>
+                <strong>100% Real-Time</strong>
+              </div>
+              <div className={styles.metricPillItem}>
+                <span>⏱️</span>
+                <span>{isEn ? "Invoice Time:" : "Waktu Invoice:"}</span>
+                <strong>&lt; 10s</strong>
               </div>
             </div>
           </div>
