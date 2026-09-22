@@ -1,7 +1,8 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { ConversionTracker } from "../../_components/ConversionTracker";
+import { TopographicWaveCanvas } from "../../_components/TopographicWaveCanvas";
 import styles from "../../SubpageVisual.module.css";
 import { Navbar } from "../../_components/Navbar";
 import { Footer } from "../../_components/Footer";
@@ -57,6 +58,9 @@ export function ProcessPageClient() {
               </Link>
             </div>
           </div>
+          <figure className={styles.heroVisual} style={{ minHeight: 440 }}>
+            <TopographicWaveCanvas />
+          </figure>
         </section>
 
         <section className={`${styles.section} shell`}>

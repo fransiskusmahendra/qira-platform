@@ -1,8 +1,9 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 
+import { IsometricStackCanvas } from "../../_components/IsometricStackCanvas";
 import styles from "../../SubpageVisual.module.css";
 import { Navbar } from "../../_components/Navbar";
 import { Footer } from "../../_components/Footer";
@@ -79,16 +80,8 @@ export function ServicesPageClient() {
               <Link className="primaryButton" href="/coba-masalah">{cta}</Link>
             </div>
           </div>
-          <figure className={styles.heroVisual}>
-            <Image
-              src="/illustrations/qira-services.webp"
-              alt={isEn ? "QIRA digital services for websites, automation, administration, and custom business tools" : "Rangkaian layanan digital QIRA untuk website, otomatisasi, administrasi, dan alat kerja digital"}
-              width={1672}
-              height={941}
-              quality={90}
-              priority
-              sizes="(max-width: 960px) 100vw, 48vw"
-            />
+          <figure className={styles.heroVisual} style={{ minHeight: 440 }}>
+            <IsometricStackCanvas />
           </figure>
         </section>
 
@@ -109,10 +102,10 @@ export function ServicesPageClient() {
         <section className={`${styles.section} shell`}>
           <div style={{
             padding: "36px 28px",
-            background: "rgba(255, 255, 255, 0.7)",
-            backdropFilter: "blur(10px)",
+            background: "rgba(14, 20, 36, 0.75)",
+            backdropFilter: "blur(12px)",
             borderRadius: "20px",
-            border: "1px solid var(--line)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
             textAlign: "center"
           }}>
             <p style={{
@@ -125,7 +118,7 @@ export function ServicesPageClient() {
             }}>
               {isEn ? "Tech Ecosystem & Standards" : "Ekosistem Teknologi & Standar"}
             </p>
-            <h2 style={{ fontSize: "22px", fontWeight: "750", marginBottom: "10px", color: "var(--ink)" }}>
+            <h2 style={{ fontSize: "22px", fontWeight: "750", marginBottom: "10px", color: "#ffffff" }}>
               {isEn ? "Built with modern, battle-tested technologies." : "Dibangun dengan teknologi modern dan teruji."}
             </h2>
             <p style={{ maxWidth: "620px", margin: "0 auto 24px", fontSize: "14px", color: "var(--muted)", lineHeight: "1.6" }}>
@@ -148,13 +141,13 @@ export function ServicesPageClient() {
                   alignItems: "center",
                   gap: "7px",
                   padding: "8px 14px",
-                  background: "white",
+                  background: "rgba(18, 27, 48, 0.7)",
                   borderRadius: "100px",
-                  border: "1px solid var(--line)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
                   fontSize: "13px",
                   fontWeight: "600",
-                  color: "var(--ink)",
-                  boxShadow: "0 1px 2px rgba(0,0,0,0.03)"
+                  color: "#ffffff",
+                  boxShadow: "0 1px 2px rgba(0,0,0,0.2)"
                 }}>
                   <span>{tech.name}</span>
                   <span style={{ fontSize: "11px", color: "var(--muted)", fontWeight: "500" }}>({tech.category})</span>

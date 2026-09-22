@@ -1,8 +1,9 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 
+import { NodeNetworkCanvas } from "../../_components/NodeNetworkCanvas";
 import { ConversionTracker } from "../../_components/ConversionTracker";
 import styles from "../../SubpageVisual.module.css";
 import { Navbar } from "../../_components/Navbar";
@@ -65,16 +66,8 @@ export function PortfolioPageClient() {
             <h1>{heading}</h1>
             <p>{lead}</p>
           </div>
-          <figure className={styles.heroVisual}>
-            <Image
-              src="/illustrations/premium/qira-portfolio-premium.webp"
-              alt={isEn ? "Collection of QIRA websites, dashboards, automation, documents, and needs discovery" : "Kumpulan website, dashboard, otomatisasi, dokumen, dan pemetaan kebutuhan QIRA"}
-              width={1672}
-              height={941}
-              quality={90}
-              priority
-              sizes="(max-width: 960px) 100vw, 48vw"
-            />
+          <figure className={styles.heroVisual} style={{ minHeight: 440 }}>
+            <NodeNetworkCanvas />
           </figure>
         </section>
 

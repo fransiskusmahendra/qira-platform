@@ -4,6 +4,7 @@ import { CARE_PLANS, PROPOSAL_PACKAGES } from "@qira/domain";
 import Image from "next/image";
 import Link from "next/link";
 
+import { PerspectiveGridCanvas } from "../../_components/PerspectiveGridCanvas";
 import { ConversionTracker } from "../../_components/ConversionTracker";
 import styles from "../../SubpageVisual.module.css";
 import { Navbar } from "../../_components/Navbar";
@@ -95,16 +96,8 @@ export function PricingPageClient() {
               <Link className="primaryButton" href="/coba-masalah">{heroCta}</Link>
             </div>
           </div>
-          <figure className={styles.heroVisual}>
-            <Image
-              src="/illustrations/premium/qira-pricing-premium.webp"
-              alt={isEn ? "Three QIRA solution tiers from starter to connected" : "Tiga tingkat solusi QIRA dari sederhana hingga terhubung"}
-              width={1672}
-              height={941}
-              quality={90}
-              priority
-              sizes="(max-width: 960px) 100vw, 48vw"
-            />
+          <figure className={styles.heroVisual} style={{ minHeight: 440 }}>
+            <PerspectiveGridCanvas />
           </figure>
         </section>
 

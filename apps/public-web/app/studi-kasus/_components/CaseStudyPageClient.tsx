@@ -1,6 +1,7 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
+import { NodeNetworkCanvas } from "../../_components/NodeNetworkCanvas";
 import { ConversionTracker } from "../../_components/ConversionTracker";
 import styles from "../../SubpageVisual.module.css";
 import { Navbar } from "../../_components/Navbar";
@@ -94,6 +95,9 @@ export function CaseStudyPageClient() {
               <Link className="primaryButton" href="/portfolio">{cta}</Link>
             </div>
           </div>
+          <figure className={styles.heroVisual} style={{ minHeight: 440 }}>
+            <NodeNetworkCanvas />
+          </figure>
         </section>
 
         <section className={`${styles.section} shell`}>

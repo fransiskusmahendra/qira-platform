@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { PrismRefractionCanvas } from "../../_components/PrismRefractionCanvas";
 import styles from "../../SubpageVisual.module.css";
 import { Navbar } from "../../_components/Navbar";
 import { Footer } from "../../_components/Footer";
@@ -47,16 +48,8 @@ export function AboutPageClient() {
               </Link>
             </div>
           </div>
-          <figure className={styles.heroVisual}>
-            <Image
-              src="/illustrations/premium/qira-about-premium.webp"
-              alt={altText}
-              width={1672}
-              height={941}
-              quality={90}
-              priority
-              sizes="(max-width: 960px) 100vw, 48vw"
-            />
+          <figure className={styles.heroVisual} style={{ minHeight: 440 }}>
+            <PrismRefractionCanvas />
           </figure>
         </section>
 
