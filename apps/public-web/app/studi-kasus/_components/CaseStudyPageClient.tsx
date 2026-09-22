@@ -69,12 +69,12 @@ export function CaseStudyPageClient() {
 
   const cases = isEn ? CASES_EN : CASES_ID;
 
-  const eyebrow = isEn ? "Case Studies" : "Studi kasus";
-  const heading = isEn ? "Real problems solved cleanly." : "Lihat masalah yang benar-benar dipecahkan.";
+  const eyebrow = isEn ? "Case Studies" : "Studi Kasus";
+  const heading = isEn ? "Real bottlenecks. Measurable outcomes." : "Masalah nyata. Hasil terukur.";
   const lead = isEn
-    ? "No inflated claims. Just real operational bottlenecks, our solution, and verified outcomes."
-    : "Tanpa angka yang dibuat-buat. Hanya masalah, solusi, dan hasil alur yang bisa diperiksa dari produk yang sudah dibangun.";
-  const cta = isEn ? "See app portfolio →" : "Lihat tampilan aplikasinya →";
+    ? "No inflated claims. Just operational friction transformed into streamlined, automated software."
+    : "Tanpa klaim berlebihan. Hanya kendala operasional yang diselesaikan menjadi sistem software yang rapi dan terukur.";
+  const cta = isEn ? "See portfolio →" : "Lihat portofolio →";
 
   const problemLabel = isEn ? "Bottleneck:" : "Masalah:";
   const solutionLabel = isEn ? "Solution:" : "Solusi:";

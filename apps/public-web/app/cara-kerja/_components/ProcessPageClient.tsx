@@ -33,11 +33,11 @@ export function ProcessPageClient() {
   const { locale } = useLanguage();
   const isEn = locale === "en";
 
-  const eyebrow = isEn ? "How QIRA Works" : "Cara kerja QIRA";
-  const heading = isEn ? "Crystal clear before anything is built." : "Jelas sebelum dibangun.";
+  const eyebrow = isEn ? "Methodology" : "Metodologi";
+  const heading = isEn ? "A structured path from problem to production." : "Alur terstruktur dari masalah ke solusi siap pakai.";
   const lead = isEn
-    ? "Technology should eliminate confusion — starting with the way it is built."
-    : "Teknologi seharusnya mengurangi kebingungan, termasuk saat proses pembuatannya.";
+    ? "Direct, transparent, and iterative. We turn operational friction into dependable systems in clear steps."
+    : "Transparan, langsung, dan terukur. Kami merapikan alur kerja manual menjadi sistem andal melalui tahapan yang jelas.";
   const ctaText = isEn ? "Start with your challenge" : "Mulai dari masalah";
   const steps = isEn ? STEPS_EN : STEPS_ID;
 

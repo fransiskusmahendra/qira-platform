@@ -38,20 +38,20 @@ export function PortfolioPageClient() {
 
   const items = isEn ? ITEMS_EN : ITEMS_ID;
 
-  const eyebrow = isEn ? "Products & Work" : "Produk & karya";
-  const heading = isEn ? "See what we've built." : "Lihat solusi yang sudah dibangun.";
+  const eyebrow = isEn ? "Portfolio" : "Portofolio";
+  const heading = isEn ? "Proven software in production." : "Software terbukti di lapangan.";
   const lead = isEn
-    ? "Internal QIRA tools, verified real-world deployments, and interactive demos you can test."
-    : "Produk internal QIRA, penerapan nyata yang aman ditampilkan, dan demo publik yang dapat dicoba.";
+    ? "Internal systems, verified deployments, and interactive demos you can explore."
+    : "Sistem internal, implementasi nyata, dan demo interaktif yang dapat Anda coba langsung.";
 
   const principles = isEn ? [
-    "Interactive demos available",
-    "Public previews ready",
-    "Client data strictly protected"
+    "Interactive Demos Ready",
+    "Production Systems",
+    "Client Data Protected"
   ] : [
-    "Produk internal dapat dicoba",
-    "Demo publik tersedia",
-    "Data klien tidak dipublikasikan tanpa izin"
+    "Demo Interaktif Siap Pakai",
+    "Sistem Teruji Lapangan",
+    "Kerahasiaan Data Terjamin"
   ];
 
   return (

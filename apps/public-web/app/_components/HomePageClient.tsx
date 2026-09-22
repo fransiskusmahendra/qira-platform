@@ -58,8 +58,8 @@ export function HomePageClient() {
 
             <p className={styles.heroSubCentered}>
               {isEn
-                ? "QIRA designs, builds, and connects practical digital systems — so your team can focus on scaling, not manual firefighting."
-                : "QIRA merancang, membangun, dan menghubungkan solusi digital praktis — agar tim Anda fokus bertumbuh, bukan terjebak kendala manual."}
+                ? "We design, build, and connect practical software systems that eliminate manual bottlenecks and scale with your operations."
+                : "Kami merancang, membangun, dan menghubungkan sistem software praktis yang memangkas kendala manual dan siap bertumbuh bersama bisnis Anda."}
             </p>
 
             <div className={styles.heroActionsCentered}>
@@ -81,17 +81,17 @@ export function HomePageClient() {
             <div className={styles.metricPillBar}>
               <div className={styles.metricPillItem}>
                 <span>⚡</span>
-                <span>{isEn ? "Workflow Efficiency:" : "Efisiensi Alur:"}</span>
-                <strong>+84.2%</strong>
+                <span>{isEn ? "Workflow Speed:" : "Kecepatan Alur:"}</span>
+                <strong>+84%</strong>
               </div>
               <div className={styles.metricPillItem}>
                 <span>🛡️</span>
-                <span>{isEn ? "Stock Accuracy:" : "Akurasi Stok:"}</span>
-                <strong>100% Real-Time</strong>
+                <span>{isEn ? "Stock Mismatch:" : "Selisih Stok:"}</span>
+                <strong>0% Error</strong>
               </div>
               <div className={styles.metricPillItem}>
                 <span>⏱️</span>
-                <span>{isEn ? "Invoice Time:" : "Waktu Invoice:"}</span>
+                <span>{isEn ? "Automated Invoice:" : "Invoice Otomatis:"}</span>
                 <strong>&lt; 10s</strong>
               </div>
             </div>

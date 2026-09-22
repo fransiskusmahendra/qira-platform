@@ -53,11 +53,11 @@ export function ServicesPageClient() {
   const services = isEn ? SERVICES_EN : SERVICES_ID;
   const techStack = isEn ? TECH_STACK_EN : TECH_STACK_ID;
 
-  const eyebrow = isEn ? "QIRA Services" : "Layanan QIRA";
-  const heading = isEn ? "Pick a solution based on the problem you want solved." : "Pilih solusi dari masalah yang ingin dirapikan.";
+  const eyebrow = isEn ? "Solutions" : "Solusi";
+  const heading = isEn ? "Practical systems built for real operations." : "Sistem praktis untuk operasional nyata.";
   const lead = isEn
-    ? "No need for bloated software. We build simple, targeted digital tools tailored to your business today."
-    : "Tidak perlu memulai dari sistem besar. QIRA membantu memilih solusi yang paling berguna untuk kondisi usaha saat ini.";
+    ? "No bloated software. We build focused digital tools engineered to eliminate your bottlenecks today."
+    : "Bebas software rumit. Kami membangun sistem terarah yang menyelesaikan kendala operasional Anda.";
   const cta = isEn ? "Tell us what you need" : "Ceritakan kebutuhan";
 
   const closingKicker = isEn ? "Unsure where to start?" : "Belum tahu pilih yang mana?";

@@ -71,11 +71,11 @@ export function PricingPageClient() {
 
   const lowestPrice = PROPOSAL_PACKAGES[0]?.introductoryPriceIdr ?? 0;
 
-  const eyebrow = isEn ? "Pricing & Plans" : "Harga & Paket";
-  const heading = isEn ? "Fair pricing. Zero hidden fees." : "Investasi masuk akal. Tanpa biaya tersembunyi.";
+  const eyebrow = isEn ? "Pricing" : "Investasi";
+  const heading = isEn ? "Clear pricing. No recurring lock-in." : "Investasi jelas. Bebas biaya langganan.";
   const lead = isEn
-    ? `Starting from ${rupiah.format(lowestPrice)} (~$100). You get a standalone, ready-to-use digital system without bloated monthly subscriptions.`
-    : `Mulai dari ${rupiah.format(lowestPrice)}. Anda mendapatkan sistem yang siap pakai, mandiri, dan bebas biaya langganan bulanan yang membengkak.`;
+    ? `Starting from ${rupiah.format(lowestPrice)} (~$100). Own your systems outright without bloated recurring fees. Direct support included.`
+    : `Mulai dari ${rupiah.format(lowestPrice)}. Miliki sistem mandiri tanpa langganan bulanan yang membengkak. Sudah termasuk garansi dan pendampingan.`;
   const heroCta = isEn ? "Help me choose a plan" : "Bantu pilih paket";
 
   const audienceFit = isEn ? AUDIENCE_FIT_EN : AUDIENCE_FIT_ID;
@@ -134,10 +134,11 @@ export function PricingPageClient() {
                       marginTop: "16px",
                       padding: "12px 14px",
                       borderRadius: "12px",
-                      background: featured ? "rgba(255,255,255,0.1)" : "#f0f6ff",
+                      background: featured ? "rgba(255,255,255,0.08)" : "rgba(23, 105, 255, 0.12)",
+                      border: featured ? "1px solid rgba(255,255,255,0.15)" : "1px solid rgba(23, 105, 255, 0.25)",
                       fontSize: "12.5px",
                       lineHeight: "1.5",
-                      color: featured ? "#dceaff" : "var(--blue)",
+                      color: featured ? "#dceaff" : "#93c5fd",
                       fontWeight: "600"
                     }}>
                       💡 {fitText}

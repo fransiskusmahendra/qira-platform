@@ -15,10 +15,10 @@ export function AboutPageClient() {
 
   const isEn = locale === "en";
   const title = isEn ? "About QIRA" : "Tentang QIRA";
-  const heading = isEn ? "Technology rooted in real business needs." : "Teknologi yang dimulai dari kebutuhan nyata.";
+  const heading = isEn ? "Software crafted around real business needs." : "Software yang dirancang dari kebutuhan nyata.";
   const lead = isEn
-    ? "QIRA analyzes your daily operations, identifies priorities, and builds digital solutions that actually make a difference."
-    : "QIRA memahami proses usaha, menentukan prioritas, lalu membangun solusi digital yang benar-benar diperlukan.";
+    ? "We believe the best tools are simple, focused, and built to solve actual day-to-day friction."
+    : "Kami percaya software terbaik adalah yang simpel, fokus, dan benar-benar menyelesaikan gesekan operasional sehari-hari.";
   const ctaText = isEn ? "Tell us your challenge" : "Ceritakan masalah usaha";
   const altText = isEn
     ? "Business owner and consultant structuring simple digital workflows"
