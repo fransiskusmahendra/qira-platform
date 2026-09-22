@@ -43,14 +43,6 @@ export function HomePageClient() {
           </div>
 
           <div className={`shell ${styles.heroCenteredContent}`}>
-            {/* Frosted Pill Badge with glowing dot */}
-            <div className={styles.heroPillBadge}>
-              <span className={styles.liveDot} />
-              <span>
-                {isEn ? "DIGITAL SOLUTIONS FOR MODERN BUSINESS" : "SOLUSI DIGITAL UNTUK BISNIS MODERN"}
-              </span>
-            </div>
-
             <h1 className={styles.heroTitleCentered}>
               <span>{isEn ? "Turn Business Needs." : "Ubah Kebutuhan Bisnis."}</span>
               <span>{isEn ? "Into Digital Solutions." : "Menjadi Solusi Digital."}</span>
@@ -75,25 +67,6 @@ export function HomePageClient() {
               <Link href="#solutions" className={styles.secondaryButtonPill}>
                 {isEn ? "Explore Solutions" : "Jelajahi Solusi"}
               </Link>
-            </div>
-
-            {/* Floating Metric Indicator Strip */}
-            <div className={styles.metricPillBar}>
-              <div className={styles.metricPillItem}>
-                <span>⚡</span>
-                <span>{isEn ? "Workflow Speed:" : "Kecepatan Alur:"}</span>
-                <strong>+84%</strong>
-              </div>
-              <div className={styles.metricPillItem}>
-                <span>🛡️</span>
-                <span>{isEn ? "Stock Mismatch:" : "Selisih Stok:"}</span>
-                <strong>0% Error</strong>
-              </div>
-              <div className={styles.metricPillItem}>
-                <span>⏱️</span>
-                <span>{isEn ? "Automated Invoice:" : "Invoice Otomatis:"}</span>
-                <strong>&lt; 10s</strong>
-              </div>
             </div>
           </div>
         </section>
