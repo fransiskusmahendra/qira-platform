@@ -41,7 +41,7 @@ function drawLines(page: PDFPage, lines: string[], font: PDFFont, size: number, 
 export async function buildProposalPdf(input: ProposalPdfInput) {
   const pdf = await PDFDocument.create();
   pdf.setTitle(`${input.proposalNumber} - ${input.clientName}`);
-  pdf.setAuthor("QIRA - PT Rays Solusi Informasi");
+  pdf.setAuthor("QIRA — Digital Solutions for Modern Business");
   pdf.setSubject("Penawaran QIRA");
   const regular = await pdf.embedFont(StandardFonts.Helvetica);
   const bold = await pdf.embedFont(StandardFonts.HelveticaBold);

@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { HomePageClient } from "./_components/HomePageClient";
 
 export const metadata: Metadata = {
-  title: "QIRA - Solusi Digital Sederhana | Simple Digital Solutions",
-  description: "QIRA membuat website, form, dashboard, dan otomatisasi agar usaha lebih mudah ditemukan dan dijalankan. Simple digital solutions for business.",
+  title: "QIRA — Digital Solutions for Modern Business",
+  description: "QIRA designs, builds and connects practical digital solutions for modern businesses. Turn business needs into digital solutions.",
   alternates: {
-    canonical: "/",
+    canonical: "https://qirasolution.com",
     languages: {
       "id-ID": "/",
       "en-US": "/",
@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "QIRA - Solusi Digital Sederhana",
-    description: "QIRA membuat website, form, dashboard, dan otomatisasi agar usaha lebih mudah ditemukan dan dijalankan.",
-    url: "/",
+    title: "QIRA — Digital Solutions for Modern Business",
+    description: "QIRA designs, builds and connects practical digital solutions for modern businesses. Turn business needs into digital solutions.",
+    url: "https://qirasolution.com",
     type: "website",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "QIRA — Digital Solutions for Modern Business" }],
   },
 };
 

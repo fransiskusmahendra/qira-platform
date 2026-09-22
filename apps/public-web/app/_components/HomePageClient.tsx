@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
@@ -40,6 +41,8 @@ export function HomePageClient() {
                   <span className={styles.flowArrow}>→</span>
                   <span>{isEn ? "Digital Solution" : "Solusi Digital"}</span>
                   <span className={styles.flowArrow}>→</span>
+                  <span>{isEn ? "Connect" : "Hubungkan"}</span>
+                  <span className={styles.flowArrow}>→</span>
                   <span className={styles.flowGrowth}>{isEn ? "Growth" : "Pertumbuhan"}</span>
                 </div>
 
@@ -49,52 +52,52 @@ export function HomePageClient() {
 
                 <p className={styles.heroSub}>
                   {isEn
-                    ? "QIRA designs, builds, and connects practical digital solutions that make business simpler."
-                    : "QIRA merancang, membangun, dan menghubungkan solusi digital praktis yang mempermudah operasional bisnis."}
+                    ? "QIRA designs, builds and connects practical digital solutions for modern businesses."
+                    : "QIRA merancang, membangun, dan menghubungkan solusi digital praktis untuk bisnis modern."}
                 </p>
 
                 <div className={styles.heroActions}>
-                  <Link href="#solutions" className="primaryButton">
-                    {isEn ? "Explore Solutions" : "Jelajahi Solusi"}
-                  </Link>
                   <a
                     href="https://wa.me/628211076517?text=Halo%20QIRA,%20saya%20ingin%20konsultasi%20solusi%20digital%20bisnis."
                     target="_blank"
                     rel="noreferrer"
-                    className={styles.secondaryButton}
+                    className="primaryButton"
                   >
                     {isEn ? "Start a Project →" : "Mulai Proyek →"}
                   </a>
+                  <Link href="#solutions" className={styles.secondaryButton}>
+                    {isEn ? "Explore Solutions" : "Jelajahi Solusi"}
+                  </Link>
                 </div>
               </div>
 
-              {/* Product-led hero visual */}
+              {/* Product-led hero visual: structured dashboard preview */}
               <div className={styles.heroMockup}>
                 <div className={styles.mockupHeader}>
                   <div className={styles.mockupTitle}>
                     <span className={styles.liveDot} />
-                    <span>{isEn ? "QIRA Business Command Platform" : "Pusat Kendali Operasional QIRA"}</span>
+                    <span>{isEn ? "QIRA Operations Command Platform" : "Pusat Kendali Operasional QIRA"}</span>
                   </div>
                   <span className={styles.mockupBadge}>v2.4 STABLE</span>
                 </div>
 
                 <div className={styles.mockupStats}>
                   <div className={styles.statBox}>
-                    <small>{isEn ? "Active Solutions" : "Solusi Berjalan"}</small>
+                    <small>{isEn ? "Active Systems" : "Sistem Aktif"}</small>
                     <strong>12 Systems</strong>
                     <span style={{ color: "#10b981", fontSize: 11 }}>● {isEn ? "100% Operational" : "100% Operasional"}</span>
                   </div>
                   <div className={styles.statBox}>
                     <small>{isEn ? "Process Efficiency" : "Efisiensi Proses"}</small>
                     <strong>+84.2%</strong>
-                    <span style={{ color: "#0ea5e9", fontSize: 11 }}>{isEn ? "Manual work eliminated" : "Waktu manual dihemat"}</span>
+                    <span style={{ color: "#0284c7", fontSize: 11 }}>{isEn ? "Manual work eliminated" : "Waktu manual dihemat"}</span>
                   </div>
                 </div>
 
                 <div className={styles.flowTrackMini}>
                   <div className={styles.trackNode}>
                     <div className={styles.trackDot}>1</div>
-                    <span>{isEn ? "Input Need" : "Input Masalah"}</span>
+                    <span>{isEn ? "Need" : "Masalah"}</span>
                   </div>
                   <span className={styles.trackLine}>──────</span>
                   <div className={styles.trackNode}>
@@ -103,8 +106,13 @@ export function HomePageClient() {
                   </div>
                   <span className={styles.trackLine}>──────</span>
                   <div className={styles.trackNode}>
-                    <div className={`${styles.trackDot} ${styles.trackDotDone}`}>3</div>
-                    <span>{isEn ? "Active Growth" : "Pertumbuhan"}</span>
+                    <div className={`${styles.trackDot} ${styles.trackDotConnect}`}>3</div>
+                    <span>{isEn ? "Connected" : "Terhubung"}</span>
+                  </div>
+                  <span className={styles.trackLine}>──────</span>
+                  <div className={styles.trackNode}>
+                    <div className={`${styles.trackDot} ${styles.trackDotDone}`}>4</div>
+                    <span>{isEn ? "Growth" : "Pertumbuhan"}</span>
                   </div>
                 </div>
               </div>
@@ -113,74 +121,74 @@ export function HomePageClient() {
         </section>
 
         {/* =========================================================================
-            SECTION 02: HOW WE HELP (01 BUILD • 02 CONNECT • 03 GROW)
+            SECTION 02: WHAT WE DO (DIGITAL FOUNDATION • GROWTH ENGINE • CONNECTED GROWTH)
             ========================================================================= */}
         <section className={styles.sectionPadding} id="solutions">
           <div className="shell">
             <div className={styles.sectionHeader}>
-              <p className="kicker">{isEn ? "HOW WE HELP" : "BAGAIMANA KAMI MEMBANTU"}</p>
+              <p className="kicker">{isEn ? "WHAT WE DO" : "APA YANG KAMI LAKUKAN"}</p>
               <h2 className={styles.sectionHeading}>
                 {isEn ? "From business challenges to practical digital solutions." : "Dari tantangan bisnis menjadi solusi digital yang praktis."}
               </h2>
               <p className={styles.sectionLead}>
                 {isEn
-                  ? "We do not offer generic agency packages. We engineer digital foundations, connect workflows, and scale operations."
-                  : "Kami tidak menjual template generik. Kami merancang pondasi sistem digital, menghubungkan alur kerja, dan melipatgandakan efisiensi tim."}
+                  ? "We focus on solving business problems through clean software architecture, connected workflows, and operational clarity."
+                  : "Kami berfokus memecahkan masalah bisnis melalui arsitektur software yang bersih, alur kerja terhubung, dan kejelasan operasional."}
               </p>
             </div>
 
             <div className={styles.helpGrid}>
-              {/* 01 — BUILD */}
+              {/* Category 1: Digital Foundation */}
               <div className={styles.helpCard}>
                 <div>
-                  <div className={styles.cardNum}>01 — BUILD</div>
-                  <h3>{isEn ? "Digital Foundations" : "Pondasi Digital"}</h3>
+                  <div className={styles.cardNum}>01 — FOUNDATION</div>
+                  <h3>{isEn ? "Digital Foundation" : "Pondasi Digital"}</h3>
                   <p>
                     {isEn
-                      ? "Custom web applications, dedicated operational tools, and tailored business systems engineered for reliability and usability."
-                      : "Aplikasi web khusus, perangkat operasional internal, dan sistem bisnis yang andal, cepat, dan mudah diadopsi oleh tim."}
+                      ? "Websites, internal tools, digital forms, dashboards, and operational systems engineered for reliability and day-to-day usability."
+                      : "Website usaha, perangkat internal, formulir digital, dashboard, dan sistem operasional yang andal, cepat, serta mudah digunakan."}
                   </p>
                 </div>
                 <ul className={styles.featureList}>
                   <li>{isEn ? "Web applications & internal tools" : "Aplikasi web & portal operasional tim"}</li>
-                  <li>{isEn ? "Digital workflows & document automation" : "Workflow digital & otomasi dokumen"}</li>
-                  <li>{isEn ? "Integrated business systems" : "Sistem manajemen bisnis terintegrasi"}</li>
+                  <li>{isEn ? "Structured digital forms & data intake" : "Formulir digital & pengumpulan data terstruktur"}</li>
+                  <li>{isEn ? "Operational dashboards & management visibility" : "Dashboard operasional & visibilitas manajemen"}</li>
                 </ul>
               </div>
 
-              {/* 02 — CONNECT */}
+              {/* Category 2: Growth Engine */}
               <div className={styles.helpCard}>
                 <div>
-                  <div className={styles.cardNum}>02 — CONNECT</div>
-                  <h3>{isEn ? "Systems & Partnerships" : "Integrasi Sistem & Kemitraan"}</h3>
+                  <div className={styles.cardNum}>02 — GROWTH ENGINE</div>
+                  <h3>{isEn ? "Growth Engine" : "Mesin Pertumbuhan"}</h3>
                   <p>
                     {isEn
-                      ? "Eliminate data silos. Seamlessly connect your disparate tools, APIs, accounting software, and external business partners."
-                      : "Hilangkan isolasi data antar software. Hubungkan aplikasi internal, API pihak ketiga, pembukuan, dan mitra B2B Anda."}
+                      ? "Digital workflows, automated notifications, customer-facing portals, and process improvements that eliminate bottlenecks."
+                      : "Workflow digital, notifikasi otomatis, portal pelanggan, dan penyempurnaan alur proses yang menghilangkan hambatan kerja."}
                   </p>
                 </div>
                 <ul className={styles.featureList}>
-                  <li>{isEn ? "API development & data sync" : "Pengembangan API & sinkronisasi data"}</li>
-                  <li>{isEn ? "Connected B2B / B2B2C pipelines" : "Pipeline B2B / B2B2C terhubung"}</li>
-                  <li>{isEn ? "Cross-platform workflow automation" : "Otomasi alur kerja lintas platform"}</li>
+                  <li>{isEn ? "Automated customer communication" : "Komunikasi & respon pelanggan otomatis"}</li>
+                  <li>{isEn ? "Transaction processing & receipt generation" : "Pemrosesan transaksi & pembuatan struk instan"}</li>
+                  <li>{isEn ? "Document & approval workflows" : "Alur persetujuan & otomasi dokumen"}</li>
                 </ul>
               </div>
 
-              {/* 03 — GROW */}
+              {/* Category 3: Connected Growth */}
               <div className={styles.helpCard}>
                 <div>
-                  <div className={styles.cardNum}>03 — GROW</div>
-                  <h3>{isEn ? "Digital Growth" : "Pertumbuhan Digital"}</h3>
+                  <div className={styles.cardNum}>03 — CONNECTED GROWTH</div>
+                  <h3>{isEn ? "Connected Growth" : "Pertumbuhan Terhubung"}</h3>
                   <p>
                     {isEn
-                      ? "Automated customer journeys, intelligent business dashboards, and scalable operations that multiply team productivity."
-                      : "Otomasi perjalanan pelanggan, dashboard analitik eksekutif, dan efisiensi operasional yang memacu akselerasi profit bisnis."}
+                      ? "Integrations, synchronized tools, API bridges, and unified data pipelines that make entire operations work seamlessly together."
+                      : "Integrasi sistem, sinkronisasi data antar software, jembatan API, dan pipeline data terpadu agar seluruh operasional berjalan selaras."}
                   </p>
                 </div>
                 <ul className={styles.featureList}>
-                  <li>{isEn ? "Intelligent automation & reporting" : "Otomasi cerdas & pelaporan rutin"}</li>
-                  <li>{isEn ? "Executive KPI command centers" : "Command center KPI untuk pemilik"}</li>
-                  <li>{isEn ? "Optimized conversion journeys" : "Optimasi konversi pelanggan"}</li>
+                  <li>{isEn ? "Cross-platform data synchronization" : "Sinkronisasi data lintas platform"}</li>
+                  <li>{isEn ? "API integrations & accounting connections" : "Integrasi API & koneksi pembukuan"}</li>
+                  <li>{isEn ? "Unified multi-channel operational flows" : "Alur operasional multi-channel terpadu"}</li>
                 </ul>
               </div>
             </div>
@@ -188,7 +196,7 @@ export function HomePageClient() {
         </section>
 
         {/* =========================================================================
-            SECTION 03: PRODUCTS / SOLUTIONS (BUILT BY QIRA)
+            SECTION 03: BUILT BY QIRA (PRODUCT-LED)
             ========================================================================= */}
         <section className={styles.sectionPadding} id="products">
           <div className="shell">
@@ -199,8 +207,8 @@ export function HomePageClient() {
               </h2>
               <p className={styles.sectionLead}>
                 {isEn
-                  ? "Practical, proven solutions built and deployed for real operational challenges."
-                  : "Solusi terbukti yang dibangun dan diimplementasikan langsung untuk mengatasi kendala lapangan."}
+                  ? "Practical, proven products and systems built and deployed for real operational challenges."
+                  : "Produk dan sistem terbukti yang dibangun dan diimplementasikan langsung untuk mengatasi kendala lapangan."}
               </p>
             </div>
 
@@ -213,7 +221,7 @@ export function HomePageClient() {
                   <p>
                     {isEn
                       ? "Digital invoicing made simple. Generate professional invoices, automate client reminders via WhatsApp, and track payment receipts in real time."
-                      : "Faktur digital yang ringkas dan otomatis. Buat tagihan profesional, kirim pengingat WhatsApp otomatis, dan pantau status pelunasan seketika."}
+                      : "Penerbitan faktur digital yang ringkas dan otomatis. Buat tagihan profesional, kirim pengingat WhatsApp otomatis, dan pantau status pelunasan seketika."}
                   </p>
 
                   <div className={styles.flowPills}>
@@ -325,57 +333,45 @@ export function HomePageClient() {
         <section className={`${styles.sectionPadding} ${styles.flowSection}`} id="qira-flow">
           <div className="shell">
             <div className={styles.sectionHeader} style={{ textAlign: "center", margin: "0 auto 50px" }}>
-              <p className="kicker">{isEn ? "QIRA FLOW" : "QIRA FLOW"}</p>
-              <h2 className={styles.sectionHeading}>{isEn ? "FROM NEED TO SOLUTION" : "DARI KEBUTUHAN MENJADI SOLUSI"}</h2>
+              <p className="kicker">{isEn ? "SIGNATURE PROCESS" : "PROSES SIGNATURE"}</p>
+              <h2 className={styles.sectionHeading}>{isEn ? "FROM BUSINESS NEED TO DIGITAL SOLUTION." : "DARI KEBUTUHAN BISNIS MENJADI SOLUSI DIGITAL."}</h2>
               <p className={styles.sectionLead} style={{ margin: "0 auto" }}>
                 {isEn
-                  ? "A disciplined, end-to-end pathway that turns business complexity into measurable results."
-                  : "Tahapan terstruktur dan elegan yang mengubah kerumitan bisnis menjadi hasil nyata yang terukur."}
+                  ? "A disciplined, transparent progression that turns operational bottlenecks into structured digital systems."
+                  : "Jalur tahapan terstruktur yang mengubah hambatan operasional menjadi sistem digital yang rapi dan terukur."}
               </p>
             </div>
 
             <div className={styles.flowTimeline}>
               <div className={styles.flowStep}>
                 <div className={styles.stepCircle}>01</div>
-                <strong>{isEn ? "Business Need" : "Kebutuhan Bisnis"}</strong>
-                <small>{isEn ? "Operational bottleneck or opportunity identified." : "Identifikasi kendala atau peluang digital."}</small>
+                <strong>{isEn ? "Discover" : "Discover"}</strong>
+                <small>{isEn ? "Understand the business problem." : "Memahami masalah & alur operasional bisnis."}</small>
               </div>
 
               <div className={styles.flowStep}>
                 <div className={styles.stepCircle}>02</div>
-                <strong>{isEn ? "Understand" : "Pemahaman"}</strong>
-                <small>{isEn ? "Deep assessment of workflows & constraints." : "Analisis mendalam alur proses & kendala."}</small>
+                <strong>{isEn ? "Design" : "Design"}</strong>
+                <small>{isEn ? "Turn the problem into a practical solution." : "Merancang solusi praktis & arsitektur UX."}</small>
               </div>
 
               <div className={styles.flowStep}>
                 <div className={styles.stepCircle}>03</div>
-                <strong>{isEn ? "Design" : "Perancangan"}</strong>
-                <small>{isEn ? "Intuitive UX architecture with zero clutter." : "Arsitektur UX bersih tanpa kerumitan."}</small>
+                <strong>{isEn ? "Build" : "Build"}</strong>
+                <small>{isEn ? "Develop the required digital system." : "Membangun software & modul yang dibutuhkan."}</small>
               </div>
 
               <div className={styles.flowStep}>
                 <div className={styles.stepCircle}>04</div>
-                <strong>{isEn ? "Build" : "Pembangunan"}</strong>
-                <small>{isEn ? "Modular, secure, high-performance software." : "Software modular, cepat, dan teruji."}</small>
-              </div>
-
-              <div className={styles.flowStep}>
-                <div className={styles.stepCircle}>05</div>
-                <strong>{isEn ? "Connect" : "Penghubungan"}</strong>
-                <small>{isEn ? "Data synchronization across business tools." : "Integrasi data mulus antar software."}</small>
-              </div>
-
-              <div className={styles.flowStep}>
-                <div className={styles.stepCircle}>06</div>
-                <strong>{isEn ? "Growth" : "Pertumbuhan"}</strong>
-                <small>{isEn ? "Scalable operations, reduced costs, clarity." : "Operasional terskala, biaya terpangkas."}</small>
+                <strong>{isEn ? "Improve" : "Improve"}</strong>
+                <small>{isEn ? "Iterate, connect and optimize." : "Iterasi berkelanjutan, integrasi & optimasi."}</small>
               </div>
             </div>
           </div>
         </section>
 
         {/* =========================================================================
-            SECTION 05: CASE STUDIES & BEFORE ↔ AFTER INTERACTIVE SLIDER
+            SECTION 05: CASE STUDIES (FROM COMPLEXITY TO SIMPLICITY)
             ========================================================================= */}
         <section className={styles.sectionPadding} id="case-studies">
           <div className="shell">
@@ -385,11 +381,11 @@ export function HomePageClient() {
               <p className={styles.sectionLead}>
                 {isEn
                   ? "Real case studies demonstrating practical digital transformation for operational teams."
-                  : "Studi kasus nyata implementasi transformasi digital praktis pada operasional klien."}
+                  : "Studi kasus nyata implementasi transformasi digital praktis pada operasional tim."}
               </p>
             </div>
 
-            {/* Case 1: Maduratna Retail POS */}
+            {/* Case 1: Maduratna Retail POS with interactive Before/After Slider */}
             <div className={styles.caseCard}>
               <div className={styles.caseHead}>
                 <div>
@@ -411,6 +407,22 @@ export function HomePageClient() {
                     <small>{isEn ? "Reconciliation" : "Rekap Harian"}</small>
                     <strong style={{ color: "var(--blue)" }}>Automated</strong>
                   </div>
+                </div>
+              </div>
+
+              {/* Case Study breakdown: Problem -> Solution -> Result */}
+              <div className={styles.caseBreakdown}>
+                <div className={styles.breakdownCol}>
+                  <strong className={styles.breakdownTitle}>{isEn ? "THE PROBLEM" : "MASALAH"}</strong>
+                  <p>{isEn ? "Manual paper receipts prone to calculation errors, store closed late just to recount inventory, and owner blind to daily margins." : "Nota kertas manual rawan hilang dan salah hitung, toko harus tutup telat untuk hitung fisik barang, dan pemilik kesulitan cek profit harian."}</p>
+                </div>
+                <div className={styles.breakdownCol}>
+                  <strong className={styles.breakdownTitle}>{isEn ? "THE SOLUTION" : "SOLUSI"}</strong>
+                  <p>{isEn ? "Custom lightweight web POS, real-time multi-SKU inventory deduction, and instant digital receipt via WhatsApp/print." : "Sistem kasir web ringan, pemotongan stok otomatis antar-SKU secara real-time, dan struk digital instan via WhatsApp."}</p>
+                </div>
+                <div className={styles.breakdownCol}>
+                  <strong className={styles.breakdownTitle}>{isEn ? "THE RESULT" : "HASIL"}</strong>
+                  <p>{isEn ? "Transaction speed 10x faster, zero physical stock variance, and real-time remote financial visibility for the store owner." : "Transaksi 10x lebih cepat, nol selisih stok di akhir bulan, dan pemilik dapat memantau laba harian langsung dari ponsel."}</p>
                 </div>
               </div>
 
@@ -480,114 +492,123 @@ export function HomePageClient() {
                   </div>
                 </div>
               </div>
-              <p style={{ color: "var(--muted)", fontSize: 15, lineHeight: 1.6, margin: 0 }}>
-                {isEn
-                  ? "Transformed a multi-step manual course registration and certification process into an automated sales and participant pipeline for logistics and supply chain professionals."
-                  : "Mentransformasikan proses pendaftaran pelatihan dan sertifikasi logistik & supply chain yang sebelumnya manual menjadi satu pipeline digital otomatis."}
-              </p>
+              <div className={styles.caseBreakdown}>
+                <div className={styles.breakdownCol}>
+                  <strong className={styles.breakdownTitle}>{isEn ? "THE PROBLEM" : "MASALAH"}</strong>
+                  <p>{isEn ? "Manual course registration via chat, fragmented spreadsheets, and slow payment confirmation." : "Pendaftaran kursus manual lewat pesan chat, spreadsheet terpisah, dan konfirmasi pembayaran lambat."}</p>
+                </div>
+                <div className={styles.breakdownCol}>
+                  <strong className={styles.breakdownTitle}>{isEn ? "THE SOLUTION" : "SOLUSI"}</strong>
+                  <p>{isEn ? "Integrated sales portal, automated registration intake, and automated invoice delivery in seconds." : "Portal penjualan terintegrasi, formulir registrasi otomatis, dan invoice terbit dalam hitungan detik."}</p>
+                </div>
+                <div className={styles.breakdownCol}>
+                  <strong className={styles.breakdownTitle}>{isEn ? "THE RESULT" : "HASIL"}</strong>
+                  <p>{isEn ? "100% digital participant journey, zero manual invoice typing, and transparent cohort reporting." : "100% alur peserta digital, nol pengetikan manual invoice, dan pelaporan kelas yang rapi."}</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* =========================================================================
-            SECTION 06: HOW WE WORK (4 STAGES)
+            SECTION 06: HOW WE WORK (EDITORIAL 5 STAGES)
             ========================================================================= */}
         <section className={styles.sectionPadding} id="how-we-work">
           <div className="shell">
             <div className={styles.sectionHeader}>
               <p className="kicker">{isEn ? "HOW WE WORK" : "CARA KERJA KAMI"}</p>
-              <h2 className={styles.sectionHeading}>DISCOVER → DESIGN → BUILD → IMPROVE</h2>
+              <h2 className={styles.sectionHeading}>
+                {isEn ? "A structured approach from problem to implementation." : "Pendekatan terstruktur dari masalah hingga implementasi."}
+              </h2>
               <p className={styles.sectionLead}>
                 {isEn
-                  ? "A structured approach ensuring every digital solution solves a genuine business problem without disrupting day-to-day operations."
-                  : "Pendekatan sistematis memastikan setiap solusi digital menyelesaikan masalah nyata tanpa mengganggu operasional harian."}
+                  ? "We start with operational clarity and build software that fits your actual workflow."
+                  : "Kami memulai dari kejelasan proses operasional dan membangun software yang pas dengan alur kerja nyata Anda."}
               </p>
             </div>
 
-            <div className={styles.workGrid}>
-              <div className={styles.workCard}>
-                <div className={styles.workNum}>STAGE 01</div>
-                <h3>DISCOVER</h3>
-                <p>
-                  {isEn
-                    ? "Deeply assess the current business bottlenecks, manual steps, user personas, and operational requirements."
-                    : "Memahami akar masalah bisnis, alur manual, kebutuhan pengguna, dan target operasional."}
-                </p>
+            <div className={styles.editorialWorkGrid}>
+              <div className={styles.editorialCard}>
+                <span className={styles.bigNumber}>01</span>
+                <h3>{isEn ? "Understand" : "Understand"}</h3>
+                <p>{isEn ? "We start from the business problem, manual friction, and operational constraints." : "Kami memulai dari inti masalah bisnis, hambatan manual, dan kendala operasional."}</p>
               </div>
 
-              <div className={styles.workCard}>
-                <div className={styles.workNum}>STAGE 02</div>
-                <h3>DESIGN</h3>
-                <p>
-                  {isEn
-                    ? "Turn complex requirements into clean architectures, intuitive user flows, and practical interface wireframes."
-                    : "Menerjemahkan kebutuhan menjadi arsitektur sistem, alur sederhana, dan antarmuka intuitif."}
-                </p>
+              <div className={styles.editorialCard}>
+                <span className={styles.bigNumber}>02</span>
+                <h3>{isEn ? "Structure" : "Structure"}</h3>
+                <p>{isEn ? "We define the workflow, requirements, and clean architectural solution." : "Kami merumuskan alur kerja, kebutuhan spesifik, dan arsitektur solusi yang bersih."}</p>
               </div>
 
-              <div className={styles.workCard}>
-                <div className={styles.workNum}>STAGE 03</div>
-                <h3>BUILD</h3>
-                <p>
-                  {isEn
-                    ? "Develop high-reliability software, integrate existing databases and APIs, and execute rigorous real-world testing."
-                    : "Membangun sistem yang handal, menghubungkan database & API, serta pengujian lapangan yang ketat."}
-                </p>
+              <div className={styles.editorialCard}>
+                <span className={styles.bigNumber}>03</span>
+                <h3>{isEn ? "Build" : "Build"}</h3>
+                <p>{isEn ? "We develop the required digital system with high performance and test coverage." : "Kami mengembangkan sistem digital yang dibutuhkan dengan performa tinggi dan teruji."}</p>
               </div>
 
-              <div className={styles.workCard}>
-                <div className={styles.workNum}>STAGE 04</div>
-                <h3>IMPROVE</h3>
-                <p>
-                  {isEn
-                    ? "Measure tangible business impact, provide continuous system support, and evolve features as your business scales."
-                    : "Mengukur dampak efisiensi bisnis, memberikan pendampingan berkelanjutan, dan adaptasi fitur lanjutan."}
-                </p>
+              <div className={styles.editorialCard}>
+                <span className={styles.bigNumber}>04</span>
+                <h3>{isEn ? "Connect" : "Connect"}</h3>
+                <p>{isEn ? "We integrate the solution into your existing team workflow and database." : "Kami menghubungkan solusi ke dalam alur kerja tim, database, dan alat yang sudah ada."}</p>
+              </div>
+
+              <div className={styles.editorialCard}>
+                <span className={styles.bigNumber}>05</span>
+                <h3>{isEn ? "Improve" : "Improve"}</h3>
+                <p>{isEn ? "We refine, maintain, and adapt the system based on actual everyday usage." : "Kami menyempurnakan, merawat, dan mengembangkan sistem berdasarkan pemakaian nyata."}</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* =========================================================================
-            SECTION 07: BUSINESS / INDUSTRIES
+            SECTION 07: BUILT FOR BUSINESS (PROBLEM-SOLVING CAPABILITY)
             ========================================================================= */}
-        <section className={styles.sectionPadding} id="industries">
+        <section className={styles.sectionPadding} id="built-for-business">
           <div className="shell">
             <div className={styles.sectionHeader}>
               <p className="kicker">{isEn ? "BUILT FOR BUSINESS" : "DIBANGUN UNTUK BISNIS"}</p>
               <h2 className={styles.sectionHeading}>
-                {isEn ? "Whether you're digitizing one process or connecting an entire operation." : "Baik untuk digitalisasi satu proses maupun menghubungkan seluruh operasional."}
+                {isEn ? "Designed to eliminate operational friction." : "Dirancang untuk mengatasi hambatan operasional nyata."}
               </h2>
               <p className={styles.sectionLead}>
                 {isEn
-                  ? "QIRA solutions are engineered to adapt to industry-specific operational realities."
-                  : "Solusi QIRA dirancang adaptif terhadap kebutuhan spesifik masing-masing sektor industri."}
+                  ? "We solve the everyday digital bottlenecks that slow teams down and create costly errors."
+                  : "Kami menyelesaikan hambatan proses harian yang memperlambat tim dan menimbulkan kesalahan yang merugikan."}
               </p>
             </div>
 
-            <div className={styles.indGrid}>
-              <div className={styles.indCard}>
-                <div className={styles.indIcon}>🏬</div>
-                <h3>{isEn ? "Retail & Distribution" : "Retail & Distribusi"}</h3>
-                <p>{isEn ? "Multi-SKU inventory, lightweight web POS, wholesale price tiers, and digital billing." : "Manajemen ribuan SKU, kasir cloud kilat, tiering harga grosir, dan faktur digital."}</p>
+            <div className={styles.problemsGrid}>
+              <div className={styles.problemItem}>
+                <span className={styles.problemBullet}>✕</span>
+                <div>
+                  <strong>{isEn ? "Manual Processes" : "Proses Serba Manual"}</strong>
+                  <p>{isEn ? "Repetitive copy-pasting, handwritten logs, and manual calculations." : "Salin data berulang, pencatatan manual di kertas, dan hitungan manual rawan salah."}</p>
+                </div>
               </div>
 
-              <div className={styles.indCard}>
-                <div className={styles.indIcon}>🎓</div>
-                <h3>{isEn ? "Education & Training" : "Pendidikan & Pelatihan"}</h3>
-                <p>{isEn ? "End-to-end digital sales portals, automated enrollment verification, and cohort reporting." : "Portal pendaftaran online, verifikasi pembayaran otomatis, dan rekap peserta sertifikasi."}</p>
+              <div className={styles.problemItem}>
+                <span className={styles.problemBullet}>✕</span>
+                <div>
+                  <strong>{isEn ? "Disconnected Tools" : "Aplikasi Tidak Terhubung"}</strong>
+                  <p>{isEn ? "Data trapped in isolated spreadsheets, WhatsApp chats, and paper files." : "Data terisolasi di spreadsheet terpisah, chat WhatsApp tercecer, dan berkas fisik."}</p>
+                </div>
               </div>
 
-              <div className={styles.indCard}>
-                <div className={styles.indIcon}>🛡️</div>
-                <h3>{isEn ? "Insurance & Services" : "Asuransi & Jasa"}</h3>
-                <p>{isEn ? "Structured claims processing, operational ticket workflows, and customer self-service portals." : "Pengajuan klaim terstruktur, manajemen tiket operasional, dan portal layanan mandiri."}</p>
+              <div className={styles.problemItem}>
+                <span className={styles.problemBullet}>✕</span>
+                <div>
+                  <strong>{isEn ? "Difficult Reporting" : "Pelaporan Lambat & Sulit"}</strong>
+                  <p>{isEn ? "Owners waiting days or weeks just to know actual monthly revenue and stock." : "Pemilik harus menunggu berhari-hari untuk mengetahui omset riil dan sisa stok."}</p>
+                </div>
               </div>
 
-              <div className={styles.indCard}>
-                <div className={styles.indIcon}>🏢</div>
-                <h3>{isEn ? "Growing Enterprises & SMEs" : "UMKM & Korporasi Bertumbuh"}</h3>
-                <p>{isEn ? "Unified operational dashboards, cross-department data sync, and automated internal workflows." : "Dashboard kendali operasional terpadu, sinkronisasi data lintas divisi, dan otomasi alur kerja."}</p>
+              <div className={styles.problemItem}>
+                <span className={styles.problemBullet}>✕</span>
+                <div>
+                  <strong>{isEn ? "Inefficient Customer Journeys" : "Alur Pelanggan Kurang Rapi"}</strong>
+                  <p>{isEn ? "Slow invoice generation, delayed payment confirmations, and lost sales leads." : "Penerbitan invoice lambat, konfirmasi transfer tertunda, dan calon pembeli terlewat."}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -602,25 +623,28 @@ export function HomePageClient() {
               <div>
                 <p className="kicker">{isEn ? "ABOUT QIRA" : "TENTANG QIRA"}</p>
                 <div className={styles.aboutQuote}>
-                  {isEn ? "\"Technology is only useful when it solves a real problem.\"" : "\"Teknologi hanya bernilai ketika memecahkan masalah yang nyata.\""}
+                  {isEn ? "DIGITAL SHOULD MAKE BUSINESS SIMPLER." : "DIGITAL HARUS MEMBUAT BISNIS LEBIH SEDERHANA."}
                 </div>
                 <p className={styles.aboutBody}>
                   {isEn
-                    ? "QIRA works alongside businesses to design, build, and connect practical digital solutions. We focus on pragmatic digital engineering that cuts manual friction and powers measurable business growth."
-                    : "QIRA bermitra dengan pelaku usaha untuk merancang, membangun, dan menghubungkan solusi digital yang praktis. Kami fokus pada rekayasa digital terukur yang memangkas beban kerja manual dan mendorong pertumbuhan bisnis nyata."}
+                    ? "QIRA works with businesses to design, build, and connect practical digital solutions. We focus on pragmatic digital engineering that cuts manual friction and powers structured business growth."
+                    : "QIRA bermitra dengan pelaku usaha untuk merancang, membangun, dan menghubungkan solusi digital yang praktis. Kami berfokus pada rekayasa sistem yang memangkas beban kerja manual dan mendorong pertumbuhan bisnis yang terstruktur."}
                 </p>
-                <a href="https://wa.me/628211076517" target="_blank" rel="noreferrer" className={styles.aboutLink}>
-                  {isEn ? "About QIRA →" : "Tentang QIRA →"}
-                </a>
+                <div className={styles.legalNotice}>
+                  <strong>{isEn ? "Business & Operational Status:" : "Status Operasional & Legal:"}</strong>
+                  <p>
+                    QIRA diposisikan sementara sebagai penyedia solusi digital independen dan sedang dalam proses pembentukan badan usaha CV Qira Solusi Digital.
+                  </p>
+                </div>
               </div>
 
               <div className={styles.aboutMeta}>
-                <strong>QIRA Automation & System Solution</strong>
-                <span>A Business Unit of PT. Rays Solusi Informasi</span>
-                <div style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.6 }}>
-                  Grand Slipi Tower 16th Floor<br />
-                  Jakarta Barat, DKI Jakarta<br />
-                  hello@myqira.io • +62 821-1076-517
+                <strong>QIRA — Digital Solutions</strong>
+                <span>Jakarta, Indonesia</span>
+                <div style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.6, marginTop: 12 }}>
+                  WhatsApp: +62 821-1076-517<br />
+                  Email: hello@qirasolution.com<br />
+                  Website: www.qirasolution.com
                 </div>
               </div>
             </div>
@@ -628,12 +652,69 @@ export function HomePageClient() {
         </section>
 
         {/* =========================================================================
-            SECTION 09: FINAL CTA
+            SECTION 09: PRICING (STARTING POINTS & SCOPE EXAMPLES)
+            ========================================================================= */}
+        <section className={styles.sectionPadding} id="pricing">
+          <div className="shell">
+            <div className={styles.sectionHeader}>
+              <p className="kicker">{isEn ? "PROJECT SCOPE & PRICING" : "LINGKUP PROYEK & BIAYA"}</p>
+              <h2 className={styles.sectionHeading}>
+                {isEn ? "Transparent starting points for your digital solutions." : "Prakiraan awal yang transparan untuk solusi digital Anda."}
+              </h2>
+              <p className={styles.sectionLead}>
+                {isEn
+                  ? "Every project is scoped to actual business requirements. Final investments depend on features, integrations, workflow complexity, and support."
+                  : "Setiap proyek disesuaikan dengan kebutuhan nyata bisnis Anda. Nilai akhir bergantung pada kompleksitas modul, integrasi sistem, dan alur kerja."}
+              </p>
+            </div>
+
+            <div className={styles.pricingGrid}>
+              <div className={styles.pricingCard}>
+                <span className={styles.pricingTier}>{isEn ? "STARTING FROM" : "MULAI DARI"}</span>
+                <div className={styles.pricingAmount}>Rp 1.500.000</div>
+                <h4>{isEn ? "Business Foundation" : "Pondasi Bisnis & Web"}</h4>
+                <p>{isEn ? "Dedicated company profile, digital catalog, and structured intake form for straightforward operations." : "Website profil usaha, katalog digital, dan form terstruktur untuk usaha yang ingin mulai rapi."}</p>
+                <ul className={styles.pricingPoints}>
+                  <li>✓ {isEn ? "Responsive modern web design" : "Desain web modern & responsif"}</li>
+                  <li>✓ {isEn ? "WhatsApp direct integration" : "Integrasi langsung ke WhatsApp"}</li>
+                  <li>✓ {isEn ? "Speed & SEO optimization" : "Optimasi kecepatan & SEO lokal"}</li>
+                </ul>
+              </div>
+
+              <div className={`${styles.pricingCard} ${styles.pricingFeatured}`}>
+                <span className={styles.pricingTierFeatured}>{isEn ? "POPULAR SCOPE" : "LINGKUP POPULER"}</span>
+                <div className={styles.pricingAmount}>Rp 3.500.000</div>
+                <h4>{isEn ? "Operations & POS Suite" : "Sistem Operasional & POS"}</h4>
+                <p>{isEn ? "Digital point-of-sale, real-time inventory management, receipt generation, and transaction records." : "Kasir digital cloud, manajemen stok real-time, pencatatan transaksi, dan cetak struk instan."}</p>
+                <ul className={styles.pricingPoints}>
+                  <li>✓ {isEn ? "Multi-SKU inventory & stock alerts" : "Manajemen multi-SKU & alert stok"}</li>
+                  <li>✓ {isEn ? "Cashier register & digital receipts" : "Kasir web & nota digital otomatis"}</li>
+                  <li>✓ {isEn ? "Owner summary dashboard" : "Dashboard rekap penjualan harian"}</li>
+                </ul>
+              </div>
+
+              <div className={styles.pricingCard}>
+                <span className={styles.pricingTier}>{isEn ? "ENTERPRISE WORKFLOW" : "ALUR TERPADU"}</span>
+                <div className={styles.pricingAmount}>Rp 7.500.000</div>
+                <h4>{isEn ? "Connected Automation" : "Sistem Terhubung & Otomasi"}</h4>
+                <p>{isEn ? "Custom end-to-end pipelines, API synchronization, automated WhatsApp triggers, and internal dashboards." : "Pipeline alur kerja menyeluruh, sinkronisasi API, otomasi notifikasi WhatsApp, dan dashboard terpadu."}</p>
+                <ul className={styles.pricingPoints}>
+                  <li>✓ {isEn ? "Custom API & database integration" : "Integrasi database & API khusus"}</li>
+                  <li>✓ {isEn ? "Automated notifications & invoicing" : "Otomasi notifikasi & tagihan digital"}</li>
+                  <li>✓ {isEn ? "Dedicated deployment & onboarding" : "Pendampingan & training tim operasional"}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            SECTION 10: FINAL CTA
             ========================================================================= */}
         <section className={styles.finalCta} id="contact">
           <div className="shell">
             <div className={styles.finalCtaCard}>
-              <h2>{isEn ? "HAVE A BUSINESS CHALLENGE?" : "MEMILIKI TANTANGAN BISNIS?"}</h2>
+              <h2>{isEn ? "HAVE A BUSINESS PROBLEM TO SOLVE?" : "MEMILIKI TANTANGAN BISNIS?"}</h2>
               <p>{isEn ? "Let's turn it into a practical digital solution." : "Mari kita ubah menjadi solusi digital yang praktis."}</p>
               <a
                 href="https://wa.me/628211076517?text=Halo%20QIRA,%20saya%20ingin%20berdiskusi%20tentang%20solusi%20digital."
@@ -642,7 +723,7 @@ export function HomePageClient() {
                 className="primaryButton"
                 style={{ padding: "0 34px", minHeight: 52 }}
               >
-                {isEn ? "Start a Conversation →" : "Mulai Diskusi →"}
+                {isEn ? "Start a Project →" : "Mulai Proyek →"}
               </a>
             </div>
           </div>
