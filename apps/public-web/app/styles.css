@@ -1,15 +1,22 @@
 :root {
-  --ink: #071a33;
-  --muted: #5d6b7e;
+  --bg: #090D16;
+  --bg-surface: #0E1424;
+  --bg-surface-elevated: #131B30;
+  --ink: #F8FAFC;
+  --muted: #94A3B8;
+  --subtle: #64748B;
   --blue: #1769ff;
-  --blue-subtle: rgba(23, 105, 255, 0.08);
-  --sky: #dceaff;
-  --paper: #f8fafc;
-  --canvas-base: #ffffff;
-  --canvas-grid: rgba(7, 26, 51, 0.024);
-  --canvas-glow: rgba(23, 105, 255, 0.05);
-  --line: #e2e8f0;
-  --line-subtle: rgba(7, 26, 51, 0.06);
+  --blue-hover: #2b74ff;
+  --blue-glow: rgba(23, 105, 255, 0.25);
+  --blue-subtle: rgba(23, 105, 255, 0.15);
+  --sky: #38bdf8;
+  --paper: #0E1424;
+  --canvas-base: #090D16;
+  --canvas-grid: rgba(255, 255, 255, 0.045);
+  --canvas-glow: rgba(23, 105, 255, 0.18);
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --line-subtle: rgba(255, 255, 255, 0.05);
 }
 
 * { box-sizing: border-box; }
@@ -36,7 +43,8 @@ body::before {
     linear-gradient(90deg, var(--canvas-grid) 1px, transparent 1px);
   background-size: 64px 64px;
   background-position: center top;
-  mask-image: linear-gradient(to bottom, black 30%, transparent 95%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, #000000 35%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, #000000 35%, transparent 85%);
   opacity: 0.9;
 }
 main { overflow: clip; }

@@ -3,15 +3,15 @@
   top: 0;
   z-index: 100;
   width: 100%;
-  background: rgba(247, 249, 252, 0.9);
+  background: rgba(9, 13, 22, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(220, 227, 236, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
 .scrolled {
-  box-shadow: 0 4px 20px rgba(7, 26, 51, 0.05);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
 .navContainer {
@@ -223,11 +223,11 @@
     top: 69px;
     left: 0;
     right: 0;
-    background: #ffffff;
+    background: #0e1424;
     border-bottom: 1px solid var(--line);
     padding: 24px 20px 32px;
     z-index: 99;
-    box-shadow: 0 16px 36px rgba(7, 26, 51, 0.12);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
     transform: translateY(-10px);
     opacity: 0;
     visibility: hidden;
