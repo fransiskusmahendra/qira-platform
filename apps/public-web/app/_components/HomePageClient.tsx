@@ -30,7 +30,34 @@ export function HomePageClient() {
             SECTION 01: HERO
             ========================================================================= */}
         <section className={styles.heroSection}>
-          <div className="shell">
+          {/* Layer 2: Subtle Architectural Grid */}
+          <div className={styles.heroGridBackdrop} aria-hidden="true" />
+
+          {/* Layer 3: Soft Ambient Light Gradients */}
+          <div className={styles.heroAmbientGlow} aria-hidden="true" />
+
+          {/* Layer 4: Digital Flow Architectural Path */}
+          <div className={styles.heroFlowWrapper} aria-hidden="true">
+            <svg className={styles.heroFlowSvg} viewBox="0 0 1440 560" fill="none" preserveAspectRatio="none">
+              <path
+                d="M -60 220 C 320 220, 380 340, 720 280 C 1020 220, 1160 380, 1500 320"
+                stroke="url(#heroFlowGrad)"
+                strokeWidth="1.5"
+                strokeDasharray="8 8"
+                className={styles.heroFlowPathAnim}
+              />
+              <defs>
+                <linearGradient id="heroFlowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#1769ff" stopOpacity="0.03" />
+                  <stop offset="30%" stopColor="#1769ff" stopOpacity="0.22" />
+                  <stop offset="65%" stopColor="#0284c7" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="#10b981" stopOpacity="0.04" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <div className={`shell ${styles.heroShellRel}`}>
             <div className={styles.heroGrid}>
               <div className={styles.heroCopy}>
                 {/* QIRA Flow Concept Badge */}
@@ -123,7 +150,7 @@ export function HomePageClient() {
         {/* =========================================================================
             SECTION 02: WHAT WE DO (DIGITAL FOUNDATION • GROWTH ENGINE • CONNECTED GROWTH)
             ========================================================================= */}
-        <section className={styles.sectionPadding} id="solutions">
+        <section className={`${styles.sectionPadding} ${styles.solutionsSection}`} id="solutions">
           <div className="shell">
             <div className={styles.sectionHeader}>
               <p className="kicker">{isEn ? "WHAT WE DO" : "APA YANG KAMI LAKUKAN"}</p>
@@ -198,7 +225,7 @@ export function HomePageClient() {
         {/* =========================================================================
             SECTION 03: BUILT BY QIRA (PRODUCT-LED)
             ========================================================================= */}
-        <section className={styles.sectionPadding} id="products">
+        <section className={`${styles.sectionPadding} ${styles.productsSection}`} id="products">
           <div className="shell">
             <div className={styles.sectionHeader}>
               <p className="kicker">{isEn ? "BUILT BY QIRA" : "DIBANGUN OLEH QIRA"}</p>
@@ -373,7 +400,7 @@ export function HomePageClient() {
         {/* =========================================================================
             SECTION 05: CASE STUDIES (FROM COMPLEXITY TO SIMPLICITY)
             ========================================================================= */}
-        <section className={styles.sectionPadding} id="case-studies">
+        <section className={`${styles.sectionPadding} ${styles.caseStudiesSection}`} id="case-studies">
           <div className="shell">
             <div className={styles.sectionHeader}>
               <p className="kicker">{isEn ? "CASE STUDIES" : "STUDI KASUS"}</p>
@@ -513,7 +540,7 @@ export function HomePageClient() {
         {/* =========================================================================
             SECTION 06: HOW WE WORK (EDITORIAL 5 STAGES)
             ========================================================================= */}
-        <section className={styles.sectionPadding} id="how-we-work">
+        <section className={`${styles.sectionPadding} ${styles.howWeWorkSection}`} id="how-we-work">
           <div className="shell">
             <div className={styles.sectionHeader}>
               <p className="kicker">{isEn ? "HOW WE WORK" : "CARA KERJA KAMI"}</p>
@@ -564,7 +591,7 @@ export function HomePageClient() {
         {/* =========================================================================
             SECTION 07: BUILT FOR BUSINESS (PROBLEM-SOLVING CAPABILITY)
             ========================================================================= */}
-        <section className={styles.sectionPadding} id="built-for-business">
+        <section className={`${styles.sectionPadding} ${styles.builtForBusinessSection}`} id="built-for-business">
           <div className="shell">
             <div className={styles.sectionHeader}>
               <p className="kicker">{isEn ? "BUILT FOR BUSINESS" : "DIBANGUN UNTUK BISNIS"}</p>
@@ -617,7 +644,7 @@ export function HomePageClient() {
         {/* =========================================================================
             SECTION 08: ABOUT QIRA
             ========================================================================= */}
-        <section className={styles.sectionPadding} id="about">
+        <section className={`${styles.sectionPadding} ${styles.aboutSection}`} id="about">
           <div className="shell">
             <div className={styles.aboutBox}>
               <div>
@@ -654,7 +681,7 @@ export function HomePageClient() {
         {/* =========================================================================
             SECTION 09: PRICING (STARTING POINTS & SCOPE EXAMPLES)
             ========================================================================= */}
-        <section className={styles.sectionPadding} id="pricing">
+        <section className={`${styles.sectionPadding} ${styles.pricingSection}`} id="pricing">
           <div className="shell">
             <div className={styles.sectionHeader}>
               <p className="kicker">{isEn ? "PROJECT SCOPE & PRICING" : "LINGKUP PROYEK & BIAYA"}</p>
@@ -711,7 +738,7 @@ export function HomePageClient() {
         {/* =========================================================================
             SECTION 10: FINAL CTA
             ========================================================================= */}
-        <section className={styles.finalCta} id="contact">
+        <section className={`${styles.finalCta} ${styles.finalCtaSection}`} id="contact">
           <div className="shell">
             <div className={styles.finalCtaCard}>
               <h2>{isEn ? "HAVE A BUSINESS PROBLEM TO SOLVE?" : "MEMILIKI TANTANGAN BISNIS?"}</h2>
