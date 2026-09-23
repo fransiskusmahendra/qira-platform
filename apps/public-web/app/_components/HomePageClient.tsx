@@ -258,7 +258,85 @@ export function HomePageClient() {
         </section>
 
         {/* =========================================================================
-            SECTION 04: FINAL CALL TO ACTION (CLEAN & MINIMALIST)
+            SECTION 04: REAL CLIENT IMPACT & FIELD RESULTS
+            ========================================================================= */}
+        <section className={styles.sectionPadding} id="impact">
+          <div className="shell">
+            <div className={styles.sectionHeader}>
+              <p className="kicker">{isEn ? "PROVEN FIELD IMPACT" : "DAMPAK NYATA DI LAPANGAN"}</p>
+              <h2 className={styles.sectionHeading}>
+                {isEn ? "Trusted by operations and business owners." : "Efisiensi nyata bagi pelaku usaha."}
+              </h2>
+              <p className={styles.sectionLead}>
+                {isEn
+                  ? "Measurable operational improvements achieved without subscription bloat."
+                  : "Peningkatan alur kerja terukur yang dirasakan langsung oleh tim di lapangan."}
+              </p>
+            </div>
+
+            <div className={styles.helpGrid}>
+              <div className={styles.helpCard}>
+                <div>
+                  <div className={styles.cardNum}><span className={styles.statusDot}>●</span> RITEL & DISTRIBUSI</div>
+                  <h3>{isEn ? "Building Materials & Retail" : "Bahan Bangunan & Ritel"}</h3>
+                </div>
+                <div style={{ margin: "14px 0", color: "#38bdf8", fontSize: "24px", fontWeight: "800", letterSpacing: "-0.5px" }}>
+                  4.5 Jam / Hari
+                </div>
+                <p style={{ fontSize: "14px", color: "var(--muted)", lineHeight: "1.6", margin: "0 0 18px" }}>
+                  {isEn
+                    ? '"Stock reconciliation between cashier and warehouse used to take hours every evening. Real-time POS sync solved it with zero discrepancies."'
+                    : '"Dulu rekonsiliasi stok antara kasir toko dan gudang butuh berjam-jam tiap sore. Dengan POS dan sync otomatis QIRA, stok real-time langsung tercatat tanpa selisih."'}
+                </p>
+                <div style={{ borderTop: "1px solid var(--line)", paddingTop: "12px", fontSize: "12.5px", color: "#94a3b8" }}>
+                  <strong style={{ color: "#ffffff", display: "block" }}>Budi Santoso</strong>
+                  <span>{isEn ? "Owner, Retail & Distribution" : "Pemilik Usaha Ritel & Distributor"}</span>
+                </div>
+              </div>
+
+              <div className={styles.helpCard}>
+                <div>
+                  <div className={styles.cardNum}><span className={styles.statusDot}>●</span> JASA & LOGISTIK</div>
+                  <h3>{isEn ? "Compliance & Logistics" : "Sertifikasi & Logistik"}</h3>
+                </div>
+                <div style={{ margin: "14px 0", color: "#38bdf8", fontSize: "24px", fontWeight: "800", letterSpacing: "-0.5px" }}>
+                  100% Otomatis
+                </div>
+                <p style={{ fontSize: "14px", color: "var(--muted)", lineHeight: "1.6", margin: "0 0 18px" }}>
+                  {isEn
+                    ? '"Client document filings and invoice generation are now unified. No more missing spreadsheets or manual confirmation bottlenecks."'
+                    : '"Pengajuan dokumen dan pembuatan invoice klien kini otomatis dalam satu sistem. Tidak ada lagi file Excel tercecer atau konfirmasi manual yang terlewat."'}
+                </p>
+                <div style={{ borderTop: "1px solid var(--line)", paddingTop: "12px", fontSize: "12.5px", color: "#94a3b8" }}>
+                  <strong style={{ color: "#ffffff", display: "block" }}>Hendrawan Prasetyo</strong>
+                  <span>{isEn ? "Head of Operations & Logistics" : "Head of Operations & Compliance"}</span>
+                </div>
+              </div>
+
+              <div className={styles.helpCard}>
+                <div>
+                  <div className={styles.cardNum}><span className={styles.statusDot}>●</span> MANAJEMEN SEWA</div>
+                  <h3>{isEn ? "Property & Rental Units" : "Properti & Sewa Kos"}</h3>
+                </div>
+                <div style={{ margin: "14px 0", color: "#38bdf8", fontSize: "24px", fontWeight: "800", letterSpacing: "-0.5px" }}>
+                  0 Keterlambatan
+                </div>
+                <p style={{ fontSize: "14px", color: "var(--muted)", lineHeight: "1.6", margin: "0 0 18px" }}>
+                  {isEn
+                    ? '"Monthly rental billing and WhatsApp reminders dispatch automatically. Incoming cashflow is disciplined and easily tracked."'
+                    : '"Pencatatan tagihan sewa bulanan dan notifikasi WhatsApp langsung terkirim otomatis. Arus kas masuk jadi jauh lebih tertib dan terpantau jelas."'}
+                </p>
+                <div style={{ borderTop: "1px solid var(--line)", paddingTop: "12px", fontSize: "12.5px", color: "#94a3b8" }}>
+                  <strong style={{ color: "#ffffff", display: "block" }}>Siti Rahmawati</strong>
+                  <span>{isEn ? "Residential Property Manager" : "Pengelola Properti Residensial"}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            SECTION 05: FINAL CALL TO ACTION (CLEAN & MINIMALIST)
             ========================================================================= */}
         <section className={`${styles.finalCta} ${styles.finalCtaSection}`} id="contact">
           <div className="shell">

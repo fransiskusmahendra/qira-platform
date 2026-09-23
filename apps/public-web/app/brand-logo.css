@@ -9,6 +9,15 @@
   isolation: isolate;
 }
 
+@keyframes qiraAmbientPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.65)) drop-shadow(0 0 22px rgba(23, 105, 255, 0.40));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.90)) drop-shadow(0 0 28px rgba(0, 240, 255, 0.55)) drop-shadow(0 0 38px rgba(23, 105, 255, 0.45));
+  }
+}
+
 :where(.brand, [class*="_brand__"], [class*="_Brand__"])::before {
   content: "";
   flex: 0 0 auto;
@@ -17,10 +26,12 @@
   border-radius: 10px;
   background: url("/qira-mark.svg") center / contain no-repeat;
   filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.65)) drop-shadow(0 0 22px rgba(23, 105, 255, 0.4));
+  animation: qiraAmbientPulse 4.5s ease-in-out infinite;
   transition: transform .28s cubic-bezier(0.16, 1, 0.3, 1), filter .28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :where(.brand, [class*="_brand__"], [class*="_Brand__"]):hover::before {
+  animation: none;
   transform: translateY(-2px) scale(1.06);
   filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.95)) drop-shadow(0 0 32px rgba(0, 240, 255, 0.6)) drop-shadow(0 0 45px rgba(23, 105, 255, 0.5));
 }
@@ -42,5 +53,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :where(.brand, [class*="_brand__"], [class*="_Brand__"])::before { transition: none; }
+  :where(.brand, [class*="_brand__"], [class*="_Brand__"])::before { transition: none; animation: none; }
 }

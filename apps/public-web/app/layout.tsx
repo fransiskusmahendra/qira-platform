@@ -94,6 +94,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/qira-mark.svg", type: "image/svg+xml" },
       { url: "/favicon.ico", type: "image/x-icon", sizes: "256x256" },
       { url: "/favicon-512.png", type: "image/png", sizes: "512x512" },
     ],
