@@ -37,7 +37,7 @@ export default async function NewProposalPage({ searchParams }: NewProposalPageP
   validUntil.setDate(validUntil.getDate() + 30);
 
   return <main className={styles.page}>
-    <header className={styles.header}><Link className={styles.brand} href="/workspace">QIRA.</Link><Link href="/workspace">Kembali</Link></header>
+    <header className={styles.header}><Link className={styles.brand} href="/workspace">QIRA</Link><Link href="/workspace">Kembali</Link></header>
     <section className={styles.formHeader}><p className={styles.kicker}>Proposal</p><h1>Buat penawaran.</h1><p>Discovery → penerima → harga → simpan.</p></section>
     {error && <p className={styles.alert}>Belum berhasil disimpan. Periksa data lalu coba lagi.</p>}
 

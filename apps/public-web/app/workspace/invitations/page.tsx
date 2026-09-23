@@ -20,7 +20,7 @@ export default async function InvitationsPage({ searchParams }: { searchParams: 
   const activeMemberships = memberships?.filter((item: any) => item.status === "active") ?? [];
 
   return <main className={styles.page}>
-    <header className={styles.header}><Link className={styles.brand} href="/workspace">QIRA.</Link><Link href="/workspace">Kembali</Link></header>
+    <header className={styles.header}><Link className={styles.brand} href="/workspace">QIRA</Link><Link href="/workspace">Kembali</Link></header>
     <section className={styles.formHeader}><p className={styles.kicker}>Akses</p><h1>Undang orang.</h1><p>Email + role → buat tautan.</p></section>
 
     {query.error && <p className={styles.alert}>{query.error.startsWith("revoke") ? "Akses belum dapat dicabut." : "Undangan belum berhasil dibuat."}</p>}

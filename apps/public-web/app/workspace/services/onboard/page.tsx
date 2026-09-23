@@ -28,7 +28,7 @@ export default async function OnboardCustomerPage({ searchParams }: { searchPara
   const fromLead = Boolean(params.leadId && /^[0-9a-f-]{36}$/i.test(params.leadId));
 
   return <main className={styles.page}>
-    <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA.</Link><p>Onboarding</p></div><Link href="/workspace/services">Kembali</Link></header>
+    <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA</Link><p>Onboarding</p></div><Link href="/workspace/services">Kembali</Link></header>
 
     <section className={styles.hero}>
       <p className={styles.kicker}>Setelah pelanggan bilang ya</p>

@@ -11,7 +11,7 @@ export default async function ServiceRecordsPage({searchParams}:{searchParams:Pr
  const [{data:projects},{data:customers}]=await Promise.all([(supabase as any).from("managed_projects").select("id,name,customer_id").order("name"),(supabase as any).from("customers").select("id,display_name").order("display_name")]);
  const params=await searchParams;const projectOptions=(projects??[]).map((p:any)=><option key={p.id} value={p.id}>{p.name}</option>);
  return <main className={styles.page}>
-  <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA.</Link><p>Service Record Center</p></div><Link className={styles.primaryAction} href="/workspace/services">Kembali ke Control Center</Link></header>
+  <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA</Link><p>Service Record Center</p></div><Link className={styles.primaryAction} href="/workspace/services">Kembali ke Control Center</Link></header>
   <section className={styles.hero}><p className={styles.kicker}>Operasional layanan</p><h1>Catat komponen layanan setiap customer.</h1><p>Tambahkan domain, status deployment, recurring subscription, dan support ticket tanpa keluar dari workspace QIRA.</p></section>
   {params.saved?<p className={styles.formSuccess}>Record {params.saved} berhasil disimpan.</p>:null}{params.error?<p className={styles.formError}>Record belum berhasil disimpan. Periksa data dan coba kembali.</p>:null}
   {!projects?.length?<section className={styles.panel}><p className={styles.empty}>Belum ada project. Lakukan <Link href="/workspace/services/onboard">onboarding customer</Link> terlebih dahulu.</p></section>:

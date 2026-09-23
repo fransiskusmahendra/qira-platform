@@ -18,7 +18,7 @@ export default async function ClientWorkspacePage() {
   if (!isClient) redirect("/workspace");
 
   return <main className={styles.page}>
-    <header className={styles.header}><div><span className={styles.brand}>QIRA.</span><p>Dokumen</p></div><form action={signOut}><button type="submit">Keluar</button></form></header>
+    <header className={styles.header}><div><span className={styles.brand}>QIRA</span><p>Dokumen</p></div><form action={signOut}><button type="submit">Keluar</button></form></header>
     <section className={styles.hero}><p className={styles.kicker}>Untuk Anda</p><h1>Penawaran QIRA.</h1></section>
     <section className={styles.panel}>
       {!proposals?.length && <p className={styles.empty}>Belum ada dokumen.</p>}

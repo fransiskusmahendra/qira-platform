@@ -12,7 +12,7 @@ export default async function ReminderPage({searchParams}:{searchParams:Promise<
  const customerIds=[...new Set((reminders??[]).map((x:any)=>x.customer_id))];const {data:customers}=customerIds.length?await (supabase as any).from("customers").select("id,display_name").in("id",customerIds):{data:[]};
  const customerById=new Map<string,any>((customers??[]).map((x:any)=>[x.id,x]));const params=await searchParams;
  return <main className={styles.page}>
-  <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA.</Link><p>Service Reminders</p></div><Link className={styles.primaryAction} href="/workspace/services">Kembali ke Control Center</Link></header>
+  <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA</Link><p>Service Reminders</p></div><Link className={styles.primaryAction} href="/workspace/services">Kembali ke Control Center</Link></header>
   <section className={styles.hero}><p className={styles.kicker}>Pengingat otomatis harian</p><h1>Jaga layanan customer sebelum terlambat.</h1><p>QIRA memeriksa domain, tagihan, review project, dan tiket setiap hari pukul 08.00 WIB, dengan jendela 45 hari.</p></section>
   {params.saved?<p className={styles.formSuccess}>Reminder berhasil diperbarui.</p>:null}{params.error?<p className={styles.formError}>Reminder belum berhasil diperbarui.</p>:null}
   <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Open reminders</p><h2>Antrean tindakan</h2></div><span className={(reminders??[]).some((x:any)=>x.severity==="urgent")?styles.urgentBadge:styles.neutralBadge}>{reminders?.length??0} open</span></div>

@@ -184,14 +184,14 @@ export default function RecommendationDashboard(){
   const [activePage,setActivePage]=useState(0);
   useEffect(()=>{try{const saved=window.localStorage.getItem("qira-problem-assessment");if(saved)setAssessment(JSON.parse(saved))}catch{}},[]);
   const impacts=useMemo(()=>assessment?(impactByPriority[assessment.priority]||impactByPriority["Merapikan operasional"]):[],[assessment]);
-  if(!assessment)return <main className={styles.page}><nav className={styles.nav}><Link className={styles.brand} href="/">QIRA<span>.</span></Link></nav><section className={styles.empty}><span>Rekomendasi personal belum tersedia</span><h1>Ceritakan masalah usahamu terlebih dahulu.</h1><p>Dashboard ini disusun dari jawaban pada tahap Coba Masalah agar yang ditampilkan benar-benar relevan.</p><Link href="/coba-masalah">Mulai Coba Masalah <b>→</b></Link></section></main>;
+  if(!assessment)return <main className={styles.page}><nav className={styles.nav}><Link className={styles.brand} href="/">QIRA</Link></nav><section className={styles.empty}><span>Rekomendasi personal belum tersedia</span><h1>Ceritakan masalah usahamu terlebih dahulu.</h1><p>Dashboard ini disusun dari jawaban pada tahap Coba Masalah agar yang ditampilkan benar-benar relevan.</p><Link href="/coba-masalah">Mulai Coba Masalah <b>→</b></Link></section></main>;
 
   const {profile}=assessment;
   const detail=details[profile.name]||common;
   const displayName=assessment.businessName.trim()||profile.name;
   const duration=profile.packageId==="connected-growth"?"3–6 minggu":profile.packageId==="growth-engine"?"2–4 minggu":"1–2 minggu";
   return <main className={styles.page}>
-    <nav className={styles.nav}><Link className={styles.brand} href="/">QIRA<span>.</span></Link><Link className={styles.editLink} href="/coba-masalah">Ubah jawaban</Link></nav>
+    <nav className={styles.nav}><Link className={styles.brand} href="/">QIRA</Link><Link className={styles.editLink} href="/coba-masalah">Ubah jawaban</Link></nav>
     <header className={styles.hero}><div><p>Rekomendasi khusus untuk {profile.name}</p><h1>Beginilah QIRA membantu <em>{displayName}.</em></h1><span>Lihat dengan bahasa sederhana apa yang akan digunakan tim Anda setiap hari.</span></div><aside><small>Solusi yang disarankan</small><strong>{profile.packageName}</strong><span>Perkiraan pengerjaan {duration} · disesuaikan lagi setelah Discovery</span></aside></header>
 
     <section className={styles.summary}><article className={styles.problem}><small>Yang kami pahami</small><h2>{profile.problem}</h2><blockquote>“{assessment.description}”</blockquote></article><div className={styles.context}><div><small>Digunakan oleh</small><strong>{detail.users.join(", ")}</strong></div><div><small>Prioritas Anda</small><strong>{assessment.priority}</strong></div><div><small>Hasil akhirnya</small><strong>{profile.title}</strong></div></div></section>

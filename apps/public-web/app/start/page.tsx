@@ -17,7 +17,7 @@ export default async function StartPage({ searchParams }: { searchParams: Promis
   const defaultNeed = suppliedNeed || (params.business ? businessNeeds[params.business] ?? "" : "");
 
   return <main className={styles.page}>
-    <nav className={styles.nav}><Link href="/">QIRA<span>.</span></Link><small>Mulai</small></nav>
+    <nav className={styles.nav}><Link href="/">QIRA</Link><small>Mulai</small></nav>
     <section className={styles.layout}>
       <div className={styles.intro}>
         <p>Satu langkah</p>
@@ -27,6 +27,11 @@ export default async function StartPage({ searchParams }: { searchParams: Promis
       </div>
       <StartForm defaultPackage={selected} defaultNeed={defaultNeed} />
     </section>
-    <footer className={styles.footer}><span>QIRA · Solusi digital sederhana untuk bisnis</span></footer>
+    <footer className={styles.footer}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <img src="/qira-mark.svg" alt="" width={20} height={20} style={{ filter: "drop-shadow(0 0 8px rgba(0, 240, 255, 0.65))" }} />
+        <span>QIRA · Solusi digital sederhana untuk bisnis</span>
+      </div>
+    </footer>
   </main>;
 }

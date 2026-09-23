@@ -44,7 +44,7 @@ export default async function WorkspacePage() {
 
   return <main className={styles.page}>
     <header className={styles.header}>
-      <div><span className={styles.brand}>QIRA.</span><p>Workspace</p></div>
+      <div><span className={styles.brand}>QIRA</span><p>Workspace</p></div>
       <form action={signOut}><button type="submit">Keluar</button></form>
     </header>
 

@@ -30,7 +30,7 @@ export default async function SalesPlaybookPage() {
 
   return <main className={`${workspace.page} ${styles.page}`}>
     <header className={workspace.header}>
-      <div><Link className={workspace.brand} href="/workspace">QIRA.</Link><p>Jualan</p></div>
+      <div><Link className={workspace.brand} href="/workspace">QIRA</Link><p>Jualan</p></div>
       <div className={workspace.panelActions}><Link href="/workspace/leads">Leads</Link><Link className={workspace.primaryAction} href="/workspace">Workspace</Link></div>
     </header>
 

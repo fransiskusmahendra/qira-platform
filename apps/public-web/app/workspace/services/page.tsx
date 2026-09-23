@@ -37,7 +37,7 @@ export default async function ManagedServicesPage() {
   const alertCount = domainAlerts.length + deploymentErrors.length + urgentTickets.length;
 
   return <main className={styles.page}>
-    <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA.</Link><p>Layanan</p></div><Link className={styles.primaryAction} href="/workspace">Workspace</Link></header>
+    <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA</Link><p>Layanan</p></div><Link className={styles.primaryAction} href="/workspace">Workspace</Link></header>
 
     <section className={styles.hero}>
       <p className={styles.kicker}>Operasional</p>

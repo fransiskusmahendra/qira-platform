@@ -17,7 +17,7 @@ export default async function DiscoveryPage({ searchParams }: { searchParams: Pr
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <Link className={styles.brand} href="/" aria-label="Kembali ke beranda QIRA">QIRA<span>.</span></Link>
+        <Link className={styles.brand} href="/" aria-label="Kembali ke beranda QIRA">QIRA</Link>
         <div className={styles.previewBadge}>±2 menit</div>
       </header>
 
@@ -29,7 +29,12 @@ export default async function DiscoveryPage({ searchParams }: { searchParams: Pr
 
       <DiscoveryForm services={SERVICE_CATALOG.map(({ id, name, outcome }) => ({ id, name, outcome }))} />
 
-      <footer className={styles.footer}><span>QIRA · Solusi digital sederhana untuk bisnis</span></footer>
+      <footer className={styles.footer}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <img src="/qira-mark.svg" alt="" width={20} height={20} style={{ filter: "drop-shadow(0 0 8px rgba(0, 240, 255, 0.65))" }} />
+          <span>QIRA · Solusi digital sederhana untuk bisnis</span>
+        </div>
+      </footer>
     </main>
   );
 }

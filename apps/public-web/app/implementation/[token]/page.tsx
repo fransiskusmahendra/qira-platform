@@ -44,7 +44,7 @@ export default async function ImplementationPage({ params }: { params: Promise<{
 
   return <main className={styles.page}>
     <nav className={styles.nav}>
-      <Link href="/" className={styles.brand}>QIRA<span>.</span></Link>
+      <Link href="/" className={styles.brand}>QIRA</Link>
       <span>{workspace.public_reference}</span>
     </nav>
 

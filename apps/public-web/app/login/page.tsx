@@ -22,7 +22,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   return (
     <main className={styles.page}>
       <section className={styles.card}>
-        <Link className={styles.brand} href="/">QIRA<span>.</span></Link>
+        <Link className={styles.brand} href="/">QIRA</Link>
         <p className={styles.kicker}>Masuk</p>
         <h1>Masuk lewat email.</h1>
         <p className={styles.copy}>Kami kirim tautan aman. Tidak ada password.</p>

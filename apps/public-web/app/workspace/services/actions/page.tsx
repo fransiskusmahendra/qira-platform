@@ -22,7 +22,7 @@ export default async function ActionCenterPage({searchParams}:{searchParams:Prom
  const domainAlerts=(domains??[]).filter((x:any)=>x.expires_on&&x.expires_on<=horizonDate);
  const billingAlerts=(subscriptions??[]).filter((x:any)=>x.next_billing_on&&x.next_billing_on<=horizonDate&&["trial","active","past_due"].includes(x.status));
  return <main className={styles.page}>
-  <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA.</Link><p>Managed Services Action Center</p></div><Link className={styles.primaryAction} href="/workspace/services">Kembali ke Control Center</Link></header>
+  <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA</Link><p>Managed Services Action Center</p></div><Link className={styles.primaryAction} href="/workspace/services">Kembali ke Control Center</Link></header>
   <section className={styles.hero}><p className={styles.kicker}>Perlu tindakan</p><h1>Jatuh tempo, readiness, dan status layanan dalam satu antrean.</h1><p>Project hanya dapat diaktifkan setelah deployment siap dan konfigurasi domain/subscription yang digunakan sudah valid.</p></section>
   {params.saved?<p className={styles.formSuccess}>Status berhasil diperbarui.</p>:null}{params.error==="readiness"?<p className={styles.formError}>Aktivasi ditahan: lengkapi checklist readiness project terlebih dahulu.</p>:params.error?<p className={styles.formError}>Status belum berhasil diperbarui.</p>:null}
   <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Activation readiness</p><h2>Checklist sebelum customer go-live</h2></div></div>

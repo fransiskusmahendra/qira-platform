@@ -51,7 +51,7 @@ export default async function ProposalPage({ params, searchParams }: ProposalPag
   const onboardingUrl = `/workspace/services/onboard?customerName=${encodeURIComponent(proposal.client_name)}&contactName=${encodeURIComponent(proposal.recipient_name)}&contactEmail=${encodeURIComponent(proposal.recipient_email ?? "")}&packageId=${encodeURIComponent(packageId)}`;
 
   return <main className={styles.page}>
-    <header className={styles.header}><Link className={styles.brand} href="/workspace">QIRA.</Link><Link href="/workspace">Kembali</Link></header>
+    <header className={styles.header}><Link className={styles.brand} href="/workspace">QIRA</Link><Link href="/workspace">Kembali</Link></header>
     {query.error && <p className={styles.alert}>Aksi belum berhasil. Muat ulang lalu coba lagi.</p>}
     {query.email === "sent" && <p className={styles.success}>Proposal dibagikan dan email terkirim.</p>}
     {query.email === "failed" && <p className={styles.alert}>Proposal dibagikan, tetapi email belum terkirim.</p>}

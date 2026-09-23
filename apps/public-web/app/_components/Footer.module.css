@@ -21,16 +21,24 @@
   max-width: 320px;
 }
 
-.brand {
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: -1.2px;
-  color: var(--ink);
+.brandLink {
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
+  width: fit-content;
 }
 
-.brand span {
-  color: var(--blue);
+.brandLogo {
+  height: 36px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45)) drop-shadow(0 0 24px rgba(23, 105, 255, 0.35));
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.brandLink:hover .brandLogo {
+  transform: translateY(-2px) scale(1.03);
+  filter: drop-shadow(0 0 18px rgba(0, 240, 255, 0.85)) drop-shadow(0 0 32px rgba(23, 105, 255, 0.55));
 }
 
 .brandTagline {

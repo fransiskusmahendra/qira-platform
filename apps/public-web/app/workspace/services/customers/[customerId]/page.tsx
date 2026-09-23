@@ -53,7 +53,7 @@ export default async function CustomerAccountPage({ params, searchParams }: { pa
   const onboardingProjects = (projects ?? []).filter((project: any) => project.service_status === "onboarding");
 
   return <main className={styles.page}>
-    <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA.</Link><p>Pelanggan</p></div><Link className={styles.primaryAction} href="/workspace/services">Pelanggan & layanan</Link></header>
+    <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA</Link><p>Pelanggan</p></div><Link className={styles.primaryAction} href="/workspace/services">Pelanggan & layanan</Link></header>
 
     {query.onboarded === "1" ? <section className={styles.panel}><div className={styles.panelHeading}><div><p className={styles.kicker}>Deal sudah masuk operasional</p><h2>Record pelanggan dan project berhasil dibuat.</h2></div><span className={styles.neutralBadge}>Siap kickoff</span></div><p>Follow-up penjualan dari lead asal sudah ditutup. Mulai sekarang gunakan halaman pelanggan ini untuk mengelola pekerjaan sampai serah terima.</p></section> : null}
 

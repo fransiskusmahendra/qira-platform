@@ -25,7 +25,7 @@ export default async function ClientProposalPage({ params, searchParams }: { par
   const commercial = terms(proposal.commercial_terms);
 
   return <main className={styles.page}>
-    <header className={styles.header}><Link className={styles.brand} href="/client">QIRA.</Link><Link href="/client">Kembali</Link></header>
+    <header className={styles.header}><Link className={styles.brand} href="/client">QIRA</Link><Link href="/client">Kembali</Link></header>
     {query.saved === "1" && <p className={styles.success}>Pilihan tersimpan.</p>}
     {query.error && <p className={styles.alert}>Belum berhasil disimpan. Coba lagi.</p>}
 

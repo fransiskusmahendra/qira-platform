@@ -27,7 +27,7 @@ export default async function AcceptInvitationPage({
     return (
       <main className={styles.page}>
         <section className={styles.card}>
-          <Link className={styles.brand} href="/">QIRA<span>.</span></Link>
+          <Link className={styles.brand} href="/">QIRA</Link>
           <p className={styles.kicker}>Undangan</p>
           <h1>Tautan tidak berlaku.</h1>
           <p className={styles.copy}>Bisa jadi sudah dipakai, kedaluwarsa, atau emailnya berbeda.</p>

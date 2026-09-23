@@ -45,7 +45,7 @@ export default async function ProductionReadinessPage() {
   const renderItem = (item: Item) => <article className={styles.readinessItem} key={item.name}><div className={item.configured ? styles.readyDot : item.required ? styles.blockedDot : styles.pendingDot}>{item.configured ? "✓" : "•"}</div><div><p>{item.group} · {item.owner}</p><h2>{item.name}</h2><span>{item.detail}</span><details><summary>Setup</summary><ol>{item.steps.map((step) => <li key={step}>{step}</li>)}</ol></details></div><div><span className={item.configured ? styles.readyBadge : item.required ? styles.urgentBadge : styles.neutralBadge}>{item.configured ? "Ready" : item.required ? "Required" : "Planned"}</span></div></article>;
 
   return <main className={styles.page}>
-    <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA.</Link><p>Readiness</p></div><Link href="/workspace">Kembali</Link></header>
+    <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA</Link><p>Readiness</p></div><Link href="/workspace">Kembali</Link></header>
     <section className={styles.hero}><p className={styles.kicker}>Production</p><h1>{missingRequired.length ? `${missingRequired.length} hal wajib belum siap.` : "Konfigurasi wajib siap."}</h1><p>Secret tidak pernah ditampilkan.</p></section>
     <section className={styles.readinessSummary}><div><strong>{ready}/{required.length}</strong><span>Wajib siap</span></div><div className={styles.readinessBar}><i style={{ width: (ready / required.length * 100) + "%" }}/></div></section>
 

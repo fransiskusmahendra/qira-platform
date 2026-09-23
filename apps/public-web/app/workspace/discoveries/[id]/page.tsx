@@ -27,7 +27,7 @@ export default async function DiscoveryDetailPage({ params, searchParams }: { pa
   const cleanEvidence = evidence?.filter((item: any) => item.scan_status === "clean").length ?? 0;
 
   return <main className={styles.page}>
-    <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA.</Link><p>Discovery</p></div><Link href="/workspace">Kembali</Link></header>
+    <header className={styles.header}><div><Link className={styles.brand} href="/workspace">QIRA</Link><p>Discovery</p></div><Link href="/workspace">Kembali</Link></header>
     {query.error?.startsWith("scan") && <p className={styles.alert}>Evidence belum dapat digunakan.</p>}
     {query.scan && <p className={styles.success}>Hasil pemeriksaan evidence tersimpan: {query.scan}.</p>}
 

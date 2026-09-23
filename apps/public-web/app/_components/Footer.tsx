@@ -15,8 +15,14 @@ export function Footer() {
         <div className={styles.footerGrid}>
           {/* Brand Column */}
           <div className={styles.brandCol}>
-            <Link className={styles.brand} href="/" aria-label="QIRA - Beranda">
-              QIRA<span>.</span>
+            <Link className={styles.brandLink} href="/" aria-label="QIRA - Beranda">
+              <img
+                src="/qira-logo.svg"
+                alt="QIRA"
+                width={136}
+                height={38}
+                className={styles.brandLogo}
+              />
             </Link>
             <p className={styles.brandTagline}>
               {t.footer.brandTagline}

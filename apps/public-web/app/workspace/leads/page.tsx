@@ -68,7 +68,7 @@ export default async function LeadsPage() {
 
   return <main className={styles.page}>
     <header className={styles.header}>
-      <div><Link className={styles.brand} href="/workspace">QIRA.</Link><p>Leads</p></div>
+      <div><Link className={styles.brand} href="/workspace">QIRA</Link><p>Leads</p></div>
       <div className={styles.panelActions}><Link href="/workspace/sales">Panduan jualan</Link><Link className={styles.primaryAction} href="/workspace">Workspace</Link></div>
     </header>
 
