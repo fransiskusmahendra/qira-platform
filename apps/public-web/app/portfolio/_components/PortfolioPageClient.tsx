@@ -271,10 +271,17 @@ export function PortfolioPageClient() {
                   <strong>{item.visual}</strong>
                   <Image src={item.image} alt={item.imageAlt} width={600} height={340} />
                 </div>
-                {item.note && <p className="simplePortfolioNote">{item.note}</p>}
                 <Action item={item} />
               </article>
             ))}
+          </div>
+
+          <div style={{ textAlign: "center", marginTop: 32 }}>
+            <p style={{ fontSize: "12px", color: "var(--muted)", margin: 0 }}>
+              {isEn
+                ? "* Previews and client deployments use anonymized data to respect privacy."
+                : "* Seluruh tampilan dan penerapan menggunakan data yang disamarkan demi menjaga privasi klien."}
+            </p>
           </div>
         </section>
 

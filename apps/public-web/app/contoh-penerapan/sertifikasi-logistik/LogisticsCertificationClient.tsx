@@ -136,7 +136,7 @@ export function LogisticsCertificationClient() {
           Simulasi alur digitalisasi sertifikat profesional, auto-reminder masa kadaluarsa multi-channel (Email & WhatsApp Cloud API), serta fast-track perpanjangan untuk lembaga pelatihan & sertifikasi supply chain nasional.
         </p>
         <div className={styles.clientBadge}>
-          <span>Studi Kasus Arsitektur: PT. Ugra Taraka Sigra (UTS) & Asosiasi SCM Nasional</span>
+          <span>Penerapan Arsitektur: PT. Ugra Taraka Sigra (UTS) & Asosiasi SCM Nasional</span>
         </div>
       </header>
 

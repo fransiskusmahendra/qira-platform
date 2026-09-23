@@ -56,16 +56,16 @@ export function ServicesPageClient() {
   const eyebrow = isEn ? "Solutions" : "Solusi";
   const heading = isEn ? "Practical systems built for real operations." : "Sistem praktis untuk operasional nyata.";
   const lead = isEn
-    ? "No bloated software. We build focused digital tools engineered to eliminate your bottlenecks today."
-    : "Bebas software rumit. Kami membangun sistem terarah yang menyelesaikan kendala operasional Anda.";
+    ? "Focused digital tools engineered to eliminate bottlenecks and streamline daily operations."
+    : "Sistem digital terarah untuk memangkas hambatan manual dan merapikan operasional harian.";
   const cta = isEn ? "Tell us what you need" : "Ceritakan kebutuhan";
 
-  const closingKicker = isEn ? "Unsure where to start?" : "Belum tahu pilih yang mana?";
-  const closingHeading = isEn ? "Start with one problem." : "Mulai dari satu masalah usaha.";
+  const closingKicker = isEn ? "Consultation" : "Konsultasi";
+  const closingHeading = isEn ? "Ready to streamline your workflow?" : "Siap merapikan alur kerja bisnis Anda?";
   const closingSubtext = isEn
-    ? "Tell us what consumes the most time right now — we will recommend the simplest fix."
-    : "Ceritakan kondisi pekerjaan Anda saat ini, kami bantu rekomendasikan solusi yang paling efisien.";
-  const closingPrimary = isEn ? "Help me choose" : "Bantu tentukan solusi";
+    ? "Discuss your operational challenges directly with our team to find the right digital fix."
+    : "Diskusikan kendala operasional langsung dengan tim kami untuk solusi yang paling tepat.";
+  const closingPrimary = isEn ? "Start Consultation" : "Mulai Diskusi";
 
   return (
     <>

@@ -59,6 +59,39 @@ export function AboutPageClient() {
               <span key={p}>{p}</span>
             ))}
           </div>
+
+          <div style={{
+            marginTop: "32px",
+            padding: "28px",
+            background: "rgba(14, 20, 36, 0.75)",
+            backdropFilter: "blur(12px)",
+            borderRadius: "20px",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: "24px"
+          }}>
+            <div>
+              <p style={{ fontSize: "12px", fontWeight: "750", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--blue)", marginBottom: "8px" }}>
+                {isEn ? "Company & Operations" : "Operasional & Legal"}
+              </p>
+              <p style={{ fontSize: "14px", color: "var(--muted)", lineHeight: "1.6", margin: 0 }}>
+                {isEn
+                  ? "QIRA operates as an independent digital engineering consultancy currently establishing corporate legal status under CV Qira Solusi Digital."
+                  : "QIRA beroperasi sebagai konsultan rekayasa digital independen dan saat ini dalam proses pembentukan badan usaha resmi CV Qira Solusi Digital."}
+              </p>
+            </div>
+            <div>
+              <p style={{ fontSize: "12px", fontWeight: "750", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--blue)", marginBottom: "8px" }}>
+                {isEn ? "Location & Contact" : "Lokasi & Kontak"}
+              </p>
+              <div style={{ fontSize: "13.5px", color: "var(--muted)", lineHeight: "1.6" }}>
+                Jakarta, Indonesia<br />
+                WhatsApp: +62 821-1076-517<br />
+                Email: hello@qirasolution.com
+              </div>
+            </div>
+          </div>
         </section>
 
         <ClosingCtaSection

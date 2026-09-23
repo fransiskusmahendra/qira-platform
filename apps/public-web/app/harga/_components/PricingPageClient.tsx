@@ -15,15 +15,15 @@ import { useLanguage } from "../../../lib/i18n";
 const rupiah = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 });
 
 const AUDIENCE_FIT_ID: Record<string, string> = {
-  "digital-foundation": "Paling pas untuk usaha perorangan atau profil profesional yang ingin punya website resmi & tombol WhatsApp.",
-  "growth-engine": "Paling pas untuk bisnis yang ingin terima pesanan/booking online, rekap data, dan otomatisasi notifikasi.",
-  "connected-growth": "Paling pas untuk operasional dengan beberapa staf yang butuh database, status pesanan, & dokumen otomatis.",
+  "digital-foundation": "Cocok untuk profil usaha resmi & kontak langsung WhatsApp.",
+  "growth-engine": "Cocok untuk pemesanan online, rekap data, dan notifikasi otomatis.",
+  "connected-growth": "Cocok untuk operasional multi-staf dengan database & invoice otomatis.",
 };
 
 const AUDIENCE_FIT_EN: Record<string, string> = {
-  "digital-foundation": "Best for sole proprietors and businesses that need an official website and direct WhatsApp inquiries.",
-  "growth-engine": "Best for businesses wanting online orders/bookings, structured data, and automated notifications.",
-  "connected-growth": "Best for multi-staff operations needing centralized databases, order tracking, and automated docs.",
+  "digital-foundation": "Ideal for official web presence & direct WhatsApp inquiries.",
+  "growth-engine": "Ideal for digital orders, structured data, and auto notifications.",
+  "connected-growth": "Ideal for multi-staff teams needing shared databases & automated docs.",
 };
 
 const DELIVERABLES_EN: Record<string, string[]> = {
@@ -251,6 +251,7 @@ export function PricingPageClient() {
           heading={isEn ? "Start with one problem." : "Ceritakan satu masalah usaha Anda."}
           subtext={isEn ? "Tell us what you need — we will recommend the leanest solution without wasting your budget." : "Kami bantu analisis dan rekomendasikan paket yang paling efisien tanpa membuang anggaran."}
           primaryText={isEn ? "Help me choose" : "Bantu tentukan paket"}
+          showGuarantee={true}
         />
       </main>
       <Footer />

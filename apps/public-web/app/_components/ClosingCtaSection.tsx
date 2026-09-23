@@ -13,6 +13,7 @@ interface ClosingCtaProps {
   primaryHref?: string;
   waContext?: string;
   className?: string;
+  showGuarantee?: boolean;
 }
 
 export function ClosingCtaSection({
@@ -23,6 +24,7 @@ export function ClosingCtaSection({
   primaryHref = "/coba-masalah",
   waContext = "kebutuhan solusi digital bisnis",
   className = "",
+  showGuarantee = false,
 }: ClosingCtaProps) {
   const { locale, t } = useLanguage();
   const isEn = locale === "en";
@@ -58,14 +60,16 @@ export function ClosingCtaSection({
           </div>
         </div>
 
-        {/* Clean Risk-Reversal Strip */}
-        <div className={styles.guaranteeStrip}>
-          <span>✓ {isEn ? "30-Day warranty" : "Garansi 30 hari"}</span>
-          <span className={styles.guaranteeDot}>•</span>
-          <span>✓ {isEn ? "100% Code & data ownership" : "100% Hak milik kode & data"}</span>
-          <span className={styles.guaranteeDot}>•</span>
-          <span>✓ {isEn ? "Clear 1–3 week delivery" : "Jadwal pasti 1–3 minggu"}</span>
-        </div>
+        {/* Clean Risk-Reversal Strip (rendered on pricing or when explicit) */}
+        {showGuarantee && (
+          <div className={styles.guaranteeStrip}>
+            <span>✓ {isEn ? "30-Day warranty" : "Garansi 30 hari"}</span>
+            <span className={styles.guaranteeDot}>•</span>
+            <span>✓ {isEn ? "100% Code & data ownership" : "100% Hak milik kode & data"}</span>
+            <span className={styles.guaranteeDot}>•</span>
+            <span>✓ {isEn ? "Clear 1–3 week delivery" : "Jadwal pasti 1–3 minggu"}</span>
+          </div>
+        )}
       </div>
     </section>
   );
