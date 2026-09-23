@@ -242,7 +242,7 @@ export function PortfolioPageClient() {
             {items.map((item) => (
               <article className="simplePortfolioCard" key={item.title}>
                 <div className="simplePortfolioHead">
-                  <span>{item.number}</span>
+                  <span>● {item.number}</span>
                   <p className="tag">{item.tag}</p>
                 </div>
                 <h3>{item.title}</h3>

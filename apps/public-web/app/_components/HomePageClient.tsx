@@ -79,7 +79,7 @@ export function HomePageClient() {
               {/* Category 1: Digital Foundation */}
               <div className={styles.helpCard}>
                 <div>
-                  <div className={styles.cardNum}>01 — FOUNDATION</div>
+                  <div className={styles.cardNum}><span className={styles.statusDot}>●</span> 01 — FOUNDATION</div>
                   <h3>Digital Foundation</h3>
                 </div>
                 <ul className={styles.featureList}>
@@ -92,7 +92,7 @@ export function HomePageClient() {
               {/* Category 2: Growth Engine */}
               <div className={styles.helpCard}>
                 <div>
-                  <div className={styles.cardNum}>02 — GROWTH ENGINE</div>
+                  <div className={styles.cardNum}><span className={styles.statusDot}>●</span> 02 — GROWTH ENGINE</div>
                   <h3>Growth Engine</h3>
                 </div>
                 <ul className={styles.featureList}>
@@ -105,7 +105,7 @@ export function HomePageClient() {
               {/* Category 3: Connected Growth */}
               <div className={styles.helpCard}>
                 <div>
-                  <div className={styles.cardNum}>03 — CONNECTED GROWTH</div>
+                  <div className={styles.cardNum}><span className={styles.statusDot}>●</span> 03 — CONNECTED GROWTH</div>
                   <h3>Connected Growth</h3>
                 </div>
                 <ul className={styles.featureList}>
@@ -139,7 +139,7 @@ export function HomePageClient() {
               {/* Product 1: QIRA Invoice */}
               <div className={styles.productRow}>
                 <div className={styles.productInfo}>
-                  <span className={styles.productBadge}>PRODUCT SYSTEM</span>
+                  <span className={styles.productBadge}><span className={styles.statusDot}>●</span> PRODUCT SYSTEM</span>
                   <h3>QIRA Invoice</h3>
                   <p>
                     {isEn
@@ -196,7 +196,7 @@ export function HomePageClient() {
               {/* Product 2: QIRA Retail & POS System */}
               <div className={styles.productRow}>
                 <div className={styles.productInfo}>
-                  <span className={styles.productBadge}>OPERATIONAL SUITE</span>
+                  <span className={styles.productBadge}><span className={styles.statusDot}>●</span> OPERATIONAL SUITE</span>
                   <h3>QIRA Retail & POS System</h3>
                   <p>
                     {isEn

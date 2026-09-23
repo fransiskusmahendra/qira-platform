@@ -112,7 +112,7 @@ export function PricingPageClient() {
               const tagline = (isEn && PLAN_TAGLINES_EN[item.id]) ? PLAN_TAGLINES_EN[item.id] : item.tagline;
               const planLabel = featured
                 ? "⭐ Most Popular"
-                : "Starter Choice";
+                : "● Starter Choice";
               const durationText = isEn
                 ? `Delivery: ±${item.durationWeeks[0]}–${item.durationWeeks[1]} weeks`
                 : `Timeline: ±${item.durationWeeks[0]}–${item.durationWeeks[1]} minggu`;

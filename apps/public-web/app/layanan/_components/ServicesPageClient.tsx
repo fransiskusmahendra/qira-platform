@@ -91,7 +91,7 @@ export function ServicesPageClient() {
           <div className="servicesPageGrid">
             {services.map((service) => (
               <Link className="companyServiceCard" href={service.href} key={service.title}>
-                <span>{service.number}</span>
+                <span>● {service.number}</span>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
                 <strong>{service.result} →</strong>
