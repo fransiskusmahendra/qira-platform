@@ -1,18 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="qiraMarkTitle qiraMarkDesc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" role="img" aria-labelledby="qiraMarkTitle qiraMarkDesc">
   <title id="qiraMarkTitle">QIRA</title>
-  <desc id="qiraMarkDesc">Simbol Q biru QIRA</desc>
+  <desc id="qiraMarkDesc">Simbol Q Prism Ray QIRA</desc>
   <defs>
-    <linearGradient id="qiraBlue" x1="18" y1="14" x2="108" y2="112" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#28a9ff"/>
-      <stop offset=".52" stop-color="#1769ff"/>
-      <stop offset="1" stop-color="#103fc5"/>
+    <linearGradient id="qRingGrad" x1="16" y1="14" x2="99" y2="102" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="45%" stop-color="#1769FF"/>
+      <stop offset="100%" stop-color="#0A3AB5"/>
     </linearGradient>
-    <filter id="qiraShadow" x="-20%" y="-20%" width="140%" height="150%">
-      <feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#0b47cf" flood-opacity=".2"/>
+    <linearGradient id="qBeamGrad" x1="67" y1="64" x2="117" y2="114" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00F0FF"/>
+      <stop offset="100%" stop-color="#1769FF"/>
+    </linearGradient>
+    <filter id="qGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1769FF" flood-opacity="0.35"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#00F0FF" flood-opacity="0.2"/>
     </filter>
   </defs>
-  <g filter="url(#qiraShadow)">
-    <path fill="url(#qiraBlue)" fill-rule="evenodd" d="M64 13a47 47 0 1 0 28.2 84.6l15.2 15.2 13.4-13.4-15.3-15.3A47 47 0 0 0 64 13Zm0 19a28 28 0 1 0 0 56 28 28 0 0 0 0-56Z"/>
-    <path fill="#35d7c8" d="m83.8 82.4 13.4-13.4 12.9 12.9-13.4 13.4z"/>
+  <g filter="url(#qGlow)">
+    <!-- Precision Torus with 45° cut -->
+    <path d="M 55.3 14.12 C 30.92 14.12 11.22 33.82 11.22 58.2 C 11.22 82.58 30.92 102.28 55.3 102.28 C 68.52 102.28 80.36 96.6 88.48 87.43 L 73.63 72.58 C 69.45 76.99 62.96 80.01 55.3 80.01 C 43.26 80.01 33.49 70.24 33.49 58.2 C 33.49 46.16 43.26 36.39 55.3 36.39 C 67.34 36.39 77.11 46.16 77.11 58.2 C 77.11 62.84 75.6 67.02 73.16 70.38 L 88.01 85.23 C 95.55 78.04 99.38 68.06 99.38 58.2 C 99.38 33.82 79.68 14.12 55.3 14.12 Z" fill="url(#qRingGrad)"/>
+    <!-- Razor Prism Beam Tail (Cut cleanly at 45° - No dot) -->
+    <path d="M 66.9 72.12 L 108.66 113.88 L 116.78 105.76 L 75.02 64 L 66.9 72.12 Z" fill="url(#qBeamGrad)"/>
   </g>
 </svg>
