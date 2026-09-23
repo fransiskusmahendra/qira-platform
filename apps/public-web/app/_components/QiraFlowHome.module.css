@@ -13,40 +13,55 @@
 }
 
 /* =========================================================================
+   PERSISTENT FIXED BACKGROUND LAYER (FOLLOWS ON SCROLL)
+   ========================================================================= */
+.fixedBackgroundLayer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* =========================================================================
    SECTION 01: HERO SECTION (Swiss / Editorial Design + QIRA Flow)
    ========================================================================= */
 .heroSection {
   padding: 130px 0 100px;
   position: relative;
+  z-index: 1;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 38%, #0C1326 0%, #03060E 85%);
+  background: transparent;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Luminous Centered Sphere & Ambient Effects */
 .ambientGlowCentral {
   position: absolute;
-  top: 48%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 680px;
-  height: 680px;
-  background: radial-gradient(circle, rgba(23, 105, 255, 0.32) 0%, rgba(0, 210, 255, 0.14) 40%, transparent 72%);
+  width: 760px;
+  height: 760px;
+  background: radial-gradient(circle, rgba(23, 105, 255, 0.28) 0%, rgba(0, 210, 255, 0.12) 42%, transparent 74%);
   pointer-events: none;
   z-index: 1;
-  filter: blur(50px);
+  filter: blur(60px);
 }
 
 .sphereContainer {
   position: absolute;
-  top: 48%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 680px;
   height: 680px;
   pointer-events: none;
   z-index: 2;
-  opacity: 0.88;
+  opacity: 0.85;
 }
 
 .heroCenteredContent {
@@ -539,7 +554,11 @@
    SECTION 02: WHAT WE DO (SOLUTIONS SECTION)
    ========================================================================= */
 .solutionsSection {
-  background: #090D16;
+  position: relative;
+  z-index: 1;
+  background: rgba(9, 13, 22, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -637,9 +656,12 @@
    SECTION 03: BUILT BY QIRA (PRODUCT-LED / DIGITAL WORKSPACE)
    ========================================================================= */
 .productsSection {
-  background: #0B1120;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
+  z-index: 1;
+  background: rgba(11, 17, 32, 0.76);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .productsSection::before {
@@ -1501,7 +1523,11 @@
 }
 
 .finalCtaSection {
-  background: #090D16;
+  position: relative;
+  z-index: 1;
+  background: rgba(9, 13, 22, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .finalCtaCard {

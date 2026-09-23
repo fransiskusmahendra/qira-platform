@@ -16,21 +16,19 @@ export function HomePageClient() {
       <Navbar />
 
       <main className={styles.pageWrap}>
+        {/* Persistent Floating Background Canvas (Fixed Ambient across scroll) */}
+        <div className={styles.fixedBackgroundLayer} aria-hidden="true">
+          <div className={styles.heroGridBackdrop} />
+          <div className={styles.ambientGlowCentral} />
+          <div className={styles.sphereContainer}>
+            <DigitalSphereCanvas />
+          </div>
+        </div>
+
         {/* =========================================================================
             SECTION 01: HERO (LUMINOUS 3D SPHERE CORE + ULTRA-CLEAN EDITORIAL)
             ========================================================================= */}
         <section className={styles.heroSection}>
-          {/* Layer 2: Subtle Architectural Grid */}
-          <div className={styles.heroGridBackdrop} aria-hidden="true" />
-
-          {/* Layer 3: Central Volumetric Radial Backglow */}
-          <div className={styles.ambientGlowCentral} aria-hidden="true" />
-
-          {/* Layer 4: Interactive Rotating 3D Digital Wireframe Sphere */}
-          <div className={styles.sphereContainer} aria-hidden="true">
-            <DigitalSphereCanvas />
-          </div>
-
           <div className={`shell ${styles.heroCenteredContent}`}>
             <h1 className={styles.heroTitleCentered}>
               <span>{isEn ? "Streamline Workflows." : "Sederhanakan Alur Kerja."}</span>
