@@ -33,14 +33,14 @@ export function HomePageClient() {
 
           <div className={`shell ${styles.heroCenteredContent}`}>
             <h1 className={styles.heroTitleCentered}>
-              <span>{isEn ? "Turn Business Needs." : "Ubah Kebutuhan Bisnis."}</span>
-              <span>{isEn ? "Into Digital Solutions." : "Menjadi Solusi Digital."}</span>
+              <span>{isEn ? "Streamline Workflows." : "Sederhanakan Alur Kerja."}</span>
+              <span>{isEn ? "Automate Operations." : "Otomatiskan Operasional."}</span>
             </h1>
 
             <p className={styles.heroSubCentered}>
               {isEn
-                ? "Practical software that cuts manual friction and scales with your business."
-                : "Software praktis yang memangkas kendala manual dan siap berkembang bersama bisnis Anda."}
+                ? "Purpose-built software for growing businesses—fast to deploy, error-free, and easy for your team to use."
+                : "Sistem digital yang dibangun khusus untuk bisnis berkembang—cepat diakses, minim kesalahan, dan mudah digunakan seluruh staf."}
             </p>
 
             <div className={styles.heroActionsCentered}>
@@ -50,7 +50,7 @@ export function HomePageClient() {
                 rel="noreferrer"
                 className={styles.pillCtaPrimary}
               >
-                <span>{isEn ? "Quick Consultation" : "Konsultasi Cepat"}</span>
+                <span>{isEn ? "Start Consultation" : "Mulai Konsultasi"}</span>
                 <span>→</span>
               </a>
               <Link href="#solutions" className={styles.secondaryButtonPill}>
