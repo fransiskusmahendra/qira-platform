@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { useLanguage } from "../../lib/i18n";
@@ -12,15 +10,6 @@ import styles from "./QiraFlowHome.module.css";
 export function HomePageClient() {
   const { locale } = useLanguage();
   const isEn = locale === "en";
-
-  // State for interactive Before/After comparison slider
-  const [sliderPos, setSliderPos] = useState(50);
-
-  const handleSliderMove = (clientX: number, rect: DOMRect) => {
-    const x = clientX - rect.left;
-    const pct = Math.max(5, Math.min(95, (x / rect.width) * 100));
-    setSliderPos(pct);
-  };
 
   return (
     <>
@@ -132,12 +121,12 @@ export function HomePageClient() {
         </section>
 
         {/* =========================================================================
-            SECTION 03: BUILT BY QIRA (PRODUCT-LED)
+            SECTION 03: BUILT BY QIRA (PROVEN SYSTEMS SHOWCASE)
             ========================================================================= */}
         <section className={`${styles.sectionPadding} ${styles.productsSection}`} id="products">
           <div className="shell">
             <div className={styles.sectionHeader}>
-              <p className="kicker">{isEn ? "BUILT BY QIRA" : "DIBANGUN OLEH QIRA"}</p>
+              <p className="kicker">{isEn ? "SELECTED SYSTEMS" : "SISTEM UNGGULAN"}</p>
               <h2 className={styles.sectionHeading}>
                 {isEn ? "Proven, ready-to-deploy systems." : "Sistem teruji siap pakai."}
               </h2>
@@ -260,298 +249,43 @@ export function HomePageClient() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* =========================================================================
-            SECTION 04: QIRA FLOW (SIGNATURE PROCESS)
-            ========================================================================= */}
-        <section className={`${styles.sectionPadding} ${styles.flowSection}`} id="qira-flow">
-          <div className="shell">
-            <div className={styles.sectionHeader} style={{ textAlign: "center", margin: "0 auto 50px" }}>
-              <p className="kicker">{isEn ? "HOW WE WORK" : "ALUR KERJA"}</p>
-              <h2 className={styles.sectionHeading}>{isEn ? "Four disciplined steps." : "Empat tahap terstruktur."}</h2>
-              <p className={styles.sectionLead} style={{ margin: "0 auto" }}>
-                {isEn
-                  ? "From initial bottleneck analysis to a deployed, production-ready system."
-                  : "Dari pemetaan hambatan hingga sistem operasional siap pakai."}
-              </p>
-            </div>
-
-            <div className={styles.flowTimeline}>
-              <div className={styles.flowStep}>
-                <div className={styles.stepCircle}>01</div>
-                <strong>{isEn ? "Discover" : "Discover"}</strong>
-                <small>{isEn ? "Understand workflows & bottlenecks." : "Memahami alur kerja & hambatan."}</small>
-              </div>
-
-              <div className={styles.flowStep}>
-                <div className={styles.stepCircle}>02</div>
-                <strong>{isEn ? "Design" : "Design"}</strong>
-                <small>{isEn ? "Practical architecture & lean UX." : "Arsitektur solusi & desain praktis."}</small>
-              </div>
-
-              <div className={styles.flowStep}>
-                <div className={styles.stepCircle}>03</div>
-                <strong>{isEn ? "Build" : "Build"}</strong>
-                <small>{isEn ? "Engineered without bloated code." : "Dibangun tanpa dependensi rumit."}</small>
-              </div>
-
-              <div className={styles.flowStep}>
-                <div className={styles.stepCircle}>04</div>
-                <strong>{isEn ? "Improve" : "Improve"}</strong>
-                <small>{isEn ? "Deployment, onboarding & review." : "Penerapan, pelatihan, dan optimasi."}</small>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================================
-            SECTION 05: SELECTED WORK (FROM COMPLEXITY TO SIMPLICITY)
-            ========================================================================= */}
-        <section className={`${styles.sectionPadding} ${styles.caseStudiesSection}`} id="case-studies">
-          <div className="shell">
-            <div className={styles.sectionHeader}>
-              <p className="kicker">{isEn ? "SELECTED WORK" : "KARYA NYATA"}</p>
-              <h2 className={styles.sectionHeading}>{isEn ? "From complexity to simplicity." : "Dari kerumitan menjadi kemudahan."}</h2>
-              <p className={styles.sectionLead}>
-                {isEn
-                  ? "Real deployments demonstrating measurable operational impact."
-                  : "Penerapan langsung dengan dampak operasional nyata."}
-              </p>
-            </div>
-
-            {/* Case 1: Maduratna Retail POS with interactive Before/After Slider */}
-            <div className={styles.caseCard}>
-              <div className={styles.caseHead}>
-                <div>
-                  <span className={styles.caseTag}>{isEn ? "RETAIL & DISTRIBUTION" : "RETAIL & DISTRIBUSI"}</span>
-                  <h3 className={styles.caseTitle}>
-                    {isEn ? "Maduratna Building Supplies — POS & Stock Digitalization" : "Toko Bangunan Maduratna — Digitalisasi POS & Inventaris"}
-                  </h3>
-                </div>
-                <div className={styles.caseMetrics}>
-                  <div>
-                    <small>{isEn ? "Checkout Speed" : "Kecepatan Kasir"}</small>
-                    <strong style={{ color: "var(--blue)" }}>10x Faster</strong>
-                  </div>
-                  <div>
-                    <small>{isEn ? "Stock Variance" : "Selisih Stok"}</small>
-                    <strong style={{ color: "var(--blue)" }}>0.0% Error</strong>
-                  </div>
-                  <div>
-                    <small>{isEn ? "Reconciliation" : "Rekap Harian"}</small>
-                    <strong style={{ color: "var(--blue)" }}>Automated</strong>
-                  </div>
-                </div>
-              </div>
-
-              {/* Interactive Comparison Slider */}
-              <div
-                className={styles.compSlider}
-                onMouseMove={(e) => {
-                  if (e.buttons === 1) handleSliderMove(e.clientX, e.currentTarget.getBoundingClientRect());
-                }}
-                onTouchMove={(e) => {
-                  if (e.touches && e.touches[0]) handleSliderMove(e.touches[0].clientX, e.currentTarget.getBoundingClientRect());
-                }}
-                onClick={(e) => handleSliderMove(e.clientX, e.currentTarget.getBoundingClientRect())}
-              >
-                {/* BEFORE LAYER */}
-                <div className={`${styles.compLayer} ${styles.compBefore}`}>
-                  <span className={styles.compBadgeBefore}>{isEn ? "BEFORE (MANUAL)" : "SEBELUM (MANUAL)"}</span>
-                  <h4>{isEn ? "Handwritten receipts & manual reconciliation" : "Nota tulisan tangan & rekap manual melelahkan"}</h4>
-                  <ul>
-                    <li>✕ {isEn ? "Manual paper receipts prone to calculation errors" : "Nota kertas rawan hilang dan salah hitung"}</li>
-                    <li>✕ {isEn ? "Late-night manual inventory recounting" : "Hitung fisik stok manual setiap tutup toko"}</li>
-                  </ul>
-                </div>
-
-                {/* AFTER LAYER (Clipped) */}
-                <div className={`${styles.compLayer} ${styles.compAfter}`} style={{ width: `${sliderPos}%` }}>
-                  <div className={styles.compAfterInner}>
-                    <span className={styles.compBadgeAfter}>{isEn ? "AFTER (CONNECTED)" : "SESUDAH (TERINTEGRASI)"}</span>
-                    <h4>{isEn ? "Instant cloud POS & real-time inventory" : "Kasir cloud instan & stok otomatis terpotong"}</h4>
-                    <ul>
-                      <li>✓ {isEn ? "Instant POS with auto WhatsApp & thermal receipts" : "Kasir instan dengan nota otomatis WhatsApp & thermal"}</li>
-                      <li>✓ {isEn ? "Real-time stock sync with owner KPI dashboard" : "Sinkronisasi stok real-time & pantau omset di ponsel"}</li>
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Handle */}
-                <div className={styles.compHandle} style={{ left: `${sliderPos}%` }}>
-                  <div className={styles.compHandleKnob}>↔</div>
-                </div>
-              </div>
-
-              <div className={styles.sliderHint}>
-                {isEn ? "← Drag or tap slider to compare Before and After →" : "← Geser atau sentuh garis slider untuk membandingkan Sebelum dan Sesudah →"}
-              </div>
-            </div>
-
-            {/* Case 2: PT Ugra Taraka Sigra */}
-            <div className={styles.caseCard} style={{ marginTop: 28 }}>
-              <div className={styles.caseHead}>
-                <div>
-                  <span className={styles.caseTag}>{isEn ? "PROFESSIONAL EDUCATION" : "PENDIDIKAN PROFESIONAL"}</span>
-                  <h3 className={styles.caseTitle}>
-                    {isEn ? "PT Ugra Taraka Sigra — End-to-End Digital Sales Platform" : "PT Ugra Taraka Sigra — Platform Penjualan Digital End-to-End"}
-                  </h3>
-                </div>
-                <div className={styles.caseMetrics}>
-                  <div>
-                    <small>{isEn ? "Participant Flow" : "Alur Peserta"}</small>
-                    <strong style={{ color: "var(--blue)" }}>100% Digital</strong>
-                  </div>
-                  <div>
-                    <small>{isEn ? "Invoice Time" : "Penerbitan Invoice"}</small>
-                    <strong style={{ color: "var(--blue)" }}>&lt; 10 Seconds</strong>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.caseCompareGrid}>
-                <div className={styles.caseCompareColBefore}>
-                  <span className={styles.compBadgeBefore}>{isEn ? "BEFORE (MANUAL)" : "SEBELUM (MANUAL)"}</span>
-                  <ul>
-                    <li>✕ {isEn ? "Manual registration & scattered participant data" : "Pendaftaran manual & data peserta tercecer"}</li>
-                    <li>✕ {isEn ? "Slow payment verification and invoice delays" : "Verifikasi pembayaran & invoice tertunda"}</li>
-                  </ul>
-                </div>
-                <div className={styles.caseCompareColAfter}>
-                  <span className={styles.compBadgeAfter}>{isEn ? "AFTER (AUTOMATED)" : "SESUDAH (OTOMATIS)"}</span>
-                  <ul>
-                    <li>✓ {isEn ? "Integrated self-serve registration form" : "Form pendaftaran digital terintegrasi"}</li>
-                    <li>✓ {isEn ? "Automated invoicing in < 10 seconds" : "Invoice instan < 10 detik & rekap otomatis"}</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div style={{ textAlign: "center", marginTop: 32 }}>
+            {/* Linear-style Action to Explore Full Work */}
+            <div style={{ textAlign: "center", marginTop: 44 }}>
               <Link href="/portfolio" className={styles.secondaryButtonPill}>
-                {isEn ? "View All Work →" : "Lihat Semua Karya →"}
+                {isEn ? "Explore All Work & Deployments →" : "Lihat Semua Karya & Penerapan →"}
               </Link>
             </div>
           </div>
         </section>
 
         {/* =========================================================================
-            SECTION 08: ABOUT QIRA
-            ========================================================================= */}
-        <section className={`${styles.sectionPadding} ${styles.aboutSection}`} id="about">
-          <div className="shell">
-            <div className={styles.aboutBox}>
-              <div>
-                <p className="kicker">{isEn ? "ABOUT QIRA" : "TENTANG QIRA"}</p>
-                <div className={styles.aboutQuote}>
-                  {isEn ? "Digital should make business simpler." : "Digital harus membuat bisnis lebih sederhana."}
-                </div>
-                <p className={styles.aboutBody}>
-                  {isEn
-                    ? "We build focused software systems that eliminate daily manual friction and support sustainable business operations."
-                    : "Kami membangun software praktis yang memangkas beban kerja manual dan mendukung pertumbuhan bisnis yang terukur."}
-                </p>
-                <div style={{ marginTop: 20 }}>
-                  <Link href="/about" className={styles.productCta}>
-                    {isEn ? "Learn More About Us →" : "Pelajari Lebih Lanjut →"}
-                  </Link>
-                </div>
-              </div>
-
-              <div className={styles.aboutMeta}>
-                <strong>QIRA — Digital Solutions</strong>
-                <span>Jakarta, Indonesia</span>
-                <div style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.6, marginTop: 12 }}>
-                  WhatsApp: +62 821-1076-517<br />
-                  Email: hello@qirasolution.com<br />
-                  Website: www.qirasolution.com
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================================
-            SECTION 09: PRICING (STARTING POINTS & SCOPE EXAMPLES)
-            ========================================================================= */}
-        <section className={`${styles.sectionPadding} ${styles.pricingSection}`} id="pricing">
-          <div className="shell">
-            <div className={styles.sectionHeader}>
-              <p className="kicker">{isEn ? "PROJECT SCOPE & PRICING" : "LINGKUP PROYEK & BIAYA"}</p>
-              <h2 className={styles.sectionHeading}>
-                {isEn ? "Transparent starting points for your digital solutions." : "Prakiraan awal yang transparan untuk solusi digital Anda."}
-              </h2>
-              <p className={styles.sectionLead}>
-                {isEn
-                  ? "Every project is scoped to actual business requirements. Final investments depend on features, integrations, workflow complexity, and support."
-                  : "Setiap proyek disesuaikan dengan kebutuhan nyata bisnis Anda. Nilai akhir bergantung pada kompleksitas modul, integrasi sistem, dan alur kerja."}
-              </p>
-            </div>
-
-            <div className={styles.pricingGrid}>
-              <div className={styles.pricingCard}>
-                <span className={styles.pricingTier}>{isEn ? "STARTING FROM" : "MULAI DARI"}</span>
-                <div className={styles.pricingAmount}>Rp 1.500.000</div>
-                <h4>{isEn ? "Business Foundation" : "Pondasi Bisnis & Web"}</h4>
-                <p>{isEn ? "Dedicated company profile, digital catalog, and structured intake form for straightforward operations." : "Website profil usaha, katalog digital, dan form terstruktur untuk usaha yang ingin mulai rapi."}</p>
-                <ul className={styles.pricingPoints}>
-                  <li>✓ {isEn ? "Responsive modern web design" : "Desain web modern & responsif"}</li>
-                  <li>✓ {isEn ? "WhatsApp direct integration" : "Integrasi langsung ke WhatsApp"}</li>
-                  <li>✓ {isEn ? "Speed & SEO optimization" : "Optimasi kecepatan & SEO lokal"}</li>
-                </ul>
-              </div>
-
-              <div className={`${styles.pricingCard} ${styles.pricingFeatured}`}>
-                <span className={styles.pricingTierFeatured}>{isEn ? "POPULAR SCOPE" : "LINGKUP POPULER"}</span>
-                <div className={styles.pricingAmount}>Rp 3.500.000</div>
-                <h4>{isEn ? "Operations & POS Suite" : "Sistem Operasional & POS"}</h4>
-                <p>{isEn ? "Digital point-of-sale, real-time inventory management, receipt generation, and transaction records." : "Kasir digital cloud, manajemen stok real-time, pencatatan transaksi, dan cetak struk instan."}</p>
-                <ul className={styles.pricingPoints}>
-                  <li>✓ {isEn ? "Multi-SKU inventory & stock alerts" : "Manajemen multi-SKU & alert stok"}</li>
-                  <li>✓ {isEn ? "Cashier register & digital receipts" : "Kasir web & nota digital otomatis"}</li>
-                  <li>✓ {isEn ? "Owner summary dashboard" : "Dashboard rekap penjualan harian"}</li>
-                </ul>
-              </div>
-
-              <div className={styles.pricingCard}>
-                <span className={styles.pricingTier}>{isEn ? "ENTERPRISE WORKFLOW" : "ALUR TERPADU"}</span>
-                <div className={styles.pricingAmount}>Rp 7.500.000</div>
-                <h4>{isEn ? "Connected Automation" : "Sistem Terhubung & Otomasi"}</h4>
-                <p>{isEn ? "Custom end-to-end pipelines, API synchronization, automated WhatsApp triggers, and internal dashboards." : "Pipeline alur kerja menyeluruh, sinkronisasi API, otomasi notifikasi WhatsApp, dan dashboard terpadu."}</p>
-                <ul className={styles.pricingPoints}>
-                  <li>✓ {isEn ? "Custom API & database integration" : "Integrasi database & API khusus"}</li>
-                  <li>✓ {isEn ? "Automated notifications & invoicing" : "Otomasi notifikasi & tagihan digital"}</li>
-                  <li>✓ {isEn ? "Dedicated deployment & onboarding" : "Pendampingan & training tim operasional"}</li>
-                </ul>
-              </div>
-            </div>
-
-            <div style={{ textAlign: "center", marginTop: 32 }}>
-              <Link href="/harga" className={styles.secondaryButtonPill}>
-                {isEn ? "View Detailed Pricing & Plans →" : "Lihat Rincian Paket & Fitur →"}
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================================
-            SECTION 10: FINAL CTA
+            SECTION 04: FINAL CALL TO ACTION (CLEAN & MINIMALIST)
             ========================================================================= */}
         <section className={`${styles.finalCta} ${styles.finalCtaSection}`} id="contact">
           <div className="shell">
             <div className={styles.finalCtaCard}>
               <h2>{isEn ? "Have a business problem to solve?" : "Punya tantangan bisnis yang ingin diselesaikan?"}</h2>
               <p>{isEn ? "Let's turn it into a practical digital solution." : "Mari kita ubah menjadi solusi digital yang praktis."}</p>
-              <a
-                href="https://wa.me/628211076517?text=Halo%20QIRA,%20saya%20ingin%20berdiskusi%20tentang%20solusi%20digital."
-                target="_blank"
-                rel="noreferrer"
-                className="primaryButton"
-                style={{ padding: "0 34px", minHeight: 52 }}
-              >
-                {isEn ? "Start a Project →" : "Mulai Proyek →"}
-              </a>
+              
+              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", gap: "16px", marginTop: 8 }}>
+                <a
+                  href="https://wa.me/628211076517?text=Halo%20QIRA,%20saya%20ingin%20berdiskusi%20tentang%20solusi%20digital."
+                  target="_blank"
+                  rel="noreferrer"
+                  className="primaryButton"
+                  style={{ padding: "0 34px", minHeight: 52 }}
+                >
+                  {isEn ? "Start Consultation →" : "Mulai Diskusi →"}
+                </a>
+                <Link
+                  href="/harga"
+                  className={styles.secondaryButtonPill}
+                  style={{ minHeight: 52, padding: "0 28px" }}
+                >
+                  {isEn ? "View Pricing & Plans" : "Lihat Rincian Paket & Biaya"}
+                </Link>
+              </div>
             </div>
           </div>
         </section>
