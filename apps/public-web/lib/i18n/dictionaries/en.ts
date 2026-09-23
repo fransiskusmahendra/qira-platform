@@ -304,7 +304,7 @@ export const enDictionary: TranslationDictionary = {
     solutionsLinks: [
       { href: "/layanan", label: "All Services" },
       { href: "/harga", label: "Pricing & Plans" },
-      { href: "/portfolio", label: "Selected Work" },
+      { href: "/studi-kasus", label: "Case Studies" },
       { href: "/contoh-penerapan", label: "Use Cases" },
       { href: "/solusi/website-umkm", label: "Business Websites" },
       { href: "/solusi/automation-bisnis", label: "Workflow Automation" },

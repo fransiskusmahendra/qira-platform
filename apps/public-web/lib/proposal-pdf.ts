@@ -48,8 +48,8 @@ export async function buildProposalPdf(input: ProposalPdfInput) {
   const page = pdf.addPage([595.28, 841.89]);
   const { width, height } = page.getSize();
   const margin = 54;
-  page.drawRectangle({ x: 0, y: height - 150, width, height: 150, color: rgb(0.04, 0.15, 0.18) });
-  page.drawText("QIRA.", { x: margin, y: height - 68, size: 30, font: bold, color: rgb(0.4, 0.9, 0.72) });
+  page.drawRectangle({ x: 0, y: height - 150, width, height: 150, color: rgb(0.04, 0.07, 0.15) });
+  page.drawText("QIRA", { x: margin, y: height - 68, size: 30, font: bold, color: rgb(0.09, 0.41, 1.0) });
   page.drawText("RINGKASAN PENAWARAN", { x: margin, y: height - 108, size: 12, font: bold, color: rgb(1, 1, 1) });
   page.drawText(input.proposalNumber, { x: margin, y: height - 130, size: 9, font: regular, color: rgb(0.82, 0.9, 0.9) });
 

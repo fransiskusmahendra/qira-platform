@@ -304,7 +304,7 @@ export const idDictionary: TranslationDictionary = {
     solutionsLinks: [
       { href: "/layanan", label: "Semua Layanan" },
       { href: "/harga", label: "Harga & Paket" },
-      { href: "/portfolio", label: "Karya & Penerapan" },
+      { href: "/studi-kasus", label: "Studi Kasus Bisnis" },
       { href: "/contoh-penerapan", label: "Contoh Penerapan" },
       { href: "/solusi/website-umkm", label: "Website Usaha" },
       { href: "/solusi/automation-bisnis", label: "Otomatisasi Bisnis" },

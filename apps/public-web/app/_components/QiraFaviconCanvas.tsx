@@ -7,23 +7,37 @@ export function QiraFaviconCanvas({ size, markSize }: { size: number; markSize: 
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "transparent",
+        background: "#090D16",
+        borderRadius: `${Math.round(size * 0.22)}px`,
       }}
     >
-      <svg width={markSize} height={markSize} viewBox="0 0 128 128" aria-hidden="true">
+      <svg width={markSize} height={markSize} viewBox="0 0 128 128" fill="none" aria-hidden="true">
         <defs>
-          <linearGradient id="qiraBlue" x1="18" y1="14" x2="108" y2="112" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#28a9ff" />
-            <stop offset="0.52" stopColor="#1769ff" />
-            <stop offset="1" stopColor="#103fc5" />
+          <linearGradient id="favRing" x1="16" y1="14" x2="99" y2="102" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#38BDF8" />
+            <stop offset="45%" stopColor="#1769FF" />
+            <stop offset="100%" stopColor="#0A3AB5" />
           </linearGradient>
+          <linearGradient id="favBeam" x1="67" y1="64" x2="117" y2="114" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#00F0FF" />
+            <stop offset="70%" stopColor="#00D2FF" />
+            <stop offset="100%" stopColor="#1769FF" />
+          </linearGradient>
+          <radialGradient id="favAura" cx="64" cy="64" r="58" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#00F0FF" stopOpacity="0.6" />
+            <stop offset="50%" stopColor="#1769FF" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#090D16" stopOpacity="0" />
+          </radialGradient>
         </defs>
+        <circle cx="64" cy="64" r="50" fill="url(#favAura)" />
         <path
-          fill="url(#qiraBlue)"
-          fillRule="evenodd"
-          d="M64 13a47 47 0 1 0 28.2 84.6l15.2 15.2 13.4-13.4-15.3-15.3A47 47 0 0 0 64 13Zm0 19a28 28 0 1 0 0 56 28 28 0 0 0 0-56Z"
+          d="M 55.3 14.12 C 30.92 14.12 11.22 33.82 11.22 58.2 C 11.22 82.58 30.92 102.28 55.3 102.28 C 68.52 102.28 80.36 96.6 88.48 87.43 L 73.63 72.58 C 69.45 76.99 62.96 80.01 55.3 80.01 C 43.26 80.01 33.49 70.24 33.49 58.2 C 33.49 46.16 43.26 36.39 55.3 36.39 C 67.34 36.39 77.11 46.16 77.11 58.2 C 77.11 62.84 75.6 67.02 73.16 70.38 L 88.01 85.23 C 95.55 78.04 99.38 68.06 99.38 58.2 C 99.38 33.82 79.68 14.12 55.3 14.12 Z"
+          fill="url(#favRing)"
         />
-        <path fill="#35d7c8" d="m83.8 82.4 13.4-13.4 12.9 12.9-13.4 13.4z" />
+        <path
+          d="M 66.9 72.12 L 108.66 113.88 L 116.78 105.76 L 75.02 64 L 66.9 72.12 Z"
+          fill="url(#favBeam)"
+        />
       </svg>
     </div>
   );

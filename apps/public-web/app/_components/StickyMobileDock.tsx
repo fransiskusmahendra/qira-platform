@@ -29,11 +29,11 @@ export function StickyMobileDock() {
         gap: "10px",
         padding: "10px 16px",
         paddingBottom: "max(10px, env(safe-area-inset-bottom))",
-        background: "rgba(255, 255, 255, 0.94)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        borderTop: "1px solid rgba(15, 23, 42, 0.08)",
-        boxShadow: "0 -4px 16px rgba(0, 0, 0, 0.04)"
+        background: "rgba(8, 12, 24, 0.88)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        borderTop: "1px solid rgba(255, 255, 255, 0.12)",
+        boxShadow: "0 -8px 28px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08)"
       }}
     >
       <a
@@ -49,12 +49,12 @@ export function StickyMobileDock() {
           gap: "6px",
           height: "44px",
           borderRadius: "10px",
-          background: "#22c55e",
+          background: "#16a34a",
           color: "#ffffff",
           fontSize: "13.5px",
           fontWeight: "700",
           textDecoration: "none",
-          boxShadow: "0 2px 6px rgba(34, 197, 94, 0.28)"
+          boxShadow: "0 2px 10px rgba(22, 163, 74, 0.35)"
         }}
       >
         💬 <span>WhatsApp</span>
@@ -64,18 +64,18 @@ export function StickyMobileDock() {
         href="/coba-masalah"
         onClick={() => void trackConversion("homepage_cta_click")}
         style={{
-          flex: 1.2,
+          flex: 1.25,
           display: "inline-flex",
           alignItems: "center",
           justifyContent: "center",
           height: "44px",
           borderRadius: "10px",
-          background: "var(--blue)",
+          background: "linear-gradient(135deg, #1769FF 0%, #00C2FF 100%)",
           color: "#ffffff",
           fontSize: "13px",
-          fontWeight: "700",
+          fontWeight: "750",
           textDecoration: "none",
-          boxShadow: "0 2px 6px rgba(26, 115, 232, 0.28)"
+          boxShadow: "0 2px 14px rgba(0, 194, 255, 0.32)"
         }}
       >
         <span>{isEn ? "Start Discovery →" : "Mulai dari Masalah →"}</span>
