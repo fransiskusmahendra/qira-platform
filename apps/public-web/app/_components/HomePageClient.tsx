@@ -73,7 +73,7 @@ export function HomePageClient() {
               <p className={styles.sectionLead}>
                 {isEn
                   ? "Clean software architecture connecting daily workflows with operational clarity."
-                  : "Arsitektur software bersih yang menghubungkan alur kerja dan mempermudah operasional harian."}
+                  : "Software andal yang menghubungkan alur kerja dan mempermudah operasional harian."}
               </p>
             </div>
 
@@ -86,8 +86,8 @@ export function HomePageClient() {
                 </div>
                 <ul className={styles.featureList}>
                   <li>{isEn ? "Web applications & internal tools" : "Aplikasi web & portal operasional tim"}</li>
-                  <li>{isEn ? "Structured digital forms & data intake" : "Formulir digital & data intake terstruktur"}</li>
-                  <li>{isEn ? "Operational dashboards & management visibility" : "Dashboard operasional & visibilitas manajemen"}</li>
+                  <li>{isEn ? "Structured digital forms & data intake" : "Formulir digital & pendataan terstruktur"}</li>
+                  <li>{isEn ? "Operational dashboards & management visibility" : "Dashboard operasional & pantau performa real-time"}</li>
                 </ul>
               </div>
 
@@ -146,7 +146,7 @@ export function HomePageClient() {
                   <p>
                     {isEn
                       ? "Automated digital invoicing built for growing businesses to get paid on time."
-                      : "Sistem invoicing digital terotomasi untuk bisnis agar pembayaran tepat waktu."}
+                      : "Sistem invoice otomatis agar pembayaran dari klien tepat waktu."}
                   </p>
 
                   <div className={styles.flowPills}>
@@ -243,7 +243,7 @@ export function HomePageClient() {
                       <strong style={{ color: "#f59e0b" }}>4 Kaleng (Low Alert)</strong>
                     </div>
                     <div className={styles.appCardMeta} style={{ color: "var(--blue)", fontWeight: 600 }}>
-                      ⚡ {isEn ? "Auto-deducts instantly on cashier register" : "Otomatis auto-deduct saat kasir input transaksi"}
+                      ⚡ {isEn ? "Auto-deducts instantly on cashier register" : "Stok otomatis terpotong saat kasir input transaksi"}
                     </div>
                   </div>
                 </div>

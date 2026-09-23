@@ -54,9 +54,9 @@ const PLAN_TAGLINES_EN: Record<string, string> = {
 };
 
 const PRICING_FAQS_ID = [
-  { q: "Apakah ada biaya langganan bulanan tersembunyi?", a: "Tidak ada. Solusi yang dibangun QIRA bersifat mandiri. Anda tidak dibebani biaya lisensi bulanan yang seringkali mubazir." },
-  { q: "Bagaimana sistem pembayarannya?", a: "Pembayaran dilakukan bertahap transparan: uang muka (DP) di awal kesepakatan ruang lingkup, dan pelunasan setelah sistem selesai diuji dan siap digunakan." },
-  { q: "Apakah hak milik kode dan data diserahkan penuh?", a: "Ya, 100%. Source code, database, dan domain sepenuhnya menjadi aset milik usaha Anda tanpa ikatan vendor lock-in." }
+  { q: "Apakah ada biaya langganan bulanan tersembunyi?", a: "Tidak ada. Solusi yang dibangun QIRA sepenuhnya mandiri (sekali bayar). Anda tidak dibebani biaya lisensi bulanan." },
+  { q: "Bagaimana sistem pembayarannya?", a: "Pembayaran bertahap transparan: uang muka (DP) di awal pengerjaan, dan pelunasan setelah sistem selesai diuji dan siap digunakan." },
+  { q: "Apakah hak milik kode dan data diserahkan penuh?", a: "Ya, 100%. Source code, database, dan domain sepenuhnya menjadi aset milik usaha Anda tanpa ketergantungan (vendor lock-in)." }
 ];
 
 const PRICING_FAQS_EN = [
@@ -71,11 +71,11 @@ export function PricingPageClient() {
 
   const lowestPrice = PROPOSAL_PACKAGES[0]?.introductoryPriceIdr ?? 0;
 
-  const eyebrow = isEn ? "Pricing" : "Investasi";
-  const heading = isEn ? "Clear pricing. No recurring lock-in." : "Investasi jelas. Bebas biaya langganan.";
+  const eyebrow = isEn ? "Pricing" : "Paket & Harga";
+  const heading = isEn ? "Clear pricing. No recurring lock-in." : "Harga transparan. Bebas biaya langganan.";
   const lead = isEn
     ? `Starting from ${rupiah.format(lowestPrice)} (~$100). Own your systems outright without bloated recurring fees. Direct support included.`
-    : `Mulai dari ${rupiah.format(lowestPrice)}. Miliki sistem mandiri tanpa langganan bulanan yang membengkak. Sudah termasuk garansi dan pendampingan.`;
+    : `Mulai dari ${rupiah.format(lowestPrice)}. Miliki sistem mandiri tanpa biaya langganan bulanan. Termasuk garansi dan pendampingan langsung.`;
   const heroCta = isEn ? "Help me choose a plan" : "Bantu pilih paket";
 
   const audienceFit = isEn ? AUDIENCE_FIT_EN : AUDIENCE_FIT_ID;
