@@ -1,12 +1,12 @@
-﻿import type { TranslationDictionary } from "../types";
+import type { TranslationDictionary } from "../types";
 
 export const enDictionary: TranslationDictionary = {
   nav: {
     about: "About",
     services: "Services",
-    portfolio: "Portfolio",
+    portfolio: "Work",
     pricing: "Pricing",
-    caseStudies: "Case Studies",
+    caseStudies: "Work",
     guides: "Guides",
     howItWorks: "How It Works",
     home: "Home",
@@ -304,15 +304,15 @@ export const enDictionary: TranslationDictionary = {
     solutionsLinks: [
       { href: "/layanan", label: "All Services" },
       { href: "/harga", label: "Pricing & Plans" },
-      { href: "/portfolio", label: "App Portfolio" },
+      { href: "/portfolio", label: "Selected Work" },
       { href: "/contoh-penerapan", label: "Use Cases" },
       { href: "/solusi/website-umkm", label: "Business Websites" },
       { href: "/solusi/automation-bisnis", label: "Workflow Automation" },
     ],
     learnLinks: [
+      { href: "/portfolio", label: "Work & Deployments" },
       { href: "/cara-kerja", label: "Our Process" },
-      { href: "/studi-kasus", label: "Case Studies" },
-      { href: "/panduan", label: "Business Guides" },
+      { href: "/panduan", label: "Business Guides & Resources" },
       { href: "/untuk/usaha-jasa", label: "For Service Businesses" },
       { href: "/untuk/retail-umkm", label: "For Retail & SMEs" },
       { href: "/untuk/administrasi-tim", label: "For Admin & Teams" },

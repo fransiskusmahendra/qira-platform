@@ -1,12 +1,12 @@
-﻿import type { TranslationDictionary } from "../types";
+import type { TranslationDictionary } from "../types";
 
 export const idDictionary: TranslationDictionary = {
   nav: {
     about: "Tentang",
     services: "Layanan",
-    portfolio: "Portofolio",
+    portfolio: "Karya",
     pricing: "Harga",
-    caseStudies: "Studi Kasus",
+    caseStudies: "Karya",
     guides: "Panduan",
     howItWorks: "Cara Kerja",
     home: "Beranda",
@@ -304,15 +304,15 @@ export const idDictionary: TranslationDictionary = {
     solutionsLinks: [
       { href: "/layanan", label: "Semua Layanan" },
       { href: "/harga", label: "Harga & Paket" },
-      { href: "/portfolio", label: "Portofolio Aplikasi" },
+      { href: "/portfolio", label: "Karya & Penerapan" },
       { href: "/contoh-penerapan", label: "Contoh Penerapan" },
       { href: "/solusi/website-umkm", label: "Website Usaha" },
       { href: "/solusi/automation-bisnis", label: "Otomatisasi Bisnis" },
     ],
     learnLinks: [
+      { href: "/portfolio", label: "Karya & Hasil Nyata" },
       { href: "/cara-kerja", label: "Cara Kerja Kami" },
-      { href: "/studi-kasus", label: "Studi Kasus Nyata" },
-      { href: "/panduan", label: "Panduan Bisnis" },
+      { href: "/panduan", label: "Panduan Bisnis & Edukasi" },
       { href: "/untuk/usaha-jasa", label: "Untuk Usaha Jasa" },
       { href: "/untuk/retail-umkm", label: "Untuk Retail & UMKM" },
       { href: "/untuk/administrasi-tim", label: "Untuk Administrasi Tim" },

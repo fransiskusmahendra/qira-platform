@@ -13,6 +13,15 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   experimental: { serverActions: { bodySizeLimit: "2mb" } },
+  async redirects() {
+    return [
+      {
+        source: "/studi-kasus",
+        destination: "/portfolio",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

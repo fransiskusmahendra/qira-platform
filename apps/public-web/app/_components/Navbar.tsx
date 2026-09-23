@@ -14,22 +14,17 @@ export function Navbar() {
   const { t } = useLanguage();
 
   const primaryLinks = [
-    { href: "/about", label: t.nav.about },
     { href: "/layanan", label: t.nav.services },
     { href: "/portfolio", label: t.nav.portfolio },
     { href: "/harga", label: t.nav.pricing },
-    { href: "/studi-kasus", label: t.nav.caseStudies },
-    { href: "/panduan", label: t.nav.guides },
+    { href: "/about", label: t.nav.about },
   ];
 
   const allMobileLinks = [
-    { href: "/about", label: t.nav.about },
     { href: "/layanan", label: t.nav.services },
     { href: "/portfolio", label: t.nav.portfolio },
     { href: "/harga", label: t.nav.pricing },
-    { href: "/cara-kerja", label: t.nav.howItWorks },
-    { href: "/studi-kasus", label: t.nav.caseStudies },
-    { href: "/panduan", label: t.nav.guides },
+    { href: "/about", label: t.nav.about },
   ];
 
   // Close drawer on route change

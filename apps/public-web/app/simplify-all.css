@@ -217,6 +217,38 @@
   text-decoration: underline;
 }
 
+.karyaFlowGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  font-size: 12.5px;
+}
+.karyaFlowCol small {
+  display: block;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.karyaFlowCol p {
+  margin: 4px 0 0;
+  line-height: 1.45;
+  color: #8A8F98;
+  font-size: 12px;
+}
+@media (max-width: 640px) {
+  .karyaFlowGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
 .portfolioCaseGrid {
   margin-top: 34px;
   display: grid;
