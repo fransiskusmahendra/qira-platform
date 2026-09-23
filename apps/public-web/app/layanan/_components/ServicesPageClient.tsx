@@ -11,10 +11,10 @@ import { ClosingCtaSection } from "../../_components/ClosingCtaSection";
 import { useLanguage } from "../../../lib/i18n";
 
 const SERVICES_ID = [
-  { number: "01", title: "Website UMKM", description: "Website yang menjelaskan usaha, layanan, produk, dan cara menghubungi Anda dengan lebih jelas.", result: "Lebih mudah ditemukan & dipercaya", href: "/solusi/website-umkm" },
-  { number: "02", title: "Otomatisasi Bisnis", description: "Kurangi pekerjaan berulang seperti pengingat, alur data, tindak lanjut, dan proses administratif sederhana.", result: "Lebih sedikit pekerjaan manual", href: "/solusi/automation-bisnis" },
-  { number: "03", title: "Administrasi Digital", description: "Rapikan form, data, dokumen, pencatatan, dan status pekerjaan dalam alur yang lebih mudah digunakan.", result: "Data & dokumen lebih rapi", href: "/solusi/digitalisasi-administrasi" },
-  { number: "04", title: "Alat Kerja Digital", description: "Buat dashboard, generator dokumen, alat transaksi, atau tool khusus untuk kebutuhan operasional tertentu.", result: "Pekerjaan lebih cepat & konsisten", href: "/solusi/business-tools" },
+  { number: "01", title: "Business Website", description: "Website yang menjelaskan profil usaha, katalog produk, dan kontak bisnis dengan jelas.", result: "Mudah ditemukan & kredibel", href: "/solusi/website-umkm" },
+  { number: "02", title: "Workflow Automation", description: "Kurangi pekerjaan berulang seperti follow-up, pengingat jadwal, alur data, dan notifikasi.", result: "Pangkas tugas manual", href: "/solusi/automation-bisnis" },
+  { number: "03", title: "Digital Administration", description: "Rapikan form input, data pelanggan, dokumen invoice, dan status order dalam satu sistem teratur.", result: "Data & dokumen rapi", href: "/solusi/digitalisasi-administrasi" },
+  { number: "04", title: "Custom Tools & Dashboard", description: "Dashboard operasional, generator invoice PDF, kasir POS, atau tool khusus kebutuhan tim Anda.", result: "Pekerjaan cepat & presisi", href: "/solusi/business-tools" },
 ] as const;
 
 const SERVICES_EN = [
@@ -25,14 +25,14 @@ const SERVICES_EN = [
 ] as const;
 
 const TECH_STACK_ID = [
-  { name: "Next.js & React", category: "Web & Aplikasi" },
-  { name: "TypeScript", category: "Kualitas Kode" },
-  { name: "PostgreSQL & Supabase", category: "Database Mandiri" },
-  { name: "WhatsApp Cloud API", category: "Chat & Notifikasi" },
-  { name: "Python & Node.js", category: "Otomasi & Scripting" },
-  { name: "Resend & Webhooks", category: "Alur Email & Event" },
-  { name: "Thermal POS Protocols", category: "Cetak Nota Kasir" },
-  { name: "REST & External APIs", category: "Integrasi Sistem" },
+  { name: "Next.js & React", category: "Web & Apps" },
+  { name: "TypeScript", category: "Type Safety" },
+  { name: "PostgreSQL & Supabase", category: "Database & Backend" },
+  { name: "WhatsApp Cloud API", category: "Chat & Notifications" },
+  { name: "Python & Node.js", category: "Automation & Scripting" },
+  { name: "Resend & Webhooks", category: "Email & Webhooks" },
+  { name: "Thermal POS Protocols", category: "Thermal POS & Printing" },
+  { name: "REST & External APIs", category: "API Integrations" },
 ];
 
 const TECH_STACK_EN = [

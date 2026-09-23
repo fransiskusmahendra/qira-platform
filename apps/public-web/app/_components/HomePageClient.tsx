@@ -82,11 +82,11 @@ export function HomePageClient() {
               <div className={styles.helpCard}>
                 <div>
                   <div className={styles.cardNum}>01 — FOUNDATION</div>
-                  <h3>{isEn ? "Digital Foundation" : "Pondasi Digital"}</h3>
+                  <h3>Digital Foundation</h3>
                 </div>
                 <ul className={styles.featureList}>
                   <li>{isEn ? "Web applications & internal tools" : "Aplikasi web & portal operasional tim"}</li>
-                  <li>{isEn ? "Structured digital forms & data intake" : "Formulir digital & pengumpulan data terstruktur"}</li>
+                  <li>{isEn ? "Structured digital forms & data intake" : "Formulir digital & data intake terstruktur"}</li>
                   <li>{isEn ? "Operational dashboards & management visibility" : "Dashboard operasional & visibilitas manajemen"}</li>
                 </ul>
               </div>
@@ -95,12 +95,12 @@ export function HomePageClient() {
               <div className={styles.helpCard}>
                 <div>
                   <div className={styles.cardNum}>02 — GROWTH ENGINE</div>
-                  <h3>{isEn ? "Growth Engine" : "Mesin Pertumbuhan"}</h3>
+                  <h3>Growth Engine</h3>
                 </div>
                 <ul className={styles.featureList}>
                   <li>{isEn ? "Automated customer communication" : "Komunikasi & respon pelanggan otomatis"}</li>
                   <li>{isEn ? "Transaction processing & receipt generation" : "Pemrosesan transaksi & pembuatan struk instan"}</li>
-                  <li>{isEn ? "Document & approval workflows" : "Alur persetujuan & otomasi dokumen"}</li>
+                  <li>{isEn ? "Document & approval workflows" : "Workflow persetujuan & otomasi dokumen"}</li>
                 </ul>
               </div>
 
@@ -108,7 +108,7 @@ export function HomePageClient() {
               <div className={styles.helpCard}>
                 <div>
                   <div className={styles.cardNum}>03 — CONNECTED GROWTH</div>
-                  <h3>{isEn ? "Connected Growth" : "Pertumbuhan Terhubung"}</h3>
+                  <h3>Connected Growth</h3>
                 </div>
                 <ul className={styles.featureList}>
                   <li>{isEn ? "Cross-platform data synchronization" : "Sinkronisasi data lintas platform"}</li>
@@ -141,20 +141,20 @@ export function HomePageClient() {
               {/* Product 1: QIRA Invoice */}
               <div className={styles.productRow}>
                 <div className={styles.productInfo}>
-                  <span className={styles.productBadge}>{isEn ? "PRODUCT SYSTEM" : "SISTEM PRODUK"}</span>
+                  <span className={styles.productBadge}>PRODUCT SYSTEM</span>
                   <h3>QIRA Invoice</h3>
                   <p>
                     {isEn
                       ? "Automated digital invoicing built for growing businesses to get paid on time."
-                      : "Sistem penagihan digital terotomasi untuk bisnis agar pembayaran tepat waktu."}
+                      : "Sistem invoicing digital terotomasi untuk bisnis agar pembayaran tepat waktu."}
                   </p>
 
                   <div className={styles.flowPills}>
-                    <span className={styles.pill}>{isEn ? "Create" : "Buat"}</span>
+                    <span className={styles.pill}>Create</span>
                     <span className={styles.pillArrow}>→</span>
-                    <span className={styles.pill}>{isEn ? "Manage" : "Kelola"}</span>
+                    <span className={styles.pill}>Manage</span>
                     <span className={styles.pillArrow}>→</span>
-                    <span className={styles.pill}>{isEn ? "Track" : "Lacak"}</span>
+                    <span className={styles.pill}>Track</span>
                   </div>
 
                   <a
@@ -174,7 +174,7 @@ export function HomePageClient() {
                         <strong>INV-2026-089</strong>
                         <div style={{ fontSize: 11, color: "var(--muted)" }}>PT Solusi Mandiri</div>
                       </div>
-                      <span className={styles.tagPaid}>{isEn ? "PAID IN FULL" : "LUNAS LENGKAP"}</span>
+                      <span className={styles.tagPaid}>{isEn ? "PAID" : "LUNAS"}</span>
                     </div>
                     <div className={styles.appCardLine}>
                       <span>Enterprise Platform License</span>
@@ -189,7 +189,7 @@ export function HomePageClient() {
                       <span style={{ color: "var(--blue)" }}>Rp 25.700.000</span>
                     </div>
                     <div className={styles.appCardMeta}>
-                      <span style={{ color: "#10b981" }}>✓</span> {isEn ? "Auto-sent to client via WhatsApp & Cloud Record" : "Terkirim otomatis ke klien via WhatsApp & Cloud"}
+                      <span style={{ color: "#10b981" }}>✓</span> {isEn ? "Auto-sent via WhatsApp & Cloud Record" : "Terkirim otomatis via WhatsApp & Cloud"}
                     </div>
                   </div>
                 </div>
@@ -198,20 +198,20 @@ export function HomePageClient() {
               {/* Product 2: QIRA Retail & POS System */}
               <div className={styles.productRow}>
                 <div className={styles.productInfo}>
-                  <span className={styles.productBadge}>{isEn ? "OPERATIONAL SUITE" : "SUITE OPERASIONAL"}</span>
+                  <span className={styles.productBadge}>OPERATIONAL SUITE</span>
                   <h3>QIRA Retail & POS System</h3>
                   <p>
                     {isEn
                       ? "Cloud POS and multi-outlet inventory system engineered for retail and distributors."
-                      : "Aplikasi kasir cloud dan manajemen stok multi-cabang untuk toko ritel dan distributor."}
+                      : "Aplikasi POS cloud dan manajemen stok multi-cabang untuk toko ritel dan distributor."}
                   </p>
 
                   <div className={styles.flowPills}>
-                    <span className={styles.pill}>{isEn ? "Fast Checkout" : "Kasir Cepat"}</span>
+                    <span className={styles.pill}>Fast Checkout</span>
                     <span className={styles.pillArrow}>→</span>
-                    <span className={styles.pill}>{isEn ? "Real-Time Stock" : "Stok Real-Time"}</span>
+                    <span className={styles.pill}>Real-Time Stock</span>
                     <span className={styles.pillArrow}>→</span>
-                    <span className={styles.pill}>{isEn ? "Owner Dashboard" : "Dashboard Owner"}</span>
+                    <span className={styles.pill}>Owner Dashboard</span>
                   </div>
 
                   <a
@@ -227,8 +227,8 @@ export function HomePageClient() {
                 <div className={styles.productVisual}>
                   <div className={styles.appCard}>
                     <div className={styles.appCardHead}>
-                      <strong>{isEn ? "Multi-Warehouse Inventory" : "Inventaris Multi-Gudang"}</strong>
-                      <span style={{ fontSize: 11, color: "#10b981", fontWeight: 700 }}>● {isEn ? "Live Sync" : "Sync Berjalan"}</span>
+                      <strong>Multi-Warehouse Inventory</strong>
+                      <span style={{ fontSize: 11, color: "#10b981", fontWeight: 700 }}>● Live Sync</span>
                     </div>
                     <div className={styles.appCardLine}>
                       <span>Semen Padang 50kg</span>
@@ -243,7 +243,7 @@ export function HomePageClient() {
                       <strong style={{ color: "#f59e0b" }}>4 Kaleng (Low Alert)</strong>
                     </div>
                     <div className={styles.appCardMeta} style={{ color: "var(--blue)", fontWeight: 600 }}>
-                      ⚡ {isEn ? "Auto-deducts instantly on cashier register" : "Otomatis memotong stok saat kasir input transaksi"}
+                      ⚡ {isEn ? "Auto-deducts instantly on cashier register" : "Otomatis auto-deduct saat kasir input transaksi"}
                     </div>
                   </div>
                 </div>

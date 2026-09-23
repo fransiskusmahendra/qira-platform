@@ -109,15 +109,15 @@ export function PricingPageClient() {
               const deliverables = (isEn && DELIVERABLES_EN[item.id]) ? DELIVERABLES_EN[item.id] : item.deliverables;
               const tagline = (isEn && PLAN_TAGLINES_EN[item.id]) ? PLAN_TAGLINES_EN[item.id] : item.tagline;
               const planLabel = featured
-                ? (isEn ? "⭐ Most Popular" : "⭐ Paling Populer")
-                : (isEn ? "Starter Choice" : "Pilihan Awal");
+                ? "⭐ Most Popular"
+                : "Starter Choice";
               const durationText = isEn
-                ? `Delivery timeline: ±${item.durationWeeks[0]}–${item.durationWeeks[1]} weeks`
-                : `Waktu pengerjaan: ±${item.durationWeeks[0]}–${item.durationWeeks[1]} minggu`;
-              const deliverablesTitle = isEn ? "What You Get:" : "Yang Anda Dapatkan:";
+                ? `Delivery: ±${item.durationWeeks[0]}–${item.durationWeeks[1]} weeks`
+                : `Timeline: ±${item.durationWeeks[0]}–${item.durationWeeks[1]} minggu`;
+              const deliverablesTitle = isEn ? "Key Deliverables:" : "Deliverables & Fitur:";
               const warrantyText = isEn
                 ? `Warranty: ${item.revisions}x revisions · ${item.supportDays} days direct support.`
-                : `Garansi: ${item.revisions}x revisi · ${item.supportDays} hari pendampingan langsung.`;
+                : `Garansi: ${item.revisions}x revisi · ${item.supportDays} hari direct support.`;
               const chooseButtonText = isEn ? "Choose This Plan →" : "Pilih Paket Ini →";
 
               return (
