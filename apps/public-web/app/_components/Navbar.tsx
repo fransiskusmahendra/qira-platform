@@ -62,7 +62,7 @@ export function Navbar() {
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
       <div className={`shell ${styles.navContainer}`}>
         <Link className={styles.brand} href="/" aria-label="QIRA - Beranda">
-          QIRA<span>.</span>
+          <span className={styles.srOnly}>QIRA</span>
         </Link>
 
         {/* Desktop Navigation */}
