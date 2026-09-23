@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ConversionTracker } from "../_components/ConversionTracker";
+import { SubpageBackground } from "../_components/SubpageBackground";
 import { GUIDES } from "./guides";
 import styles from "../SubpageVisual.module.css";
 import { Navbar } from "../_components/Navbar";
@@ -21,7 +22,8 @@ export default function GuidesPage() {
   return (
     <>
       <Navbar />
-      <main>
+      <main style={{ position: "relative" }}>
+        <SubpageBackground />
         <ConversionTracker event="guide_view" />
 
         <section className={`${styles.hero} shell`}>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { PrismRefractionCanvas } from "../../_components/PrismRefractionCanvas";
+import { SubpageBackground } from "../../_components/SubpageBackground";
 import styles from "../../SubpageVisual.module.css";
 import { Navbar } from "../../_components/Navbar";
 import { Footer } from "../../_components/Footer";
@@ -36,7 +37,8 @@ export function AboutPageClient() {
   return (
     <>
       <Navbar />
-      <main>
+      <main style={{ position: "relative" }}>
+        <SubpageBackground />
         <section className={`${styles.hero} shell`}>
           <div className={styles.heroCopy}>
             <p className="eyebrow">{title}</p>

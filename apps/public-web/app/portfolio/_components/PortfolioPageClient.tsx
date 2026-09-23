@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { NodeNetworkCanvas } from "../../_components/NodeNetworkCanvas";
+import { SubpageBackground } from "../../_components/SubpageBackground";
 import { ConversionTracker } from "../../_components/ConversionTracker";
 import styles from "../../SubpageVisual.module.css";
 import { Navbar } from "../../_components/Navbar";
@@ -213,7 +214,8 @@ export function PortfolioPageClient() {
   return (
     <>
       <Navbar />
-      <main>
+      <main style={{ position: "relative" }}>
+        <SubpageBackground />
         <ConversionTracker event="portfolio_view" />
 
         <section className={`${styles.hero} shell`}>

@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import { PersonalizedDemo } from "../PersonalizedDemo";
 import { ConversionTracker } from "../_components/ConversionTracker";
+import { SubpageBackground } from "../_components/SubpageBackground";
 import styles from "../SubpageVisual.module.css";
 import { Navbar } from "../_components/Navbar";
 import { Footer } from "../_components/Footer";
@@ -22,7 +23,8 @@ export default function ProblemExperiencePage() {
   return (
     <>
       <Navbar />
-      <main>
+      <main style={{ position: "relative" }}>
+        <SubpageBackground />
         <ConversionTracker event="story_start" />
 
         <section className={`${styles.hero} shell`}>

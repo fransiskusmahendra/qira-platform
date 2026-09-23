@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { PerspectiveGridCanvas } from "../../_components/PerspectiveGridCanvas";
+import { SubpageBackground } from "../../_components/SubpageBackground";
 import { ConversionTracker } from "../../_components/ConversionTracker";
 import styles from "../../SubpageVisual.module.css";
 import { Navbar } from "../../_components/Navbar";
@@ -84,7 +85,8 @@ export function PricingPageClient() {
   return (
     <>
       <Navbar />
-      <main>
+      <main style={{ position: "relative" }}>
+        <SubpageBackground />
         <ConversionTracker event="pricing_view" />
 
         <section className={`${styles.hero} shell`}>
