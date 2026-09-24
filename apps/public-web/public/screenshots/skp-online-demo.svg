@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<foreignObject width="1600" height="900">
+<body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;width:1600px;height:900px;overflow:hidden">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0d1527;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.page{min-height:900px;padding:34px 50px;background:radial-gradient(ellipse 90% 70% at 50% -20%, rgba(14, 165, 233, 0.15), rgba(13, 21, 39, 0))}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:18px}
+.brand{display:flex;gap:14px;align-items:center}
+.mark{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);color:white;display:grid;place-items:center;font-weight:900;font-size:22px;box-shadow:0 0 20px rgba(14,165,233,0.4)}
+.brand h1{margin:0;font-size:26px;letter-spacing:-0.5px;color:#f8fafc}
+.brand p{margin:4px 0 0;color:#94a3b8;font-size:13px}
+.badge-group{display:flex;gap:10px;align-items:center}
+.badge{background:rgba(14,165,233,0.12);color:#38bdf8;border:1px solid rgba(14,165,233,0.3);padding:6px 14px;border-radius:999px;font-size:12px;font-weight:700}
+.badge-alt{background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.3);padding:6px 14px;border-radius:999px;font-size:12px;font-weight:700}
+.layout{display:grid;grid-template-columns:1.08fr 0.92fr;gap:28px;align-items:start}
+.card{background:rgba(18,27,49,0.85);border:1px solid rgba(255,255,255,0.1);border-radius:16px;box-shadow:0 18px 45px rgba(0,0,0,0.35);padding:24px 26px;backdrop-filter:blur(10px)}
+.tabs{display:flex;gap:8px;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:12px}
+.tab{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;color:#94a3b8;border:1px solid transparent}
+.tab.active{background:rgba(14,165,233,0.15);color:#38bdf8;border-color:rgba(14,165,233,0.35)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field label{display:block;font-size:11.5px;font-weight:700;color:#94a3b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px}
+.input{height:40px;border:1px solid rgba(255,255,255,0.12);border-radius:8px;background:rgba(10,16,30,0.65);padding:10px 12px;color:#f1f5f9;font-size:13px;display:flex;align-items:center;justify-content:space-between}
+.field.full{grid-column:1/-1}
+.val-highlight{color:#38bdf8;font-weight:700}
+.rate-range{font-size:11px;color:#64748b;margin-top:4px}
+.actions{display:flex;gap:10px;margin-top:20px}
+.btn{height:42px;border-radius:8px;padding:0 16px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.primary{background:linear-gradient(135deg, #0284c7 0%, #2563eb 100%);color:white;border:none;flex:1.4;box-shadow:0 4px 15px rgba(14,165,233,0.35)}
+.secondary{border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#e2e8f0;flex:1}
+.doc-card{background:#ffffff;color:#1e293b;border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,0.45);padding:24px 28px;font-family:"Arial",sans-serif;position:relative}
+.doc-header{border-bottom:2px solid #0f172a;padding-bottom:12px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:flex-end}
+.doc-header h2{margin:0;font-size:17px;font-weight:900;letter-spacing:0.5px;color:#0f172a}
+.doc-header p{margin:3px 0 0;font-size:11px;color:#64748b}
+.doc-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;margin-bottom:14px;background:#f8fafc;padding:10px 12px;border-radius:8px;border:1px solid #e2e8f0}
+.doc-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:11px}
+.doc-table th{background:#f1f5f9;color:#334155;text-align:left;padding:8px 10px;font-weight:700;border:1px solid #cbd5e1}
+.doc-table td{padding:8px 10px;border:1px solid #e2e8f0;color:#1e293b}
+.doc-total{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;margin-top:14px}
+.doc-total strong{font-size:15px;color:#0284c7}
+.stamp-seal{margin-top:14px;display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#64748b}
+.seal-badge{border:1.5px solid #10b981;color:#059669;padding:4px 10px;border-radius:6px;font-weight:800;font-size:10px;letter-spacing:0.5px;text-transform:uppercase}
+</style>
+
+<div class="page">
+  <div class="top">
+    <div class="brand">
+      <div class="mark">SKP</div>
+      <div>
+        <h1>SKP Online · Engine Surat Konfirmasi Premi</h1>
+        <p>Otomatisasi Underwriting Property/FLEXAS &amp; Endorsement Berdasarkan Master Tarif OJK</p>
+      </div>
+    </div>
+    <div class="badge-group">
+      <div class="badge">SEOJK 6/SEOJK.05/2017</div>
+      <div class="badge-alt">● 373 OKUPASI TERVALIDASI</div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- LEFT: ENGINE FORM -->
+    <div class="card">
+      <div class="tabs">
+        <div class="tab active">📝 SKP Baru</div>
+        <div class="tab">🔄 Endorsement (Addendum)</div>
+        <div class="tab">🔎 Master Okupasi OJK</div>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label>Nomor SKP</label>
+          <div class="input"><span>042/SKP/IX/2026</span><span style="color:#64748b;font-size:11px">Auto</span></div>
+        </div>
+        <div class="field">
+          <label>Tanggal Surat</label>
+          <div class="input"><span>24/09/2026</span><span style="color:#64748b;font-size:11px">📅</span></div>
+        </div>
+
+        <div class="field full">
+          <label>Nama Tertanggung &amp; Mitra Bank</label>
+          <div class="input"><span class="val-highlight">PT. Graha Mandiri Nusantara q.q Bank Mandiri</span></div>
+        </div>
+
+        <div class="field full">
+          <label>Obyek &amp; Okupasi (373 Database OJK)</label>
+          <div class="input">
+            <span><b>2976</b> — Gudang Barang Umum (Bahan Non-Hazardous)</span>
+            <span style="color:#38bdf8;font-size:11px">✓ Master OJK</span>
+          </div>
+          <div class="rate_range">Range Tarif OJK: 0.394‰ s/d 0.493‰ (Batas Bawah Rekomendasi OJK)</div>
+        </div>
+
+        <div class="field">
+          <label>Kelas Konstruksi</label>
+          <div class="input"><span>Kelas 1 (Beton &amp; Rangka Baja) ▾</span></div>
+        </div>
+        <div class="field">
+          <label>Suku Premi Terpilih</label>
+          <div class="input"><span class="val-highlight">0.394‰</span><span style="color:#10b981;font-size:11px">Valid OJK</span></div>
+        </div>
+
+        <div class="field">
+          <label>Nilai Pertanggungan (TSI)</label>
+          <div class="input"><span class="val-highlight">Rp 12.500.000.000</span></div>
+        </div>
+        <div class="field">
+          <label>Jangka Waktu (Anniversary)</label>
+          <div class="input"><span>365 Hari (Faktor 1.00)</span></div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="btn primary">⚡ Hitung Ulang Premi</div>
+        <div class="btn secondary">⬇️ Word (.docx)</div>
+        <div class="btn secondary">⬇️ PDF Resmi</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: GENERATED LETTER PREVIEW -->
+    <div class="doc-card">
+      <div class="doc-header">
+        <div>
+          <h2>SURAT KONFIRMASI PREMI (SKP)</h2>
+          <p>ASURANSI KEBAKARAN &amp; PROPERTY (FLEXAS)</p>
+        </div>
+        <div style="text-align:right">
+          <span style="font-size:11px;font-weight:800;color:#0284c7">No: 042/SKP/IX/2026</span>
+          <div style="font-size:10px;color:#64748b">Jakarta, 24 September 2026</div>
+        </div>
+      </div>
+
+      <div class="doc-meta">
+        <div><strong>Tertanggung:</strong> PT. Graha Mandiri Nusantara</div>
+        <div><strong>Periode:</strong> 24/09/2026 s/d 24/09/2027</div>
+        <div><strong>Okupasi:</strong> Gudang Barang Umum (2976)</div>
+        <div><strong>Konstruksi:</strong> Kelas 1 (Standard SNI)</div>
+      </div>
+
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th>Deskripsi Pertanggungan</th>
+            <th>TSI (Nilai Obyek)</th>
+            <th>Rate OJK</th>
+            <th style="text-align:right">Premi Dasar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bangunan Gudang &amp; Kantor</td>
+            <td>Rp 7.500.000.000</td>
+            <td>0.394‰</td>
+            <td style="text-align:right">Rp 2.955.000</td>
+          </tr>
+          <tr>
+            <td>Mesin, Stok &amp; Barang Dagangan</td>
+            <td>Rp 5.000.000.000</td>
+            <td>0.394‰</td>
+            <td style="text-align:right">Rp 1.970.000</td>
+          </tr>
+          <tr style="background:#fafafa">
+            <td colspan="3">Biaya Polis &amp; Meterai Elektronik</td>
+            <td style="text-align:right">Rp 30.000</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="doc-total">
+        <div>
+          <span style="font-size:11px;color:#64748b;display:block">TOTAL PREMI DIBAYARKAN (SETTLEMENT)</span>
+          <strong style="font-size:18px">IDR 4.955.000</strong>
+        </div>
+        <div style="text-align:right;font-size:10px;color:#64748b">
+          <div>Fee Bank (15%): IDR 738.750</div>
+          <div>PPN Efektif 11%: Terhitung Otomatis</div>
+        </div>
+      </div>
+
+      <div class="stamp-seal">
+        <span>Tanda Tangan Pejabat &amp; QR Verifikasi Dokumen Otomatis</span>
+        <div class="seal-badge">✓ OJK COMPLIANT &amp; VERIFIED</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</foreignObject>
+</svg>

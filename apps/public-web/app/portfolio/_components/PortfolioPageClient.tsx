@@ -61,6 +61,20 @@ const ITEMS_ID: readonly PortfolioItem[] = [
   {
     number: "03",
     tag: "Client Deployment",
+    title: "SKP Online — Engine Surat Konfirmasi Premi & Endorsement",
+    outcome: "Kalkulasi otomatis tarif 373 okupasi OJK, prorata actual/actual, dan penerbitan dokumen Word & PDF instan.",
+    problem: "Perhitungan premi properti/FLEXAS berdasar tarif 373 okupasi OJK, kelas konstruksi, prorata kabisat, dan endorsement rumit jika dihitung manual dan rentan salah tarif.",
+    solution: "Aplikasi underwriting terpadu dengan validasi batas tarif SEOJK, auto-prorata, rekonsiliasi fee/meterai/PPN, dan generate surat Word/PDF sekali klik.",
+    result: "Penerbitan dokumen SKP 100% presisi sesuai regulasi OJK, tanpa risiko salah hitung atau keterlambatan konfirmasi ke bank mitra.",
+    visual: "Master OJK → Underwriting Calc → Word/PDF SKP",
+    image: "/screenshots/skp-online-demo.svg",
+    imageAlt: "Tampilan aplikasi SKP Online dengan kalkulasi premi okupasi OJK dan pratinjau surat",
+    href: "/discovery?context=otomatisasi%20surat%20premi%20asuransi",
+    cta: "Konsultasi Otomasi Dokumen",
+  },
+  {
+    number: "04",
+    tag: "Client Deployment",
     title: "Web POS & Thermal Receipts",
     outcome: "Input transaksi kasir hingga cetak nota thermal dalam satu workflow cepat.",
     problem: "Pencatatan kasir dan pembuatan nota manual membuat antrean panjang dan rentan selisih.",
@@ -73,7 +87,7 @@ const ITEMS_ID: readonly PortfolioItem[] = [
     cta: "Konsultasi Sistem POS",
   },
   {
-    number: "04",
+    number: "05",
     tag: "Client Deployment",
     title: "Maduratna Supplies — POS & Cloud Inventory",
     outcome: "Digitalisasi kasir multi-SKU dan pemantauan stok real-time untuk toko retail & material.",
@@ -87,7 +101,7 @@ const ITEMS_ID: readonly PortfolioItem[] = [
     cta: "Konsultasi Sistem Retail",
   },
   {
-    number: "05",
+    number: "06",
     tag: "Public Demo",
     title: "Public Demo Ecosystem",
     outcome: "Eksplorasi modul sistem terintegrasi yang siap disesuaikan dengan alur bisnis Anda.",
@@ -137,6 +151,21 @@ const ITEMS_EN: readonly PortfolioItem[] = [
   {
     number: "03",
     tag: "Client Deployment",
+    title: "SKP Online — Insurance Premium & Endorsements",
+    outcome: "Automated calculations across 373 OJK tariff classes, actual/actual prorata, and instant Word & PDF issuance.",
+    problem: "Calculating Property/FLEXAS insurance premiums across 373 OJK occupancies, construction classes, and endorsements manually is slow and error-prone.",
+    solution: "Dedicated underwriting engine with SEOJK tariff range validation, automatic anniversary prorata, fee/tax reconciliation, and one-click Word/PDF export.",
+    result: "Official premium confirmation letters generated in seconds with 100% regulatory compliance and zero human mathematical discrepancies.",
+    visual: "Master OJK → Underwriting Calc → Word/PDF SKP",
+    image: "/screenshots/skp-online-demo.svg",
+    imageAlt: "SKP Online interface showcasing OJK rate calculation and confirmation letter preview",
+    href: "/discovery?context=otomatisasi%20surat%20premi%20asuransi",
+    cta: "Consult on Document Automation",
+    note: "Production insurance deployment with client details anonymized."
+  },
+  {
+    number: "04",
+    tag: "Client Deployment",
     title: "Web POS & Instant Thermal Receipts",
     outcome: "Sales input to thermal printing in a unified, friction-free cashier workflow.",
     problem: "Separating order recording and receipt printing causes checkout queues and entry mistakes.",
@@ -150,7 +179,7 @@ const ITEMS_EN: readonly PortfolioItem[] = [
     note: "Real client deployment with names and transactions anonymized."
   },
   {
-    number: "04",
+    number: "05",
     tag: "Client Deployment",
     title: "Maduratna Building Supplies — Cloud POS & Stock",
     outcome: "Multi-SKU cashier digital flow and real-time inventory management for retail.",
@@ -165,7 +194,7 @@ const ITEMS_EN: readonly PortfolioItem[] = [
     note: "Active retail deployment."
   },
   {
-    number: "05",
+    number: "06",
     tag: "Public Demo",
     title: "Business Solution Demo Ecosystem",
     outcome: "Explore pre-built interactive modules designed to adapt to your operational workflows.",
