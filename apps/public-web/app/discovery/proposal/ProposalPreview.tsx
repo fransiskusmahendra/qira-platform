@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useEffect, useMemo, useState, useTransition } from "react";
@@ -132,7 +132,7 @@ export function ProposalPreview() {
             alignItems: "center",
             gap: "6px",
             background: "#ffffff",
-            color: "var(--ink)",
+            color: "#071a33",
             border: "1px solid #cbd5e1",
             padding: "9px 16px",
             borderRadius: "8px",

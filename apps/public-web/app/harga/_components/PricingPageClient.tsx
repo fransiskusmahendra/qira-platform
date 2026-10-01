@@ -193,9 +193,9 @@ export function PricingPageClient() {
                         fontSize: "13px",
                         fontWeight: "600",
                         textDecoration: "none",
-                        color: featured ? "#ffffff" : "var(--ink)",
-                        background: featured ? "rgba(255, 255, 255, 0.15)" : "#f8fafc",
-                        border: featured ? "1px solid rgba(255, 255, 255, 0.25)" : "1px solid var(--line)"
+                        color: featured ? "#ffffff" : "#ffffff",
+                        background: featured ? "rgba(255, 255, 255, 0.15)" : "rgba(23, 105, 255, 0.12)",
+                        border: featured ? "1px solid rgba(255, 255, 255, 0.25)" : "1px solid rgba(56, 189, 248, 0.35)"
                       }}
                     >
                       💬 {isEn ? "Inquire on WhatsApp" : "Tanya via WhatsApp"}

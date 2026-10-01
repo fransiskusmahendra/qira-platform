@@ -64,24 +64,24 @@ export default function ExamplePage() {
 
         <section className={`${styles.section} shell`}>
           <div style={{
-            background: "#ffffff",
-            border: "1px solid #cbd5e1",
-            borderRadius: "16px",
+            background: "linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%), #0E1424",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            borderRadius: "20px",
             padding: "28px 32px",
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
             gap: "24px",
             alignItems: "center",
-            boxShadow: "0 4px 18px rgba(7, 26, 51, 0.04)"
+            boxShadow: "inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 12px 36px rgba(0, 0, 0, 0.4)"
           }}>
             <div>
-              <span style={{ fontSize: "11px", fontWeight: "800", textTransform: "uppercase", letterSpacing: "1.2px", color: "#1769ff", display: "block", marginBottom: "6px" }}>
+              <span style={{ fontSize: "11px", fontWeight: "750", textTransform: "uppercase", letterSpacing: "1.2px", color: "#38bdf8", display: "block", marginBottom: "6px" }}>
                 Blueprint Khusus Industri - Training & Sertifikasi
               </span>
-              <h2 style={{ fontSize: "22px", fontWeight: "800", color: "#071a33", margin: "0 0 8px", letterSpacing: "-0.02em" }}>
+              <h2 style={{ fontSize: "22px", fontWeight: "750", color: "#ffffff", margin: "0 0 8px", letterSpacing: "-0.02em" }}>
                 Sistem Notifikasi Masa Kadaluarsa Sertifikat Logistik (UTS)
               </h2>
-              <p style={{ margin: "0", color: "#475569", fontSize: "14px", lineHeight: "1.5" }}>
+              <p style={{ margin: "0", color: "#94a3b8", fontSize: "14px", lineHeight: "1.5" }}>
                 Simulasi interaktif notifikasi WhatsApp Cloud API & Email otomatis (H-60, H-30, H-7), modul verifikasi publik keabsahan sertifikat, dan kalkulator recurring revenue renewal.
               </p>
             </div>

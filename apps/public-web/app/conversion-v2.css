@@ -96,11 +96,11 @@
   justify-content: space-between;
 }
 .problemMiniFlow > div.solution { background: rgba(23,105,255,.18); }
-.problemMiniFlow > div.outcome { background: white; color: var(--ink); }
+.problemMiniFlow > div.outcome { background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.4); color: #ffffff; }
 .problemMiniFlow > span { align-self: center; color: #8eb9ff; font-size: 20px; }
 .problemMiniFlow small { color: #8eb9ff; font-size: 9px; font-weight: 760; letter-spacing: .08em; text-transform: uppercase; }
-.problemMiniFlow .outcome small { color: var(--blue); }
-.problemMiniFlow strong { font-size: clamp(16px, 1.6vw, 20px); line-height: 1.15; letter-spacing: -.02em; }
+.problemMiniFlow .outcome small { color: #38bdf8; }
+.problemMiniFlow strong { font-size: clamp(16px, 1.6vw, 20px); line-height: 1.15; letter-spacing: -.02em; color: #ffffff; }
 .problemResult > a { margin-top: 18px; }
 
 .companyServiceGrid { display: none; }
@@ -113,14 +113,15 @@
 .companyServiceStrip span {
   min-height: 66px;
   padding: 14px 16px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  background: rgba(255,255,255,.78);
+  background: rgba(14, 20, 36, 0.75);
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 14px;
   font-weight: 670;
+  color: #ffffff;
 }
 .companyServiceStrip b {
   width: 30px;
@@ -128,8 +129,8 @@
   border-radius: 10px;
   display: grid;
   place-items: center;
-  background: var(--sky);
-  color: var(--blue);
+  background: rgba(23, 105, 255, 0.2);
+  color: #38bdf8;
   font-weight: 700;
 }
 
@@ -149,9 +150,9 @@
 .portfolioCompactVisual {
   margin: 0;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 26px;
-  background: #eef5ff;
+  background: #0E1424;
 }
 .portfolioCompactVisual img { display: block; width: 100%; height: auto; }
 .portfolioCompactCopy h2 {
@@ -159,6 +160,7 @@
   font-size: clamp(34px, 4.3vw, 56px);
   line-height: 1.03;
   letter-spacing: -.045em;
+  color: #ffffff;
 }
 .portfolioProof {
   margin: 0 0 26px;
@@ -168,9 +170,10 @@
 }
 .portfolioProof span {
   padding: 9px 12px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
-  background: white;
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
   font-size: 12px;
   font-weight: 650;
 }
@@ -179,13 +182,15 @@
   margin-top: 16px;
   margin-bottom: 72px;
   padding: clamp(26px, 4.5vw, 52px);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 28px;
-  background: linear-gradient(145deg, #f7fbff, #edf5ff);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%), #0E1424;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 20px 60px rgba(0, 0, 0, 0.45);
   display: grid;
   grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
   gap: clamp(26px, 5vw, 56px);
   align-items: center;
+  color: #ffffff;
 }
 .companyPricingTeaser h2 {
   max-width: 520px;
@@ -193,13 +198,14 @@
   font-size: clamp(34px, 4.3vw, 54px);
   line-height: 1.02;
   letter-spacing: -.045em;
+  color: #ffffff;
 }
 .companyPricingTeaser figure {
   margin: 0;
   overflow: hidden;
   border-radius: 22px;
-  background: white;
-  box-shadow: 0 18px 42px rgba(7,26,51,.07);
+  background: #0E1424;
+  box-shadow: 0 18px 42px rgba(0,0,0,.3);
 }
 .companyPricingTeaser img { display: block; width: 100%; height: auto; }
 
