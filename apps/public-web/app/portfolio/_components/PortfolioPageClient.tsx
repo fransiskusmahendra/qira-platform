@@ -105,15 +105,15 @@ const ITEMS_ID: readonly PortfolioItem[] = [
     tag: "Public Demo",
     title: "Public Demo Ecosystem",
     outcome: "Eksplorasi modul sistem terintegrasi yang siap disesuaikan dengan alur bisnis Anda.",
-    problem: "Calon klien ingin melihat gambaran sistem sebelum memutuskan berinvestasi teknologi.",
+    problem: "Pelaku usaha ingin mencoba langsung simulasi sistem sebelum memutuskan investasi teknologi.",
     solution: "Interactive live demo environment yang menyajikan contoh portal operasional dan alur data.",
     result: "Kepastian implementasi digital dengan melihat langsung live demo sistem.",
     visual: "Explore → Test → Deploy",
     image: "/illustrations/qira-services.webp",
     imageAlt: "Ilustrasi demo solusi bisnis QIRA",
-    href: "https://demo.qirasolution.com",
+    href: "/demo",
     cta: "Buka Live Demo",
-    external: true,
+    external: false,
   },
 ] as const;
 
@@ -146,7 +146,7 @@ const ITEMS_EN: readonly PortfolioItem[] = [
     imageAlt: "QIRA Invoice Maker interface with editor and live preview",
     href: "/discovery?context=invoice%20maker",
     cta: "Consult on this System",
-    note: "Internal QIRA product. Sensitive payment details anonymized."
+    note: "Integrated business tool. Sensitive payment details anonymized."
   },
   {
     number: "03",
@@ -204,9 +204,9 @@ const ITEMS_EN: readonly PortfolioItem[] = [
     visual: "Explore → Test → Implement",
     image: "/illustrations/qira-services.webp",
     imageAlt: "QIRA business solution interactive demo illustration",
-    href: "https://demo.qirasolution.com",
+    href: "/demo",
     cta: "Open Public Demo",
-    external: true,
+    external: false,
     note: "Interactive concept demonstration ready for customization."
   },
 ] as const;
@@ -233,8 +233,8 @@ export function PortfolioPageClient() {
   const eyebrow = isEn ? "Work & Deployments" : "Karya & Penerapan";
   const heading = isEn ? "Proven software in production." : "Software terbukti di lapangan.";
   const lead = isEn
-    ? "Internal products, verified client deployments, and operational systems engineered for measurable business outcomes."
-    : "Sistem produk internal, implementasi nyata di klien, dan software operasional yang dibangun untuk memecahkan hambatan bisnis.";
+    ? "Production tools, verified client deployments, and operational systems engineered for measurable business outcomes."
+    : "Implementasi nyata di klien, modul operasional, dan sistem digital yang dibangun untuk memecahkan hambatan bisnis.";
 
   const principles = isEn
     ? ["Interactive Demos Ready", "Production Systems", "Client Data Protected"]

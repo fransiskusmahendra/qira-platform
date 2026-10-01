@@ -303,6 +303,7 @@ export const enDictionary: TranslationDictionary = {
     colCompany: "Consult & Contact",
     solutionsLinks: [
       { href: "/layanan", label: "All Services" },
+      { href: "/demo", label: "Interactive App Demos" },
       { href: "/harga", label: "Pricing & Plans" },
       { href: "/studi-kasus", label: "Case Studies" },
       { href: "/contoh-penerapan", label: "Use Cases" },

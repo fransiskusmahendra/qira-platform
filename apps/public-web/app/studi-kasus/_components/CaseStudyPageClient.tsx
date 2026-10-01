@@ -11,15 +11,15 @@ import { useLanguage } from "../../../lib/i18n";
 
 const CASES_ID = [
   {
-    label: "Produk internal",
+    label: "Modul Sistem QIRA",
     title: "Pemetaan kebutuhan bisnis",
-    problem: "Calon pengguna sering tahu masalahnya, tetapi belum tahu bentuk solusi digital yang tepat.",
+    problem: "Pelaku usaha sering merasakan kendala operasional harian, tetapi belum tahu bentuk solusi digital yang paling efisien.",
     solution: "QIRA Discovery memecah kebutuhan menjadi masalah, prioritas, konteks, dan ruang lingkup awal.",
     result: "Hasil pemetaan menjadi bahan yang lebih jelas untuk diskusi solusi dan proposal.",
     note: "Menggunakan data contoh pada tampilan publik.",
   },
   {
-    label: "Produk internal",
+    label: "Modul Sistem QIRA",
     title: "Invoice & dokumen",
     problem: "Pembuatan dokumen berulang mudah menghasilkan format yang tidak konsisten dan pemeriksaan yang memakan waktu.",
     solution: "Editor data dan pratinjau dokumen disatukan agar perubahan dapat diperiksa sebelum PDF dibuat.",
@@ -27,7 +27,7 @@ const CASES_ID = [
     note: "Identitas legal dan informasi pembayaran disamarkan pada portofolio.",
   },
   {
-    label: "Penerapan operasional",
+    label: "Implementasi Lapangan",
     title: "Transaksi sampai nota thermal",
     problem: "Input transaksi dan pembuatan nota yang terpisah membuat pekerjaan lapangan lebih panjang dan rawan pengulangan.",
     solution: "Satu aplikasi menghubungkan input transaksi, perhitungan, pratinjau nota, dan kebutuhan cetak thermal.",
@@ -38,15 +38,15 @@ const CASES_ID = [
 
 const CASES_EN = [
   {
-    label: "Internal product",
+    label: "QIRA Core Module",
     title: "Business needs discovery",
-    problem: "Clients often feel daily bottlenecks, but don't know the exact digital solution they need.",
+    problem: "Businesses often feel daily bottlenecks, but don't know the exact digital solution they need.",
     solution: "QIRA Discovery breaks pain points down into priorities, business context, and lean scope.",
     result: "A clear starting roadmap for transparent technical scope and realistic budgeting.",
     note: "Sample data utilized on public view.",
   },
   {
-    label: "Internal product",
+    label: "QIRA Core Module",
     title: "Invoice & documents",
     problem: "Manual repetitive invoicing causes formatting mistakes and hours spent cross-checking.",
     solution: "Unified data editor and real-time preview ensure changes are verified before PDF creation.",
@@ -54,7 +54,7 @@ const CASES_EN = [
     note: "Legal identity and payment data anonymized.",
   },
   {
-    label: "Operational deployment",
+    label: "Operational Deployment",
     title: "POS order entry to thermal receipts",
     problem: "Disconnected sales input and receipt generation lengthen customer wait times and cause mistakes.",
     solution: "A lightweight app connects transaction input, pricing math, preview, and thermal printing.",

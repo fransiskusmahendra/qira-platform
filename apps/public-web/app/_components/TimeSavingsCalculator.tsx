@@ -28,7 +28,7 @@ export function TimeSavingsCalculator() {
     ? `Hello QIRA team, based on the calculator, my business could save around ${hoursSaved} work hours/month. I'd like to consult on the best digital solution.`
     : `Halo tim QIRA, setelah menghitung di website, usaha saya berpotensi menghemat sekitar ${hoursSaved} jam kerja/bulan. Saya ingin konsultasi solusinya.`;
 
-  const waUrl = `https://wa.me/6285183042571?text=${encodeURIComponent(waMessage)}`;
+  const waUrl = `https://wa.me/628211076517?text=${encodeURIComponent(waMessage)}`;
 
   return (
     <section className="visualStory shell" style={{ marginTop: "24px" }}>

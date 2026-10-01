@@ -1,4 +1,4 @@
-﻿import "server-only";
+import "server-only";
 
 import { Resend } from "resend";
 
@@ -82,7 +82,7 @@ export async function sendClientDiscoveryConfirmationEmail(input: SendClientConf
   const details = Object.entries(input.answers)
     .filter((entry): entry is [string, string | number] => entry[1] !== undefined);
   const proposalUrl = publicUrl(`/discovery/review?id=${input.discoveryId}`);
-  const whatsappUrl = `https://wa.me/6285183042571?text=${encodeURIComponent(`Halo tim QIRA, saya sudah mengisi form kebutuhan usaha (${input.contact.businessName}) dengan nomor referensi: ${input.reference}`)}`;
+  const whatsappUrl = `https://wa.me/628211076517?text=${encodeURIComponent(`Halo tim QIRA, saya sudah mengisi form kebutuhan usaha (${input.contact.businessName}) dengan nomor referensi: ${input.reference}`)}`;
 
   const resend = new Resend(apiKey);
   const { data, error } = await resend.emails.send({

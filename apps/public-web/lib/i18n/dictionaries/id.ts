@@ -303,6 +303,7 @@ export const idDictionary: TranslationDictionary = {
     colCompany: "Konsultasi & Kontak",
     solutionsLinks: [
       { href: "/layanan", label: "Semua Layanan" },
+      { href: "/demo", label: "Demo Aplikasi Interaktif" },
       { href: "/harga", label: "Harga & Paket" },
       { href: "/studi-kasus", label: "Studi Kasus Bisnis" },
       { href: "/contoh-penerapan", label: "Contoh Penerapan" },

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { trackConversion } from "./ConversionTracker";
@@ -10,7 +10,7 @@ export function FloatingWhatsApp() {
   const isEn = locale === "en";
   const [isOpen, setIsOpen] = useState(false);
 
-  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "6285183042571";
+  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "628211076517";
   const cleanNumber = waNumber.replace(/\D/g, "");
 
   const options = isEn ? [

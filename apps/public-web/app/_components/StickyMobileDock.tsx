@@ -12,7 +12,7 @@ export function StickyMobileDock() {
     ? "Hello QIRA team, I would like to consult about digital solutions for my business."
     : "Halo tim QIRA, saya ingin konsultasi mengenai solusi digital untuk usaha saya.";
 
-  const waUrl = `https://wa.me/6285183042571?text=${encodeURIComponent(waMessage)}`;
+  const waUrl = `https://wa.me/628211076517?text=${encodeURIComponent(waMessage)}`;
 
   return (
     <div

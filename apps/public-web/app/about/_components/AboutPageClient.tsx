@@ -79,8 +79,8 @@ export function AboutPageClient() {
               </p>
               <p style={{ fontSize: "14px", color: "var(--muted)", lineHeight: "1.6", margin: 0 }}>
                 {isEn
-                  ? "QIRA operates as an independent digital engineering consultancy currently establishing corporate legal status under CV Qira Solusi Digital."
-                  : "QIRA beroperasi sebagai konsultan rekayasa digital independen dan saat ini dalam proses pembentukan badan usaha resmi CV Qira Solusi Digital."}
+                  ? "QIRA operates as an independent digital engineering consultancy under PT QIRA Solusi Digital."
+                  : "QIRA beroperasi sebagai konsultan rekayasa digital independen di bawah naungan PT QIRA Solusi Digital."}
               </p>
             </div>
             <div>

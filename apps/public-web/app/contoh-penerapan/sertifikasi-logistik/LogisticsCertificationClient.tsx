@@ -577,7 +577,7 @@ export function LogisticsCertificationClient() {
         <div className={styles.ctaActions}>
           <Link
             className={styles.primaryCta}
-            href={`https://wa.me/6281234567890?text=${encodeURIComponent(
+            href={`https://wa.me/628211076517?text=${encodeURIComponent(
               "Halo tim QIRA, saya ingin mendiskusikan implementasi sistem notifikasi sertifikasi dan integrasi WhatsApp Cloud API seperti pada simulasi sertifikasi logistik."
             )}`}
             target="_blank"

@@ -175,7 +175,7 @@ export function PricingPageClient() {
                       {chooseButtonText}
                     </Link>
                     <a
-                      href={`https://wa.me/6285183042571?text=${encodeURIComponent(
+                      href={`https://wa.me/628211076517?text=${encodeURIComponent(
                         isEn
                           ? `Hello QIRA team, I am interested in the ${item.name} plan (~${rupiah.format(item.introductoryPriceIdr)}) for my business. Could we discuss the details?`
                           : `Halo tim QIRA, saya tertarik dengan ${item.name} (${rupiah.format(item.introductoryPriceIdr)}) untuk usaha saya. Boleh tanya detailnya?`

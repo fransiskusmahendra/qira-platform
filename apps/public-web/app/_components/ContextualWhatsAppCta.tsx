@@ -13,7 +13,7 @@ export function ContextualWhatsAppCta({
   className?: string;
   children?: React.ReactNode;
 }) {
-  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "628211076517";
   const href = waNumber
     ? `https://wa.me/${waNumber.replace(/\D/g, "")}?text=${encodeURIComponent(
         `Halo tim QIRA, saya ingin konsultasi terkait ${context}...`
