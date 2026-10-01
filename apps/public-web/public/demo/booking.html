@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QIRA Smart Booking & Queue System - Reservasi & Antrean Digital UMKM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Geist+Mono:wght@500;700&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-mono { font-family: 'Geist Mono', monospace; }
+  </style>
+</head>
+<body class="bg-[#080c16] text-slate-100 min-h-screen flex flex-col selection:bg-purple-500/20 antialiased">
+
+  <!-- Header -->
+  <header class="border-b border-purple-500/20 bg-[#0c1020]/95 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-purple-400 text-xs transition" title="Kembali ke Katalog 4 Aplikasi">
+          ← Katalog Aplikasi
+        </a>
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-lg shadow-lg shadow-purple-500/20">
+          📅
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-extrabold text-sm sm:text-base text-white tracking-tight" id="activeBizName">Glow Dental & Aesthetic Studio</h1>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-purple-500/10 text-purple-300 border border-purple-500/30">Smart Queue & Booking</span>
+          </div>
+          <p class="text-[11px] text-slate-400 hidden sm:block">Sistem Reservasi Janji Temu & Panggilan Antrean WhatsApp Otomatis</p>
+        </div>
+      </div>
+
+      <!-- Demo Preset Switcher -->
+      <div class="flex items-center gap-2">
+        <select id="bizPresetSelect" onchange="switchPreset(this.value)" class="bg-slate-900 border border-purple-500/40 text-purple-300 text-xs font-bold rounded-xl px-3 py-2 outline-none cursor-pointer">
+          <option value="clinic">🦷 Demo: Klinik Gigi & Estetika</option>
+          <option value="workshop">🔧 Demo: Bengkel Mobil / Motor</option>
+          <option value="barber">✂️ Demo: Barbershop & Salon</option>
+        </select>
+        <button onclick="openBookingModal()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-lg shadow-purple-500/20">
+          <span>+</span> <span class="hidden md:inline">Reservasi Baru</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Queue Callout Bar -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 py-2.5 flex items-center justify-between overflow-x-auto text-xs font-mono">
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="text-slate-400">Sedang Ditangani:</span>
+          <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold" id="nowServingTicket">#A-03 (dr. Sarah)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-slate-400">Nomor Berikutnya:</span>
+          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold" id="nextServingTicket">#A-04 (Menunggu)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-slate-400">Total Antrean Hari Ini:</span>
+          <span class="text-purple-300 font-bold" id="totalQueueCount">8 Pasien</span>
+        </div>
+      </div>
+
+      <button onclick="callNextQueue()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1 transition">
+        <span>📢</span> <span>Panggil Antrean Berikutnya</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Grid -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+
+    <!-- Overview Stats Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div class="p-4 rounded-2xl border border-purple-500/30 bg-slate-900/80 space-y-1">
+        <div class="text-[11px] text-purple-400 uppercase font-mono font-semibold">Reservasi Terkonfirmasi</div>
+        <div class="text-2xl font-black font-mono text-purple-300" id="statConfirmed">6 Jadwal</div>
+        <div class="text-[10px] text-slate-400">Sudah terverifikasi jam & terapis</div>
+      </div>
+
+      <div class="p-4 rounded-2xl border border-blue-500/30 bg-slate-900/80 space-y-1">
+        <div class="text-[11px] text-blue-400 uppercase font-mono font-semibold">Sedang Ditangani</div>
+        <div class="text-2xl font-black font-mono text-blue-300" id="statInProgress">1 Pasien</div>
+        <div class="text-[10px] text-slate-400">Sedang berada di ruang tindakan</div>
+      </div>
+
+      <div class="p-4 rounded-2xl border border-amber-500/30 bg-slate-900/80 space-y-1">
+        <div class="text-[11px] text-amber-400 uppercase font-mono font-semibold">Menunggu di Ruang Tunggu</div>
+        <div class="text-2xl font-black font-mono text-amber-300" id="statWaiting">2 Pasien</div>
+        <div class="text-[10px] text-slate-400">Sudah check-in di lokasi</div>
+      </div>
+
+      <div class="p-4 rounded-2xl border border-emerald-500/30 bg-slate-900/80 space-y-1">
+        <div class="text-[11px] text-emerald-400 uppercase font-mono font-semibold">Selesai Hari Ini</div>
+        <div class="text-2xl font-black font-mono text-emerald-300" id="statCompleted">5 Selesai</div>
+        <div class="text-[10px] text-slate-400">Tindakan selesai & pembayaran lunas</div>
+      </div>
+    </div>
+
+    <!-- Active Bookings & Queue Board -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Left 8 Cols: Timeline / Queue List -->
+      <div class="lg:col-span-8 space-y-4">
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-sm">📋</span>
+            <h3 class="font-bold text-sm text-white">Daftar Janji Temu & Antrean Hari Ini</h3>
+          </div>
+          <span class="text-xs text-slate-400 font-mono" id="currentDateDisplay">30 September 2026</span>
+        </div>
+
+        <div class="space-y-3" id="queueListContainer">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- Right 4 Cols: Staff Schedule & Quick Actions -->
+      <div class="lg:col-span-4 space-y-4">
+        
+        <!-- Staff Shift Status -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h4 class="font-bold text-xs text-white uppercase font-mono tracking-wider">Praktisi / Tenaga Ahli Aktif</h4>
+            <span class="text-[10px] text-emerald-400 font-mono">3 Bertugas</span>
+          </div>
+
+          <div class="space-y-2 text-xs" id="staffListContainer">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- WhatsApp Automation Helper -->
+        <div class="p-4 rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-950/20 to-slate-900 space-y-2.5">
+          <div class="flex items-center gap-2">
+            <span class="text-base">📲</span>
+            <h4 class="font-bold text-xs text-white">Otomatisasi WhatsApp Anti-Mangkir</h4>
+          </div>
+          <p class="text-[11px] text-slate-300 leading-relaxed">
+            Riset membuktikan 30% pelanggan salon/klinik/bengkel lupa jadwal jika tidak diingatkan. Klik tombol <strong>Kirim Pengingat WA</strong> di setiap kartu antrean untuk mengirim jadwal & peta lokasi secara instan.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- MODAL: RESERVASI / BOOKING BARU -->
+  <div id="bookingModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <h3 class="font-bold text-sm text-white">Tambah Reservasi Janji Temu</h3>
+        <button onclick="closeBookingModal()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="text-slate-400 font-medium">Nama Pelanggan:</label>
+          <input type="text" id="bkCustName" placeholder="Contoh: Ibu Rina Melati" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-purple-500 mt-1">
+        </div>
+
+        <div>
+          <label class="text-slate-400 font-medium">No. WhatsApp Pelanggan:</label>
+          <input type="text" id="bkCustPhone" placeholder="08123456789" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-purple-500 mt-1">
+        </div>
+
+        <div>
+          <label class="text-slate-400 font-medium">Pilih Layanan / Tindakan:</label>
+          <select id="bkServiceSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-purple-500 mt-1">
+            <!-- Populated via preset -->
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-slate-400 font-medium">Pilih Praktisi / Dokter:</label>
+            <select id="bkStaffSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-purple-500 mt-1">
+              <!-- Populated via preset -->
+            </select>
+          </div>
+          <div>
+            <label class="text-slate-400 font-medium">Jam Reservasi:</label>
+            <select id="bkTimeSlot" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-purple-500 mt-1">
+              <option value="09:00">09:00 WIB</option>
+              <option value="10:30">10:30 WIB</option>
+              <option value="13:00">13:00 WIB</option>
+              <option value="14:30">14:30 WIB</option>
+              <option value="16:00">16:00 WIB</option>
+              <option value="18:30">18:30 WIB</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 pt-2">
+        <button onclick="closeBookingModal()" class="flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">Batal</button>
+        <button onclick="submitBooking()" class="flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-black">Konfirmasi Janji Temu</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const presets = {
+      clinic: {
+        name: "Glow Dental & Aesthetic Studio (Depok)",
+        services: [
+          { name: "Scaling Gigi & Polishing Ultra", duration: "45 Menit", price: "Rp 250.000" },
+          { name: "Facial Deep Cleansing & Acne Care", duration: "60 Menit", price: "Rp 185.000" },
+          { name: "Tambal Estetik Komposit Sinar", duration: "40 Menit", price: "Rp 320.000" },
+          { name: "Konsultasi Dokter & Skin Check", duration: "30 Menit", price: "Rp 100.000" }
+        ],
+        staff: [
+          { name: "drg. Sarah Amanda", role: "Dokter Gigi Spesialis", status: "Sedang Menangani Pasien" },
+          { name: "dr. Hendra Wijaya", role: "Dokter Kulit & Estetika", status: "Tersedia" },
+          { name: "Suster Maya", role: "Perawat Klinis", status: "Tersedia" }
+        ],
+        bookings: [
+          { ticket: "#A-01", name: "Ibu Dian Pratiwi", phone: "08129881122", service: "Scaling Gigi & Polishing Ultra", staff: "drg. Sarah Amanda", time: "09:00", status: "Selesai" },
+          { ticket: "#A-02", name: "Pak Bambang Setyo", phone: "08139988223", service: "Konsultasi Dokter", staff: "dr. Hendra Wijaya", time: "10:00", status: "Selesai" },
+          { ticket: "#A-03", name: "Kak Tasya Kamila", phone: "08571122334", service: "Facial Deep Cleansing", staff: "drg. Sarah Amanda", time: "11:00", status: "Sedang Ditangani" },
+          { ticket: "#A-04", name: "Ibu Henny Kusuma", phone: "08189911223", service: "Tambal Estetik", staff: "drg. Sarah Amanda", time: "13:30", status: "Menunggu" },
+          { ticket: "#A-05", name: "Pak Dimas Pratama", phone: "08219988112", service: "Scaling Gigi", staff: "drg. Sarah Amanda", time: "15:00", status: "Terkonfirmasi" }
+        ]
+      },
+      workshop: {
+        name: "AutoExpress Service & Tune-Up (Depok)",
+        services: [
+          { name: "Servis Rutin + Ganti Oli Mesin", duration: "45 Menit", price: "Rp 350.000" },
+          { name: "Tune Up Carbon Cleaner & Injector", duration: "60 Menit", price: "Rp 275.000" },
+          { name: "Spooring & Balancing 4 Roda", duration: "30 Menit", price: "Rp 180.000" },
+          { name: "Service Rem & Kuras Minyak Rem", duration: "40 Menit", price: "Rp 220.000" }
+        ],
+        staff: [
+          { name: "Mas Budi (Kepala Mekanik)", role: "Spesialis Mesin", status: "Sedang Servis Mobil" },
+          { name: "Mas Agus", role: "Spesialis Kaki-Kaki & Rem", status: "Tersedia" },
+          { name: "Mas Fajar", role: "Teknisi Tune-Up", status: "Tersedia" }
+        ],
+        bookings: [
+          { ticket: "#B-01", name: "Pak Hendra (Avanza B 1928)", phone: "08129988123", service: "Servis Rutin + Ganti Oli", staff: "Mas Budi", time: "09:00", status: "Selesai" },
+          { ticket: "#B-02", name: "Ibu Rita (Brio B 8821)", phone: "08561122334", service: "Spooring & Balancing", staff: "Mas Agus", time: "10:30", status: "Sedang Ditangani" },
+          { ticket: "#B-03", name: "Pak Gunawan (Innova B 3341)", phone: "08139988776", service: "Tune Up Carbon Cleaner", staff: "Mas Fajar", time: "13:00", status: "Menunggu" }
+        ]
+      },
+      barber: {
+        name: "Urban Gentlemen Barbershop & Spa (Depok)",
+        services: [
+          { name: "Signature Haircut + Wash + Massage", duration: "40 Menit", price: "Rp 65.000" },
+          { name: "Beard Trim & Hot Towel Treatment", duration: "25 Menit", price: "Rp 45.000" },
+          { name: "Hair Coloring / Bleaching", duration: "90 Menit", price: "Rp 150.000" },
+          { name: "Creambath & Scalp Detox", duration: "45 Menit", price: "Rp 85.000" }
+        ],
+        staff: [
+          { name: "Bang Dimas", role: "Master Barber", status: "Sedang Cukur" },
+          { name: "Bang Kevin", role: "Senior Barber", status: "Tersedia" },
+          { name: "Bang Randy", role: "Barber", status: "Tersedia" }
+        ],
+        bookings: [
+          { ticket: "#C-01", name: "Mas Reza", phone: "08129988334", service: "Signature Haircut", staff: "Bang Dimas", time: "10:00", status: "Selesai" },
+          { ticket: "#C-02", name: "Mas Fadhil", phone: "08571122889", service: "Signature Haircut", staff: "Bang Kevin", time: "11:00", status: "Sedang Ditangani" }
+        ]
+      }
+    };
+
+    let activeData = presets.clinic;
+
+    function switchPreset(key) {
+      activeData = presets[key] || presets.clinic;
+      renderAll();
+    }
+
+    function renderAll() {
+      document.getElementById('activeBizName').textContent = activeData.name;
+
+      // Staff List
+      const staffCtn = document.getElementById('staffListContainer');
+      staffCtn.innerHTML = activeData.staff.map(st => `
+        <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+          <div>
+            <div class="font-bold text-white">${st.name}</div>
+            <div class="text-[10px] text-slate-400">${st.role}</div>
+          </div>
+          <span class="text-[9px] px-2 py-0.5 rounded font-mono ${st.status.includes('Tersedia') ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'}">
+            ${st.status}
+          </span>
+        </div>
+      `).join('');
+
+      // Populate Service Modal Select
+      const svcSelect = document.getElementById('bkServiceSelect');
+      svcSelect.innerHTML = activeData.services.map(s => `
+        <option value="${s.name}">${s.name} (${s.duration} - ${s.price})</option>
+      `).join('');
+
+      // Populate Staff Modal Select
+      const staffSelect = document.getElementById('bkStaffSelect');
+      staffSelect.innerHTML = activeData.staff.map(st => `
+        <option value="${st.name}">${st.name}</option>
+      `).join('');
+
+      // Render Queue List
+      renderQueueList();
+    }
+
+    function renderQueueList() {
+      const ctn = document.getElementById('queueListContainer');
+      const bks = activeData.bookings || [];
+
+      // Calculate Metrics
+      const completed = bks.filter(b => b.status === 'Selesai').length;
+      const inProg = bks.filter(b => b.status === 'Sedang Ditangani').length;
+      const waiting = bks.filter(b => b.status === 'Menunggu').length;
+      const confirmed = bks.filter(b => b.status === 'Terkonfirmasi').length;
+
+      document.getElementById('statCompleted').textContent = completed + ' Selesai';
+      document.getElementById('statInProgress').textContent = inProg + ' Pasien';
+      document.getElementById('statWaiting').textContent = waiting + ' Pasien';
+      document.getElementById('statConfirmed').textContent = confirmed + ' Jadwal';
+      document.getElementById('totalQueueCount').textContent = bks.length + ' Pasien';
+
+      const currentServing = bks.find(b => b.status === 'Sedang Ditangani');
+      const nextServing = bks.find(b => b.status === 'Menunggu');
+
+      document.getElementById('nowServingTicket').textContent = currentServing ? `${currentServing.ticket} (${currentServing.name})` : 'Belum Ada';
+      document.getElementById('nextServingTicket').textContent = nextServing ? `${nextServing.ticket} (${nextServing.name})` : 'Antrean Bersih';
+
+      ctn.innerHTML = bks.map(b => {
+        const badgeMap = {
+          'Selesai': 'bg-slate-800 text-slate-400',
+          'Sedang Ditangani': 'bg-blue-500/20 text-blue-300 border border-blue-500/30 font-bold',
+          'Menunggu': 'bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold',
+          'Terkonfirmasi': 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
+        };
+
+        return `
+          <div class="p-4 rounded-2xl border ${b.status === 'Sedang Ditangani' ? 'border-blue-500/50 bg-blue-950/20' : 'border-slate-800 bg-slate-900/60'} flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg">
+            <div class="flex items-start gap-3.5">
+              <div class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-mono font-black text-sm text-purple-300">
+                ${b.ticket}
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-bold text-sm text-white">${b.name}</span>
+                  <span class="text-[9px] px-2 py-0.5 rounded font-mono ${badgeMap[b.status] || 'bg-slate-800 text-slate-300'}">
+                    ${b.status}
+                  </span>
+                </div>
+                <div class="text-xs text-purple-300/90 mt-0.5">${b.service}</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 flex items-center gap-3">
+                  <span>Jam: <strong class="text-slate-200 font-mono">${b.time} WIB</strong></span>
+                  <span>Petugas: <strong class="text-slate-200">${b.staff}</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-2 self-end sm:self-center">
+              <button onclick="sendWhatsAppBookingReminder('${b.name}', '${b.phone}', '${b.ticket}', '${b.time}', '${b.service}')" class="px-2.5 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-xs font-bold flex items-center gap-1 transition" title="Kirim Pengingat Jadwal via WhatsApp">
+                <span>📲</span> <span>Ingatkan WA</span>
+              </button>
+
+              ${b.status === 'Menunggu' ? `
+                <button onclick="updateBookingStatus('${b.ticket}', 'Sedang Ditangani')" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition">
+                  Mulai Tindakan
+                </button>
+              ` : b.status === 'Sedang Ditangani' ? `
+                <button onclick="updateBookingStatus('${b.ticket}', 'Selesai')" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">
+                  Selesaikan
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateBookingStatus(ticket, newStatus) {
+      const b = activeData.bookings.find(x => x.ticket === ticket);
+      if (b) {
+        b.status = newStatus;
+        renderQueueList();
+      }
+    }
+
+    function callNextQueue() {
+      const next = activeData.bookings.find(b => b.status === 'Menunggu');
+      if (next) {
+        next.status = 'Sedang Ditangani';
+        alert(`Panggilan Antrean: ${next.ticket} atas nama ${next.name} dipersilakan masuk!`);
+        renderQueueList();
+      } else {
+        alert('Tidak ada antrean yang sedang menunggu.');
+      }
+    }
+
+    function sendWhatsAppBookingReminder(name, phone, ticket, time, service) {
+      const cleanPhone = (phone || '').replace(/\D/g, '').replace(/^0/, '62');
+      const msg = `Halo Kak *${name}*,\nSalam hangat dari *${activeData.name}*! 🙏\n\nIzin mengingatkan untuk jadwal reservasi Anda hari ini:\n🎫 *No. Antrean:* ${ticket}\n⏰ *Jam:* ${time} WIB\n✨ *Layanan:* ${service}\n\nMohon hadir 10 menit lebih awal ya kak. Jika ada kendala atau ingin menjadwal ulang, silakan balas chat ini. Terima kasih banyak! ✨`;
+      window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function openBookingModal() {
+      document.getElementById('bookingModal').classList.remove('hidden');
+    }
+
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+    }
+
+    function submitBooking() {
+      const name = document.getElementById('bkCustName').value.trim();
+      const phone = document.getElementById('bkCustPhone').value.trim();
+      const svc = document.getElementById('bkServiceSelect').value;
+      const stf = document.getElementById('bkStaffSelect').value;
+      const tm = document.getElementById('bkTimeSlot').value;
+
+      if (!name) {
+        alert('Harap masukkan nama pelanggan!');
+        return;
+      }
+
+      const nextNum = activeData.bookings.length + 1;
+      const ticketId = '#A-0' + nextNum;
+
+      activeData.bookings.push({
+        ticket: ticketId,
+        name: name,
+        phone: phone || '08123456789',
+        service: svc,
+        staff: stf,
+        time: tm,
+        status: 'Menunggu'
+      });
+
+      closeBookingModal();
+      document.getElementById('bkCustName').value = '';
+      document.getElementById('bkCustPhone').value = '';
+      renderQueueList();
+    }
+
+    window.addEventListener('DOMContentLoaded', renderAll);
+  </script>
+</body>
+</html>

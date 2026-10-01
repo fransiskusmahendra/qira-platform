@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QIRA B2B Wholesale & Reseller Portal - Distribusi & Surat Jalan Grosir</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Geist+Mono:wght@500;700&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-mono { font-family: 'Geist Mono', monospace; }
+    
+    @media print {
+      body * { visibility: hidden; }
+      #deliveryOrderPrintArea, #deliveryOrderPrintArea * { visibility: visible; }
+      #deliveryOrderPrintArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 10mm;
+        color: #000;
+        background: #fff;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#080b14] text-slate-100 min-h-screen flex flex-col selection:bg-amber-500/20 antialiased">
+
+  <!-- Header -->
+  <header class="border-b border-amber-500/20 bg-[#0e1222]/95 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-amber-400 text-xs transition" title="Kembali ke Katalog 4 Aplikasi">
+          ← Katalog Aplikasi
+        </a>
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-600 to-orange-600 flex items-center justify-center text-lg shadow-lg shadow-amber-500/20">
+          🌾
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-extrabold text-sm sm:text-base text-white tracking-tight" id="distStoreName">Berkah Sembako & Pangan Mandiri</h1>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-500/10 text-amber-300 border border-amber-500/30">B2B Wholesale Portal</span>
+          </div>
+          <p class="text-[11px] text-slate-400 hidden sm:block">Pemesanan Grosir Jaringan Agen, Tier Harga Khusus, & Penerbitan Surat Jalan DO</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="openPurchaseOrderModal()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-black text-xs flex items-center gap-1.5 transition shadow-lg shadow-amber-500/20">
+          <span>+</span> <span>Buat PO Grosir Baru</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Subnav Tabs -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 py-2 flex items-center justify-between overflow-x-auto text-xs font-mono">
+      <div class="flex items-center gap-2">
+        <button onclick="switchTab('ordersTab')" id="btnTabOrders" class="px-3.5 py-1.5 rounded-lg font-bold bg-amber-500 text-slate-950 shadow">
+          📦 Purchase Orders (PO) & Armada
+        </button>
+        <button onclick="switchTab('catalogTab')" id="btnTabCatalog" class="px-3.5 py-1.5 rounded-lg font-semibold text-slate-300 hover:bg-slate-800 border border-slate-700">
+          🏷️ Katalog Tier Harga Agen
+        </button>
+        <button onclick="switchTab('partnersTab')" id="btnTabPartners" class="px-3.5 py-1.5 rounded-lg font-semibold text-slate-300 hover:bg-slate-800 border border-slate-700">
+          👥 Jaringan Mitra Toko & Distributor
+        </button>
+      </div>
+
+      <div class="hidden md:flex items-center gap-4 text-slate-400">
+        <span>Total PO Bulan Ini: <strong class="text-emerald-400" id="totalMonthlyPO">Rp 48.750.000</strong></span>
+        <span>Armada Truk Aktif: <strong class="text-amber-400">2 Truk Beroperasi</strong></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+
+    <!-- TAB 1: PURCHASE ORDERS (PO) & LOGISTIK -->
+    <div id="ordersTab" class="tab-pane space-y-4">
+      
+      <!-- Metrics Banner -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div class="p-4 rounded-2xl border border-amber-500/30 bg-slate-900/80 space-y-1">
+          <div class="text-[11px] text-amber-400 uppercase font-mono font-semibold">PO Menunggu Verifikasi</div>
+          <div class="text-2xl font-black font-mono text-amber-300" id="statPoWaiting">1 Pesanan</div>
+          <div class="text-[10px] text-slate-400">Menunggu cek transfer bank / DP</div>
+        </div>
+
+        <div class="p-4 rounded-2xl border border-blue-500/30 bg-slate-900/80 space-y-1">
+          <div class="text-[11px] text-blue-400 uppercase font-mono font-semibold">Packing Gudang Cimanggis</div>
+          <div class="text-2xl font-black font-mono text-blue-300" id="statPoPacking">2 Pesanan</div>
+          <div class="text-[10px] text-slate-400">Barang sedang disusun ke palet</div>
+        </div>
+
+        <div class="p-4 rounded-2xl border border-purple-500/30 bg-slate-900/80 space-y-1">
+          <div class="text-[11px] text-purple-400 uppercase font-mono font-semibold">Pengiriman Armada Truk</div>
+          <div class="text-2xl font-black font-mono text-purple-300" id="statPoShipping">2 Armada</div>
+          <div class="text-[10px] text-slate-400">Surat Jalan (DO) aktif di jalan</div>
+        </div>
+
+        <div class="p-4 rounded-2xl border border-emerald-500/30 bg-slate-900/80 space-y-1">
+          <div class="text-[11px] text-emerald-400 uppercase font-mono font-semibold">Selesai & Lunas Diterima</div>
+          <div class="text-2xl font-black font-mono text-emerald-300" id="statPoCompleted">9 Selesai</div>
+          <div class="text-[10px] text-slate-400">Toko mitra sudah tanda tangan DO</div>
+        </div>
+      </div>
+
+      <!-- PO List Cards -->
+      <div class="space-y-4" id="poListContainer">
+        <!-- Rendered via JS -->
+      </div>
+
+    </div>
+
+    <!-- TAB 2: KATALOG TIER HARGA AGEN -->
+    <div id="catalogTab" class="tab-pane hidden space-y-4">
+      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+        <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+          <div>
+            <h3 class="font-bold text-sm text-white">Struktur Harga Grosir & Minimum Pembelian (MOQ)</h3>
+            <p class="text-[11px] text-slate-400">Harga otomatis menyesuaikan level kemitraan agen yang login</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-950/70 text-slate-400 font-mono text-[11px] border-b border-slate-800">
+              <tr>
+                <th class="p-3.5">PRODUK GROSIR</th>
+                <th class="p-3.5">KATEGORI</th>
+                <th class="p-3.5">HARGA ECERAN</th>
+                <th class="p-3.5">HARGA RESELLER (Min. 5)</th>
+                <th class="p-3.5">HARGA AGEN UTAMA (Min. 20)</th>
+                <th class="p-3.5">STOK GUDANG</th>
+              </tr>
+            </thead>
+            <tbody id="catalogTableBody" class="divide-y divide-slate-800/60 font-mono">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: MITRA TOKO & DISTRIBUTOR -->
+    <div id="partnersTab" class="tab-pane hidden space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="partnersListContainer">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL: CETAK SURAT JALAN RESMI (DELIVERY ORDER) -->
+  <div id="deliveryOrderModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-5 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <div class="text-xs font-bold text-white flex items-center gap-1.5">
+          <span>📄</span> Surat Jalan / Delivery Order (DO) Resmi
+        </div>
+        <button onclick="closeDeliveryOrderModal()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <!-- Printable Area -->
+      <div id="deliveryOrderPrintArea" class="bg-white text-black p-6 font-sans text-xs rounded-xl shadow space-y-4 border border-slate-300">
+        <div class="flex justify-between items-start border-b-2 border-black pb-3">
+          <div>
+            <div class="font-extrabold text-base uppercase">BERKAH SEMBAKO & PANGAN MANDIRI</div>
+            <div class="text-[11px] text-gray-700">Komplek Pergudangan Cimanggis Blok C-4, Kota Depok</div>
+            <div class="text-[11px] text-gray-700">Telp/WA: 0821-8877-6655 | Email: logistic@berkahpangan.id</div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm font-black font-mono" id="doNumber">DO-202609-041</div>
+            <div class="text-[11px]" id="doDate">Tanggal: 30 September 2026</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 text-xs bg-gray-50 p-3 rounded-lg border border-gray-200">
+          <div>
+            <div class="text-[10px] text-gray-500 uppercase font-bold">Tujuan Pengiriman / Penerima:</div>
+            <div class="font-bold text-sm" id="doCustName">Toko Sembako Berkah Jaya</div>
+            <div class="text-gray-700 text-[11px]" id="doCustAddress">Pasar Kemiri Muka Blok B-12, Depok</div>
+            <div class="text-gray-700 text-[11px]" id="doCustPhone">PIC: 0812-9988-2233</div>
+          </div>
+          <div>
+            <div class="text-[10px] text-gray-500 uppercase font-bold">Armada & Logistik:</div>
+            <div class="text-gray-800 font-bold" id="doTruckInfo">Colt Diesel Box (B 9182 PQA)</div>
+            <div class="text-gray-700 text-[11px]" id="doDriverInfo">Sopir: Pak Joko Susilo</div>
+            <div class="text-gray-700 text-[11px]">Syarat: Franco Gudang Pembeli (TOP 14 Hari)</div>
+          </div>
+        </div>
+
+        <!-- Items Table -->
+        <table class="w-full border-collapse border border-gray-300 text-xs">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="border border-gray-300 p-2 text-left">No</th>
+              <th class="border border-gray-300 p-2 text-left">Deskripsi Barang</th>
+              <th class="border border-gray-300 p-2 text-center">Jumlah</th>
+              <th class="border border-gray-300 p-2 text-center">Satuan</th>
+              <th class="border border-gray-300 p-2 text-right">Keterangan</th>
+            </tr>
+          </thead>
+          <tbody id="doItemsTable">
+            <!-- Injected via JS -->
+          </tbody>
+        </table>
+
+        <!-- Signatures Area -->
+        <div class="grid grid-cols-3 gap-4 pt-6 text-center text-[11px]">
+          <div>
+            <div>Bagian Gudang,</div>
+            <div class="h-14"></div>
+            <div class="font-bold">( Dimas Prayogi )</div>
+          </div>
+          <div>
+            <div>Sopir / Pengemudi,</div>
+            <div class="h-14"></div>
+            <div class="font-bold">( Joko Susilo )</div>
+          </div>
+          <div>
+            <div>Tanda Terima Toko,</div>
+            <div class="h-14"></div>
+            <div class="font-bold border-b border-black pb-0.5 inline-block min-w-[120px]">( Stempel & TTD )</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 pt-2">
+        <button onclick="window.print()" class="flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition flex items-center justify-center gap-1.5">
+          <span>🖨️</span> <span>Cetak Surat Jalan (PDF / Print)</span>
+        </button>
+        <button onclick="sendDoWhatsApp()" id="btnSendDoWa" class="flex-1 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center justify-center gap-1.5">
+          <span>📲</span> <span>Kirim Info DO ke WA Mitra</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: BUAT PO GROSIR BARU -->
+  <div id="newPoModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <h3 class="font-bold text-sm text-white">Input Purchase Order (PO) Grosir Baru</h3>
+        <button onclick="closePurchaseOrderModal()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="text-slate-400 font-medium">Pilih Mitra Toko Pemesan:</label>
+          <select id="poPartnerSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 mt-1">
+            <option value="Toko Sembako Berkah Jaya">Toko Sembako Berkah Jaya (Pasar Kemiri)</option>
+            <option value="Dapur Katering Barokah">Dapur Katering Barokah (Sukmajaya)</option>
+            <option value="Swalayan Mini Margonda">Swalayan Mini Margonda</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-slate-400 font-medium">Pilih Komoditas / Produk:</label>
+          <select id="poProductSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 mt-1">
+            <option value="Beras Pandan Wangi Super 25kg|375000">Beras Pandan Wangi Super 25kg (Grosir: Rp 375.000)</option>
+            <option value="Minyak Goreng Sawit Dus (6x2L)|215000">Minyak Goreng Sawit Dus (6x2L) (Grosir: Rp 215.000)</option>
+            <option value="Gula Pasir Kristal Putih Karung 50kg|830000">Gula Pasir Kristal Karung 50kg (Grosir: Rp 830.000)</option>
+            <option value="Tepung Terigu Protein Tinggi Bal 25kg|265000">Tepung Terigu Protein Bal 25kg (Grosir: Rp 265.000)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-slate-400 font-medium">Kuantitas Order (Qty):</label>
+            <input type="number" id="poQtyInput" value="10" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-amber-500 mt-1">
+          </div>
+          <div>
+            <label class="text-slate-400 font-medium">Termin Pembayaran (TOP):</label>
+            <select id="poTopSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 mt-1">
+              <option value="Cash / Transfer DP 50%">Cash / DP 50%</option>
+              <option value="Tempo 14 Hari">Tempo 14 Hari</option>
+              <option value="Tempo 30 Hari">Tempo 30 Hari</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-slate-400 font-medium">Armada Truk Pengiriman:</label>
+          <select id="poTruckSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 mt-1">
+            <option value="Colt Diesel Box (B 9182 PQA)">Colt Diesel Box (B 9182 PQA) - Sopir: Joko</option>
+            <option value="Blind Van Gran Max (B 2018 SYT)">Blind Van Gran Max (B 2018 SYT) - Sopir: Yanto</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 pt-2">
+        <button onclick="closePurchaseOrderModal()" class="flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">Batal</button>
+        <button onclick="submitNewPo()" class="flex-1 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-black">Terbitkan PO & Surat Jalan</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const wholesaleData = {
+      catalog: [
+        { name: "Beras Pandan Wangi Super 25kg", cat: "Beras", retail: "Rp 395.000", reseller: "Rp 375.000", agent: "Rp 355.000", stock: "65 Karung" },
+        { name: "Minyak Goreng Sawit Dus (6 x 2L)", cat: "Minyak", retail: "Rp 230.000", reseller: "Rp 215.000", agent: "Rp 200.000", stock: "110 Dus" },
+        { name: "Gula Pasir Kristal Karung 50kg", cat: "Gula", retail: "Rp 865.000", reseller: "Rp 830.000", agent: "Rp 810.000", stock: "22 Karung" },
+        { name: "Tepung Terigu Protein Tinggi Bal 25kg", cat: "Tepung", retail: "Rp 285.000", reseller: "Rp 265.000", agent: "Rp 250.000", stock: "18 Bal" }
+      ],
+      partners: [
+        { name: "Toko Sembako Berkah Jaya", tier: "Mitra Agen Utama", phone: "081299882233", loc: "Pasar Kemiri Muka Depok", totalPO: "Rp 24.500.000", status: "TOP 14 Hari" },
+        { name: "Dapur Katering Barokah", tier: "Reseller Rutin", phone: "087788112233", loc: "Sukmajaya Depok", totalPO: "Rp 14.200.000", status: "Lunas / Cash" },
+        { name: "Swalayan Mini Margonda", tier: "Mitra Agen Utama", phone: "081399881144", loc: "Margonda Raya", totalPO: "Rp 32.800.000", status: "TOP 30 Hari" }
+      ],
+      orders: [
+        {
+          poNumber: "#PO-901",
+          partner: "Toko Sembako Berkah Jaya",
+          phone: "081299882233",
+          items: [{ name: "Beras Pandan Wangi Super 25kg", qty: 10, unit: "Karung", price: 375000 }, { name: "Minyak Goreng Sawit Dus (6 x 2L)", qty: 5, unit: "Dus", price: 215000 }],
+          total: 4825000,
+          status: "Pengiriman Truk",
+          truck: "Colt Diesel Box (B 9182 PQA)",
+          driver: "Pak Joko Susilo",
+          doNumber: "DO-202609-041",
+          date: "30 Sep 2026 08:30"
+        },
+        {
+          poNumber: "#PO-902",
+          partner: "Dapur Katering Barokah",
+          phone: "087788112233",
+          items: [{ name: "Gula Pasir Kristal Karung 50kg", qty: 3, unit: "Karung", price: 830000 }, { name: "Tepung Terigu Protein Tinggi Bal 25kg", qty: 4, unit: "Bal", price: 265000 }],
+          total: 3550000,
+          status: "Packing Gudang",
+          truck: "Blind Van Gran Max (B 2018 SYT)",
+          driver: "Pak Yanto",
+          doNumber: "DO-202609-042",
+          date: "30 Sep 2026 10:15"
+        }
+      ]
+    };
+
+    let currentActiveDo = null;
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.getElementById('btnTabOrders').className = 'px-3.5 py-1.5 rounded-lg font-semibold text-slate-300 hover:bg-slate-800 border border-slate-700';
+      document.getElementById('btnTabCatalog').className = 'px-3.5 py-1.5 rounded-lg font-semibold text-slate-300 hover:bg-slate-800 border border-slate-700';
+      document.getElementById('btnTabPartners').className = 'px-3.5 py-1.5 rounded-lg font-semibold text-slate-300 hover:bg-slate-800 border border-slate-700';
+
+      document.getElementById(tabId).classList.remove('hidden');
+
+      if (tabId === 'ordersTab') document.getElementById('btnTabOrders').className = 'px-3.5 py-1.5 rounded-lg font-bold bg-amber-500 text-slate-950 shadow';
+      if (tabId === 'catalogTab') document.getElementById('btnTabCatalog').className = 'px-3.5 py-1.5 rounded-lg font-bold bg-amber-500 text-slate-950 shadow';
+      if (tabId === 'partnersTab') document.getElementById('btnTabPartners').className = 'px-3.5 py-1.5 rounded-lg font-bold bg-amber-500 text-slate-950 shadow';
+    }
+
+    function renderAll() {
+      // Catalog
+      document.getElementById('catalogTableBody').innerHTML = wholesaleData.catalog.map(c => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="p-3.5 font-bold text-white">${c.name}</td>
+          <td class="p-3.5 text-slate-400">${c.cat}</td>
+          <td class="p-3.5 text-slate-400">${c.retail}</td>
+          <td class="p-3.5 text-amber-300 font-bold">${c.reseller}</td>
+          <td class="p-3.5 text-emerald-400 font-bold">${c.agent}</td>
+          <td class="p-3.5 text-slate-300">${c.stock}</td>
+        </tr>
+      `).join('');
+
+      // Partners
+      document.getElementById('partnersListContainer').innerHTML = wholesaleData.partners.map(p => `
+        <div class="p-4 rounded-2xl border border-slate-800 bg-slate-900/60 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30">${p.tier}</span>
+            <span class="text-[10px] text-slate-400">${p.status}</span>
+          </div>
+          <div class="font-bold text-sm text-white">${p.name}</div>
+          <div class="text-[11px] text-slate-400">${p.loc}</div>
+          <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-xs">
+            <span class="text-slate-400">Total Akumulasi PO:</span>
+            <span class="font-mono font-bold text-emerald-400">${p.totalPO}</span>
+          </div>
+        </div>
+      `).join('');
+
+      // POs
+      renderOrdersList();
+    }
+
+    function renderOrdersList() {
+      const ctn = document.getElementById('poListContainer');
+      ctn.innerHTML = wholesaleData.orders.map(o => `
+        <div class="p-5 rounded-2xl border border-slate-800 bg-slate-900/70 space-y-3 shadow-lg">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-3 gap-2">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-mono font-bold text-sm text-amber-400">${o.poNumber}</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">${o.status}</span>
+              </div>
+              <div class="text-[11px] text-slate-400 mt-0.5">${o.date} • Surat Jalan: <strong class="text-cyan-400 font-mono">${o.doNumber}</strong></div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button onclick="openDeliveryOrderModal('${o.poNumber}')" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center gap-1 transition">
+                <span>📄</span> <span>Lihat Surat Jalan (DO)</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div>
+              <div class="text-[10px] text-slate-400 uppercase">Toko Pemesan:</div>
+              <div class="font-bold text-white">${o.partner}</div>
+              <div class="text-[11px] text-slate-400">${o.phone}</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-slate-400 uppercase">Armada & Sopir:</div>
+              <div class="text-slate-200">${o.truck}</div>
+              <div class="text-[11px] text-slate-400">Pengemudi: ${o.driver}</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-slate-400 uppercase">Nilai Transaksi Grosir:</div>
+              <div class="font-mono font-bold text-base text-emerald-400">Rp ${o.total.toLocaleString('id-ID')}</div>
+            </div>
+          </div>
+
+          <!-- Items Strip -->
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex flex-wrap gap-2 text-xs">
+            ${o.items.map(it => `
+              <span class="px-2 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">
+                ${it.qty} ${it.unit} • ${it.name}
+              </span>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openDeliveryOrderModal(poNum) {
+      const o = wholesaleData.orders.find(x => x.poNumber === poNum);
+      if (!o) return;
+      currentActiveDo = o;
+
+      document.getElementById('doNumber').textContent = o.doNumber;
+      document.getElementById('doDate').textContent = 'Tanggal: ' + o.date;
+      document.getElementById('doCustName').textContent = o.partner;
+      document.getElementById('doCustPhone').textContent = 'Kontak: ' + o.phone;
+      document.getElementById('doTruckInfo').textContent = o.truck;
+      document.getElementById('doDriverInfo').textContent = 'Sopir: ' + o.driver;
+
+      document.getElementById('doItemsTable').innerHTML = o.items.map((it, idx) => `
+        <tr>
+          <td class="border border-gray-300 p-2 text-center">${idx + 1}</td>
+          <td class="border border-gray-300 p-2 font-bold">${it.name}</td>
+          <td class="border border-gray-300 p-2 text-center font-bold font-mono text-sm">${it.qty}</td>
+          <td class="border border-gray-300 p-2 text-center">${it.unit}</td>
+          <td class="border border-gray-300 p-2 text-right">Kondisi Baik & Segel</td>
+        </tr>
+      `).join('');
+
+      document.getElementById('deliveryOrderModal').classList.remove('hidden');
+    }
+
+    function closeDeliveryOrderModal() {
+      document.getElementById('deliveryOrderModal').classList.add('hidden');
+      currentActiveDo = null;
+    }
+
+    function sendDoWhatsApp() {
+      if (!currentActiveDo) return;
+      const cleanPhone = (currentActiveDo.phone || '').replace(/\D/g, '').replace(/^0/, '62');
+      const itemTxt = currentActiveDo.items.map(i => `• ${i.qty} ${i.unit} ${i.name}`).join('\n');
+      const msg = `Yth. *${currentActiveDo.partner}*,\nSurat Jalan *${currentActiveDo.doNumber}* untuk pemesanan *${currentActiveDo.poNumber}* telah kami terbitkan. 🙏\n\nMuatan Barang:\n${itemTxt}\n\nArmada: *${currentActiveDo.truck}*\nSopir: *${currentActiveDo.driver}*\n\nArmada sedang menuju lokasi toko Anda. Mohon siapkan tim untuk verifikasi bongkar muat. Terima kasih! 🚚`;
+      window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function openPurchaseOrderModal() {
+      document.getElementById('newPoModal').classList.remove('hidden');
+    }
+
+    function closePurchaseOrderModal() {
+      document.getElementById('newPoModal').classList.add('hidden');
+    }
+
+    function submitNewPo() {
+      const partner = document.getElementById('poPartnerSelect').value;
+      const prdRaw = document.getElementById('poProductSelect').value.split('|');
+      const prdName = prdRaw[0];
+      const prdPrice = Number(prdRaw[1]);
+      const qty = Number(document.getElementById('poQtyInput').value) || 5;
+      const truck = document.getElementById('poTruckSelect').value;
+
+      const nextNum = wholesaleData.orders.length + 1;
+      const newPo = {
+        poNumber: '#PO-90' + nextNum,
+        partner: partner,
+        phone: '081299882233',
+        items: [{ name: prdName, qty: qty, unit: 'Karung/Dus', price: prdPrice }],
+        total: prdPrice * qty,
+        status: 'Packing Gudang',
+        truck: truck,
+        driver: 'Pak Joko / Tim Logistik',
+        doNumber: 'DO-202609-04' + nextNum,
+        date: '30 Sep 2026 16:30'
+      };
+
+      wholesaleData.orders.unshift(newPo);
+      closePurchaseOrderModal();
+      renderOrdersList();
+      alert(`PO ${newPo.poNumber} dan Surat Jalan ${newPo.doNumber} berhasil diterbitkan!`);
+    }
+
+    window.addEventListener('DOMContentLoaded', renderAll);
+  </script>
+</body>
+</html>

@@ -212,14 +212,23 @@ export function HomePageClient() {
                     <span className={styles.pill}>Owner Dashboard</span>
                   </div>
 
-                  <a
-                    href="https://wa.me/628211076517?text=Halo%20QIRA,%20saya%20tertarik%20dengan%20sistem%20QIRA%20Retail%20POS."
-                    target="_blank"
-                    rel="noreferrer"
-                    className={styles.productCta}
-                  >
-                    {isEn ? "Explore Product →" : "Lihat Produk →"}
-                  </a>
+                  <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 14 }}>
+                    <Link
+                      href="/demo/umkm.html"
+                      className={styles.productCta}
+                      style={{ background: "linear-gradient(135deg, var(--blue), var(--accent))", color: "#060e1d", fontWeight: 800, border: "none" }}
+                    >
+                      {isEn ? "🚀 Try Interactive POS Demo →" : "🚀 Coba Demo Kasir & Struk →"}
+                    </Link>
+                    <a
+                      href="https://wa.me/628211076517?text=Halo%20QIRA,%20saya%20tertarik%20dengan%20sistem%20QIRA%20Retail%20POS."
+                      target="_blank"
+                      rel="noreferrer"
+                      className={styles.productCta}
+                    >
+                      {isEn ? "WhatsApp" : "Chat WhatsApp"}
+                    </a>
+                  </div>
                 </div>
 
                 <div className={styles.productVisual}>
@@ -248,8 +257,16 @@ export function HomePageClient() {
               </div>
             </div>
 
-            {/* Linear-style Action to Explore Full Work */}
-            <div style={{ textAlign: "center", marginTop: 44 }}>
+            {/* Linear-style Action to Explore Full Work & Demos */}
+            <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap", marginTop: 44 }}>
+              <Link
+                href="/demo/"
+                className={styles.pillCtaPrimary}
+                style={{ padding: "14px 28px", textDecoration: "none" }}
+              >
+                <span>{isEn ? "🚀 Launch All 4 Interactive Demos" : "🚀 Buka 4 Aplikasi Demo Langsung"}</span>
+                <span>→</span>
+              </Link>
               <Link href="/portfolio" className={styles.secondaryButtonPill}>
                 {isEn ? "Explore All Work & Deployments →" : "Lihat Semua Karya & Penerapan →"}
               </Link>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QIRA WhatsApp AI Assistant & CRM Follow-up Hub - Automasi Chat 24/7</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Geist+Mono:wght@500;700&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-mono { font-family: 'Geist Mono', monospace; }
+    .custom-scroll::-webkit-scrollbar { width: 5px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-[#070b14] text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500/20 antialiased">
+
+  <!-- Header -->
+  <header class="border-b border-emerald-500/20 bg-[#09111c]/95 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-emerald-400 text-xs transition" title="Kembali ke Katalog 4 Aplikasi">
+          ← Katalog Aplikasi
+        </a>
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-600 flex items-center justify-center text-lg shadow-lg shadow-emerald-500/20">
+          🤖
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-extrabold text-sm sm:text-base text-white tracking-tight">QIRA WhatsApp AI Assistant & Follow-up Hub</h1>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">AI CS 24/7</span>
+          </div>
+          <p class="text-[11px] text-slate-400 hidden sm:block">Automasi Balas Pesan Cerdas, Filter Prospek, & Follow-up Pelanggan Otomatis</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="px-3 py-1.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>AI Engine Siap Merespons (Latency &lt; 1s)</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- Left 7 Cols: Knowledge Base & AI Configuration -->
+    <div class="lg:col-span-7 space-y-6">
+      
+      <!-- Preset Persona Switcher -->
+      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="font-bold text-sm text-white">Konfigurasi Otak AI (Knowledge Base)</h3>
+            <p class="text-xs text-slate-400">Pilih industri klien untuk mengisi pengetahuan bot secara otomatis</p>
+          </div>
+          <select id="personaSelect" onchange="switchPersona(this.value)" class="bg-slate-950 border border-emerald-500/40 text-emerald-300 text-xs font-bold rounded-xl px-3 py-1.5 outline-none cursor-pointer">
+            <option value="fnb">☕ Persona: Kafe / F&B (Mba Dira)</option>
+            <option value="clinic">🦷 Persona: Klinik Estetika (Suster Vania)</option>
+            <option value="distributor">🌾 Persona: Distributor Pangan (Mas Joko)</option>
+          </select>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <div>
+            <label class="text-slate-400 font-medium">Nama Asisten AI & Nada Bicara:</label>
+            <input type="text" id="aiName" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 mt-1">
+          </div>
+
+          <div>
+            <label class="text-slate-400 font-medium">Jam Buka & Lokasi Toko:</label>
+            <input type="text" id="aiSchedule" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 mt-1">
+          </div>
+
+          <div>
+            <label class="text-slate-400 font-medium">Ringkasan Produk & Harga (Dikenali Otomatis oleh AI):</label>
+            <textarea id="aiCatalog" rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500 mt-1 font-mono text-[11px]"></textarea>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-slate-400 font-medium">Rekening Pembayaran Resmi:</label>
+              <input type="text" id="aiBank" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 mt-1 font-mono">
+            </div>
+            <div>
+              <label class="text-slate-400 font-medium">Opsi Kurir / Pengiriman:</label>
+              <input type="text" id="aiDelivery" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 mt-1">
+            </div>
+          </div>
+        </div>
+
+        <button onclick="updateKnowledgeBase()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow-lg shadow-emerald-500/20">
+          💾 Perbarui Knowledge Base AI
+        </button>
+      </div>
+
+      <!-- Quick Test Prompt Chips -->
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 space-y-2.5">
+        <div class="text-xs font-bold text-slate-300">💡 Pertanyaan Uji Coba Cepat (Klik untuk simulasi chat):</div>
+        <div class="flex flex-wrap gap-2 text-xs" id="quickPromptChips">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <!-- ROI Calculator for Client Pitch -->
+      <div class="p-5 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-950/20 to-slate-900 space-y-2 text-xs">
+        <h4 class="font-bold text-white text-sm">Nilai Jual untuk Klien UMKM:</h4>
+        <p class="text-slate-300 leading-relaxed">
+          Rata-rata UMKM kehilangan <strong>30-40% potensi omzet</strong> karena chat masuk jam 8 malam atau akhir pekan baru dibalas besok paginya (pelanggan sudah beli di toko lain). Dengan memasang QIRA AI Assistant, setiap pesan dijawab ramah dalam 2 detik, rincian pesanan langsung tercatat, dan admin manusia hanya perlu mengemas barang.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Right 5 Cols: Smartphone Simulator (Interactive WhatsApp Chatbot) -->
+    <div class="lg:col-span-5 flex justify-center">
+      
+      <!-- Phone Frame -->
+      <div class="w-full max-w-sm rounded-[40px] border-4 border-slate-700 bg-slate-950 p-2 shadow-2xl relative overflow-hidden flex flex-col h-[640px]">
+        
+        <!-- Speaker / Camera Notch -->
+        <div class="w-32 h-4 bg-slate-800 rounded-full mx-auto mb-2 flex-shrink-0"></div>
+
+        <!-- WhatsApp Chat Header -->
+        <div class="bg-[#0b141b] p-3 rounded-2xl border border-slate-800 flex items-center justify-between flex-shrink-0">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-white text-xs">
+              🤖
+            </div>
+            <div>
+              <div class="font-bold text-xs text-white" id="chatHeaderName">Mba Dira (AI CS)</div>
+              <div class="text-[9px] text-emerald-400 font-mono flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>Online 24 Jam Nonstop</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="resetChat()" class="text-slate-400 hover:text-white text-xs font-mono">Reset</button>
+        </div>
+
+        <!-- Chat Conversation Area -->
+        <div class="flex-1 overflow-y-auto p-3 space-y-3 custom-scroll text-xs" id="chatConversationContainer">
+          <!-- Chat messages injected here -->
+        </div>
+
+        <!-- Typing Indicator (hidden by default) -->
+        <div id="typingIndicator" class="px-4 py-1 text-[10px] text-emerald-400 font-mono hidden flex items-center gap-1">
+          <span class="animate-pulse">●</span>
+          <span>AI sedang mengetik balasan...</span>
+        </div>
+
+        <!-- Message Input Bar -->
+        <form onsubmit="handleUserSubmit(event)" class="p-2 border-t border-slate-800 bg-[#0b141b] rounded-2xl flex items-center gap-2 flex-shrink-0 mt-1">
+          <input type="text" id="userChatInput" placeholder="Ketik pesan pelanggan di sini..." class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+          <button type="submit" class="w-8 h-8 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 flex items-center justify-center font-bold text-sm transition">
+            ➤
+          </button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    const personas = {
+      fnb: {
+        name: "Mba Dira (AI Assistant Kopi Nusantara)",
+        schedule: "Setiap Hari 08:00 - 22:00 WIB (Margonda Depok)",
+        catalog: "1. Kopi Susu Aren 1L = Rp 85.000\n2. Cold Brew Concentrate 500ml = Rp 75.000\n3. Biji Kopi Gayo 250g = Rp 110.000\n4. Butter Croissant French = Rp 28.000",
+        bank: "BCA 8690123456 a/n KOPI NUSANTARA",
+        delivery: "Paxel Same Day, GrabExpress Instant, atau Ambil di Toko",
+        quickPrompts: [
+          "Halo kak, katalog kopi susu botolannya ada apa saja ya?",
+          "Buka jam berapa hari ini di Margonda?",
+          "Bisa kirim hari ini ke Sukmajaya pakai Grab?",
+          "Nomor rekening untuk pembayaran transfer apa ya kak?"
+        ],
+        initialGreeting: "Halo Kak! Salam hangat dari Kopi & Roastery Nusantara ☕ Saya Dira, asisten virtual 24 jam. Ada yang bisa Dira bantu seputar pesanan kopi atau roti hari ini?"
+      },
+      clinic: {
+        name: "Suster Vania (AI Assistant Glow Clinic)",
+        schedule: "Senin - Sabtu 09:00 - 20:00 WIB (Ruko De Caspia GDC)",
+        catalog: "1. Facial Deep Cleansing = Rp 185.000 (60m)\n2. Scaling Gigi Ultra = Rp 250.000 (45m)\n3. Brightening Serum 30ml = Rp 135.000\n4. Konsultasi Dokter Kulit = Rp 100.000",
+        bank: "BCA 7710928374 a/n GLOW CLINIC DEPOK",
+        delivery: "Tindakan langsung di klinik atau produk dikirim via J&T Express",
+        quickPrompts: [
+          "Berapa harga paket scaling gigi dan facial hari ini?",
+          "Apakah dokter giginya standby sore ini jam 4?",
+          "Saya mau booking jadwal facial untuk besok bisa kak?"
+        ],
+        initialGreeting: "Halo Kak! Selamat datang di Glow Dental & Aesthetic Studio GDC ✨ Saya Vania. Mau konsultasi perawatan kulit atau reservasi scaling gigi hari ini?"
+      },
+      distributor: {
+        name: "Mas Joko (AI Assistant Berkah Pangan Mandiri)",
+        schedule: "Senin - Sabtu 07:30 - 17:00 WIB (Gudang Cimanggis)",
+        catalog: "1. Beras Pandan Wangi 25kg = Grosir Rp 375.000 (Min. 5)\n2. Minyak Goreng Dus (6x2L) = Rp 215.000\n3. Gula Karung 50kg = Rp 830.000\n4. Tepung Terigu Bal 25kg = Rp 265.000",
+        bank: "Mandiri 1570089201920 a/n BERKAH PANGAN",
+        delivery: "Armada Truk Colt Diesel atau Blind Van Pabrik (Franco Gudang)",
+        quickPrompts: [
+          "Berapa harga grosir beras pandan wangi kalau ambil 20 karung?",
+          "Bisa kirim truk ke Pasar Kemiri besok pagi?",
+          "Apakah toko baru bisa dapat termin tempo 14 hari?"
+        ],
+        initialGreeting: "Salam sukses Bapak/Ibu! Saya Joko dari Berkah Sembako & Pangan Mandiri 🌾 Siap membantu pemesanan grosir pangan untuk toko atau resto Anda. Butuh komoditas apa hari ini?"
+      }
+    };
+
+    let activePersona = personas.fnb;
+    let chatHistory = [];
+
+    function switchPersona(key) {
+      activePersona = personas[key] || personas.fnb;
+      loadPersonaData();
+      resetChat();
+    }
+
+    function loadPersonaData() {
+      document.getElementById('aiName').value = activePersona.name;
+      document.getElementById('aiSchedule').value = activePersona.schedule;
+      document.getElementById('aiCatalog').value = activePersona.catalog;
+      document.getElementById('aiBank').value = activePersona.bank;
+      document.getElementById('aiDelivery').value = activePersona.delivery;
+      document.getElementById('chatHeaderName').textContent = activePersona.name;
+
+      // Quick prompt chips
+      const chipsCtn = document.getElementById('quickPromptChips');
+      chipsCtn.innerHTML = activePersona.quickPrompts.map(p => `
+        <button onclick="sendQuickPrompt('${p}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-emerald-600/30 text-slate-300 hover:text-emerald-300 border border-slate-700 transition">
+          "${p}"
+        </button>
+      `).join('');
+    }
+
+    function updateKnowledgeBase() {
+      activePersona.name = document.getElementById('aiName').value;
+      activePersona.schedule = document.getElementById('aiSchedule').value;
+      activePersona.catalog = document.getElementById('aiCatalog').value;
+      activePersona.bank = document.getElementById('aiBank').value;
+      activePersona.delivery = document.getElementById('aiDelivery').value;
+      document.getElementById('chatHeaderName').textContent = activePersona.name;
+      alert('Knowledge Base AI berhasil diperbarui! Sekarang AI akan merespons sesuai data terbaru.');
+    }
+
+    function resetChat() {
+      chatHistory = [
+        { sender: 'bot', text: activePersona.initialGreeting, time: 'Sekarang' }
+      ];
+      renderChat();
+    }
+
+    function renderChat() {
+      const ctn = document.getElementById('chatConversationContainer');
+      ctn.innerHTML = chatHistory.map(m => {
+        const isBot = m.sender === 'bot';
+        return `
+          <div class="flex ${isBot ? 'justify-start' : 'justify-end'}">
+            <div class="max-w-[85%] p-3 rounded-2xl ${isBot ? 'bg-[#1f2c34] text-slate-100 rounded-tl-none border border-slate-700/60' : 'bg-emerald-700 text-white rounded-tr-none'} shadow space-y-1">
+              <div class="text-xs whitespace-pre-line leading-relaxed">${m.text}</div>
+              <div class="text-[9px] ${isBot ? 'text-slate-400' : 'text-emerald-200'} text-right font-mono">${m.time}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      ctn.scrollTop = ctn.scrollHeight;
+    }
+
+    function sendQuickPrompt(txt) {
+      document.getElementById('userChatInput').value = txt;
+      handleUserSubmit(new Event('submit'));
+    }
+
+    function handleUserSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('userChatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const now = new Date();
+      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+      // Push user message
+      chatHistory.push({ sender: 'user', text: text, time: timeStr });
+      input.value = '';
+      renderChat();
+
+      // Show typing indicator
+      const typing = document.getElementById('typingIndicator');
+      typing.classList.remove('hidden');
+
+      // AI Response Engine (Simulated Intelligent NLP matched with Knowledge Base)
+      setTimeout(() => {
+        typing.classList.add('hidden');
+        const reply = generateAiResponse(text);
+        chatHistory.push({ sender: 'bot', text: reply, time: timeStr });
+        renderChat();
+      }, 700);
+    }
+
+    function generateAiResponse(query) {
+      const q = query.toLowerCase();
+      const name = activePersona.name.split(' ')[0] || 'Kami';
+
+      if (q.includes('katalog') || q.includes('harga') || q.includes('menu') || q.includes('produk') || q.includes('berapa')) {
+        return `Berikut daftar menu & rincian harga resmi kami kak:\n\n${activePersona.catalog}\n\nKakak mau pesan menu yang mana untuk kami siapkan? 😊`;
+      }
+      else if (q.includes('jam') || q.includes('buka') || q.includes('tutup') || q.includes('lokasi') || q.includes('alamat')) {
+        return `Kami buka ${activePersona.schedule} kak! Silakan berkunjung langsung atau bisa pesan melalui pengiriman online ya 🙏`;
+      }
+      else if (q.includes('kirim') || q.includes('ongkir') || q.includes('kurir') || q.includes('grab') || q.includes('antar')) {
+        return `Bisa banget kak! Untuk pengiriman kami bekerja sama dengan: ${activePersona.delivery}.\n\nBoleh info alamat lengkap pengirimannya agar kami cek estimasi waktu dan ongkirnya?`;
+      }
+      else if (q.includes('rekening') || q.includes('transfer') || q.includes('bayar') || q.includes('bca') || q.includes('mandiri')) {
+        return `Untuk pembayaran transfer resmi dapat diarahkan ke:\n💳 *${activePersona.bank}*\n\nJika sudah transfer, mohon kirimkan bukti transfer ke chat ini ya kak agar pesanan langsung kami proses. Terima kasih! ✨`;
+      }
+      else if (q.includes('booking') || q.includes('jadwal') || q.includes('reservasi') || q.includes('besok')) {
+        return `Tentu bisa kak! Untuk reservasi jadwal, boleh ${name} minta data berikut:\n1. Nama Lengkap:\n2. Pilihan Layanan/Tindakan:\n3. Jam yang diinginkan:\n\nNanti langsung kami masukkan ke sistem antrean digital kami 🙏`;
+      }
+      else {
+        return `Terima kasih atas pertanyaannya kak! ${name} siap bantu kebutuhan Anda. Untuk produk kami menyediakan:\n${activePersona.catalog}\n\nPengiriman via ${activePersona.delivery}. Boleh tahu ada yang ingin dipesan hari ini kak? 🙏`;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadPersonaData();
+      resetChat();
+    });
+  </script>
+</body>
+</html>
