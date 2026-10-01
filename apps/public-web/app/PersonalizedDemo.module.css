@@ -9,7 +9,7 @@
 
 .kicker {
   margin: 0;
-  color: var(--blue);
+  color: var(--blue, #1769ff);
   font-size: 11.5px;
   font-weight: 800;
   letter-spacing: 1.6px;
@@ -20,7 +20,7 @@
 .resultSimple h2 {
   max-width: 760px;
   margin: 10px 0 12px;
-  color: var(--ink);
+  color: #ffffff;
   font-size: clamp(32px, 5vw, 52px);
   line-height: 1.05;
   letter-spacing: -0.04em;
@@ -30,10 +30,12 @@
 .form,
 .resultSimple {
   padding: clamp(26px, 5vw, 50px);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 28px;
-  background: #ffffff;
-  box-shadow: 0 24px 70px rgba(7, 26, 51, 0.08);
+  background: #0d1527;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .progressContainer {
@@ -44,14 +46,14 @@
   height: 6px;
   overflow: hidden;
   border-radius: 999px;
-  background: #edf1f6;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .progress span {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--blue);
+  background: var(--blue, #1769ff);
   transition: width 0.3s ease;
 }
 
@@ -60,14 +62,14 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
-  color: var(--muted);
+  color: #94a3b8;
   font-size: 12px;
   font-weight: 600;
 }
 
 .stepLabel {
   font-family: var(--font-geist-mono), monospace;
-  color: var(--blue);
+  color: #38bdf8;
   font-weight: 700;
 }
 
@@ -79,7 +81,7 @@
 
 .questionTitle {
   margin: 0;
-  color: var(--ink);
+  color: #ffffff;
   font-size: clamp(22px, 3.2vw, 30px);
   font-weight: 750;
   letter-spacing: -0.025em;
@@ -88,7 +90,7 @@
 
 .questionHelper {
   margin: 0;
-  color: var(--muted);
+  color: #94a3b8;
   font-size: 14px;
   line-height: 1.5;
 }
@@ -97,10 +99,10 @@
 .textAreaInput {
   width: 100%;
   padding: 16px 18px;
-  border: 1.5px solid #d7e0ea;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
-  background: #f8fafc;
-  color: var(--ink);
+  background: #131c33;
+  color: #ffffff;
   font: inherit;
   font-size: 16px;
   font-weight: 500;
@@ -108,12 +110,18 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
+.textInput::placeholder,
+.textAreaInput::placeholder {
+  color: #64748b;
+}
+
 .textInput:focus,
 .textAreaInput:focus {
   outline: none;
-  border-color: var(--blue);
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(23, 105, 255, 0.12);
+  border-color: var(--blue, #1769ff);
+  background: #17233f;
+  box-shadow: 0 0 0 4px rgba(23, 105, 255, 0.25);
+  color: #ffffff;
 }
 
 .textAreaInput {
@@ -131,12 +139,12 @@
 }
 
 .charCount {
-  color: var(--muted);
+  color: #94a3b8;
   font-weight: 500;
 }
 
 .charCountValid {
-  color: #107548;
+  color: #34d399;
   font-weight: 600;
 }
 
@@ -144,8 +152,8 @@
 .chipsLabel {
   margin: 14px 0 8px;
   font-size: 12px;
-  font-weight: 700;
-  color: var(--muted);
+  font-weight: 750;
+  color: #94a3b8;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -159,9 +167,9 @@
 .chipButton {
   padding: 8px 14px;
   border-radius: 999px;
-  border: 1px solid #dce4ef;
-  background: #f3f7fd;
-  color: var(--ink);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
   font-size: 13px;
   font-weight: 550;
   cursor: pointer;
@@ -170,9 +178,9 @@
 }
 
 .chipButton:hover {
-  background: #e6f0ff;
-  border-color: var(--blue);
-  color: var(--blue);
+  background: rgba(23, 105, 255, 0.18);
+  border-color: var(--blue, #1769ff);
+  color: #38bdf8;
   transform: translateY(-1px);
 }
 
@@ -186,9 +194,9 @@
 
 .optionCard {
   padding: 18px 20px;
-  border: 1.5px solid #dce4ef;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
-  background: #f8fafc;
+  background: #111a30;
   cursor: pointer;
   text-align: left;
   display: flex;
@@ -198,15 +206,15 @@
 }
 
 .optionCard:hover {
-  border-color: rgba(23, 105, 255, 0.4);
-  background: #f0f6ff;
+  border-color: rgba(23, 105, 255, 0.5);
+  background: #15223e;
   transform: translateY(-1px);
 }
 
 .optionCardSelected {
-  border-color: var(--blue);
-  background: #eff6ff;
-  box-shadow: 0 0 0 3px rgba(23, 105, 255, 0.15);
+  border-color: var(--blue, #1769ff);
+  background: rgba(23, 105, 255, 0.18);
+  box-shadow: 0 0 0 3px rgba(23, 105, 255, 0.25);
 }
 
 .optionHeader {
@@ -219,18 +227,18 @@
 .optionTitle {
   font-size: 15.5px;
   font-weight: 700;
-  color: var(--ink);
+  color: #ffffff;
 }
 
 .optionCardSelected .optionTitle {
-  color: var(--blue);
+  color: #38bdf8;
 }
 
 .checkIndicator {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 1.5px solid #c2d2e4;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
   display: grid;
   place-items: center;
   font-size: 11px;
@@ -240,14 +248,14 @@
 }
 
 .optionCardSelected .checkIndicator {
-  border-color: var(--blue);
-  background: var(--blue);
+  border-color: var(--blue, #1769ff);
+  background: var(--blue, #1769ff);
   color: #ffffff;
 }
 
 .optionDesc {
   font-size: 13px;
-  color: var(--muted);
+  color: #94a3b8;
   line-height: 1.45;
 }
 
@@ -259,7 +267,7 @@
   gap: 14px;
   margin-top: 36px;
   padding-top: 24px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .primaryButton,
@@ -272,22 +280,21 @@
   padding: 0 28px;
   border: 0;
   border-radius: 14px;
-  background: var(--blue);
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--blue, #1769ff), #00c2ff);
+  color: #040914;
   font: inherit;
   font-size: 15px;
-  font-weight: 750;
+  font-weight: 800;
   cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(23, 105, 255, 0.25);
+  box-shadow: 0 4px 18px rgba(0, 194, 255, 0.3);
   transition: all 0.2s ease;
 }
 
 .primaryButton:hover,
 .nextButton:hover {
-  background: #1157d6;
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(23, 105, 255, 0.32);
+  box-shadow: 0 6px 24px rgba(0, 194, 255, 0.45);
 }
 
 .primaryButton:disabled {
@@ -300,10 +307,10 @@
 .backButton {
   min-height: 48px;
   padding: 0 20px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
-  background: #f4f7fb;
-  color: var(--ink);
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
   font: inherit;
   font-size: 14.5px;
   font-weight: 650;
@@ -312,7 +319,8 @@
 }
 
 .backButton:hover {
-  background: #e9eff7;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }
 
 /* Result Card */
@@ -330,8 +338,8 @@
 .badge {
   padding: 6px 14px;
   border-radius: 999px;
-  background: #eaf3ff;
-  color: var(--blue);
+  background: rgba(23, 105, 255, 0.18);
+  color: #38bdf8;
   font-size: 12px;
   font-weight: 750;
   letter-spacing: 0.05em;
@@ -342,14 +350,14 @@
   margin: 24px 0;
   padding: 24px;
   border-radius: 20px;
-  background: #f1f6ff;
-  border: 1px solid #dce8fc;
+  background: #111a30;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .answerCard small {
   display: block;
   margin-bottom: 8px;
-  color: var(--blue);
+  color: #38bdf8;
   font-size: 12px;
   font-weight: 750;
   text-transform: uppercase;
@@ -358,7 +366,7 @@
 
 .answerCard strong {
   display: block;
-  color: var(--ink);
+  color: #ffffff;
   font-size: clamp(20px, 2.5vw, 24px);
   line-height: 1.35;
   letter-spacing: -0.02em;
@@ -370,11 +378,11 @@
   gap: 12px;
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid rgba(23, 105, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .resultSummaryItem small {
-  color: var(--muted);
+  color: #94a3b8;
   font-size: 11.5px;
   text-transform: none;
   letter-spacing: normal;
@@ -384,15 +392,15 @@
 .resultSummaryItem span {
   font-weight: 700;
   font-size: 14px;
-  color: var(--ink);
+  color: #ffffff;
 }
 
 .packageEstimateBox {
   margin-top: 18px;
   padding: 16px 18px;
   border-radius: 16px;
-  background: #ffffff;
-  border: 1.5px solid #d0e1fd;
+  background: #0b1324;
+  border: 1.5px solid rgba(23, 105, 255, 0.3);
 }
 
 .packageEstimateHeader {
@@ -409,16 +417,17 @@
   font-weight: 750;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--blue);
+  color: #38bdf8;
 }
 
 .packageTimeline {
   font-size: 12px;
   font-weight: 700;
-  color: #08789d;
-  background: #eaf8fd;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
   padding: 3px 10px;
   border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
 }
 
 .packageEstimateMain {
@@ -432,13 +441,13 @@
   margin: 0 0 4px;
   font-size: 16px;
   font-weight: 750;
-  color: var(--ink);
+  color: #ffffff;
 }
 
 .packageReason {
   margin: 0;
   font-size: 13px;
-  color: var(--muted);
+  color: #94a3b8;
   line-height: 1.45;
 }
 
@@ -450,7 +459,7 @@
 .packagePrice small {
   display: block;
   font-size: 10.5px;
-  color: var(--muted);
+  color: #94a3b8;
   text-transform: none;
   letter-spacing: normal;
 }
@@ -458,7 +467,7 @@
 .packagePrice strong {
   display: block;
   font-size: 18px;
-  color: var(--blue);
+  color: #38bdf8;
   font-weight: 800;
   letter-spacing: -0.02em;
 }
@@ -477,9 +486,9 @@
   min-height: 48px;
   padding: 0 20px;
   border-radius: 14px;
-  border: 1.5px solid #dce4ef;
-  background: #ffffff;
-  color: var(--ink);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
   font-size: 14px;
   font-weight: 650;
   text-decoration: none;
@@ -487,14 +496,14 @@
 }
 
 .secondaryWaButton:hover {
-  border-color: var(--blue);
-  background: #f4f8ff;
-  color: var(--blue);
+  border-color: var(--blue, #1769ff);
+  background: rgba(23, 105, 255, 0.18);
+  color: #38bdf8;
 }
 
 .reassurance {
   margin: 18px 0 0;
-  color: var(--muted);
+  color: #94a3b8;
   font-size: 13px;
   line-height: 1.5;
 }
