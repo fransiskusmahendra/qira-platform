@@ -126,7 +126,7 @@ export function ServicesPageClient() {
             <p style={{ maxWidth: "620px", margin: "0 auto 24px", fontSize: "14px", color: "var(--muted)", lineHeight: "1.6" }}>
               {isEn
                 ? "We engineer standalone architectures without vendor lock-in. Your code, database, and domain remain 100% your own business property."
-                : "Kami merancang arsitektur mandiri tanpa vendor lock-in. Seluruh kode, database, dan domain 100% menjadi aset milik usaha Anda."}
+                : "Kami membangun sistem mandiri tanpa biaya lisensi berulang (bebas vendor lock-in). Seluruh kode, database, dan domain 100% menjadi aset milik usaha Anda."}
             </p>
 
             <div style={{

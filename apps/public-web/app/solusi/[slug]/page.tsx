@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -17,10 +17,10 @@ const SOLUTIONS = {
     eyebrow: "Website",
     lead: "Informasi usaha yang jelas tanpa membuat operasional lebih rumit.",
     problem: "Informasi usaha tersebar di chat atau media sosial dan pelanggan sulit menemukan satu sumber yang jelas.",
-    help: "QIRA merapikan profil usaha, penawaran utama, kontak, dan alur tindakan dalam website yang ringan.",
+    help: "QIRA merapikan profil usaha, penawaran utama, kontak WhatsApp, dan alur pemesanan dalam website yang ringan dan cepat.",
     outcome: "Pelanggan lebih cepat memahami usaha dan tahu harus menghubungi ke mana.",
     fit: "Usaha yang masih mengandalkan media sosial atau chat sebagai satu-satunya tempat informasi.",
-    deliverables: ["Struktur pesan usaha", "Landing page responsif", "Kontak & ajakan bertindak", "Bantuan publikasi awal"],
+    deliverables: ["Struktur profil usaha", "Landing page responsif", "Kontak langsung WhatsApp", "Bantuan peluncuran online"],
     image: "/illustrations/qira-hero.webp",
   },
   "automation-bisnis": {
@@ -48,15 +48,15 @@ const SOLUTIONS = {
     image: "/illustrations/premium/qira-examples-premium.webp",
   },
   "business-tools": {
-    title: "Alat Kerja Digital Sederhana",
+    title: "Aplikasi Khusus & Dashboard Operasional",
     description: "Aplikasi bisnis ringan untuk kebutuhan khusus seperti transaksi, alur kerja, pencatatan, atau dashboard operasional.",
-    eyebrow: "Alat kerja digital",
-    lead: "Bangun alat yang dibutuhkan pekerjaan, bukan sistem besar yang tidak terpakai.",
+    eyebrow: "Aplikasi khusus bisnis",
+    lead: "Bangun aplikasi yang benar-benar dibutuhkan pekerjaan, bukan sistem rumit yang tidak terpakai.",
     problem: "Spreadsheet, chat, dan catatan terpisah membuat pekerjaan inti sulit diikuti dari awal sampai selesai.",
-    help: "QIRA membuat alat digital yang fokus pada satu alur penting dan dapat ditambah saat kebutuhannya benar-benar muncul.",
-    outcome: "Pekerjaan lebih rapi dalam satu alur tanpa membebani pengguna dengan fitur berlebihan.",
+    help: "QIRA membuat aplikasi digital yang fokus pada satu alur penting dan dapat ditambah saat kebutuhannya benar-benar muncul.",
+    outcome: "Pekerjaan lebih rapi dalam satu alur tanpa membebani tim dengan fitur berlebihan.",
     fit: "Tim yang membutuhkan alat khusus untuk satu proses penting, tetapi belum perlu sistem besar.",
-    deliverables: ["Alur pengguna", "Alat responsif", "Database sederhana", "Dashboard operasional"],
+    deliverables: ["Alur kerja simpel", "Aplikasi web responsif", "Database terstruktur", "Dashboard operasional"],
     image: "/illustrations/qira-process.webp",
   },
 } as const;

@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -14,7 +14,7 @@ const USE_CASES = {
   "usaha-jasa": {
     eyebrow: "Untuk usaha jasa",
     title: "Dari chat masuk sampai pekerjaan selesai.",
-    lead: "Biar calon pelanggan paham jasamu dan setiap permintaan lebih mudah diikuti.",
+    lead: "Agar calon pelanggan memahami jasa Anda dan setiap pesanan pekerjaan lebih mudah dipantau.",
     image: "/illustrations/premium/qira-service-business.webp",
     alt: "Alur digital usaha jasa dari pesan pelanggan hingga pekerjaan selesai",
     pains: ["Info jasa tersebar", "Tindak lanjut terlupa", "Status sulit dipantau"],

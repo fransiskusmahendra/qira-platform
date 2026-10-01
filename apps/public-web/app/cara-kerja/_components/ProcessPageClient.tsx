@@ -16,7 +16,7 @@ const STEPS_ID = [
   ["04", "Bangun", "Versi pertama dibuat fokus pada alur paling penting, bukan sebanyak mungkin fitur."],
   ["05", "Review", "Solusi diperiksa pada perangkat dan skenario penggunaan yang relevan."],
   ["06", "Implementasi", "Versi yang disetujui diterapkan dan alur penggunaan dijelaskan."],
-  ["07", "Support", "Perbaikan atau pengembangan berikutnya dapat disepakati berdasarkan kebutuhan nyata."],
+  ["07", "Pendampingan", "Garansi perbaikan dan bantuan langsung setelah sistem mulai digunakan tim Anda."],
 ];
 
 const STEPS_EN = [

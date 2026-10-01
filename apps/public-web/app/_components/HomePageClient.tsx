@@ -98,7 +98,7 @@ export function HomePageClient() {
                 <ul className={styles.featureList}>
                   <li>{isEn ? "Automated customer communication" : "Komunikasi & respon pelanggan otomatis"}</li>
                   <li>{isEn ? "Transaction processing & receipt generation" : "Pemrosesan transaksi & pembuatan struk instan"}</li>
-                  <li>{isEn ? "Document & approval workflows" : "Workflow persetujuan & otomasi dokumen"}</li>
+                  <li>{isEn ? "Document & approval workflows" : "Alur persetujuan & penerbitan dokumen otomatis"}</li>
                 </ul>
               </div>
 
@@ -109,9 +109,9 @@ export function HomePageClient() {
                   <h3>Connected Growth</h3>
                 </div>
                 <ul className={styles.featureList}>
-                  <li>{isEn ? "Cross-platform data synchronization" : "Sinkronisasi data lintas platform"}</li>
-                  <li>{isEn ? "API integrations & accounting connections" : "Integrasi API & koneksi pembukuan"}</li>
-                  <li>{isEn ? "Unified multi-channel operational flows" : "Alur operasional multi-channel terpadu"}</li>
+                  <li>{isEn ? "Cross-platform data synchronization" : "Sinkronisasi data antar-perangkat & platform"}</li>
+                  <li>{isEn ? "API integrations & accounting connections" : "Integrasi API & koneksi aplikasi pembukuan"}</li>
+                  <li>{isEn ? "Unified multi-channel operational flows" : "Penyatuan data operasional dari berbagai saluran"}</li>
                 </ul>
               </div>
             </div>

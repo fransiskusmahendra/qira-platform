@@ -19,7 +19,7 @@ export function AboutPageClient() {
   const heading = isEn ? "Software crafted around real business needs." : "Software yang dirancang dari kebutuhan nyata.";
   const lead = isEn
     ? "We believe the best tools are simple, focused, and built to solve actual day-to-day friction."
-    : "Kami percaya software terbaik adalah yang simpel, fokus, dan benar-benar menyelesaikan gesekan operasional sehari-hari.";
+    : "Kami percaya software terbaik adalah yang simpel, fokus, dan benar-benar menyelesaikan kendala operasional sehari-hari.";
   const ctaText = isEn ? "Tell us your challenge" : "Ceritakan masalah usaha";
   const altText = isEn
     ? "Business owner and consultant structuring simple digital workflows"
@@ -79,8 +79,8 @@ export function AboutPageClient() {
               </p>
               <p style={{ fontSize: "14px", color: "var(--muted)", lineHeight: "1.6", margin: 0 }}>
                 {isEn
-                  ? "QIRA operates as an independent digital engineering consultancy under PT QIRA Solusi Digital."
-                  : "QIRA beroperasi sebagai konsultan rekayasa digital independen di bawah naungan PT QIRA Solusi Digital."}
+                  ? "QIRA operates as an independent digital consultancy under CV Qira Solusi Digital."
+                  : "QIRA beroperasi sebagai konsultan solusi digital di bawah naungan CV Qira Solusi Digital."}
               </p>
             </div>
             <div>

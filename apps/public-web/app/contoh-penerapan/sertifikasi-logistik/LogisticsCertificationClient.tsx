@@ -136,16 +136,16 @@ export function LogisticsCertificationClient() {
           Simulasi alur digitalisasi sertifikat profesional, auto-reminder masa kadaluarsa multi-channel (Email & WhatsApp Cloud API), serta fast-track perpanjangan untuk lembaga pelatihan & sertifikasi supply chain nasional.
         </p>
         <div className={styles.clientBadge}>
-          <span>Penerapan Arsitektur: PT. Ugra Taraka Sigra (UTS) & Asosiasi SCM Nasional</span>
+          <span>Studi Kasus Penerapan: PT. Ugra Taraka Sigra (UTS) & Asosiasi SCM Nasional</span>
         </div>
       </header>
 
       {/* Key Metrics Grid */}
       <div className={styles.gridKeyMetrics}>
         <div className={styles.metricCard}>
-          <small>Arsitektur Notifikasi</small>
+          <small>Jadwal Pengingat</small>
           <strong>H-60, H-30, & H-7</strong>
-          <span>Otomasi berjadwal via Email resmi & WhatsApp Cloud API resmi dengan badge bisnis terverifikasi.</span>
+          <span>Pengingat otomatis berjadwal via Email resmi & WhatsApp Cloud API centang hijau.</span>
         </div>
         <div className={styles.metricCard}>
           <small>Pencegahan Sertifikat Hangus</small>
@@ -153,9 +153,9 @@ export function LogisticsCertificationClient() {
           <span>Alumni diingatkan secara otomatis sebelum masa berlaku keahlian habis tanpa staf admin repot.</span>
         </div>
         <div className={styles.metricCard}>
-          <small>Recurring Revenue Recovery</small>
-          <strong>Zero Ad Spend</strong>
-          <span>Menghasilkan kembali pendapatan re-sertifikasi berkala langsung dari database alumni eksisting.</span>
+          <small>Pendapatan Perpanjangan</small>
+          <strong>Tanpa Iklan Tambahan</strong>
+          <span>Menghasilkan kembali pendapatan perpanjangan berkala langsung dari database alumni yang sudah ada.</span>
         </div>
       </div>
 
